@@ -1,0 +1,164 @@
+/* Button — every value references a token from src/tokens/tokens.json.
+   Figma strokes are "inside", so borders are drawn with inset box-shadow
+   to keep the 37px / 59px heights identical across Static and Hover. */
+
+.ds-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--size-icon);
+  height: var(--size-icon);
+  background-color: currentColor;
+  -webkit-mask: var(--ds-icon-url) center / contain no-repeat;
+  mask: var(--ds-icon-url) center / contain no-repeat;
+}
+
+.ds-icon--lg {
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
+}
+
+.ds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  transition: background-color 150ms ease, box-shadow 150ms ease, color 150ms ease;
+}
+
+/* ─── Sizes ─────────────────────────────────────────────────────────── */
+.ds-button--small {
+  padding: var(--spacing-8);
+  border-radius: var(--radius-sm);
+}
+
+.ds-button--medium {
+  padding: var(--spacing-8) var(--spacing-16);
+  border-radius: var(--radius-sm);
+}
+
+.ds-button--big {
+  padding: var(--spacing-16);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-button-big);
+  line-height: var(--font-line-height-button-big);
+}
+
+.ds-button--icon-only {
+  width: var(--size-control-sm);
+  height: var(--size-control-sm);
+  padding: 0;
+}
+
+/* ─── Counter badge ─────────────────────────────────────────────────── */
+.ds-button__counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-counter);
+  height: var(--size-counter);
+  border-radius: 50%;
+  background-color: var(--color-primary-blue-dark);
+  color: var(--color-white);
+  font-size: var(--font-size-micro);
+  line-height: var(--font-line-height-micro);
+}
+
+/* ─── Variants: Static ──────────────────────────────────────────────── */
+.ds-button--outline {
+  background-color: var(--color-stroke-light-v1);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-button);
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-button--dark {
+  background-color: var(--color-primary-blue-dark);
+  color: var(--color-white);
+}
+
+.ds-button--light {
+  background-color: var(--color-secondary-light);
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-button--danger {
+  background-color: var(--color-danger-fill);
+  color: var(--color-white);
+}
+
+.ds-button--gray {
+  background-color: var(--color-grey-dark);
+  color: var(--color-white);
+}
+
+.ds-button--text-arrow,
+.ds-button--text-checkmarks {
+  gap: var(--spacing-2);
+  padding: 0;
+}
+
+.ds-button--text-arrow {
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-button--text-checkmarks {
+  color: var(--color-headlines);
+}
+
+/* ─── Variants: Hover (Figma Status=Hover → fill removed, stroke + text tinted) ── */
+.ds-button--outline:hover:not(:disabled),
+.ds-button--outline.is-hover,
+.ds-button--dark:hover:not(:disabled),
+.ds-button--dark.is-hover,
+.ds-button--light:hover:not(:disabled),
+.ds-button--light.is-hover {
+  --ds-button-hover-color: var(--color-primary-blue-dark);
+}
+
+.ds-button--danger:hover:not(:disabled),
+.ds-button--danger.is-hover {
+  --ds-button-hover-color: var(--color-danger);
+}
+
+.ds-button--gray:hover:not(:disabled),
+.ds-button--gray.is-hover {
+  --ds-button-hover-color: var(--color-grey-dark);
+}
+
+.ds-button:not(.ds-button--text-arrow, .ds-button--text-checkmarks):is(:hover:not(:disabled), .is-hover) {
+  background-color: transparent;
+  color: var(--ds-button-hover-color);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--ds-button-hover-color);
+}
+
+.ds-button--big:not(.ds-button--text-arrow, .ds-button--text-checkmarks):is(:hover:not(:disabled), .is-hover) {
+  box-shadow: inset 0 0 0 var(--border-width-lg) var(--ds-button-hover-color);
+}
+
+.ds-button--text-arrow:is(:hover:not(:disabled), .is-hover) {
+  color: var(--color-headlines);
+}
+
+.ds-button--text-checkmarks:is(:hover:not(:disabled), .is-hover) {
+  color: var(--color-hover-blue-light);
+}
+
+/* ─── Focus (not designed in Figma — mirrors the hover outline) ───────── */
+.ds-button:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: var(--spacing-2);
+}
+
+/* ─── Disabled (Figma Status=Disabled → 20% layer opacity) ───────────── */
+.ds-button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}

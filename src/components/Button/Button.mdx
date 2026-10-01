@@ -1,0 +1,121 @@
+import { Meta, Canvas, Controls, Story, ArgTypes } from '@storybook/blocks';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Action button for the Rifbar ERP. Implements the Figma component set
+[`button_action`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=17-5741)
+— 7 styles × 3 statuses × up to 3 sizes, plus icon configurations.
+
+<Canvas of={ButtonStories.Default} />
+<Controls of={ButtonStories.Default} />
+
+## Figma → code mapping
+
+| Figma property | Figma value | Prop |
+|---|---|---|
+| Style | Outline Light BG | `variant="outline"` |
+| Style | Dark BG | `variant="dark"` |
+| Style | Light Fill | `variant="light"` |
+| Style | Red | `variant="danger"` |
+| Style | Gray BG | `variant="gray"` |
+| Style | Text & Arrow | `variant="text-arrow"` |
+| Style | Text & Checkmarks | `variant="text-checkmarks"` |
+| Size | Small / Medium / Big | `size="small" \| "medium" \| "big"` |
+| Icon | Left | `iconLeft="…"` |
+| Icon | Left & Right | `iconLeft` + `iconRight` or `counter` |
+| Icon | Just Icon / Just Icon v2 / Icon 24px | `iconOnly="…"` + `aria-label` |
+| Icon | No Icon | no icon props |
+| Status | Static / Hover / Disabled | default / CSS `:hover` (`forceHover` for preview) / `disabled` |
+
+## When to use
+
+- ✅ **Dark BG** — the primary action of a screen or dialog (Export, Make a discount).
+- ✅ **Outline Light BG / Light Fill** — secondary actions in toolbars and filters (Clear, More).
+- ✅ **Red** — destructive actions (Reject, Delete) — pair with confirmation.
+- ✅ **Gray BG** — navigation back to a previous step.
+- ✅ **Text & Arrow / Text & Checkmarks** — inline, low-emphasis actions inside cards and lists.
+
+## When NOT to use
+
+- ❌ More than one Dark BG button in the same group.
+- ❌ Red for anything that isn't destructive.
+- ❌ Text buttons for primary actions — they have no hit area beyond the label.
+- ❌ Icon-only buttons without `aria-label`.
+
+## All variants × states
+
+<Canvas of={ButtonStories.AllVariants} />
+
+## States
+
+Figma defines **Static**, **Hover** and **Disabled**. Hover removes the fill and tints stroke, text and icon.
+Disabled is the Static look at 20% opacity.
+
+<Canvas of={ButtonStories.Hover} />
+<Canvas of={ButtonStories.Disabled} />
+<Canvas of={ButtonStories.Focused} />
+
+**Not designed in Figma:** Focus (AI-defined: 2px `--color-headlines` outline, 2px offset), Pressed and Loading.
+Pressed currently reuses Hover; Loading is not implemented — ask design before adding it.
+
+Empty state: not applicable — Button doesn't display data.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-primary-blue-dark` | bg (Dark BG); text (Outline, Light Fill, Text & Arrow); hover stroke/text (Outline, Dark BG, Light Fill); counter bg | `#1D2542` | Figma: Primary Blue Dark |
+| `--color-white` | text (Dark BG, Red, Gray BG); counter text | `#FFFFFF` | Figma: White |
+| `--color-stroke-light-v1` | bg (Outline Light BG) | `#F1F2F9` | Figma: Stroke Light V1 |
+| `--color-stroke-button` | stroke (Outline Light BG) | `#CBC8DB` | Figma: Stroke  Button |
+| `--color-secondary-light` | bg (Light Fill) | `#ECEEFB` | Figma: Secondary Light |
+| `--color-danger-fill` | bg (Red) | `rgba(218, 29, 3, 0.6)` | Figma: raw fill on Style=Red (no variable bound) |
+| `--color-danger` | hover stroke/text (Red) | `#ED5742` | Figma: Danger |
+| `--color-grey-dark` | bg (Gray BG); hover stroke/text (Gray BG) | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--color-headlines` | text (Text & Checkmarks); hover text (Text & Arrow); focus ring | `#4549A1` | Figma: Headlines |
+| `--color-hover-blue-light` | hover text (Text & Checkmarks) | `#888CF6` | Figma: Hover Blue Light |
+| `--font-family-base` | font-family | `'Poppins', system-ui, sans-serif` | Figma: text styles use Poppins |
+| `--font-weight-medium` | font-weight | `500` | Figma: Body/Small Medium |
+| `--font-size-small` / `--font-line-height-small` | label, Small & Medium | `14px` / `21px` | Figma: Body/Small Medium |
+| `--font-size-button-big` / `--font-line-height-button-big` | label, Big | `18px` / `27px` | Figma: Body/Button Big |
+| `--font-size-micro` / `--font-line-height-micro` | counter | `10px` / `15px` | Figma: Body/Micro Medium |
+| `--spacing-2` | icon gap (text variants); focus offset | `2px` | Figma: gap in Text & Arrow |
+| `--spacing-4` | icon–label gap | `4px` | Figma: icon–label gap |
+| `--spacing-8` | padding (Small), padding-y (Medium) | `8px` | Figma: padding Size=Small |
+| `--spacing-16` | padding-x (Medium), padding (Big) | `16px` | Figma: padding Size=Medium/Big |
+| `--radius-sm` | border-radius, Small & Medium | `5px` | Figma: corner radius |
+| `--radius-lg` | border-radius, Big | `10px` | Figma: corner radius Size=Big |
+| `--border-width-sm` | stroke, Small & Medium | `1px` | Figma: stroke |
+| `--border-width-lg` | stroke, Big (hover); focus ring | `2px` | Figma: stroke Size=Big |
+| `--size-icon` | icon | `16px` | Figma: Icons 16px |
+| `--size-icon-lg` | CSV icon | `24px` | Figma: Icons 24px |
+| `--size-counter` | counter badge | `14px` | Figma: Number badge |
+| `--size-control-sm` | icon-only square | `37px` | Figma: height Size=Small/Medium |
+| `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=Disabled |
+
+## Props
+
+<ArgTypes of={ButtonStories} />
+
+## Code example
+
+```tsx
+import { Button } from './components/Button';
+
+<Button variant="dark" iconLeft="export" onClick={exportCsv}>Export</Button>
+<Button variant="outline" iconLeft="clear" counter={2} onClick={clearFilters}>Clear</Button>
+<Button variant="danger" size="big" onClick={confirmDelete}>Delete</Button>
+<Button variant="dark" iconOnly="export" aria-label="Export" />
+<Button variant="text-arrow">See all</Button>
+```
+
+## Accessibility
+
+- Native `<button>` with `type="button"` by default.
+- `disabled` uses the native attribute.
+- Icons are `aria-hidden`; icon-only buttons **must** pass `aria-label`.
+- ⚠️ Touch target: Figma sets 37×37px (below the 44×44px guideline). Kept as designed — desktop ERP.
+- ⚠️ Contrast: Red (`rgba(218,29,3,0.6)` on white ≈ 3:1 with white text) and the 20% disabled opacity are below 4.5:1 — flag to design.
