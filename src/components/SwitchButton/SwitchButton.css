@@ -1,0 +1,50 @@
+/* SwitchButton — every value references a token from src/tokens/tokens.json. */
+
+.ds-switch-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--size-control-lg);
+  margin: 0;
+  padding: 0 var(--spacing-16);
+  border: 0;
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--color-grey-dark);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-h6);
+  line-height: var(--font-line-height-h6);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+/* ─── Tab=Active, Style=Dark: Primary Blue Dark fill, White text ──────── */
+.ds-switch-button--dark.ds-switch-button--active {
+  background-color: var(--color-primary-blue-dark);
+  color: var(--color-white);
+}
+
+/* ─── Tab=Active, Style=Light: Secondary Light fill, Primary Blue Dark text ─ */
+.ds-switch-button--light.ds-switch-button--active {
+  background-color: var(--color-secondary-light);
+  color: var(--color-primary-blue-dark);
+}
+
+/* ─── Hover (not designed in Figma — AI-defined): Not Active → Headlines text ─ */
+.ds-switch-button:is(:hover:not(:disabled), .is-hover):not(.ds-switch-button--active) {
+  color: var(--color-headlines);
+}
+
+/* ─── Focus (not designed in Figma — same ring as Button) ──────────────── */
+.ds-switch-button:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: var(--spacing-2);
+}
+
+/* ─── Disabled (not designed in Figma — same 20% opacity as other atoms) ─ */
+.ds-switch-button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}

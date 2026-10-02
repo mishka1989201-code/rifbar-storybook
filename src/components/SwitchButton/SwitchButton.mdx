@@ -1,0 +1,102 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as SwitchButtonStories from './SwitchButton.stories';
+
+<Meta of={SwitchButtonStories} />
+
+# SwitchButtons
+
+A group of buttons that switches which part of one list is shown (All clients / Pending (8)).
+Implements the Figma component set
+[`SwitchButtons`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=13-14035)
+— 4 variants. In code the atom is `SwitchButton`; a group is several `SwitchButton` in a `role="group"`.
+
+<Canvas of={SwitchButtonStories.Default} />
+<Controls of={SwitchButtonStories.Default} />
+
+## Figma → code mapping
+
+| Figma property | Figma value | Prop |
+|---|---|---|
+| Tab | Active | `active` |
+| Tab | Not Active | `active={false}` (default) |
+| Style | Dark | `variant="dark"` (default) |
+| Style | Light | `variant="light"` |
+
+`Style` only changes the active button. Not Active looks the same in both styles.
+
+## When to use
+
+- ✅ 2–4 filters of one list, shown above the list or table.
+- ✅ Dark — the main filter of the page. Light — a quieter filter inside a card. *(AI suggestion — confirm with design.)*
+
+## When NOT to use
+
+- ❌ Switching between different sections of a page — use [Tabs](?path=/docs/atoms-tabs--docs).
+- ❌ An on/off setting — use [Toggle](?path=/docs/atoms-toggle--docs).
+
+## Variants
+
+<Canvas of={SwitchButtonStories.ActiveDark} />
+<Canvas of={SwitchButtonStories.ActiveLight} />
+<Canvas of={SwitchButtonStories.NotActive} />
+
+## States
+
+<Canvas of={SwitchButtonStories.Hover} />
+<Canvas of={SwitchButtonStories.Focused} />
+<Canvas of={SwitchButtonStories.Disabled} />
+
+**Not designed in Figma:** Hover, Focus, Disabled.
+- Hover — AI-defined: Not Active button gets Headlines text. Active buttons do not change.
+- Focus — AI-defined: 2px Headlines outline, 2px offset, same as Button.
+- Disabled — AI-defined: 20% opacity, same as other atoms.
+
+## Edge cases
+
+<Canvas of={SwitchButtonStories.LongLabel} />
+
+## Examples: group
+
+<Canvas of={SwitchButtonStories.GroupDarkExample} />
+<Canvas of={SwitchButtonStories.GroupLightExample} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-primary-blue-dark` | Dark active fill; Light active text | `#1D2542` | Figma: Primary Blue Dark |
+| `--color-white` | Dark active text | `#FFFFFF` | Figma: White |
+| `--color-secondary-light` | Light active fill | `#ECEEFB` | Figma: Secondary Light (style) |
+| `--color-grey-dark` | not active text | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--color-headlines` | hover text, focus ring | `#4549A1` | Figma: Headlines (hover / focus AI-defined) |
+| `--font-family-base` | label | `'Poppins', system-ui, sans-serif` | Existing tokens.json |
+| `--font-weight-medium` | label | `500` | Figma: Medium Headings/h6 |
+| `--font-size-h6` / `--font-line-height-h6` | label | `16px` / `24px` | Figma: Medium Headings/h6 |
+| `--size-control-lg` | height | `48px` | **New.** Figma: SwitchButtons height 48px |
+| `--spacing-16` | padding x | `16px` | Figma: padding 16 |
+| `--radius-md` | corners | `6px` | **New.** Figma: corner radius 6px |
+| `--border-width-lg` / `--spacing-2` | focus ring width / offset | `2px` / `2px` | AI-defined, same as Button |
+| `--opacity-disabled` | disabled | `0.2` | Existing tokens.json (disabled AI-defined) |
+
+## Props
+
+<ArgTypes of={SwitchButtonStories} />
+
+## Code example
+
+```tsx
+import { SwitchButton } from 'rifbar-ds';
+
+const [filter, setFilter] = useState<'all' | 'pending'>('all');
+
+<div role="group" aria-label="Clients filter" style={{ display: 'flex', gap: 'var(--spacing-8)' }}>
+  <SwitchButton active={filter === 'all'} onClick={() => setFilter('all')}>All clients</SwitchButton>
+  <SwitchButton active={filter === 'pending'} onClick={() => setFilter('pending')}>Pending (8)</SwitchButton>
+</div>
+```
+
+## Accessibility
+
+- `<button aria-pressed>`; wrap the group in `role="group"` with an `aria-label`.
+- Contrast: White on Primary Blue Dark 15.0:1, Primary Blue Dark on Secondary Light 13.0:1, Grey Dark on White 5.2:1.
+- Touch target: 48px high — OK.

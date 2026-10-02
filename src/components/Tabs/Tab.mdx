@@ -1,0 +1,94 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TabStories from './Tab.stories';
+
+<Meta of={TabStories} />
+
+# Tabs
+
+One tab of a tab bar: switches between sections of the same page. Implements the Figma component set
+[`Tabs`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=13-13502)
+— 3 variants. In code the atom is `Tab`; a tab bar is several `Tab` in a `role="tablist"`.
+
+<Canvas of={TabStories.Default} />
+<Controls of={TabStories.Default} />
+
+## Figma → code mapping
+
+| Figma property | Figma value | Prop |
+|---|---|---|
+| Tab # | Active | `active` |
+| Tab # | Not Active | `active={false}` (default) |
+| Tab # | Disabled | `disabled` |
+
+## When to use
+
+- ✅ Switching between sections of one page or card (General / Contacts / Orders).
+
+## When NOT to use
+
+- ❌ Filtering one list (All / Pending) — use [SwitchButtons](?path=/docs/atoms-switchbuttons--docs).
+- ❌ Moving to another page — use links in the Navbar.
+
+## Variants
+
+<Canvas of={TabStories.Active} />
+<Canvas of={TabStories.NotActive} />
+<Canvas of={TabStories.Disabled} />
+
+## States
+
+<Canvas of={TabStories.Hover} />
+<Canvas of={TabStories.Focused} />
+
+**Not designed in Figma:** Hover, Focus.
+- Hover — AI-defined: Not Active tab gets Headlines text, no underline.
+- Focus — AI-defined: 2px Headlines outline drawn inside the tab, same color as Button.
+
+## Edge cases
+
+<Canvas of={TabStories.LongLabel} />
+
+## Example: tab bar
+
+<Canvas of={TabStories.TabBarExample} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines` | active text, underline, hover text, focus ring | `#4549A1` | Figma: Headlines |
+| `--color-grey-dark` | not active / disabled text | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--font-family-base` | label | `'Poppins', system-ui, sans-serif` | Existing tokens.json |
+| `--font-weight-medium` | active label | `500` | Figma: Body/Small Medium |
+| `--font-weight-regular` | not active label | `400` | Figma: Body/Small Regular |
+| `--font-size-small` / `--font-line-height-small` | label | `14px` / `21px` | Figma: Body/Small |
+| `--spacing-16` / `--spacing-24` | padding y / x | `16px` / `24px` | Figma: padding 16 24 |
+| `--border-width-lg` | underline, focus ring | `2px` | Figma: bottom stroke 2px |
+| `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity 20% on Tab #=Disabled |
+
+No new tokens. Height is 53px (16 + 21 + 16); the underline sits inside it, so tabs do not jump when switched.
+
+## Props
+
+<ArgTypes of={TabStories} />
+
+## Code example
+
+```tsx
+import { Tab } from 'rifbar-ds';
+
+const [tab, setTab] = useState('general');
+
+<div role="tablist" aria-label="Client" style={{ display: 'flex' }}>
+  <Tab active={tab === 'general'} onClick={() => setTab('general')}>General</Tab>
+  <Tab active={tab === 'orders'} onClick={() => setTab('orders')}>Orders (12)</Tab>
+  <Tab disabled>Archive</Tab>
+</div>
+```
+
+## Accessibility
+
+- `<button role="tab">` with `aria-selected`. Wrap tabs in an element with `role="tablist"` and an `aria-label`.
+- Every tab is reachable with Tab key; Enter / Space opens it.
+- Contrast: Headlines on White 7.7:1, Grey Dark on White 5.2:1.
+- Touch target: 53px high — OK.
