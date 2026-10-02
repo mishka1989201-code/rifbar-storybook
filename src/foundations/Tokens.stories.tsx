@@ -28,6 +28,8 @@ function TokenTable({ group }: { group: string }) {
                 <div style={{ height: 8, width: `var(${t.name})`, background: 'var(--color-headlines)' }} />
               ) : group === 'radius' ? (
                 <div style={{ width: 40, height: 40, borderRadius: `var(${t.name})`, background: 'var(--color-primary-blue-dark)' }} />
+              ) : group === 'shadow' ? (
+                <div style={{ width: 40, height: 40, borderRadius: 4, background: 'var(--color-white)', boxShadow: `var(${t.name})` }} />
               ) : null}
             </td>
             <td style={cell}><code>{t.name}</code></td>
@@ -44,6 +46,7 @@ export const Colors: StoryObj = { render: () => <TokenTable group="color" /> };
 export const Spacing: StoryObj = { render: () => <TokenTable group="spacing" /> };
 export const Radius: StoryObj = { render: () => <TokenTable group="radius" /> };
 export const Sizes: StoryObj = { render: () => <TokenTable group="size" /> };
+export const Shadows: StoryObj = { render: () => <TokenTable group="shadow" /> };
 export const Theme: StoryObj = { render: () => <ThemeTable /> };
 
 export const Typography: StoryObj = {

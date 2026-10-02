@@ -1,0 +1,62 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ShadowsStories from './Shadows.stories';
+import { ShadowTable } from './ShadowsDocs';
+import { TokenList } from './GridDocs';
+
+<Meta of={ShadowsStories} name="Docs" />
+
+# Shadows
+
+Effect styles from the Figma board
+[Shadows](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=818-307704).
+Every Figma effect style is one `--shadow-*` token with the same values.
+
+## Light theme
+
+<Canvas of={ShadowsStories.Light} />
+
+## Dark theme
+
+On a dark background black shadows are barely visible, so dark mockups use **Dark Mode Shadow 1**
+and **Hover Small Cards**, whose stroke becomes lighter (#888CF6 instead of #4549A1).
+
+<Canvas of={ShadowsStories.Dark} />
+
+## When to use
+
+<ShadowTable />
+
+## How to use
+
+```css
+/* ✅ */
+.card { box-shadow: var(--shadow-card); }
+.card:hover {
+  box-shadow: var(--shadow-hover-card-sm);
+  border: var(--border-width-sm) solid var(--theme-card-hover-border);
+}
+.input:focus-visible { box-shadow: var(--shadow-focus); }
+
+/* ❌ hand-written shadow */
+.card { box-shadow: 0 30px 25px -20px rgba(0, 0, 0, .1); }
+```
+
+- **Hover Small Cards** is a pair: the shadow plus a 1px stroke `--theme-card-hover-border`.
+  The stroke colour switches with the theme by itself.
+- Shadows are drawn by `box-shadow`. When an element already uses an inset `box-shadow` as its
+  border (like Button), list both, comma-separated: `box-shadow: var(--shadow-focus), inset 0 0 0 1px …`.
+
+## Design tokens used
+
+<TokenList prefix={['--shadow-', '--theme-card-hover-border', '--color-bg', '--color-gray-200', '--color-stroke-button-dark']} />
+
+## Notes on the Figma source
+
+- The "When to use" column is inferred from the style names; Figma has no usage notes.
+- **Dark Mode Shadow 1** is also placed on the light board.
+- **Dark Mode Shadow 2** had spread −13px with blur 4px, so it was invisible. Fixed in Figma on
+  2026-10-02: spread is now 0 (like the dark avatar shadow `--theme-avatar-shadow`).
+- In the Figma code, the dark board background is the variable **Stroke Button** in dark mode
+  (#242424). In the light mode the same variable is #CBC8DB (`--color-stroke-button`), so the dark
+  value has its own token `--color-stroke-button-dark`.
+- The Shadows board uses Inter for labels; the docs use Poppins like the rest of the system.
