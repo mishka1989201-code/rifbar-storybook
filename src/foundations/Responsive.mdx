@@ -1,0 +1,86 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as ResponsiveStories from './Responsive.stories';
+import { NavDensityTable, ThemeTable } from './ResponsiveDocs';
+import { TokenList } from './GridDocs';
+
+<Meta of={ResponsiveStories} name="Docs" />
+
+# Responsive design
+
+How every Rifbar screen adapts to the device, in the light and dark themes. Source — the Figma
+templates [Responsive design screens template — Light Theme](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=6979-21249)
+and [— Dark Theme](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=6979-21252).
+Column grids for each size are on the [Grid](?path=/docs/foundations-grid--docs) page.
+
+<Canvas of={ResponsiveStories.Playground} />
+<Controls of={ResponsiveStories.Playground} />
+
+## Screen templates
+
+Every screen is designed at these **7 widths**, each in the light and the dark theme.
+Start a new mockup from the matching template.
+
+| Width × height | Device | Grid range | Side menu |
+|---|---|---|---|
+| 1920 × 1080 | Large computers | ≥ 1920px | visible, 300px |
+| 1440 × 1024 | Standard computers | 1440–1920px | visible, 237px |
+| 1280 × 832 | Small computers | 1280–1440px | behind the burger |
+| 1024 × 1366 | Large tablets (vertical) | 1024–1280px | behind the burger |
+| 768 × 1024 | Small tablets (vertical) | 768–1024px | behind the burger |
+| 480 × 1024 | Small mobiles (vertical) | 480–768px | behind the burger |
+| 360 × 800 | Very small mobiles (vertical) | 360–480px | behind the burger |
+
+### Light theme
+<Canvas of={ResponsiveStories.LightTheme} />
+
+### Dark theme
+<Canvas of={ResponsiveStories.DarkTheme} />
+
+## Rules
+
+1. **≥ 1440px — the side menu is part of the layout.** It sits on the left and pushes the content;
+   the user can collapse it to icons (navbar off). See widths on the Grid page.
+2. **< 1440px — the side menu is hidden.** It opens from the burger on top of the content,
+   which gets dimmed. The column grid does not move.
+3. **1920px is roomy, 1440px is compact.** The side menu keeps the same structure, only its
+   spacing and the logo shrink (table below).
+4. **Columns:** 12 on computers and tablets, 4 on horizontal mobiles, 2 on vertical mobiles.
+5. **Spacing** always follows the 8px module ([Spacing](?path=/docs/foundations-spacing--docs)).
+
+## Side menu: 1920 vs 1440
+
+<Canvas of={ResponsiveStories.SideMenu1920} />
+
+<NavDensityTable />
+
+## Themes
+
+The app has a **light** and a **dark** theme. Components use `--theme-*` tokens, and the value
+switches with the `data-theme` attribute on `<html>` (or on any block):
+
+```html
+<html data-theme="dark">
+```
+
+```css
+.navbar { background: var(--theme-app-bg); color: var(--theme-nav-text); }
+```
+
+Without the attribute, the light theme is used. In Storybook, switch the theme with the
+**Theme** button in the toolbar.
+
+<ThemeTable />
+
+## Design tokens used
+
+<TokenList prefix={['--theme-', '--layout-sidebar', '--size-nav-tab', '--size-avatar', '--size-logo']} />
+
+## Notes on the Figma source
+
+- In the templates only the screen background and the side menu are drawn; the menu icons and the
+  logo here are placeholders until the Navbar component is added.
+- The templates for 1280px and below are empty: there is no header with the burger yet, so it isn't
+  drawn here either.
+- The 1280px template is 1280×832, while the Grid board uses a 1280×720 frame.
+- **Hover Blue** changes between themes (#6368DF light, #4549A1 dark); the dark value is the same
+  colour as the existing `--color-headlines`.

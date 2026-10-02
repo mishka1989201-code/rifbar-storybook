@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { tokens } from '../tokens/build/tokens.js';
+import { ThemeTable } from './ResponsiveDocs';
 
 const meta = { title: 'Foundations/Tokens', parameters: { layout: 'padded' } } satisfies Meta;
 export default meta;
@@ -43,6 +44,7 @@ export const Colors: StoryObj = { render: () => <TokenTable group="color" /> };
 export const Spacing: StoryObj = { render: () => <TokenTable group="spacing" /> };
 export const Radius: StoryObj = { render: () => <TokenTable group="radius" /> };
 export const Sizes: StoryObj = { render: () => <TokenTable group="size" /> };
+export const Theme: StoryObj = { render: () => <ThemeTable /> };
 
 export const Typography: StoryObj = {
   render: () => (
@@ -52,6 +54,9 @@ export const Typography: StoryObj = {
       </div>
       <div style={{ fontSize: 'var(--font-size-small)', lineHeight: 'var(--font-line-height-small)' }}>
         Body/Small Medium — Poppins Medium 14/21
+      </div>
+      <div style={{ fontSize: 'var(--font-size-small)', lineHeight: 'var(--font-line-height-small)', fontWeight: 'var(--font-weight-regular)' as never }}>
+        Body/Small Regular — Poppins Regular 14/21
       </div>
       <div style={{ fontSize: 'var(--font-size-micro)', lineHeight: 'var(--font-line-height-micro)' }}>
         Body/Micro Medium — Poppins Medium 10/15

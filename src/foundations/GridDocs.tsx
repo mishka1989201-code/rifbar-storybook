@@ -24,7 +24,7 @@ export type GridPreviewProps = {
   maxHeight?: number;
 };
 
-function useWidth() {
+export function useWidth() {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   useEffect(() => {
