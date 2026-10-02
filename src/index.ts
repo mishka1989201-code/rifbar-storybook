@@ -8,3 +8,5 @@ export * from './components/Button';
 export * from './components/IconButton';
 export * from './components/Checkbox';
 export * from './components/PlayButton';
+export * from './components/Toggle';
+export * from './components/Switcher';

@@ -1,0 +1,90 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as SwitcherStories from './Switcher.stories';
+
+<Meta of={SwitcherStories} />
+
+# Switcher
+
+Switches the app between the light and dark theme. Lives in the Navbar. Implements the Figma component set
+[`Switcher`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=3366-257630)
+— 2 variants.
+
+The stories show it on the Navbar background (`--theme-app-bg`) of the matching theme.
+
+<Canvas of={SwitcherStories.Default} />
+<Controls of={SwitcherStories.Default} />
+
+## Figma → code mapping
+
+| Figma property | Figma value | Prop |
+|---|---|---|
+| Property 1 | Light | `theme="light"` — sun on the right |
+| Property 1 | Dark | `theme="dark"` — moon on the left |
+
+The pill color and shadow come from `--theme-*` tokens, so they follow `data-theme` automatically.
+The `theme` prop only picks the icon — pass the theme the app is in.
+
+## When to use
+
+- ✅ Only for the light / dark theme switch in the Navbar.
+
+## When NOT to use
+
+- ❌ Any other on/off setting — use [Toggle](?path=/docs/atoms-toggle--docs).
+
+## Variants
+
+<Canvas of={SwitcherStories.Light} />
+<Canvas of={SwitcherStories.Dark} />
+
+## States
+
+<Canvas of={SwitcherStories.Focused} />
+
+**Not designed in Figma:** Hover, Focus, Disabled.
+- Focus — AI-defined: 2px `--color-hover-blue-light` outline, 2px offset. Hover Blue Light instead of Headlines because the Switcher sits on the dark Navbar.
+- Hover — no change (only the pointer cursor). Ask design if a hover state is needed.
+- Disabled — not supported: the theme switch should always work.
+
+## Example: theme switch
+
+<Canvas of={SwitcherStories.ThemeExample} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--theme-switcher-bg` | pill bg | light `#141D3F` / dark `#1D2542` | **New.** Figma: Switcher pill (Light: raw fill, Dark: Primary Blue Dark) |
+| `--color-switcher-bg-light` | ↳ light value | `#141D3F` | **New.** Figma: raw fill on Property 1=Light (no variable bound) |
+| `--color-white-alpha-22` | pill stroke | `rgba(255, 255, 255, 0.22)` | **New.** Figma: raw stroke White @ 22% |
+| `--theme-avatar-shadow` | pill shadow | light `1px 2px 2px rgba(98, 104, 223, 0.15)` / dark `1px 2px 2px rgba(88, 88, 88, 0.35)` | Figma: same effect as Navbar avatar (Dark Mode Shadow 2 in dark) |
+| `--color-white` | sun / moon icon | `#FFFFFF` | Figma: White |
+| `--size-switch-width` / `--size-switch-height` | pill | `48px` / `24px` | **New.** Figma: Switcher 48×24 |
+| `--size-icon-md` | icon | `20px` | **New.** Figma: light_mode / dark_mode 20×20 |
+| `--radius-pill` | pill radius | `9999px` | **New.** Figma: radius 12px |
+| `--border-width-sm` | pill stroke | `1px` | Figma: stroke |
+| `--color-hover-blue-light` | focus ring | `#888CF6` | Figma: Hover Blue Light (focus AI-defined) |
+| `--border-width-lg` / `--spacing-2` | focus ring width / offset | `2px` / `2px` | AI-defined, same as Button |
+
+Icon position follows Figma: sun 2px from the right edge, moon 1px from the left edge, both 2px from the top.
+
+## Props
+
+<ArgTypes of={SwitcherStories} />
+
+## Code example
+
+```tsx
+import { Switcher } from 'rifbar-ds';
+
+const [theme, setTheme] = useState<'light' | 'dark'>('light');
+useEffect(() => { document.documentElement.dataset.theme = theme; }, [theme]);
+
+<Switcher theme={theme} onThemeChange={setTheme} />
+```
+
+## Accessibility
+
+- `<button role="switch">`, `aria-checked="true"` in the dark theme, default `aria-label` “Dark theme” — override with Ukrainian copy if needed.
+- Enter / Space switch the theme.
+- ⚠️ Touch target: 48×24 px (height below 44px). Kept as designed — desktop ERP.

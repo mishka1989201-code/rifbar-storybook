@@ -1,0 +1,44 @@
+/* Switcher — every value references a token from src/tokens/tokens.json.
+   The pill color and shadow follow the current theme (--theme-* tokens). */
+
+.ds-switcher {
+  --ds-switcher-inset: calc((var(--size-switch-height) - var(--size-icon-md)) / 2);
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--size-switch-width);
+  height: var(--size-switch-height);
+  margin: 0;
+  padding: 0;
+  border: var(--border-width-sm) solid var(--color-white-alpha-22);
+  border-radius: var(--radius-pill);
+  background-color: var(--theme-switcher-bg);
+  box-shadow: var(--theme-avatar-shadow);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+/* Icon sits at the end that matches the theme: sun on the right, moon on the left.
+   Offsets are measured from the outer edge, so the 1px border is subtracted. */
+.ds-switcher__icon {
+  position: absolute;
+  top: calc(var(--ds-switcher-inset) - var(--border-width-sm));
+  display: block;
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+}
+
+.ds-switcher--light .ds-switcher__icon {
+  right: calc(var(--ds-switcher-inset) - var(--border-width-sm));
+}
+
+.ds-switcher--dark .ds-switcher__icon {
+  left: 0; /* Figma: 1px from the outer edge = right inside the 1px border */
+}
+
+/* ─── Focus (not designed in Figma — AI-defined). Hover Blue Light instead of
+       Headlines: the Switcher sits on the dark Navbar, where Headlines is barely visible. */
+.ds-switcher:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-hover-blue-light);
+  outline-offset: var(--spacing-2);
+}

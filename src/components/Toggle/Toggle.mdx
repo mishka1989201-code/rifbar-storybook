@@ -1,0 +1,110 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ToggleStories from './Toggle.stories';
+
+<Meta of={ToggleStories} />
+
+# Toggle
+
+On / off switch for a setting that takes effect immediately. Implements the Figma component set
+[`Toggle.atom`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1685-19822)
+— 2 states × 4 statuses.
+
+<Canvas of={ToggleStories.Default} />
+<Controls of={ToggleStories.Default} />
+
+## Figma → code mapping
+
+| Figma property | Figma value | Prop |
+|---|---|---|
+| State | On State | `checked` / `defaultChecked` = `true` |
+| State | Off State | `checked` / `defaultChecked` = `false` |
+| Status | Enabled | default |
+| Status | Hover | CSS `:hover` (`forceHover` for preview) |
+| Status | Focus Enabled | CSS `:focus-visible` (`forceFocus` for preview) |
+| Status | Disabled | `disabled` |
+
+## When to use
+
+- ✅ A setting that applies right away (notifications on/off, show archived items).
+- ✅ In settings lists, table rows, side panels.
+
+## When NOT to use
+
+- ❌ Choices that are saved only with a “Save” button — use [Checkbox](?path=/docs/atoms-checkbox--docs).
+- ❌ Picking one option from several — use radio buttons.
+- ❌ Switching the light / dark theme — use [Switcher](?path=/docs/atoms-switcher--docs).
+
+## All states × statuses
+
+<Canvas of={ToggleStories.AllVariants} />
+
+## States
+
+<Canvas of={ToggleStories.On} />
+<Canvas of={ToggleStories.Off} />
+<Canvas of={ToggleStories.OnHover} />
+<Canvas of={ToggleStories.OffHover} />
+<Canvas of={ToggleStories.OnFocus} />
+<Canvas of={ToggleStories.OffFocus} />
+<Canvas of={ToggleStories.OnDisabled} />
+<Canvas of={ToggleStories.OffDisabled} />
+
+**Figma notes:**
+- Off colors were updated in Figma on 2026-10-02 for contrast: Off = Grey Dark (was Secondary Grey, 2.4:1), Off + Hover = Input field (was identical to Off).
+- Focus is designed in Figma: 1px Headlines stroke + `Focus or pressed` shadow; On turns Hover Blue.
+- Loading, error and empty states are not applicable.
+
+## With label
+
+<Canvas of={ToggleStories.WithLabel} />
+<Canvas of={ToggleStories.LongLabel} />
+
+The label is not part of the Figma atom. Its text style (Body/Small Regular) and 8px gap are taken from Checkbox.
+
+## Example: settings list
+
+<Canvas of={ToggleStories.SettingsExample} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines` | pill bg (On); focus stroke | `#4549A1` | Figma: Headlines |
+| `--color-hover-blue` | pill bg (On — Hover, Focus) | `#6368DF` | Figma: Hover Blue |
+| `--color-grey-dark` | pill bg (Off — Enabled, Focus, Disabled) | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--color-input-field` | pill bg (Off — Hover) | `#65578B` | Figma: Input field |
+| `--color-white` | handle | `#FFFFFF` | Figma: White |
+| `--shadow-focus` | focus shadow | `0 0 4px 0 rgba(98, 104, 223, 0.7)` | Figma: Shadows → Focus or pressed |
+| `--size-switch-width` / `--size-switch-height` | pill | `48px` / `24px` | **New.** Figma: Toggle.atom 48×24 |
+| `--size-switch-handle` | handle | `18px` | **New.** Figma: handle 18×18 (inset 3px = (24 − 18) / 2) |
+| `--radius-pill` | pill radius | `9999px` | **New.** Figma: radius 12px on 24px height |
+| `--radius-round` | handle | `50%` | Figma: circle |
+| `--border-width-sm` | focus stroke | `1px` | Figma: stroke |
+| `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=Disabled |
+| `--spacing-8` | gap to label | `8px` | AI-defined, same as Checkbox |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-regular` | label | `14px` / `21px` / `400` | Figma: Body/Small Regular (label AI-defined) |
+| `--color-primary-blue-dark` | label color | `#1D2542` | Figma: Primary Blue Dark (label AI-defined) |
+
+## Props
+
+<ArgTypes of={ToggleStories} />
+
+## Code example
+
+```tsx
+import { Toggle } from 'rifbar-ds';
+
+<Toggle checked={enabled} onChange={(e) => setEnabled(e.target.checked)}>
+  Email notifications
+</Toggle>
+
+<Toggle defaultChecked aria-label="Show archived" />
+```
+
+## Accessibility
+
+- Native `<input type="checkbox" role="switch">` — Space toggles it, screen readers announce “switch, on/off”.
+- Without a label, pass `aria-label`.
+- ⚠️ Touch target: 48×24 px (height below 44px). Kept as designed — desktop ERP.
+- White handle contrast: 5.2:1 on Grey Dark (Off), 6.4:1 on Input field (Off hover), 7.7:1 on Headlines (On).
+- ⚠️ Disabled at 20% opacity is below 3:1 contrast — flag to design (same as Button).
