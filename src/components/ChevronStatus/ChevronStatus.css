@@ -1,0 +1,59 @@
+/* Chevron.Status — every value references a token from src/tokens/tokens.json.
+   Height 26px = 18px line height + 2 × 4px padding (Figma: hug, padding 4 / 8). */
+
+.ds-chevron-status {
+  --ds-chevron-status-bg: var(--color-hover-blue);
+  --ds-chevron-status-text: var(--color-white);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  max-width: 100%;
+  padding: var(--spacing-4) var(--spacing-8);
+  border-radius: var(--radius-pill);
+  background-color: var(--ds-chevron-status-bg);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  color: var(--ds-chevron-status-text);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.ds-chevron-status__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ds-chevron-status__icon {
+  flex-shrink: 0;
+}
+
+.ds-chevron-status--secondary {
+  --ds-chevron-status-bg: var(--color-grey-dark);
+}
+
+.ds-chevron-status--success {
+  --ds-chevron-status-bg: var(--color-green-dark);
+}
+
+.ds-chevron-status--info {
+  --ds-chevron-status-bg: var(--color-headlines);
+}
+
+.ds-chevron-status--warning {
+  --ds-chevron-status-bg: var(--color-warning-strong);
+}
+
+.ds-chevron-status--danger {
+  --ds-chevron-status-bg: var(--color-danger-strong);
+}
+
+.ds-chevron-status--light {
+  --ds-chevron-status-bg: var(--color-bg);
+  --ds-chevron-status-text: var(--color-grey-dark);
+}
+
+.ds-chevron-status--dark {
+  --ds-chevron-status-bg: var(--color-primary-blue-dark);
+}

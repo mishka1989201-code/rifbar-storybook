@@ -11,3 +11,4 @@ export * from './components/PlayButton';
 export * from './components/Toggle';
 export * from './components/Switcher';
 export * from './components/InputField';
+export * from './components/ChevronStatus';

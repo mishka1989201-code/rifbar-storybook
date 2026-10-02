@@ -1,0 +1,126 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ChevronStatusStories from './ChevronStatus.stories';
+
+<Meta of={ChevronStatusStories} />
+
+# ChevronStatus
+
+A colored pill with a short status: order, payment, stock, employee status. Implements the Figma
+component set
+[`Chevron.Status`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=73-83771)
+— 8 colors + optional icon. Not interactive: it has no hover, focus or disabled states.
+
+<Canvas of={ChevronStatusStories.Default} />
+<Controls of={ChevronStatusStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Color` | Prop | Fill | Text |
+|---|---|---|---|
+| Primary | `color="primary"` | Hover Blue | White |
+| Secondary | `color="secondary"` | Grey Dark | White |
+| Success | `color="success"` | Green Dark | White |
+| Info | `color="info"` | Headlines | White |
+| Warning | `color="warning"` | Warning Strong | White |
+| Danger | `color="danger"` | Danger Strong | White |
+| Light | `color="light"` | BG Color | Grey Dark |
+| Dark | `color="dark"` | Primary Blue Dark | White |
+| Icon = true | `icon` | — | `arrow_drop_up` before the text, 4px gap |
+
+## When to use
+
+- ✅ Showing the status of a row in a table or of a card (Paid, Cancelled, In delivery).
+- ✅ One status per item, 1–3 words.
+
+## When NOT to use
+
+- ❌ Something you click — use [Button](?path=/docs/atoms-button--docs).
+- ❌ A number on an icon (unread count) — use the [Icon](?path=/docs/atoms-icon--docs) counter / dot.
+- ❌ Long explanations — use text or an alert.
+
+## All colors
+
+<Canvas of={ChevronStatusStories.AllVariants} />
+
+<Canvas of={ChevronStatusStories.Primary} />
+<Canvas of={ChevronStatusStories.Secondary} />
+<Canvas of={ChevronStatusStories.Success} />
+<Canvas of={ChevronStatusStories.Info} />
+<Canvas of={ChevronStatusStories.Warning} />
+<Canvas of={ChevronStatusStories.Danger} />
+<Canvas of={ChevronStatusStories.Light} />
+<Canvas of={ChevronStatusStories.Dark} />
+
+## With icon (trend)
+
+<Canvas of={ChevronStatusStories.WithIcon} />
+
+## Edge cases
+
+<Canvas of={ChevronStatusStories.LongText} />
+<Canvas of={ChevronStatusStories.ShortText} />
+
+## Example: orders table
+
+<Canvas of={ChevronStatusStories.TableExample} />
+
+**Figma notes:**
+- Updated in Figma on 2026-10-02:
+  - Contrast fixed (white text needs 4.5:1): Success Green Light → **Green Dark**, Warning → new **Warning Strong**
+    `#C84D0B`, Danger → new **Danger Strong** `#DF2E15` (same hues, darker).
+  - `Color=Info` had the style Blue Light with a Headlines variable on top — now it is the **Headlines** style.
+  - The hidden `arrow_drop_up` layer in Primary became the boolean property **Icon**. It is on in 18 trend badges
+    (“13.6%” on Management – Admin User); those were kept.
+- Those 18 trend badges override the colors in the mockup (Info BG fill + Hover Blue text). That pairing is not
+  a `Color` of the component yet.
+- Empty, loading and error states are not applicable (static label).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-hover-blue` | fill (Primary) | `#6368DF` | Figma: Hover Blue |
+| `--color-grey-dark` | fill (Secondary); text (Light) | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--color-green-dark` | fill (Success) | `#00864E` | Figma: Green Dark |
+| `--color-headlines` | fill (Info) | `#4549A1` | Figma: variable Headlines |
+| `--color-warning-strong` | fill (Warning) | `#C84D0B` | **New.** Figma: Warning Strong |
+| `--color-danger-strong` | fill (Danger) | `#DF2E15` | **New.** Figma: Danger Strong |
+| `--color-bg` | fill (Light) | `#F6F8FC` | Figma: BG Color |
+| `--color-primary-blue-dark` | fill (Dark) | `#1D2542` | Figma: Primary Blue Dark |
+| `--color-white` | text | `#FFFFFF` | Figma: White |
+| `--font-size-mini` / `--font-line-height-mini` / `--font-weight-semibold` | text | `12px` / `18px` / `600` | Figma: Body/Mini Semi-Bold |
+| `--spacing-4` / `--spacing-8` | padding (vertical / horizontal) | `4px` / `8px` | Figma: padding 4 / 8 |
+| `--spacing-4` | gap icon ↔ text | `4px` | Figma: gap 4 |
+| `--size-icon` | icon | `16px` | Figma: Icons 16px |
+| `--radius-pill` | corner radius | `9999px` | Figma: radius 20px on 26px height |
+
+## Props
+
+<ArgTypes of={ChevronStatusStories} />
+
+## Code example
+
+```tsx
+import { ChevronStatus } from 'rifbar-ds';
+
+<ChevronStatus color="success">Paid</ChevronStatus>
+<ChevronStatus color="danger">Cancelled</ChevronStatus>
+<ChevronStatus icon iconLabel="Up">13.6%</ChevronStatus>
+```
+
+## Accessibility
+
+- For a trend, pass `iconLabel="Up"` — screen readers read “Up 13.6%”. Without it the arrow is decorative (`aria-hidden`).
+- A plain `<span>`: screen readers read the text. The color only repeats the meaning — always write the status in words.
+- Contrast of the text (12px Semi-Bold needs 4.5:1):
+
+| Color | Contrast | |
+|---|---|---|
+| Primary | 4.6:1 | ✅ |
+| Secondary | 5.2:1 | ✅ |
+| Success | 4.7:1 | ✅ |
+| Info | 7.7:1 | ✅ |
+| Warning | 4.6:1 | ✅ |
+| Danger | 4.6:1 | ✅ |
+| Light | 4.9:1 | ✅ |
+| Dark | 15.1:1 | ✅ |
