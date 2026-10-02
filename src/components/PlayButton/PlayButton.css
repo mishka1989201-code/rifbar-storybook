@@ -1,0 +1,65 @@
+/* PlayButton — every value references a token from src/tokens/tokens.json.
+   Figma strokes are "inside", so the hover ring is drawn with inset box-shadow
+   to keep the button 38px in every status. */
+
+.ds-play-button {
+  --ds-play-button-accent: var(--color-green-dark);
+  --ds-play-button-stroke: transparent;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-control-play);
+  height: var(--size-control-play);
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-round);
+  background-color: var(--color-green-light-tint);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--ds-play-button-stroke);
+  color: var(--ds-play-button-accent);
+  cursor: pointer;
+  transition: background-color 150ms ease, box-shadow 150ms ease, color 150ms ease;
+}
+
+.ds-play-button > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Type=Stop: solid red circle, white square, red drop shadow ────── */
+.ds-play-button--stop {
+  --ds-play-button-accent: var(--color-danger);
+  background-color: var(--color-danger);
+  box-shadow:
+    inset 0 0 0 var(--border-width-sm) var(--ds-play-button-stroke),
+    var(--shadow-stop);
+  color: var(--color-white);
+}
+
+/* ─── Static Hover: fill goes away, 1px ring + glyph in the accent ─── */
+.ds-play-button:is(:hover:not(:disabled), .is-hover) {
+  --ds-play-button-stroke: var(--ds-play-button-accent);
+  background-color: transparent;
+  color: var(--ds-play-button-accent);
+}
+
+/* ─── Pressed (not designed in Figma — AI-defined: solid accent fill) ─ */
+.ds-play-button:active:not(:disabled) {
+  --ds-play-button-stroke: transparent;
+  background-color: var(--ds-play-button-accent);
+  color: var(--color-white);
+}
+
+/* ─── Focus (not designed in Figma — same ring as Button) ───────────── */
+.ds-play-button:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: var(--spacing-2);
+}
+
+/* ─── Disabled (Figma Status=Disabled → Static at 20% opacity) ──────── */
+.ds-play-button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}

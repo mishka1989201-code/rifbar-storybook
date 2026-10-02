@@ -1,0 +1,98 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as PlayButtonStories from './PlayButton.stories';
+
+<Meta of={PlayButtonStories} />
+
+# PlayButton
+
+Round 38px button that starts (Play) or stops (Stop) something — e.g. playback of a call
+recording or a timer. Implements the Figma component set
+[`Button.Play`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=657-268619)
+— 2 types × 3 statuses.
+
+<Canvas of={PlayButtonStories.Default} />
+<Controls of={PlayButtonStories.Default} />
+
+## Figma → code mapping
+
+| Figma property | Figma value | Prop |
+|---|---|---|
+| Type | Play | `kind="play"` — light green tint circle, dark green triangle |
+| Type | Stop | `kind="stop"` — red circle with shadow, white square |
+| Status | Static | default |
+| Status | Static Hover | CSS `:hover` (`forceHover` for preview) |
+| Status | Disabled | `disabled` |
+
+## When to use
+
+- ✅ Start / stop playback or a running process with a single round control.
+- ✅ Swap `kind` from `play` to `stop` while the process runs (see the toggle example).
+
+## When NOT to use
+
+- ❌ Pause — there's no Pause type in Figma. Ask design before reusing Stop for it.
+- ❌ Generic actions with a text label — use [Button](?path=/docs/atoms-button--docs).
+- ❌ Other icon-only actions — use [IconButton](?path=/docs/atoms-iconbutton--docs) or Button `iconOnly`.
+
+## All types × states
+
+<Canvas of={PlayButtonStories.AllVariants} />
+
+## States
+
+<Canvas of={PlayButtonStories.Hover} />
+<Canvas of={PlayButtonStories.StopHover} />
+<Canvas of={PlayButtonStories.Disabled} />
+<Canvas of={PlayButtonStories.StopDisabled} />
+<Canvas of={PlayButtonStories.Focused} />
+
+**Not designed in Figma (AI-defined):**
+- Focus — 2px `--color-headlines` outline, 2px offset (same as Button).
+- Pressed — solid accent fill (green / red) with a white glyph.
+
+Loading, error and empty states are not applicable — PlayButton doesn't display data.
+
+## Example: Play / Stop toggle
+
+<Canvas of={PlayButtonStories.ToggleExample} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-green-dark` | Play: triangle; hover stroke; pressed fill | `#00864E` | Figma: Green Dark (changed from Green Light for contrast, 2026-10-02) |
+| `--color-green-light-tint` | Play: background (Static, Disabled) | `rgba(31, 210, 70, 0.22)` | **New.** Figma: raw fill Green Light @ 22% |
+| `--color-danger` | Stop: background; hover stroke & square | `#ED5742` | Figma: Danger |
+| `--color-white` | Stop: square (Static, Disabled); pressed glyph | `#FFFFFF` | Figma: White |
+| `--shadow-stop` | Stop: shadow (all statuses) | `3px 3px 7px 0 rgba(253, 87, 87, 0.3)` | **New.** Figma: raw drop shadow on Type=Stop |
+| `--size-control-play` | width / height | `38px` | **New.** Figma: Button.Play 38×38 |
+| `--radius-round` | border-radius | `50%` | **New.** Figma: radius 19px on 38px |
+| `--border-width-sm` | hover stroke | `1px` | Figma: stroke (Figma shows 1.118px — scaled instance, rounded to 1px) |
+| `--border-width-lg` / `--spacing-2` | focus ring width / offset | `2px` / `2px` | AI-defined, same as Button |
+| `--color-headlines` | focus ring | `#4549A1` | Figma: Headlines (focus AI-defined) |
+| `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=Disabled |
+
+The triangle and square are vectors copied from Figma (not tokens): triangle with a 2.89px rounded stroke,
+square 14×14 with 3px radius, centered in the 38px circle.
+
+## Props
+
+<ArgTypes of={PlayButtonStories} />
+
+## Code example
+
+```tsx
+import { PlayButton } from 'rifbar-ds';
+
+<PlayButton kind={playing ? 'stop' : 'play'} onClick={() => setPlaying(!playing)} />
+<PlayButton kind="play" disabled />
+```
+
+## Accessibility
+
+- Native `<button>` with `type="button"` by default.
+- Default `aria-label`: “Play” / “Stop” — override with your own `aria-label` (e.g. Ukrainian copy, “Прослухати запис”).
+- ⚠️ Touch target: 38×38 px (below 44×44). Kept as designed — desktop ERP.
+- ⚠️ Disabled at 20% opacity is below 3:1 contrast — flag to design (same as Button).
+- Play triangle uses Green Dark `#00864E`: 3.9:1 on the light tint, 4.2:1 on the canvas (≥ 3:1 for UI graphics).
+  Green Light `#1FD246` was only 1.7:1, so it was replaced.
