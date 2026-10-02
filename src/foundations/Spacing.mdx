@@ -1,0 +1,46 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as SpacingStories from './Spacing.stories';
+import { TokenList } from './GridDocs';
+
+<Meta of={SpacingStories} name="Docs" />
+
+# Spacing
+
+System of proportions, modules and spaces, from the Figma board
+[Grid styles and Spaces → Spaces](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=3640-250563).
+
+## Proportions
+
+The basic module of the grid and indentation system is an **8×8px square**.
+
+<Canvas of={SpacingStories.Module} />
+
+## Proportions and spaces
+
+All other indents and element sizes are derived from the base module and grow in steps of 8:
+16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96 and so on.
+
+<Canvas of={SpacingStories.Scale} />
+
+```css
+/* ✅ */
+padding: var(--spacing-16) var(--spacing-24);
+gap: var(--spacing-8);
+
+/* ❌ off-module or hard-coded */
+padding: 15px 20px;
+```
+
+## Semi-module
+
+Exceptions are small components, or places where an 8px step looks too big. For those use
+**4px** and **2px** — for example between the status field and its drop-down list, or between
+the field name and the status field.
+
+<Canvas of={SpacingStories.SemiModuleStory} />
+
+Use the semi-module only inside a component, never between blocks of a page.
+
+## Design tokens used
+
+<TokenList prefix={['--spacing-']} />

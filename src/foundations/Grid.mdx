@@ -1,0 +1,100 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as GridStories from './Grid.stories';
+import { GridSummaryTable, TokenList } from './GridDocs';
+
+<Meta of={GridStories} name="Docs" />
+
+# Grid
+
+Column grids and page layout for the Rifbar ERP, from the Figma board
+[Grid styles and Spaces → Grids](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=3640-250563).
+
+Every screen has the same skeleton: a **navigation menu** (header) on top, a **side menu** on the left
+and a **column grid** for the content. On computers ≥ 1440px the side menu has two states —
+*navbar on* (expanded) and *navbar off* (collapsed to icons).
+
+**Legend:** light blue — columns · darker blue band — navigation menu (header) ·
+turquoise — side menu container · blue — side menu content.
+
+<Canvas of={GridStories.Playground} />
+<Controls of={GridStories.Playground} />
+
+## All breakpoints
+
+<GridSummaryTable />
+
+- **Alignment Right** (≥ 1440px) — columns have a fixed width and are aligned to the right edge
+  with the side margin. The space left of them goes to the side menu.
+- **Alignment Stretched** (< 1440px) — columns share all the available width (`1fr`),
+  the side margins and gutters stay fixed.
+
+> **⚠️ Side menu below 1440px.** On small computers, tablets and mobiles the side menu opens from the
+> **burger** button and lies **on top of** the content. The 12-column grid doesn't change size, and
+> a blackout is applied to the main content.
+
+## Computers
+
+### Large computers — ≥ 1920px
+<Canvas of={GridStories.DesktopLarge} />
+
+### Standard computers — 1440–1920px
+<Canvas of={GridStories.Desktop} />
+
+### Small computers — 1280–1440px
+<Canvas of={GridStories.DesktopSmall} />
+
+## Tablets
+
+### Large tablets — 1024–1280px (vertical and horizontal)
+<Canvas of={GridStories.TabletLarge} />
+
+### Small tablets — 768–1024px (vertical and horizontal)
+<Canvas of={GridStories.Tablet} />
+
+## Mobiles
+
+### Small mobiles — 480–768px
+Vertical — 2 columns, horizontal — 4 columns.
+<Canvas of={GridStories.Mobile} />
+
+### Very small mobiles — 360–480px
+Vertical — 2 columns, horizontal — 4 columns, side margin 10px.
+<Canvas of={GridStories.MobileSmall} />
+
+## Using it in code
+
+CSS variables can't be used inside `@media`, so the breakpoint tokens are for reference and JS;
+in CSS write the number directly next to a comment with the token name.
+
+```css
+.page {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  column-gap: var(--grid-gutter);
+  padding: 0 var(--grid-margin);
+}
+
+/* --breakpoint-desktop-lg */
+@media (min-width: 1920px) {
+  .page { padding: 0 var(--grid-margin-desktop-lg); }
+}
+
+/* below --breakpoint-tablet: vertical mobile */
+@media (max-width: 767px) {
+  .page { grid-template-columns: repeat(var(--grid-columns-mobile), 1fr); }
+}
+```
+
+## Design tokens used
+
+<TokenList prefix={['--breakpoint-', '--grid-', '--layout-']} />
+
+## Notes on the Figma source
+
+- The "Small computers" warning says the burger menu starts at **1280px and smaller**, but the
+  1280–1440px section itself already describes an overlay menu (253px, stretched columns, no
+  navbar-off state). The docs follow the section: overlay menu below **1440px**.
+- "Horizontal very small mobile" lists device sizes 480–768px in Figma; it's listed here as
+  360–480px to match its name and its 10px margin.
+- The blackout colour isn't specified in Figma; `--layout-backdrop` is a placeholder
+  (Primary Blue Dark at 50%).
