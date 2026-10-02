@@ -1,0 +1,150 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as InputFieldStories from './InputField.stories';
+
+<Meta of={InputFieldStories} />
+
+# InputField
+
+Form fields from the Figma component set
+[`InputField`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=17-7380)
+— 4 types × 6 statuses. Each Figma `Type` is its own component, because each one is a different HTML element:
+
+| Figma `Type` | Component | HTML |
+|---|---|---|
+| Inputfield | `InputField` | `<input>` — one line, 32px, full width |
+| Textfield | `TextField` | `<textarea>` — several lines, min 80px, full width |
+| Filter | `FilterField` | `<button>` — trigger of a dropdown filter, hugs the text |
+| Color | `ColorField` | `<input type="color">` — swatch + “Change”, opens the system picker |
+
+<Canvas of={InputFieldStories.Default} />
+<Controls of={InputFieldStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Status` | What it means | In code |
+|---|---|---|
+| Static | Empty: Stroke Input border, placeholder in Grey Dark | default (no value) |
+| Activated | Has a value | `value` / `defaultValue` (detected automatically) |
+| Hover | Mouse over | CSS `:hover` (`forceHover` for preview) |
+| Focus | Typing (Input field border + Focus shadow); for Filter — the list is open | CSS `:focus`; Filter: `open` (`forceFocus` for preview) |
+| Disabled | Not available | `disabled` |
+| Error | Wrong value (Danger border) | `invalid` |
+
+## When to use
+
+- ✅ `InputField` — short text: name, number, email, search.
+- ✅ `TextField` — long text: address, comment, description.
+- ✅ `FilterField` — picking a value for a table / list filter.
+- ✅ `ColorField` — picking a color for a tag, status, category.
+
+## When NOT to use
+
+- ❌ Yes / no choice — use [Checkbox](?path=/docs/atoms-checkbox--docs) or [Toggle](?path=/docs/atoms-toggle--docs).
+- ❌ 2–4 options always visible — use radio buttons.
+- ❌ Search with a button — use the [IconButton](?path=/docs/atoms-iconbutton--docs) `search` next to an `InputField`.
+
+## All types × statuses
+
+<Canvas of={InputFieldStories.AllVariants} />
+
+## Inputfield
+
+<Canvas of={InputFieldStories.Static} />
+<Canvas of={InputFieldStories.Activated} />
+<Canvas of={InputFieldStories.Hover} />
+<Canvas of={InputFieldStories.Focus} />
+<Canvas of={InputFieldStories.Disabled} />
+<Canvas of={InputFieldStories.Invalid} />
+
+## Textfield
+
+<Canvas of={InputFieldStories.Textfield} />
+<Canvas of={InputFieldStories.TextfieldActivated} />
+<Canvas of={InputFieldStories.TextfieldLongText} />
+
+## Filter
+
+<Canvas of={InputFieldStories.Filter} />
+<Canvas of={InputFieldStories.FilterActivated} />
+<Canvas of={InputFieldStories.FilterOpen} />
+<Canvas of={InputFieldStories.FilterLongValue} />
+
+The option list is **not** part of this atom. Open your own list from `onClick` and pass `open`
+(it turns the chevron up and gives the Focus border). The list will become a Dropdown molecule.
+
+## Color
+
+<Canvas of={InputFieldStories.Color} />
+<Canvas of={InputFieldStories.ColorActivated} />
+
+## Example: filters and form
+
+<Canvas of={InputFieldStories.FormExample} />
+
+**Figma notes:**
+- Updated in Figma on 2026-10-02 (contrast and states):
+  - Static border Stroke Light V2 (1.3:1) → new color **Stroke Input** `#8A87A0` (3.5:1).
+  - Placeholder Secondary Grey (2.4:1) → **Grey Dark** `#5D6E82` (5.2:1).
+  - Focus got the **Focus or pressed** shadow (before, only the border changed).
+  - New **Status=Error** for all 4 types (Danger border).
+  - Disabled border follows the value: empty → Stroke Input, filled → Input field (Filter Disabled was Input field).
+- Hover is drawn only for empty fields. In code, hover gives the Headlines border to filled fields too.
+- The error message text is not part of the atom — it belongs to a future form-field molecule.
+- Fields have no fill (transparent), as in Figma.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-stroke-input` | border (Static, empty Disabled) | `#8A87A0` | **New.** Figma: Stroke Input |
+| `--color-input-field` | border (Activated, Focus) | `#65578B` | Figma: Input field |
+| `--color-headlines` | border (Hover); “Change” text | `#4549A1` | Figma: Headlines |
+| `--color-danger` | border (Error) | `#ED5742` | Figma: Danger |
+| `--color-text` | value text | `#292639` | Figma: Color Text |
+| `--color-grey-dark` | placeholder | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--shadow-focus` | Focus shadow | `0 0 4px 0 rgba(98, 104, 223, 0.7)` | Figma: Shadows → Focus or pressed |
+| `--icon-primary` | chevron | `#1D2542` | Figma: Icons 16px Color=Primary |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | text | `14px` / `21px` / `500` | Figma: Body/Small Medium |
+| `--font-size-micro` / `--font-line-height-micro` | “Change” | `10px` / `15px` | Figma: Body/Micro Medium |
+| `--size-control-xs` | height (Inputfield, Filter, Color) | `32px` | Figma: InputField 32px high |
+| `--size-textfield-height` | min height (Textfield) | `80px` | **New.** Figma: Type=Textfield 392×80 |
+| `--size-color-swatch-width` | color swatch width | `44px` | **New.** Figma: Type=Color swatch |
+| `--size-icon` | chevron | `16px` | Figma: Icons 16px |
+| `--spacing-8` | padding | `8px` | Figma: padding 8 |
+| `--spacing-32` | gap text ↔ chevron / swatch ↔ “Change” | `32px` | Figma: gap 32 |
+| `--radius-sm` | field radius | `5px` | Figma: radius 5 |
+| `--radius-xs` | swatch radius | `3px` | **New.** Figma: Type=Color swatch radius 3 |
+| `--border-width-sm` | border | `1px` | Figma: stroke 1 |
+| `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=Disabled |
+
+## Props
+
+<ArgTypes of={InputFieldStories} />
+
+## Code example
+
+```tsx
+import { InputField, TextField, FilterField, ColorField } from 'rifbar-ds';
+
+<InputField placeholder="Enter Text*" value={name} onChange={(e) => setName(e.target.value)} />
+
+<TextField placeholder="Address*" rows={3} />
+
+<FilterField placeholder="Warehouse" value={warehouse} open={open} onClick={() => setOpen(!open)} />
+
+<ColorField value={color} onChange={(e) => setColor(e.target.value)} aria-label="Tag color" />
+```
+
+## Accessibility
+
+- Native elements: keyboard, forms, autofill and screen readers work as usual.
+- There is no visible label in the atom — always pass `aria-label` or link a `<label htmlFor>`.
+  A placeholder is not a label.
+- `FilterField` has `aria-haspopup="listbox"` and `aria-expanded={open}`.
+- Contrast on White / BG Color: value text 14.7:1 / 13.8:1, placeholder 5.2:1 / 4.9:1,
+  Static border 3.5:1 / 3.3:1, Activated / Focus border 6.4:1 / 6.0:1, Error border 3.5:1 / 3.3:1.
+- Focus is shown by the border **and** the Focus shadow, not by color alone.
+- Error is shown by the Danger border and `aria-invalid`; add a text message next to the field
+  so the error is not conveyed by color only.
+- ⚠️ Height 32px is below the 44px touch target — kept as designed (desktop ERP).
+- ⚠️ Disabled at 20% opacity is below 3:1 contrast (same as Button).
