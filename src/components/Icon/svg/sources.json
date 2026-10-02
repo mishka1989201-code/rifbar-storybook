@@ -1,0 +1,828 @@
+{
+  "16": {
+    "order": {
+      "group": "Icons 16px",
+      "figma": "Order Filled",
+      "node": "5:8775",
+      "frame": "5-8779"
+    },
+    "call": {
+      "group": "Icons 16px",
+      "figma": "Call-Filled",
+      "node": "5:8738",
+      "frame": "5-8779"
+    },
+    "user": {
+      "group": "Icons 16px",
+      "figma": "User",
+      "node": "5:8653",
+      "frame": "5-8779"
+    },
+    "cart": {
+      "group": "Icons 16px",
+      "figma": "Cart-Filled",
+      "node": "5:8670",
+      "frame": "5-8779"
+    },
+    "chevron-down": {
+      "group": "Icons 16px",
+      "figma": "chevron-down",
+      "node": "5:8449",
+      "frame": "5-8779"
+    },
+    "chevron-up": {
+      "group": "Icons 16px",
+      "figma": "chevron-up",
+      "node": "5:8459",
+      "frame": "5-8779"
+    },
+    "graph": {
+      "group": "Icons 16px",
+      "figma": "Graph Filled",
+      "node": "5:8963",
+      "frame": "5-8779"
+    },
+    "ticket": {
+      "group": "Icons 16px",
+      "figma": "Ticket",
+      "node": "5:9014",
+      "frame": "5-8779"
+    },
+    "sort": {
+      "group": "Icons 16px",
+      "figma": "Sort",
+      "node": "16:4467",
+      "frame": "5-8779"
+    },
+    "search": {
+      "group": "Icons 16px",
+      "figma": "Search",
+      "node": "16:5136",
+      "frame": "5-8779"
+    },
+    "clear": {
+      "group": "Icons 16px",
+      "figma": "Clear",
+      "node": "17:5613",
+      "frame": "5-8779"
+    },
+    "export": {
+      "group": "Icons 16px",
+      "figma": "Export",
+      "node": "17:5778",
+      "frame": "5-8779"
+    },
+    "info": {
+      "group": "Icons 16px",
+      "figma": "Info",
+      "node": "17:6475",
+      "frame": "5-8779"
+    },
+    "rifbar-big": {
+      "group": "Icons 16px",
+      "figma": "Rifbar Big",
+      "node": "32:9815",
+      "frame": "5-8779"
+    },
+    "rifbar-small": {
+      "group": "Icons 16px",
+      "figma": "Rifbar Small",
+      "node": "32:9833",
+      "frame": "5-8779"
+    },
+    "tick": {
+      "group": "Icons 16px",
+      "figma": "Tick mark",
+      "node": "65:22503",
+      "frame": "5-8779"
+    },
+    "xmark": {
+      "group": "Icons 16px",
+      "figma": "xmark",
+      "node": "65:22537",
+      "frame": "5-8779"
+    },
+    "xmark-small": {
+      "group": "Icons 16px",
+      "figma": "xmark small",
+      "node": "746:387238",
+      "frame": "5-8779"
+    },
+    "trash": {
+      "group": "Icons 16px",
+      "figma": "Trash",
+      "node": "68:53661",
+      "frame": "5-8779"
+    },
+    "csv": {
+      "group": "Icons 16px",
+      "figma": "CSV",
+      "node": "72:28755",
+      "frame": "5-8779"
+    },
+    "plus": {
+      "group": "Icons 16px",
+      "figma": "Plus",
+      "node": "72:33347",
+      "frame": "5-8779"
+    },
+    "edit": {
+      "group": "Icons 16px",
+      "figma": "Edit",
+      "node": "72:35521",
+      "frame": "5-8779"
+    },
+    "edit-v2": {
+      "group": "Icons 16px",
+      "figma": "Edit v2",
+      "node": "72:35585",
+      "frame": "5-8779"
+    },
+    "reboot": {
+      "group": "Icons 16px",
+      "figma": "Reboot",
+      "node": "73:43668",
+      "frame": "5-8779"
+    },
+    "save-fill": {
+      "group": "Icons 16px",
+      "figma": "Save Fill",
+      "node": "73:44049",
+      "frame": "5-8779"
+    },
+    "save-line": {
+      "group": "Icons 16px",
+      "figma": "Save Line",
+      "node": "73:44066",
+      "frame": "5-8779"
+    },
+    "date": {
+      "group": "Icons 16px",
+      "figma": "Date",
+      "node": "73:74136",
+      "frame": "5-8779"
+    },
+    "arrow-drop-down": {
+      "group": "Icons 16px",
+      "figma": "arrow_drop_down",
+      "node": "78:15599",
+      "frame": "5-8779"
+    },
+    "arrow-drop-up": {
+      "group": "Icons 16px",
+      "figma": "arrow_drop_up",
+      "node": "78:15600",
+      "frame": "5-8779"
+    },
+    "product-box": {
+      "group": "Icons 16px",
+      "figma": "Product Box",
+      "node": "78:25201",
+      "frame": "5-8779"
+    },
+    "download-cloud": {
+      "group": "Icons 16px",
+      "figma": "Download Cloud",
+      "node": "78:25243",
+      "frame": "5-8779"
+    },
+    "chart": {
+      "group": "Icons 16px",
+      "figma": "Chart",
+      "node": "88:69460",
+      "frame": "5-8779"
+    },
+    "chart-v2": {
+      "group": "Icons 16px",
+      "figma": "Chart v2",
+      "node": "88:70678",
+      "frame": "5-8779"
+    },
+    "chevron-right": {
+      "group": "Icons 16px",
+      "figma": "chevron-right",
+      "node": "93:53225",
+      "frame": "5-8779"
+    },
+    "shipping-local": {
+      "group": "Icons 16px",
+      "figma": "Shipping Local",
+      "node": "93:55195",
+      "frame": "5-8779"
+    },
+    "eye": {
+      "group": "Icons 16px",
+      "figma": "Eye",
+      "node": "95:59215",
+      "frame": "5-8779"
+    },
+    "download-doc": {
+      "group": "Icons 16px",
+      "figma": "Download Doc",
+      "node": "95:59231",
+      "frame": "5-8779"
+    },
+    "contract": {
+      "group": "Icons 16px",
+      "figma": "Contract",
+      "node": "95:64878",
+      "frame": "5-8779"
+    },
+    "chat": {
+      "group": "Icons 16px",
+      "figma": "Chat",
+      "node": "129:32654",
+      "frame": "5-8779"
+    },
+    "check-double": {
+      "group": "Icons 16px",
+      "figma": "Check Double",
+      "node": "139:41528",
+      "frame": "5-8779"
+    },
+    "warning-v1": {
+      "group": "Icons 16px",
+      "figma": "Warning v1",
+      "node": "144:57694",
+      "frame": "5-8779"
+    },
+    "warning-v2": {
+      "group": "Icons 16px",
+      "figma": "Warning v2",
+      "node": "144:57712",
+      "frame": "5-8779"
+    },
+    "settings": {
+      "group": "Icons 16px",
+      "figma": "Settings",
+      "node": "146:62532",
+      "frame": "5-8779"
+    },
+    "question": {
+      "group": "Icons 16px",
+      "figma": "Question",
+      "node": "146:62784",
+      "frame": "5-8779"
+    },
+    "admin": {
+      "group": "Icons 16px",
+      "figma": "Admin",
+      "node": "146:74871",
+      "frame": "5-8779"
+    },
+    "shield-access": {
+      "group": "Icons 16px",
+      "figma": "Shield Access",
+      "node": "155:38624",
+      "frame": "5-8779"
+    },
+    "bag": {
+      "group": "Icons 16px",
+      "figma": "Bag",
+      "node": "165:73209",
+      "frame": "5-8779"
+    },
+    "filter-dark": {
+      "group": "Icons 16px",
+      "figma": "Filter Dark",
+      "node": "189:64729",
+      "frame": "5-8779"
+    },
+    "filter-light": {
+      "group": "Icons 16px",
+      "figma": "Filter Light",
+      "node": "189:64755",
+      "frame": "5-8779"
+    },
+    "arrow-left": {
+      "group": "Icons 16px",
+      "figma": "Arrow left",
+      "node": "361:168003",
+      "frame": "5-8779"
+    },
+    "chevron-left": {
+      "group": "Icons 16px",
+      "figma": "chevron-left",
+      "node": "400:184348",
+      "frame": "5-8779"
+    },
+    "warehouse": {
+      "group": "Icons 16px",
+      "figma": "Warehouse",
+      "node": "540:291650",
+      "frame": "5-8779"
+    },
+    "barcode": {
+      "group": "Icons 16px",
+      "figma": "Barcode",
+      "node": "600:243276",
+      "frame": "5-8779"
+    },
+    "employees": {
+      "group": "Icons 16px",
+      "figma": "Employees",
+      "node": "600:254258",
+      "frame": "5-8779"
+    },
+    "sell": {
+      "group": "Icons 16px",
+      "figma": "Sell",
+      "node": "600:261886",
+      "frame": "5-8779"
+    },
+    "call-v2": {
+      "group": "Icons 16px",
+      "figma": "Call-Filled v2",
+      "node": "634:243512",
+      "frame": "5-8779"
+    },
+    "file": {
+      "group": "Icons 16px",
+      "figma": "File",
+      "node": "641:217835",
+      "frame": "5-8779"
+    },
+    "clock": {
+      "group": "Icons 16px",
+      "figma": "Clock",
+      "node": "655:260366",
+      "frame": "5-8779"
+    },
+    "number": {
+      "group": "Icons 16px",
+      "figma": "Number",
+      "node": "755:332861",
+      "frame": "5-8779"
+    },
+    "doc": {
+      "group": "Icons 16px",
+      "figma": "Doc",
+      "node": "929:383184",
+      "frame": "5-8779"
+    },
+    "copy": {
+      "group": "Icons 16px",
+      "figma": "Copy",
+      "node": "943:343029",
+      "frame": "5-8779"
+    },
+    "sent": {
+      "group": "Icons 16px",
+      "figma": "Sent",
+      "node": "959:360473",
+      "frame": "5-8779"
+    },
+    "print": {
+      "group": "Icons 16px",
+      "figma": "Print",
+      "node": "982:392517",
+      "frame": "5-8779"
+    },
+    "invoice": {
+      "group": "Icons 16px",
+      "figma": "Invoice",
+      "node": "992:16438",
+      "frame": "5-8779"
+    },
+    "shield": {
+      "group": "Icons 16px",
+      "figma": "Shield",
+      "node": "1125:366480",
+      "frame": "5-8779"
+    },
+    "image": {
+      "group": "Icons 16px",
+      "figma": "Image",
+      "node": "1207:420592",
+      "frame": "5-8779"
+    },
+    "link": {
+      "group": "Icons 16px",
+      "figma": "Link",
+      "node": "1486:70517",
+      "frame": "5-8779"
+    },
+    "picture": {
+      "group": "Icons 16px",
+      "figma": "Picture",
+      "node": "1544:486804",
+      "frame": "5-8779"
+    },
+    "bag-v2": {
+      "group": "Icons 16px",
+      "figma": "Bag v2",
+      "node": "1576:172891",
+      "frame": "5-8779"
+    },
+    "reply": {
+      "group": "Icons 16px",
+      "figma": "Reply",
+      "node": "1613:366274",
+      "frame": "5-8779"
+    },
+    "category": {
+      "group": "Icons 16px",
+      "figma": "Category",
+      "node": "1630:498244",
+      "frame": "5-8779"
+    },
+    "time-new": {
+      "group": "Icons 16px",
+      "figma": "Time New",
+      "node": "2614:232825",
+      "frame": "5-8779"
+    },
+    "dashboard": {
+      "group": "Icons 16px",
+      "figma": "Dashboard",
+      "node": "3694:27104",
+      "frame": "5-8779"
+    },
+    "bullet": {
+      "group": "Icons 16px",
+      "figma": "Bullet",
+      "node": "3712:287736",
+      "frame": "5-8779"
+    },
+    "notes": {
+      "group": "Icons 16px",
+      "figma": "Notes",
+      "node": "3840:251017",
+      "frame": "5-8779"
+    },
+    "email": {
+      "group": "Icons 16px",
+      "figma": "Email",
+      "node": "3903:356002",
+      "frame": "5-8779"
+    },
+    "groups": {
+      "group": "Icons 16px",
+      "figma": "Groups",
+      "node": "4145:236454",
+      "frame": "5-8779"
+    },
+    "accounting": {
+      "group": "Icons 16px",
+      "figma": "Accounting",
+      "node": "4195:270763",
+      "frame": "5-8779"
+    },
+    "back": {
+      "group": "Icons 16px",
+      "figma": "Back arrow from button_action (Style=Gray BG)",
+      "node": "17:5741",
+      "frame": "17-5741"
+    },
+    "mail": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/mail",
+      "node": "4627:277906",
+      "frame": "6989-21787"
+    },
+    "plus-box": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/plus",
+      "node": "4636:587426",
+      "frame": "6989-21787"
+    },
+    "finance": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/finance",
+      "node": "4684:209197",
+      "frame": "6989-21787"
+    },
+    "play": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/play_arrow",
+      "node": "5340:244963",
+      "frame": "6989-21787"
+    },
+    "stop": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/stop",
+      "node": "5340:244964",
+      "frame": "6989-21787"
+    },
+    "volume-up": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/volume_up",
+      "node": "5346:1491664",
+      "frame": "6989-21787"
+    },
+    "pause": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/pause",
+      "node": "5346:1491888",
+      "frame": "6989-21787"
+    },
+    "phone-callback": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/phone_callback",
+      "node": "5353:1492827",
+      "frame": "6989-21787"
+    },
+    "phone-forwarded": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/phone_forwarded",
+      "node": "5353:1492828",
+      "frame": "6989-21787"
+    },
+    "output-circle": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/output_circle",
+      "node": "5522:302784",
+      "frame": "6989-21787"
+    },
+    "delete": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/delete",
+      "node": "5588:36076",
+      "frame": "6989-21787"
+    },
+    "arrow-right": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/arrow_right",
+      "node": "5593:270439",
+      "frame": "6989-21787"
+    },
+    "tune": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/outlined/tune",
+      "node": "5598:620998",
+      "frame": "6989-21787"
+    },
+    "forward": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/Forward",
+      "node": "5647:269637",
+      "frame": "6989-21787"
+    },
+    "badge": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/badge",
+      "node": "6175:563337",
+      "frame": "6989-21787"
+    },
+    "shield-person": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/shield_person",
+      "node": "6180:76577",
+      "frame": "6989-21787"
+    },
+    "dollar": {
+      "group": "Icons 16px · solid",
+      "figma": "icons/16px/solid/shield_person (layer is misnamed in Figma — it is a dollar sign)",
+      "node": "6312:313723",
+      "frame": "6989-21787"
+    }
+  },
+  "24": {
+    "burger": {
+      "group": "Icons 24px",
+      "figma": "Burger",
+      "node": "5:8710",
+      "frame": "6-9039"
+    },
+    "burger-rolled-up": {
+      "group": "Icons 24px",
+      "figma": "Burger Rolled Up",
+      "node": "18:9054",
+      "frame": "6-9039"
+    },
+    "bell": {
+      "group": "Icons 24px",
+      "figma": "Bell",
+      "node": "6:9092",
+      "frame": "6-9039"
+    },
+    "gift-discount": {
+      "group": "Icons 24px",
+      "figma": "Gift Discount",
+      "node": "65:22054",
+      "frame": "6-9039"
+    },
+    "cards-view": {
+      "group": "Icons 24px",
+      "figma": "Cards View",
+      "node": "68:25712",
+      "frame": "6-9039"
+    },
+    "list-view": {
+      "group": "Icons 24px",
+      "figma": "List View",
+      "node": "68:25731",
+      "frame": "6-9039"
+    },
+    "csv": {
+      "group": "Icons 24px",
+      "figma": "CSV",
+      "node": "72:30988",
+      "frame": "6-9039"
+    },
+    "upload": {
+      "group": "Icons 24px",
+      "figma": "Upload",
+      "node": "72:40298",
+      "frame": "6-9039"
+    },
+    "doc": {
+      "group": "Icons 24px",
+      "figma": "Doc",
+      "node": "72:41803",
+      "frame": "6-9039"
+    },
+    "plus-solid": {
+      "group": "Icons 24px",
+      "figma": "Plus Solid",
+      "node": "73:42507",
+      "frame": "6-9039"
+    },
+    "edit": {
+      "group": "Icons 24px",
+      "figma": "Edit",
+      "node": "73:43460",
+      "frame": "6-9039"
+    },
+    "download-doc": {
+      "group": "Icons 24px",
+      "figma": "Download Doc",
+      "node": "73:74044",
+      "frame": "6-9039"
+    },
+    "user": {
+      "group": "Icons 24px",
+      "figma": "User",
+      "node": "86:61947",
+      "frame": "6-9039"
+    },
+    "chart-fill": {
+      "group": "Icons 24px",
+      "figma": "Chart Fill",
+      "node": "88:70702",
+      "frame": "6-9039"
+    },
+    "sale": {
+      "group": "Icons 24px",
+      "figma": "Sale",
+      "node": "88:71494",
+      "frame": "6-9039"
+    },
+    "doc-new": {
+      "group": "Icons 24px",
+      "figma": "Doc New",
+      "node": "96:67311",
+      "frame": "6-9039"
+    },
+    "send": {
+      "group": "Icons 24px",
+      "figma": "Send",
+      "node": "96:79060",
+      "frame": "6-9039"
+    },
+    "signed-doc": {
+      "group": "Icons 24px",
+      "figma": "Signed Doc",
+      "node": "97:84157",
+      "frame": "6-9039"
+    },
+    "chat": {
+      "group": "Icons 24px",
+      "figma": "Chat",
+      "node": "137:31814",
+      "frame": "6-9039"
+    },
+    "send-chat": {
+      "group": "Icons 24px",
+      "figma": "Send Chat",
+      "node": "139:41634",
+      "frame": "6-9039"
+    },
+    "ticket": {
+      "group": "Icons 24px",
+      "figma": "Ticket",
+      "node": "139:43382",
+      "frame": "6-9039"
+    },
+    "bag": {
+      "group": "Icons 24px",
+      "figma": "Bag",
+      "node": "165:73219",
+      "frame": "6-9039"
+    },
+    "support": {
+      "group": "Icons 24px",
+      "figma": "Support",
+      "node": "165:73819",
+      "frame": "6-9039"
+    },
+    "arrow-step": {
+      "group": "Icons 24px",
+      "figma": "Arrow Step",
+      "node": "382:206662",
+      "frame": "6-9039"
+    },
+    "arrow-step-down": {
+      "group": "Icons 24px",
+      "figma": "Arrow Step Down",
+      "node": "382:209721",
+      "frame": "6-9039"
+    },
+    "barcode": {
+      "group": "Icons 24px",
+      "figma": "Barcode",
+      "node": "634:272135",
+      "frame": "6-9039"
+    },
+    "rifbar": {
+      "group": "Icons 24px",
+      "figma": "Rifbar",
+      "node": "634:273894",
+      "frame": "6-9039"
+    },
+    "file": {
+      "group": "Icons 24px",
+      "figma": "File",
+      "node": "641:236667",
+      "frame": "6-9039"
+    },
+    "date": {
+      "group": "Icons 24px",
+      "figma": "Date",
+      "node": "662:271196",
+      "frame": "6-9039"
+    },
+    "number": {
+      "group": "Icons 24px",
+      "figma": "Number",
+      "node": "769:305994",
+      "frame": "6-9039"
+    },
+    "tick": {
+      "group": "Icons 24px",
+      "figma": "Tick mark",
+      "node": "948:28784",
+      "frame": "6-9039"
+    },
+    "check-circle": {
+      "group": "Icons 24px",
+      "figma": "Check circle",
+      "node": "948:129720",
+      "frame": "6-9039"
+    },
+    "xmark": {
+      "group": "Icons 24px",
+      "figma": "xmark",
+      "node": "1012:160640",
+      "frame": "6-9039"
+    },
+    "info": {
+      "group": "Icons 24px",
+      "figma": "Info",
+      "node": "1013:160674",
+      "frame": "6-9039"
+    },
+    "warning-v2": {
+      "group": "Icons 24px",
+      "figma": "Warning v2",
+      "node": "1013:160707",
+      "frame": "6-9039"
+    },
+    "warning-v1": {
+      "group": "Icons 24px",
+      "figma": "Warning v1",
+      "node": "1013:160744",
+      "frame": "6-9039"
+    },
+    "link": {
+      "group": "Icons 24px",
+      "figma": "Link",
+      "node": "1488:283773",
+      "frame": "6-9039"
+    },
+    "finance": {
+      "group": "Icons 24px · solid",
+      "figma": "icons/24px/solid/finance",
+      "node": "4626:246522",
+      "frame": "6989-21788"
+    },
+    "plus-box": {
+      "group": "Icons 24px · solid",
+      "figma": "icons/24px/solid/plus",
+      "node": "4684:236770",
+      "frame": "6989-21788"
+    },
+    "phone": {
+      "group": "Icons 24px · solid",
+      "figma": "icons/24px/solid/phone2",
+      "node": "5318:243492",
+      "frame": "6989-21788"
+    },
+    "arrow-circle-left": {
+      "group": "Icons 24px · solid",
+      "figma": "icons/24px/solid/arrow_circle_left",
+      "node": "6278:253418",
+      "frame": "6989-21788"
+    }
+  }
+}

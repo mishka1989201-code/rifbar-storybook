@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { CSSProperties, ReactNode } from 'react';
 import { Button, type ButtonVariant } from './Button';
-import { iconNames } from './Icon';
+import { iconNames } from '../Icon';
 
 const FIGMA_URL =
   'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=17-5741';
@@ -30,6 +30,7 @@ const meta = {
     iconLeft: { control: 'select', options: [undefined, ...iconNames] },
     iconRight: { control: 'select', options: [undefined, ...iconNames] },
     iconOnly: { control: 'select', options: [undefined, ...iconNames] },
+    iconSize: { control: 'radio', options: [16, 24], description: 'Figma `Icon=Icon 24px` → 24' },
     counter: { control: 'number' },
     disabled: { control: 'boolean', description: 'Figma `Status=Disabled`' },
     forceHover: { control: 'boolean', description: 'Figma `Status=Hover` (preview only)' },
@@ -96,7 +97,7 @@ export const IconOnly: Story = {
 
 export const IconOnly24px: Story = {
   name: 'Icon Only 24px',
-  args: { variant: 'outline', iconOnly: 'csv', 'aria-label': 'Download CSV' },
+  args: { variant: 'outline', iconOnly: 'csv', iconSize: 24, 'aria-label': 'Download CSV' },
 };
 
 export const LeftAndRightIcons: Story = {
@@ -206,7 +207,7 @@ export const AllVariants: Story = {
               )}
             />
           ))}
-          <Row render={(s) => <Button variant="outline" iconOnly="csv" aria-label="Download CSV" {...s} />} />
+          <Row render={(s) => <Button variant="outline" iconOnly="csv" iconSize={24} aria-label="Download CSV" {...s} />} />
         </div>
       </section>
 

@@ -1,0 +1,55 @@
+/* Figma: Icons 16px / Icons 24px */
+.ds-icon {
+  --ds-icon-size: var(--size-icon);
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--ds-icon-size);
+  height: var(--ds-icon-size);
+  vertical-align: middle;
+}
+
+.ds-icon > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ds-icon--24 {
+  --ds-icon-size: var(--size-icon-lg);
+}
+
+/* Figma Color / Status */
+.ds-icon--primary {
+  color: var(--icon-primary);
+}
+.ds-icon--secondary {
+  color: var(--icon-secondary);
+}
+.ds-icon--hover {
+  color: var(--icon-hover);
+}
+.ds-icon--current {
+  color: inherit;
+}
+
+/*
+ * Figma "… New Notif": 14px dot with a 2px ring, centred at (20, 1) of the 24px box.
+ * Expressed in % / size-relative units so it also scales on 16px icons.
+ */
+.ds-icon__dot {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--ds-icon-size) * -7 / 24);
+  box-sizing: border-box;
+  width: calc(var(--ds-icon-size) * 16 / 24);
+  height: calc(var(--ds-icon-size) * 16 / 24);
+  border: calc(var(--ds-icon-size) / 12) solid var(--icon-dot-ring);
+  border-radius: 50%;
+}
+.ds-icon__dot--warning {
+  background: var(--icon-dot-warning);
+}
+.ds-icon__dot--success {
+  background: var(--icon-dot-success);
+}

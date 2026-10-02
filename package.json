@@ -25,7 +25,8 @@
     "typecheck": "tsc --noEmit",
     "build:tokens": "node build-tokens.js",
     "build:lib": "npm run build:tokens && vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json",
-    "prepare": "npm run build:lib"
+    "prepare": "npm run build:lib",
+    "build:icons": "node build-icons.js"
   },
   "peerDependencies": {
     "react": ">=18",

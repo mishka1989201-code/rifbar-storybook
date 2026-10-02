@@ -3,4 +3,5 @@
 import './tokens/build/tokens.css';
 import './tokens/typography.css';
 
+export * from './components/Icon';
 export * from './components/Button';

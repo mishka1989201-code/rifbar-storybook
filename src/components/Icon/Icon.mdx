@@ -1,0 +1,127 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as IconStories from './Icon.stories';
+
+<Meta of={IconStories} />
+
+# Icon
+
+Icons of the Rifbar ERP. Implements four Figma frames:
+
+| Figma frame | Icons | In code |
+|---|---|---|
+| [`Icons 16px`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=5-8779) | 78 (+ `back` from `button_action`) | `size={16}` (default) |
+| [16px solid](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=6989-21787) (`icons/16px/solid/…`) | 17 | `size={16}` |
+| [`Icons 24px`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=6-9039) | 37 | `size={24}` |
+| [24px solid](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=6989-21788) (`icons/24px/solid/…`) | 4 | `size={24}` |
+
+The SVGs are exported 1:1 from the `Color=Primary` variant of each icon. The other
+color variants are not separate files — color comes from tokens, so every icon gets
+every color for free.
+
+<Canvas of={IconStories.Default} />
+<Controls of={IconStories.Default} />
+
+## All icons
+
+Search, switch the color, click an icon to copy its code. Hover a tile to see the Figma layer name.
+
+<Canvas of={IconStories.AllIcons16} />
+<Canvas of={IconStories.AllIcons24} />
+
+## Figma → code mapping
+
+| Figma property | Figma value | Prop |
+|---|---|---|
+| Frame | Icons 16px / Icons 24px | `size={16}` / `size={24}` |
+| Icon / Icon 24px | e.g. `Cart-Filled`, `Tick mark` | `name="cart"`, `name="tick"` (kebab-case, see gallery) |
+| Color | Primary | `color="primary"` (default) |
+| Color / Status | Secondary / Not Active | `color="secondary"` |
+| Status / Color | Hover (24px) | `color="hover"` |
+| Status | Static | default |
+| Icon 24px | Bell New Notif | `name="bell" dot="warning"` |
+| Icon 24px | Bag New Notif / Support New Notif | `name="bag" dot="success"` / `name="support" dot="success"` |
+| — | inside another component | `color="current"` (inherits text color) |
+
+<Canvas of={IconStories.Colors} />
+<Canvas of={IconStories.NewNotification} />
+
+## When to use
+
+- ✅ **16px** — inside buttons, inputs, table cells, filters, inline with Body/Small text.
+- ✅ **24px** — navigation, toolbars (view switchers, CSV, upload), standalone actions.
+- ✅ `color="current"` when the icon sits inside a component that already sets the text color (Button does this).
+- ✅ Pass `label` when the icon carries meaning on its own (status, warning). Leave it out when there is a text label next to it.
+- ❌ Don't scale a 16px icon to 24px when a 24px version exists — the 24px set has its own drawing.
+- ❌ Don't hard-code colors on icons — use `color` or the `--icon-*` tokens.
+
+## States & edge cases
+
+| Case | Behaviour |
+|---|---|
+| Hover (24px) | `color="hover"` — apply it from the parent's `:hover`; the icon itself is not interactive. |
+| Not Active | `color="secondary"`. |
+| Icon only exists in one set | Without `size` it renders from the set that has it (`bell` → 24px). With a `size` it doesn't have, it falls back to the other set, scaled. |
+| Unknown name | Renders nothing; warns in the console in dev. |
+| Dark theme | `--icon-primary` and `--icon-hover` switch to lighter values (see tokens below). |
+
+**Not designed in Figma:** dark-theme icon colors (AI-defined, see below), a Focus state (icons
+are not focusable — focus goes to the parent button/link). Empty state: not applicable.
+
+<Canvas of={IconStories.SizeFallback} />
+
+## Figma inconsistencies to flag to design
+
+- `icons/16px/solid/shield_person` exists twice; the second one (`6312:313723`) is actually a **dollar** sign → named `dollar`.
+- `List View` Status=Not Active uses `Secondary Grey #A7A4B7`, every other Not Active icon uses `Grey Dark #5D6E82`. Code uses `#5D6E82` for all.
+- `chevron-left` Color=Secondary and `Picture` Color=Secondary are filled with Primary in Figma.
+- `Shield` / `Groups` / some solid icons use `#1C1B1F` / `#050411` instead of `Primary Blue Dark` — treated as Primary.
+- `Number` (14×14 and 24px) contains a hard-coded “2” — it's really a counter badge, not an icon. Kept for completeness; use Button's `counter` for real numbers.
+- 24px `Burger` Status=Hover adds a `#D8E2EE` circle behind the icon — that's the parent button's hover background, not part of the icon.
+- `delete` (16px solid) and `Trash` (Icons 16px) look almost the same — consider keeping one.
+
+## Design tokens used
+
+| Token | Property | Value (light / dark) | Source |
+|---|---|---|---|
+| `--icon-primary` | color, `color="primary"` | `#1D2542` (`--color-primary-blue-dark`) / `#BDC5E2` | Figma: Color=Primary, Status=Static. Dark: AI-defined (Primary Blue Dark (Light)) |
+| `--icon-secondary` | color, `color="secondary"` | `#5D6E82` (`--color-grey-dark`) | Figma: Color=Secondary / Status=Not Active |
+| `--icon-hover` | color, `color="hover"` | `#4549A1` (`--color-headlines`) / `#888CF6` | Figma: Status=Hover. Dark: AI-defined (same pair as card hover border) |
+| `--icon-dot-warning` | dot fill, `dot="warning"` | `#F68F57` (`--color-warning`) | Figma: Bell New Notif |
+| `--icon-dot-success` | dot fill, `dot="success"` | `#1FD246` (`--color-green-light`) | Figma: Bag / Support New Notif |
+| `--icon-dot-ring` | dot 2px ring | `#FFFFFF` (`--color-white`) / `#000000` | Figma: dot stroke White. Dark: AI-defined (White (Dark)) |
+| `--size-icon` | width/height, 16px | `16px` | Figma: Icons 16px |
+| `--size-icon-lg` | width/height, 24px | `24px` | Figma: Icons 24px |
+
+Dot geometry (14px circle + 2px ring, centred at x 20 / y 1 of the 24px box) is taken from Figma
+and expressed relative to the icon size, so it scales with it.
+
+## Props
+
+<ArgTypes of={IconStories} />
+
+## Code example
+
+```tsx
+import { Icon } from 'rifbar-ds';
+
+<Icon name="search" />                              // 16px, Primary
+<Icon name="cart" color="secondary" />              // 16px, Secondary
+<Icon name="csv" size={24} color="hover" />         // 24px, Hover
+<Icon name="bell" dot="warning" label="New notifications" />
+<span style={{ color: 'red' }}><Icon name="info" color="current" /></span>
+```
+
+## Adding or updating an icon
+
+1. Export the `Color=Primary` variant from Figma as SVG.
+2. Replace the primary fill (`#1D2542`) with `currentColor`, remove `width`/`height` from `<svg>`.
+3. Save it as `src/components/Icon/svg/16/<name>.svg` (or `24/`) and add its Figma source to `svg/sources.json`.
+4. Run `npm run build:icons` — it regenerates `icons.generated.ts`.
+
+## Accessibility
+
+- Decorative by default: `aria-hidden="true"`.
+- With `label`: `role="img"` + `aria-label`.
+- Inline SVG, `focusable="false"` — never a tab stop on its own.
+- Icon-only buttons must get `aria-label` on the button (see Button).
+- ⚠️ Contrast: Primary `#1D2542` on white 15:1, Secondary `#5D6E82` 5.2:1, Hover `#4549A1` 7.7:1 — all above the 3:1 needed for icons.

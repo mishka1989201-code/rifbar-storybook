@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { Icon, type IconName } from './Icon';
+import { Icon, type IconName, type IconSize } from '../Icon';
 import './Button.css';
 
 /** Maps 1:1 to the Figma `Style` property of `button_action`. */
@@ -26,6 +26,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   counter?: number;
   /** Renders only the icon in a 37×37 square. Requires `aria-label`. */
   iconOnly?: IconName;
+  /** Icon set for all icons of the button. `24` = Figma `Icon=Icon 24px`. */
+  iconSize?: IconSize;
   /**
    * Forces the hover visuals (Figma `Status=Hover`). For documentation only —
    * real hover is handled by CSS `:hover`.
@@ -35,8 +37,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const TEXT_VARIANT_ICON: Partial<Record<ButtonVariant, IconName>> = {
-  'text-arrow': 'arrow-right',
-  'text-checkmarks': 'checkmarks',
+  'text-arrow': 'chevron-right',
+  'text-checkmarks': 'check-double',
 };
 
 export function Button({
@@ -46,6 +48,7 @@ export function Button({
   iconRight,
   counter,
   iconOnly,
+  iconSize,
   forceHover = false,
   className,
   children,
@@ -67,7 +70,7 @@ export function Button({
   if (iconOnly) {
     return (
       <button type={type} className={classes} {...rest}>
-        <Icon name={iconOnly} />
+        <Icon name={iconOnly} size={iconSize} color="current" />
       </button>
     );
   }
@@ -76,9 +79,9 @@ export function Button({
 
   return (
     <button type={type} className={classes} {...rest}>
-      {iconLeft && <Icon name={iconLeft} />}
+      {iconLeft && <Icon name={iconLeft} size={iconSize} color="current" />}
       <span className="ds-button__label">{children}</span>
-      {trailingIcon && <Icon name={trailingIcon} />}
+      {trailingIcon && <Icon name={trailingIcon} size={iconSize} color="current" />}
       {counter !== undefined && <span className="ds-button__counter">{counter}</span>}
     </button>
   );

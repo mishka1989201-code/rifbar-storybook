@@ -26,7 +26,8 @@ Action button for the Rifbar ERP. Implements the Figma component set
 | Size | Small / Medium / Big | `size="small" \| "medium" \| "big"` |
 | Icon | Left | `iconLeft="…"` |
 | Icon | Left & Right | `iconLeft` + `iconRight` or `counter` |
-| Icon | Just Icon / Just Icon v2 / Icon 24px | `iconOnly="…"` + `aria-label` |
+| Icon | Just Icon / Just Icon v2 | `iconOnly="…"` + `aria-label` |
+| Icon | Icon 24px | `iconOnly="…"` + `iconSize={24}` + `aria-label` |
 | Icon | No Icon | no icon props |
 | Status | Static / Hover / Disabled | default / CSS `:hover` (`forceHover` for preview) / `disabled` |
 
@@ -90,8 +91,8 @@ Empty state: not applicable — Button doesn't display data.
 | `--radius-lg` | border-radius, Big | `10px` | Figma: corner radius Size=Big |
 | `--border-width-sm` | stroke, Small & Medium | `1px` | Figma: stroke |
 | `--border-width-lg` | stroke, Big (hover); focus ring | `2px` | Figma: stroke Size=Big |
-| `--size-icon` | icon | `16px` | Figma: Icons 16px |
-| `--size-icon-lg` | CSV icon | `24px` | Figma: Icons 24px |
+| `--size-icon` | icon (via [Icon](?path=/docs/atoms-icon--docs)) | `16px` | Figma: Icons 16px |
+| `--size-icon-lg` | icon with `iconSize={24}` (via Icon) | `24px` | Figma: Icons 24px |
 | `--size-counter` | counter badge | `14px` | Figma: Number badge |
 | `--size-control-sm` | icon-only square | `37px` | Figma: height Size=Small/Medium |
 | `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=Disabled |
