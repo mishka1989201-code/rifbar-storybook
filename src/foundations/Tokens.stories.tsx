@@ -48,22 +48,3 @@ export const Radius: StoryObj = { render: () => <TokenTable group="radius" /> };
 export const Sizes: StoryObj = { render: () => <TokenTable group="size" /> };
 export const Shadows: StoryObj = { render: () => <TokenTable group="shadow" /> };
 export const Theme: StoryObj = { render: () => <ThemeTable /> };
-
-export const Typography: StoryObj = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, color: 'var(--color-primary-blue-dark)', fontFamily: 'var(--font-family-base)', fontWeight: 'var(--font-weight-medium)' as never }}>
-      <div style={{ fontSize: 'var(--font-size-button-big)', lineHeight: 'var(--font-line-height-button-big)' }}>
-        Body/Button Big — Poppins Medium 18/27
-      </div>
-      <div style={{ fontSize: 'var(--font-size-small)', lineHeight: 'var(--font-line-height-small)' }}>
-        Body/Small Medium — Poppins Medium 14/21
-      </div>
-      <div style={{ fontSize: 'var(--font-size-small)', lineHeight: 'var(--font-line-height-small)', fontWeight: 'var(--font-weight-regular)' as never }}>
-        Body/Small Regular — Poppins Regular 14/21
-      </div>
-      <div style={{ fontSize: 'var(--font-size-micro)', lineHeight: 'var(--font-line-height-micro)' }}>
-        Body/Micro Medium — Poppins Medium 10/15
-      </div>
-    </div>
-  ),
-};

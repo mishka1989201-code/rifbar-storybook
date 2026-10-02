@@ -1,0 +1,45 @@
+/* Text styles from the Figma Typography board, built from --font-* tokens.
+   A size class sets family, size, line height and the default weight;
+   add a weight class to change the weight: <h2 class="ds-h2 ds-semibold">.
+   Colour is not set here — use a --color-* / --theme-* token. */
+
+/* Headings — default weight Medium */
+.ds-h1, .ds-h2, .ds-h3, .ds-h4, .ds-h5, .ds-h6, .ds-h7 {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0;
+}
+.ds-h1 { font-size: var(--font-size-h1); line-height: var(--font-line-height-h1); }
+.ds-h2 { font-size: var(--font-size-h2); line-height: var(--font-line-height-h2); }
+.ds-h3 { font-size: var(--font-size-h3); line-height: var(--font-line-height-h3); }
+.ds-h4 { font-size: var(--font-size-h4); line-height: var(--font-line-height-h4); }
+.ds-h5 { font-size: var(--font-size-h5); line-height: var(--font-line-height-h5); }
+.ds-h6 { font-size: var(--font-size-h6); line-height: var(--font-line-height-h6); }
+.ds-h7 { font-size: var(--font-size-h7); line-height: var(--font-line-height-h7); }
+
+/* Body — default weight Regular */
+.ds-body-standard, .ds-body-small, .ds-body-mini {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0;
+}
+.ds-body-standard { font-size: var(--font-size-standard); line-height: var(--font-line-height-standard); }
+.ds-body-small { font-size: var(--font-size-small); line-height: var(--font-line-height-small); }
+.ds-body-mini { font-size: var(--font-size-mini); line-height: var(--font-line-height-mini); }
+
+/* Micro and Button Big — default weight Medium (Micro also comes in Semi-Bold: add .ds-semibold) */
+.ds-body-micro, .ds-button-big {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0;
+}
+.ds-body-micro { font-size: var(--font-size-micro); line-height: var(--font-line-height-micro); }
+.ds-button-big { font-size: var(--font-size-button-big); line-height: var(--font-line-height-button-big); }
+
+/* Weight modifiers — listed last so they win over the defaults above */
+.ds-light { font-weight: var(--font-weight-light); }
+.ds-regular { font-weight: var(--font-weight-regular); }
+.ds-medium { font-weight: var(--font-weight-medium); }
+.ds-semibold { font-weight: var(--font-weight-semibold); }
+.ds-bold { font-weight: var(--font-weight-bold); }
+.ds-extrabold { font-weight: var(--font-weight-extrabold); }

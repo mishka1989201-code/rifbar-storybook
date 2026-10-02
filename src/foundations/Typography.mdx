@@ -1,0 +1,75 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as TypographyStories from './Typography.stories';
+import { TypographyTable } from './TypographyDocs';
+import { TokenList } from './GridDocs';
+
+<Meta of={TypographyStories} name="Docs" />
+
+# Typography
+
+Text styles from the Figma board
+[Typography](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=818-307709).
+One font, **Poppins**. Headings h1–h7 come in five weights; body text has four sizes.
+
+Each Figma text style is built from `--font-*` tokens (size, line height, weight) and has a
+ready-made CSS class in `typography.css`, which comes with the `rifbar-ds` package.
+
+## Headings
+
+<Canvas of={TypographyStories.Headings} />
+
+## Body text
+
+<Canvas of={TypographyStories.Body} />
+
+## Text styles
+
+<TypographyTable />
+
+## How to use
+
+```html
+<!-- ✅ size class + weight class (Medium is the default for headings) -->
+<h1 class="ds-h1">Orders</h1>
+<h2 class="ds-h3 ds-semibold">Today</h2>
+<p class="ds-body-small">Order list for the last 7 days.</p>
+<span class="ds-body-mini ds-medium">Updated 5 min ago</span>
+```
+
+```css
+/* ✅ tokens in your own CSS */
+.card__title {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ❌ hand-written values */
+.card__title { font-size: 20px; font-weight: 600; }
+```
+
+- The class sets only the font. Colour comes from a colour token, for example `color: var(--color-text)`.
+- The `h1`–`h7` level is a size, not an HTML tag: a card title can be `<h3 class="ds-h5">`.
+
+## Design tokens used
+
+<TokenList prefix={['--font-']} />
+
+## Notes on the Figma source
+
+Checked against the Figma text styles panel: Light, Medium and Semi-Bold Headings h1–h7, and
+Body (Standart, Small Regular/Medium, Mini Regular/Meduim/Semi-Bold, Micro Medium/Semi-Bold,
+Button Big). Every one of them has a class here.
+
+- **Bold Headings** and **Extra-Bold Headings** are drawn on the board but are **not** Figma text
+  styles: the text is styled by hand with line height "auto", and Bold has no h7. Here they use the
+  same sizes and line heights as the other headings, with weights 700 and 800.
+- **Semi-Bold Headings/h7** is 14/Auto in Figma (the others are 14/21). For Poppins "Auto" is
+  1.5 × size = 21px, so the result is the same: `--font-line-height-h7` 21px.
+- **Body/Micro Medium** and **Body/Micro Semi-Bold** (10/15) are text styles but are not drawn on the
+  Typography board.
+- Figma names: *Body/Standart* and *Body/Mini Meduim* are spelled this way in Figma. The tokens
+  use `standard` and `medium`.
+- The board text colours (headings #343A40 *Gray/800*, body #68717A *Body Text / Base Color*) are
+  only how the board is drawn. They are not in the Colors palette, so the docs use `--color-text`.
