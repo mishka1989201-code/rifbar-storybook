@@ -1,0 +1,106 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as IconButtonStories from './IconButton.stories';
+
+<Meta of={IconButtonStories} />
+
+# IconButton
+
+Small square button for Search, Pagination and Close. Implements the Figma component set
+[`Icon Button`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=17-7376)
+— 5 kinds × 4 statuses.
+
+<Canvas of={IconButtonStories.Default} />
+<Controls of={IconButtonStories.Default} />
+
+## Figma → code mapping
+
+| Figma property | Figma value | Prop |
+|---|---|---|
+| Icon Button | Search | `kind="search"` (32×32, icon `search` 16px) |
+| Icon Button | Pagination Number | `kind="page"` + number as children (40×40) |
+| Icon Button | Pagination Arrow Left | `kind="prev"` (40×40) |
+| Icon Button | Pagination Arrow Right | `kind="next"` (40×40) |
+| Icon Button | Close | `kind="close"` (40×40, icon `xmark` 24px) |
+| Status | Static | default |
+| Status | Hover | CSS `:hover` (`forceHover` for preview) |
+| Status | Active | `active` — also shown while the button is pressed |
+| Status | Disabled | `disabled` |
+
+## When to use
+
+- ✅ **search** — opens / toggles a search field in a toolbar or table header.
+- ✅ **page / prev / next** — pagination under tables and lists. Mark the current page with `active`.
+- ✅ **close** — closes modals, drawers, side panels.
+
+## When NOT to use
+
+- ❌ Any other icon action (export, delete…) — use [Button](?path=/docs/atoms-button--docs) with `iconOnly`.
+- ❌ Text labels other than a page number in `kind="page"`.
+- ❌ Disabled Close — a dialog should always be closable.
+
+## All kinds × states
+
+<Canvas of={IconButtonStories.AllVariants} />
+
+## States
+
+<Canvas of={IconButtonStories.Hover} />
+<Canvas of={IconButtonStories.Active} />
+<Canvas of={IconButtonStories.Disabled} />
+<Canvas of={IconButtonStories.Focused} />
+
+**Not designed in Figma:** Focus (AI-defined: 2px `--color-headlines` outline, 2px offset — same as Button).
+Pressed reuses Active. Loading is not applicable.
+
+Empty state: not applicable — IconButton doesn't display data.
+
+## Example: pagination
+
+<Canvas of={IconButtonStories.PaginationExample} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-secondary-light` | bg (Search, Pagination — Static / Hover / Disabled) | `#ECEEFB` | Figma: Secondary Light |
+| `--color-primary-blue-dark` | text & icon (Static, Hover); hover stroke (all); bg (Active) | `#1D2542` | Figma: Primary Blue Dark |
+| `--color-white` | text & icon (Active) | `#FFFFFF` | Figma: White |
+| `--color-stroke-light-v2` | stroke (Search — Static / Disabled) | `#D8E2EE` | Figma: Stroke Light V2 |
+| `--color-input-field` | stroke (Search — Active) | `#65578B` | Figma: Input field |
+| `--color-secondary-grey` | stroke (Close — Static / Disabled) | `#A7A4B7` | Figma: Secondary Grey |
+| `--color-headlines` | focus ring | `#4549A1` | Figma: Headlines (focus AI-defined) |
+| `--font-family-base` | font-family | `'Poppins', system-ui, sans-serif` | Figma: Poppins |
+| `--font-weight-medium` | font-weight | `500` | Figma: Body/Small Medium |
+| `--font-size-small` / `--font-line-height-small` | page number, arrows | `14px` / `21px` | Figma: Body/Small Medium |
+| `--size-control-xs` | Search square | `32px` | **New.** Figma: Icon Button=Search |
+| `--size-control-md` | Pagination / Close square | `40px` | **New.** Figma: Icon Button=Pagination / Close |
+| `--size-icon` / `--size-icon-lg` | search icon / xmark (via [Icon](?path=/docs/atoms-icon--docs)) | `16px` / `24px` | Figma: Icons 16px / 24px |
+| `--radius-sm` | border-radius | `5px` | Figma: corner radius |
+| `--border-width-sm` | stroke | `1px` | Figma: stroke |
+| `--border-width-lg` / `--spacing-2` | focus ring width / offset | `2px` / `2px` | AI-defined, same as Button |
+| `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=Disabled |
+
+## Props
+
+<ArgTypes of={IconButtonStories} />
+
+## Code example
+
+```tsx
+import { IconButton } from 'rifbar-ds';
+
+<IconButton kind="search" active={searchOpen} onClick={toggleSearch} />
+<IconButton kind="prev" disabled={page === 1} onClick={prevPage} />
+<IconButton kind="page" active={page === 3} onClick={() => setPage(3)}>3</IconButton>
+<IconButton kind="next" onClick={nextPage} />
+<IconButton kind="close" onClick={onClose} />
+```
+
+## Accessibility
+
+- Native `<button>` with `type="button"` by default.
+- Default `aria-label`s: “Search”, “Previous page”, “Next page”, “Close”, “Page N” — override with your own `aria-label` (e.g. Ukrainian copy).
+- `kind="page"` + `active` → `aria-current="page"`; `kind="search"` → `aria-pressed`.
+- Wrap pagination in `<nav aria-label="…">`.
+- ⚠️ Touch target: 32×32 / 40×40 px (below 44×44). Kept as designed — desktop ERP.
+- ⚠️ Disabled at 20% opacity is below 3:1 contrast — flag to design (same as Button).
