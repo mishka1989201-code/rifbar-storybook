@@ -1,0 +1,71 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as ColorsStories from './Colors.stories';
+import { ColorTable } from './ColorsDocs';
+import { TokenList } from './GridDocs';
+
+<Meta of={ColorsStories} name="Docs" />
+
+# Colors
+
+Colour variables from the Figma board
+[Colors](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=818-307707).
+Every hex value on the board is one `--color-*` token. `--color-*` tokens are a fixed palette:
+they do **not** switch with the theme.
+
+## Light theme
+
+<Canvas of={ColorsStories.Light} />
+
+## Dark theme
+
+In Figma the dark board uses the same variable names with other values. A dark value that is
+already in the palette (for example Headlines → #888CF6 = Hover Blue Light) reuses that token;
+a new value gets a token with the `-dark` suffix.
+
+<Canvas of={ColorsStories.Dark} />
+
+## Light → dark
+
+<ColorTable />
+
+## How to use
+
+```css
+/* ✅ colour from the palette */
+.card { background: var(--color-white); color: var(--color-text); }
+.alert--error { background: var(--color-error-bg); color: var(--color-danger); }
+
+/* ✅ a colour that must follow the theme goes through a --theme-* token */
+.navbar { background: var(--theme-app-bg); }
+
+/* ❌ hand-written hex */
+.card { color: #292639; }
+```
+
+- If a component should change colour in the dark theme, add a `--theme-*` token in
+  `tokens.json` with `value` (light) and `dark`, taking both from the table above.
+  The theme switch then works by itself (`data-theme="dark"`).
+- The "When to use" column is inferred from the variable names; Figma has no usage notes.
+
+## Design tokens used
+
+<TokenList prefix={['--color-']} />
+
+## Notes on the Figma source
+
+- On the board the swatch is called **Primary Dark**; the Figma variable is **Primary Blue Dark**.
+  The token keeps the variable name: `--color-primary-blue-dark`.
+- `--color-secondary-grey` used to hold #646464, which is its **dark** value. Fixed: light is now
+  #A7A4B7 (as on the light board), dark is `--color-secondary-grey-dark`.
+- In the dark theme **Stroke Light V1**, **Stroke Light V2** and **Stroke Button** are all #242424,
+  so they share `--color-stroke-button-dark`.
+- The dark board splits **White** into *White (Dark)* #000000 and *White (Light)* #BBC7D6,
+  **Primary Blue Dark** into *(Light)* #BDC5E2 and *(Dark)* #050411, and **Warning** into
+  *(Light)* #F68F57 and *(Dark)* #A7572C. Figma does not say which one is for what; most likely
+  "Dark" is for fills and "Light" for text and icons.
+- **Table Lines BG** stays #F1FFF4 in the dark theme — a very light fill on a dark background.
+  Worth checking with the designer.
+- **White Gradient BG Card**, **Caribbean Green**, **Dark Orchid** and **Arylide Yellow** are on the
+  light board only.
+- The gradient angle in Figma is 120.88°; the token rounds it to 121°.
+- The board uses Inter for labels; the docs use Poppins like the rest of the system.
