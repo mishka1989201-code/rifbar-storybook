@@ -6,3 +6,4 @@ import './tokens/typography.css';
 export * from './components/Icon';
 export * from './components/Button';
 export * from './components/IconButton';
+export * from './components/Checkbox';

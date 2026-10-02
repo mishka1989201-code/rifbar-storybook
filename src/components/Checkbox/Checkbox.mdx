@@ -1,0 +1,108 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+Checkbox and radio button. Implements the Figma component set
+[`Checkbox`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=32-45267)
+— 2 types × 6 statuses × 2 sizes. Built on a native `<input>`, so it works in forms, with the keyboard and with screen readers.
+
+<Canvas of={CheckboxStories.Default} />
+<Controls of={CheckboxStories.Default} />
+
+## Figma → code mapping
+
+| Figma property | Figma value | Prop |
+|---|---|---|
+| Type | Checkbox / Radiobutton | `type="checkbox" \| "radio"` |
+| Size | 24px / 16px | `size={24} \| {16}` |
+| Status | Chosen / Unchosen | `checked` (or `defaultChecked`) |
+| Status | … Hover | CSS `:hover` (`forceHover` for preview) |
+| Status | … Disabled | `disabled` |
+
+## When to use
+
+- ✅ **Checkbox** — independent on/off choices, multi-select in tables and filters.
+- ✅ **Radiobutton** — one choice out of 2–5 visible options. Give all radios of a group the same `name`.
+- ✅ **24px** — forms and settings; **16px** — dense tables and filter lists.
+
+## When NOT to use
+
+- ❌ A single radio button on its own — use a checkbox.
+- ❌ More than ~5 radio options — use a dropdown.
+- ❌ Actions that apply immediately (e.g. turning a feature on) — a toggle/switch fits better (not in the DS yet).
+
+## All types × sizes × states
+
+<Canvas of={CheckboxStories.AllVariants} />
+
+## States
+
+<Canvas of={CheckboxStories.ChosenHover} />
+<Canvas of={CheckboxStories.UnchosenHover} />
+<Canvas of={CheckboxStories.ChosenDisabled} />
+<Canvas of={CheckboxStories.UnchosenDisabled} />
+<Canvas of={CheckboxStories.Focused} />
+
+**Not designed in Figma:** Focus (AI-defined: 2px `--color-headlines` outline, 2px offset — same as Button),
+Indeterminate (“some rows selected”) and Error. Ask design before adding them.
+
+Empty state: not applicable — Checkbox doesn't display data.
+
+## With label
+
+The Figma atom is the control only. `children` adds a text label next to it — clicking the label toggles the control.
+
+<Canvas of={CheckboxStories.WithLabel} />
+<Canvas of={CheckboxStories.LongLabel} />
+<Canvas of={CheckboxStories.GroupExample} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines` | fill (Chosen); focus ring | `#4549A1` | Figma: Headlines (focus AI-defined) |
+| `--color-hover-blue` | fill (Chosen Hover); stroke (Unchosen Hover) | `#6368DF` | Figma: Hover Blue |
+| `--color-grey-dark` | stroke (Unchosen) | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--color-white` | box fill (Unchosen); check mark; radio dot | `#FFFFFF` | Figma: White |
+| `--size-icon-lg` / `--size-icon` | control size 24 / 16 | `24px` / `16px` | Figma: Size=24px / 16px |
+| `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=… Disabled |
+| `--color-primary-blue-dark` | label text | `#1D2542` | AI-defined (label not in Figma), Figma: Primary Blue Dark |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-regular` | label | `14px` / `21px` / `400` | AI-defined (label not in Figma), Figma: Body/Small Regular |
+| `--spacing-8` | control–label gap | `8px` | AI-defined (label not in Figma), Figma: base module |
+| `--border-width-lg` / `--spacing-2` / `--radius-sm` | focus ring | `2px` / `2px` / `5px` | AI-defined, same as Button |
+
+**Geometry from Figma** (drawn in the SVG, like the Icon atom):
+
+| Shape | 24px | 16px |
+|---|---|---|
+| Checkbox Unchosen | 20×20 box, radius 5, stroke 1.5 | 14.8×14.8 box, radius 4.1, stroke 1.5 |
+| Checkbox Chosen | 21.5×21.5, radius 5.75, white tick 1.5 | 14.3×14.3, radius 3.8, white tick 1 |
+| Radio Unchosen | Ø20, stroke 1 | Ø13.7, stroke 1 |
+| Radio Chosen | Ø20 fill + Ø10 white dot | Ø13.3 fill + Ø6.7 white dot |
+
+## Props
+
+<ArgTypes of={CheckboxStories} />
+
+## Code example
+
+```tsx
+import { Checkbox } from 'rifbar-ds';
+
+<Checkbox checked={selected} onChange={(e) => setSelected(e.target.checked)} aria-label="Select row" />
+<Checkbox size={16} defaultChecked>Show archived orders</Checkbox>
+<Checkbox type="radio" name="delivery" value="courier" checked={d === 'courier'} onChange={() => setD('courier')}>
+  Courier
+</Checkbox>
+```
+
+## Accessibility
+
+- Native `<input type="checkbox|radio">` inside a `<label>` — Space toggles, arrow keys move between radios with the same `name`.
+- Without `children`, pass `aria-label` (e.g. table row selection).
+- Group related options in `<fieldset>` with a `<legend>`.
+- ⚠️ Touch target: 24×24 / 16×16 px (below 44×44). With a label the whole label is clickable. Kept as designed — desktop ERP.
+- ⚠️ Disabled at 20% opacity is below 3:1 contrast — flag to design (same as Button).

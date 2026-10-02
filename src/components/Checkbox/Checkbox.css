@@ -1,0 +1,100 @@
+/* Checkbox / Radiobutton — every color references a token from src/tokens/tokens.json.
+   Geometry (sizes, radii, stroke widths) lives in the SVG shapes traced from Figma,
+   the same way the Icon atom does it. */
+
+.ds-checkbox {
+  --ds-checkbox-color: var(--color-headlines);
+  --ds-checkbox-stroke: var(--color-grey-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-checkbox__control {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
+}
+
+.ds-checkbox--16 .ds-checkbox__control {
+  width: var(--size-icon);
+  height: var(--size-icon);
+}
+
+.ds-checkbox__control > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* The native input covers the control: keeps keyboard, form and screen-reader behavior. */
+.ds-checkbox__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+/* ─── Shapes ────────────────────────────────────────────────────────── */
+.ds-checkbox__off {
+  fill: var(--color-white);
+  stroke: var(--ds-checkbox-stroke);
+}
+
+.ds-checkbox__on {
+  fill: var(--ds-checkbox-color);
+}
+
+.ds-checkbox__mark {
+  stroke: var(--color-white);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-checkbox__dot {
+  fill: var(--color-white);
+}
+
+/* Unchosen → only the outline; Chosen → only the filled shape. */
+.ds-checkbox__input:not(:checked) + svg :is(.ds-checkbox__on, .ds-checkbox__mark, .ds-checkbox__dot),
+.ds-checkbox__input:checked + svg .ds-checkbox__off {
+  display: none;
+}
+
+/* ─── Hover (Figma Status=Chosen Hover / Unchosen Hover → Hover Blue) ── */
+.ds-checkbox:is(:hover, .is-hover):not(.is-disabled) {
+  --ds-checkbox-color: var(--color-hover-blue);
+  --ds-checkbox-stroke: var(--color-hover-blue);
+}
+
+/* ─── Focus (not designed in Figma — same ring as Button) ───────────── */
+.ds-checkbox__input:focus-visible + svg {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: var(--spacing-2);
+  border-radius: var(--radius-sm);
+}
+
+.ds-checkbox--radio .ds-checkbox__input:focus-visible + svg {
+  border-radius: 50%;
+}
+
+/* ─── Disabled (Figma Status=… Disabled → 20% layer opacity) ─────────── */
+.ds-checkbox.is-disabled {
+  cursor: not-allowed;
+}
+
+.ds-checkbox.is-disabled .ds-checkbox__control,
+.ds-checkbox.is-disabled .ds-checkbox__label {
+  opacity: var(--opacity-disabled);
+}
