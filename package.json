@@ -1,17 +1,35 @@
 {
-  "name": "rifbar-erp-design-system",
+  "name": "rifbar-ds",
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "storybook": "npm run build:tokens && storybook dev -p 6006",
     "build-storybook": "npm run build:tokens && storybook build",
     "typecheck": "tsc --noEmit",
-    "build:tokens": "node build-tokens.js"
+    "build:tokens": "node build-tokens.js",
+    "build:lib": "npm run build:tokens && vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json",
+    "prepare": "npm run build:lib"
   },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1",
@@ -26,6 +44,8 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "remark-gfm": "^4.0.1",
     "storybook": "^8.6.14",
     "typescript": "^5.6.3",
