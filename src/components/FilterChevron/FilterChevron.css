@@ -1,0 +1,94 @@
+/* Filter Chevron — every value references a token from src/tokens/tokens.json.
+   Figma strokes are "inside", so the 1px border is an inset box-shadow:
+   height stays 22px = 18px line height + 2 × 2px padding in every style. */
+
+.ds-filter-chevron {
+  --ds-filter-chevron-bg: var(--color-stroke-light-v1);
+  --ds-filter-chevron-stroke: var(--color-secondary-grey);
+  --ds-filter-chevron-label: var(--color-grey-dark);
+  --ds-filter-chevron-value: var(--color-headlines);
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: var(--spacing-2) var(--spacing-2) var(--spacing-2) var(--spacing-8);
+  border-radius: var(--radius-pill);
+  background-color: var(--ds-filter-chevron-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--ds-filter-chevron-stroke);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+}
+
+.ds-filter-chevron__title {
+  display: inline-flex;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+.ds-filter-chevron__label {
+  flex-shrink: 0;
+  font-weight: var(--font-weight-medium);
+  color: var(--ds-filter-chevron-label);
+}
+
+.ds-filter-chevron__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: var(--font-weight-semibold);
+  color: var(--ds-filter-chevron-value);
+}
+
+/* ─── Remove (×): 12px icon; the hit area is enlarged with ::before ─── */
+.ds-filter-chevron__remove {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-round);
+  background: none;
+  color: var(--ds-filter-chevron-value);
+  cursor: pointer;
+}
+
+.ds-filter-chevron__remove::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--spacing-4));
+}
+
+.ds-filter-chevron__remove:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: var(--spacing-2);
+}
+
+.ds-filter-chevron__icon {
+  --ds-icon-size: var(--size-icon-sm);
+}
+
+/* ─── Style=Outline V2 ─────────────────────────────────────────────── */
+.ds-filter-chevron--outline-v2 {
+  --ds-filter-chevron-stroke: var(--color-headlines);
+}
+
+/* ─── Style=Filled ─────────────────────────────────────────────────── */
+.ds-filter-chevron--filled {
+  --ds-filter-chevron-bg: var(--color-headlines);
+  --ds-filter-chevron-stroke: transparent;
+  --ds-filter-chevron-label: var(--color-not-active);
+  --ds-filter-chevron-value: var(--color-white);
+}
+
+.ds-filter-chevron--filled .ds-filter-chevron__remove:focus-visible {
+  outline-color: var(--color-white);
+}
+
+/* ─── Style=Outline Hover (designed for Outline only) ─────────────── */
+.ds-filter-chevron--outline:is(:hover, .is-hover) {
+  --ds-filter-chevron-bg: var(--color-secondary-light);
+  --ds-filter-chevron-stroke: var(--color-grey-dark);
+}

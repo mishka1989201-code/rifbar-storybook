@@ -1,0 +1,124 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as FilterChevronStories from './FilterChevron.stories';
+
+<Meta of={FilterChevronStories} />
+
+# FilterChevron
+
+An applied filter shown above a list or a table: **“Status: Primary ×”**. The × removes the filter.
+Implements the Figma component set
+[`Filter Chevron`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=746-387100)
+— 3 styles + hover.
+
+<Canvas of={FilterChevronStories.Default} />
+<Controls of={FilterChevronStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Style` | Prop | Fill | Stroke | Label / Value |
+|---|---|---|---|---|
+| Outline | `variant="outline"` | Stroke Light V1 | Secondary Grey | Grey Dark / Headlines |
+| Outline Hover | `outline` on mouse hover | Secondary Light | Grey Dark | Grey Dark / Headlines |
+| Outline V2 | `variant="outline-v2"` | Stroke Light V1 | Headlines | Grey Dark / Headlines |
+| Filled | `variant="filled"` | Headlines | — | Not Active / White |
+| “Status” text | `label` | | | Body/Mini Medium |
+| “Primary” text | `children` | | | Body/Mini Semi-Bold |
+| × icon | `onRemove` | | | `xmark` at 12px, same color as the value |
+
+## When to use
+
+- ✅ Showing which filters are applied to a table or list, so they can be removed one by one.
+- ✅ One chip per filter: `label` = filter name, `children` = chosen value.
+
+## When NOT to use
+
+- ❌ The status of a row or an item — use [ChevronStatus](?path=/docs/atoms-chevronstatus--docs).
+- ❌ Choosing a filter value — use a filter field ([InputField](?path=/docs/atoms-inputfield--docs)) or a dropdown.
+- ❌ Switching between views — use [SwitchButton](?path=/docs/atoms-switchbutton--docs) or [Tabs](?path=/docs/atoms-tabs--docs).
+
+## All styles
+
+<Canvas of={FilterChevronStories.AllVariants} />
+
+<Canvas of={FilterChevronStories.Outline} />
+<Canvas of={FilterChevronStories.Hover} />
+<Canvas of={FilterChevronStories.OutlineV2} />
+<Canvas of={FilterChevronStories.Filled} />
+
+## States
+
+<Canvas of={FilterChevronStories.Decorative} />
+
+- **Focus** (not designed in Figma): the × button gets the same 2px Headlines ring as Button (white on Filled).
+- **Disabled, loading, error** — not applicable: a chip is shown only for a filter that is already applied.
+
+## Edge cases
+
+<Canvas of={FilterChevronStories.LongValue} />
+
+## Example: applied filters (with empty state)
+
+<Canvas of={FilterChevronStories.FilterBarExample} />
+
+**Figma notes:**
+- Only `Outline` has a hover in Figma. `Outline V2` and `Filled` keep their look on hover — ask design if they need one.
+- Figma does not say when to use Outline vs Outline V2 vs Filled. Suggestion: Outline by default, Filled for the
+  filter that was just changed. To confirm with design.
+- The × icon is `Icons 16px / xmark` scaled down to 12px. Its click area in code is 20×20 (4px larger on each side,
+  invisible), so it is easier to hit.
+- The colon after the label is added by the component: pass `label="Status"`, not `"Status:"`.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-stroke-light-v1` | fill (Outline, Outline V2) | `#F1F2F9` | Figma: Stroke Light V1 |
+| `--color-secondary-light` | fill (Outline Hover) | `#ECEEFB` | Figma: Secondary Light |
+| `--color-headlines` | fill (Filled); stroke (Outline V2); value + × (Outline); focus ring | `#4549A1` | Figma: Headlines |
+| `--color-secondary-grey` | stroke (Outline) | `#A7A4B7` | Figma: Secondary Grey |
+| `--color-grey-dark` | stroke (Outline Hover); label text (Outline) | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--color-not-active` | label text (Filled) | `#D2D3D9` | Figma: Not Active |
+| `--color-white` | value + × (Filled); focus ring on Filled | `#FFFFFF` | Figma: White |
+| `--font-size-mini` / `--font-line-height-mini` | text | `12px` / `18px` | Figma: Body/Mini |
+| `--font-weight-medium` | label | `500` | Figma: Body/Mini Meduim |
+| `--font-weight-semibold` | value | `600` | Figma: Body/Mini Semi-Bold |
+| `--spacing-8` / `--spacing-2` | padding left / top, right, bottom | `8px` / `2px` | Figma: padding 2 / 2 / 2 / 8 |
+| `--spacing-4` | gap label ↔ value; extra click area of × | `4px` | Figma: gap 4 |
+| `--size-icon-sm` | × icon | `12px` | **New.** Figma: Filter Chevron → xmark 12×12 |
+| `--border-width-sm` | stroke | `1px` | Figma: stroke 1px inside |
+| `--border-width-lg` | focus ring | `2px` | Existing (same ring as Button) |
+| `--radius-pill` | corner radius | `9999px` | Figma: radius 30px on 22px height |
+| `--radius-round` | × focus ring shape | `50%` | Existing |
+
+## Props
+
+<ArgTypes of={FilterChevronStories} />
+
+## Code example
+
+```tsx
+import { FilterChevron } from 'rifbar-ds';
+
+<FilterChevron label="Status" onRemove={() => removeFilter('status')} removeLabel="Remove filter Status: Paid">
+  Paid
+</FilterChevron>
+
+<FilterChevron variant="filled" label="Client" onRemove={…}>Lviv Coffee</FilterChevron>
+```
+
+## Accessibility
+
+- × is a real `<button>`: reachable with Tab, works with Enter / Space.
+- Pass a full `removeLabel` (“Remove filter Status: Paid”) — with several chips, “Remove filter” alone is ambiguous.
+- After a chip is removed, move focus to the next chip or to the filter field so keyboard users don't lose their place
+  (the app decides where).
+- Contrast of the text (12px needs 4.5:1):
+
+| Style | Label | Value | |
+|---|---|---|---|
+| Outline | 4.7:1 | 6.9:1 | ✅ |
+| Outline Hover | 4.5:1 | 6.7:1 | ✅ |
+| Outline V2 | 4.7:1 | 6.9:1 | ✅ |
+| Filled | 5.2:1 | 7.7:1 | ✅ |
+
+- The Secondary Grey stroke of Outline is 2.2:1 — fine, because the text, not the border, identifies the chip.
