@@ -1,0 +1,123 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as AvatarStories from './Avatar.stories';
+
+<Meta of={AvatarStories} />
+
+# Avatar
+
+A person's or a department's photo, or their initials when there is no photo. One code component for three Figma
+components:
+[`ava`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=48-10482),
+[`Chat Avatar`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=137-33886),
+[`Department Avatar`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=139-48421).
+Not interactive: if it should open a profile, wrap it in a link or a button.
+
+<Canvas of={AvatarStories.Default} />
+<Controls of={AvatarStories.Default} />
+
+## Figma → code mapping
+
+| Figma component | Prop | Size | Shape | Fill | Initials text |
+|---|---|---|---|---|---|
+| `ava` | `variant="user"` | 32px | circle + White 22% ring + shadow | `#141D3F` | Body/Small Regular 14/21 |
+| `Chat Avatar` | `variant="chat"` | 28px | circle | Hover Blue | Body/Mini Regular 12/18 |
+| `Department Avatar` | `variant="department"` | 28px | square, 4px corners | Hover Blue | Body/Mini Regular 12/18 |
+| Avatar inside `Email - Chevron` | `size="xs"` | 20px | circle | Hover Blue | Body/Micro Medium 10/15 |
+| “DS” text layer | `name` → initials | | | | |
+| `Mask group` (photo) | `src` | | | | |
+
+## When to use
+
+- ✅ `user` — the signed-in user in the Navbar.
+- ✅ `chat` — a person: chat, comments, assignee, email recipient.
+- ✅ `department` — a team or department (Delivery, Warehouse…). The square shape tells it apart from a person.
+
+## When NOT to use
+
+- ❌ The company logo — use [Logo](?path=/docs/atoms-logo--docs).
+- ❌ An icon of an action — use [Icon](?path=/docs/atoms-icon--docs).
+
+## Variants
+
+<Canvas of={AvatarStories.AllVariants} />
+
+<Canvas of={AvatarStories.User} />
+<Canvas of={AvatarStories.Chat} />
+<Canvas of={AvatarStories.Department} />
+<Canvas of={AvatarStories.ExtraSmall} />
+
+## States
+
+<Canvas of={AvatarStories.WithPhoto} />
+<Canvas of={AvatarStories.UserWithPhoto} />
+<Canvas of={AvatarStories.BrokenPhoto} />
+
+- **Loading:** while the photo loads, the fill color is shown. If the photo fails, the initials appear.
+- **Empty name:** not supported, `name` is required. Every avatar must belong to someone.
+- **Hover, focus, disabled** — not applicable (static picture).
+
+## Edge cases
+
+<Canvas of={AvatarStories.SingleName} />
+<Canvas of={AvatarStories.LongName} />
+
+## Example: chat list
+
+<Canvas of={AvatarStories.ChatListExample} />
+
+**Figma notes:**
+- The `ava` fill `#141D3F` has no color style in Figma (raw value). It is the same raw color as the Switcher pill, so the
+  token `--color-avatar-bg` points to `--color-switcher-bg-light`. Worth making it a real color style.
+- The `ava` drop shadow (`1px 2px 2px` Hover Blue 15%) is not on the Shadows board — added as `--shadow-avatar`.
+- `Department Avatar` has a hidden `Icons 16px` layer (a ✓ tick, Primary Blue Dark). It is not in code yet — ask design
+  where it is used (selected state?). Primary Blue Dark on Hover Blue would be only 2.9:1.
+- Inside `Email - Chevron` the instance is called “Department Avatar” but it is round, 20px, with Medium 10px text.
+  In code this is `variant="chat" size="xs"` (a recipient is a person).
+- Initials text is Regular in `ava` / Chat / Department but Medium at 20px. Kept as in Figma.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-avatar-bg` → `--color-switcher-bg-light` | fill (`user`) | `#141D3F` | **New.** Figma: ava raw fill |
+| `--color-white-alpha-22` | ring (`user`) | `rgba(255,255,255,.22)` | Figma: ava stroke White 22% |
+| `--shadow-avatar` | shadow (`user`) | `1px 2px 2px 0 rgba(98,104,223,.15)` | **New.** Figma: ava drop shadow |
+| `--color-hover-blue` | fill (`chat`, `department`) | `#6368DF` | Figma: Hover Blue |
+| `--color-white` | initials | `#FFFFFF` | Figma: White |
+| `--size-avatar` | size (`user`) | `32px` | Figma: ava 32×32 |
+| `--size-avatar-md` | size (`chat`, `department`) | `28px` | **New.** Figma: 28×28 |
+| `--size-avatar-xs` | size `xs` | `20px` | **New.** Figma: Email - Chevron avatar 20×20 |
+| `--radius-round` | shape (`user`, `chat`) | `50%` | Figma: radius 100px |
+| `--radius-avatar-square` | shape (`department`) | `4px` | **New.** Figma: Department Avatar radius 4px |
+| `--border-width-sm` | ring width | `1px` | Figma: stroke 1px inside |
+| `--font-size-small` / `--font-line-height-small` | initials (`user`) | `14px` / `21px` | Figma: Body/Small Regular |
+| `--font-size-mini` / `--font-line-height-mini` | initials (`chat`, `department`) | `12px` / `18px` | Figma: Body/Mini Regular |
+| `--font-size-micro` / `--font-line-height-micro` | initials (`xs`) | `10px` / `15px` | Figma: Body/Micro Medium |
+| `--font-weight-regular` / `--font-weight-medium` | initials | `400` / `500` | Figma: Regular / Medium |
+
+## Props
+
+<ArgTypes of={AvatarStories} />
+
+## Code example
+
+```tsx
+import { Avatar } from 'rifbar-ds';
+
+<Avatar variant="user" name="John Carter" src={user.photoUrl} />
+<Avatar variant="chat" name="David Schwimmer" />
+<Avatar variant="department" name="Delivery Service" />
+```
+
+## Accessibility
+
+- By default the avatar is an image named after the person (`role="img"`, `aria-label="David Schwimmer"`) and shows
+  the full name on mouse hover.
+- If the name is already written next to it (chat list, Email - Chevron), pass `decorative` — otherwise screen readers
+  read the name twice.
+- Contrast of the initials:
+
+| Variant | Contrast | |
+|---|---|---|
+| `user` — White on `#141D3F` | 16.4:1 | ✅ |
+| `chat` / `department` / `xs` — White on Hover Blue | 4.6:1 | ✅ (12px and 10px need 4.5:1) |

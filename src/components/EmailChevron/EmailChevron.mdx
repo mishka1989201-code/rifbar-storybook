@@ -1,0 +1,91 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as EmailChevronStories from './EmailChevron.stories';
+
+<Meta of={EmailChevronStories} />
+
+# EmailChevron
+
+A recipient in a “To:” / “Cc:” field: **avatar + name + ×**. The × removes the recipient. Implements the Figma component
+[`Email - Chevron`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=5620-292268).
+Built from [Avatar](?path=/docs/atoms-avatar--docs) (`size="xs"`) and [Icon](?path=/docs/atoms-icon--docs) `xmark`.
+
+<Canvas of={EmailChevronStories.Default} />
+<Controls of={EmailChevronStories.Default} />
+
+## Figma → code mapping
+
+| Figma layer | Prop / part | Value |
+|---|---|---|
+| Pill | — | Stroke Light V1 fill, Secondary Grey stroke 1px, padding 2px, fully rounded |
+| `Department Avatar` 20px | `name` / `avatarSrc` → `<Avatar size="xs" />` | Hover Blue, initials Body/Micro Medium |
+| Name text | `name` | Body/Mini Medium, Grey Dark |
+| `Icons 16px` (12px) | `onRemove` | `xmark`, Grey Dark |
+
+## When to use
+
+- ✅ People chosen as email or message recipients.
+- ✅ Any “chosen people” list where each one can be removed (assignees, watchers).
+
+## When NOT to use
+
+- ❌ An applied filter — use [FilterChevron](?path=/docs/atoms-filterchevron--docs).
+- ❌ A status — use [ChevronStatus](?path=/docs/atoms-chevronstatus--docs).
+
+## States
+
+<Canvas of={EmailChevronStories.WithPhoto} />
+<Canvas of={EmailChevronStories.Decorative} />
+
+- **Hover:** not designed in Figma — no change.
+- **Focus** (not designed): the × button gets the same 2px Headlines ring as Button.
+- **Disabled, loading, error** — not applicable. An invalid email address would need a new design (e.g. a Danger stroke).
+
+## Edge cases
+
+<Canvas of={EmailChevronStories.LongName} />
+<Canvas of={EmailChevronStories.ShortName} />
+
+## Example: “To:” field (with empty state)
+
+<Canvas of={EmailChevronStories.ToFieldExample} />
+
+**Figma notes:**
+- Same pill as FilterChevron `Outline`, but padding is 2px on all sides (avatar on the left) and height is 24px.
+- The × icon is `Icons 16px / xmark` scaled to 12px. In code its click area is 20×20 (invisible extra 4px each side).
+- No hover, focus or error states in Figma — to add if needed.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-stroke-light-v1` | fill | `#F1F2F9` | Figma: Stroke Light V1 |
+| `--color-secondary-grey` | stroke | `#A7A4B7` | Figma: Secondary Grey |
+| `--color-grey-dark` | name, × | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--color-headlines` | focus ring of × | `#4549A1` | Existing (same ring as Button) |
+| `--font-size-mini` / `--font-line-height-mini` / `--font-weight-medium` | name | `12px` / `18px` / `500` | Figma: Body/Mini Meduim |
+| `--spacing-2` | padding | `2px` | Figma: padding 2 |
+| `--spacing-4` | gap avatar ↔ name; extra click area of × | `4px` | Figma: gap 4 |
+| `--size-icon-sm` | × icon | `12px` | Figma: xmark 12×12 |
+| `--border-width-sm` / `--border-width-lg` | stroke / focus ring | `1px` / `2px` | Figma: stroke 1px inside / existing |
+| `--radius-pill` | corner radius | `9999px` | Figma: radius 30px on 24px height |
+| Avatar `xs` tokens | avatar | see [Avatar](?path=/docs/atoms-avatar--docs) | |
+
+## Props
+
+<ArgTypes of={EmailChevronStories} />
+
+## Code example
+
+```tsx
+import { EmailChevron } from 'rifbar-ds';
+
+{recipients.map((r) => (
+  <EmailChevron key={r.id} name={r.name} avatarSrc={r.photo} onRemove={() => remove(r.id)} />
+))}
+```
+
+## Accessibility
+
+- × is a real `<button>` named “Remove David Schwimmer” (change with `removeLabel`).
+- The avatar is decorative here — the name is written next to it.
+- Contrast: name Grey Dark on Stroke Light V1 — 4.7:1 ✅; avatar initials White on Hover Blue — 4.6:1 ✅.

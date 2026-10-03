@@ -1,0 +1,69 @@
+/* Avatar — every value references a token from src/tokens/tokens.json.
+   Figma: `ava` (Navbar, 32px), `Chat Avatar` (28px circle), `Department Avatar` (28px square). */
+
+.ds-avatar {
+  --ds-avatar-size: var(--size-avatar-md);
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--ds-avatar-size);
+  height: var(--ds-avatar-size);
+  overflow: hidden;
+  border-radius: var(--radius-round);
+  background-color: var(--color-hover-blue);
+  color: var(--color-white);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  white-space: nowrap;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.ds-avatar__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── ava (Navbar): dark fill, white 22% ring inside, soft shadow ───── */
+.ds-avatar--user {
+  --ds-avatar-size: var(--size-avatar);
+  overflow: visible;
+  background-color: var(--color-avatar-bg);
+  box-shadow: var(--shadow-avatar);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+}
+
+.ds-avatar--user .ds-avatar__image {
+  border-radius: inherit;
+}
+
+/* The ring sits above the photo, like the Figma stroke. */
+.ds-avatar--user::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-white-alpha-22);
+  pointer-events: none;
+}
+
+/* ─── Department Avatar: square with 4px corners ────────────────────── */
+.ds-avatar--department {
+  border-radius: var(--radius-avatar-square);
+}
+
+/* ─── Size xs (20px) — the avatar inside Email - Chevron ────────────── */
+.ds-avatar--xs {
+  --ds-avatar-size: var(--size-avatar-xs);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-micro);
+  line-height: var(--font-line-height-micro);
+}
