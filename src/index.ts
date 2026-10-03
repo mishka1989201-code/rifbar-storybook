@@ -14,3 +14,4 @@ export * from './components/InputField';
 export * from './components/ChevronStatus';
 export * from './components/Tabs';
 export * from './components/SwitchButton';
+export * from './components/Logo';

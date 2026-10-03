@@ -1,0 +1,82 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as LogoStories from './Logo.stories';
+
+<Meta of={LogoStories} />
+
+# Logo
+
+The Rifbar logo: sign, RIFBAR wordmark and the “Renaissance of Vaping” tagline. Lives in the Navbar.
+Implements the variant **V2 - Approved** of the Figma component set
+[`Logo Rifbar Header Big`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1018-23405).
+V1 and V3 are not used.
+
+<Canvas of={LogoStories.Default} />
+<Controls of={LogoStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Prop |
+|---|---|
+| Property 1 = V2 - Approved, 184×46 | `<Logo />` (`size="lg"`) |
+| Same logo at 1440px, 165×40 (Figma Grids) | `size="md"` |
+| Fill Primary Blue Dark | `tone="default"` |
+| — (not in Figma) | `tone="inverse"` — for the dark Navbar |
+
+The SVG paths are exported from Figma; the logo is one color, drawn with `currentColor`.
+
+## When to use
+
+- ✅ In the Navbar / header of the app, once per screen.
+
+## When NOT to use
+
+- ❌ As a small app icon — use the `rifbar-small` / `rifbar` [Icon](?path=/docs/atoms-icon--docs).
+- ❌ Don't stretch, recolor with other colors or rebuild it from text.
+
+## Sizes
+
+<Canvas of={LogoStories.Large} />
+<Canvas of={LogoStories.Medium} />
+
+## Tones
+
+<Canvas of={LogoStories.Inverse} />
+<Canvas of={LogoStories.InverseDarkTheme} />
+
+**Not designed in Figma:** `inverse` tone. AI-defined: the Navbar background is Primary Blue Dark, so the
+Figma color would be invisible there. The logo uses `--theme-nav-text-active` — the same color as the active Navbar text.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-primary-blue-dark` | `default` color | `#1D2542` | Figma: Primary Blue Dark (color style) |
+| `--theme-nav-text-active` | `inverse` color | light `#FFFFFF` / dark `#BBC7D6` | Existing tokens.json (inverse AI-defined) |
+| `--size-logo-desktop-lg-width` / `-height` | `lg` box | `184px` / `46px` | Figma: Logo Rifbar Header Big at 1920px |
+| `--size-logo-desktop-width` / `-height` | `md` box | `165px` / `40px` | Figma: Logo Rifbar Header Big at 1440px |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={LogoStories} />
+
+## Code example
+
+```tsx
+import { Logo } from 'rifbar-ds';
+
+// In the Navbar (dark background)
+<a href="/" aria-label="Rifbar — home">
+  <Logo tone="inverse" title="" />
+</a>
+
+// On a light page
+<Logo />
+```
+
+## Accessibility
+
+- `role="img"` with `aria-label` “Rifbar” by default.
+- Inside a link, give the link the name (“Rifbar — home”) and pass `title=""` so the name is not read twice.
+- Contrast: Primary Blue Dark on White 15.0:1; White on the Navbar 15.0:1.

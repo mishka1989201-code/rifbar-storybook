@@ -1,0 +1,28 @@
+/* Logo — every value references a token from src/tokens/tokens.json.
+   The SVG keeps its 184:46 ratio; the box size comes from the --size-logo-* tokens. */
+
+.ds-logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.ds-logo--lg {
+  width: var(--size-logo-desktop-lg-width);
+  height: var(--size-logo-desktop-lg-height);
+}
+
+.ds-logo--md {
+  width: var(--size-logo-desktop-width);
+  height: var(--size-logo-desktop-height);
+}
+
+/* Figma: Primary Blue Dark (color style) */
+.ds-logo--default {
+  color: var(--color-primary-blue-dark);
+}
+
+/* Not in Figma — AI-defined: on the dark Navbar the logo uses the active nav text color
+   (White in the light theme, White (Light) in the dark theme). */
+.ds-logo--inverse {
+  color: var(--theme-nav-text-active);
+}
