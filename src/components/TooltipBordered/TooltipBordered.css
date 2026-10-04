@@ -1,0 +1,107 @@
+/* Tooltip with border + shadow — every value references a token from src/tokens/tokens.json.
+   The root reserves 8px on the arrow side (Figma: arrow slot 8px), so Fixed = 300px body + 8px = 308px. */
+
+.ds-tooltip-bordered {
+  --ds-tooltip-arrow-size: 11.7px; /* Figma: Arrow square 11.7px (rotated 45°) */
+  --ds-tooltip-arrow-slot: 8px; /* Figma: Tooltip arrow slot 8px */
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  filter: var(--shadow-tooltip-filter);
+  font-family: var(--font-family-base);
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-tooltip-bordered__body {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-10) var(--spacing-12);
+  border: 1px solid var(--color-headlines);
+  border-radius: var(--radius-tooltip);
+  background-color: var(--color-white);
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+.ds-tooltip-bordered__title {
+  margin: 0;
+  font-size: var(--font-size-h6);
+  line-height: var(--font-line-height-h6);
+}
+
+.ds-tooltip-bordered__text {
+  margin: 0;
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+}
+
+/* Arrow: a square with only two borders, rotated so the corner points away from the body.
+   Its white fill covers the body border where they meet. */
+.ds-tooltip-bordered__arrow {
+  position: absolute;
+  box-sizing: border-box;
+  width: var(--ds-tooltip-arrow-size);
+  height: var(--ds-tooltip-arrow-size);
+  background-color: var(--color-white);
+  border-top: 1px solid var(--color-headlines);
+  border-right: 1px solid var(--color-headlines);
+  border-top-right-radius: var(--spacing-2);
+}
+
+/* ─── Width mode ─── */
+.ds-tooltip-bordered--fixed.ds-tooltip-bordered--top,
+.ds-tooltip-bordered--fixed.ds-tooltip-bordered--bottom {
+  width: 300px;
+}
+
+.ds-tooltip-bordered--fixed.ds-tooltip-bordered--left,
+.ds-tooltip-bordered--fixed.ds-tooltip-bordered--right {
+  width: calc(300px + var(--ds-tooltip-arrow-slot));
+}
+
+.ds-tooltip-bordered--hug {
+  width: max-content;
+}
+
+.ds-tooltip-bordered--hug .ds-tooltip-bordered__body {
+  white-space: nowrap;
+}
+
+/* ─── Position ─── */
+.ds-tooltip-bordered--left {
+  padding-right: var(--ds-tooltip-arrow-slot);
+}
+.ds-tooltip-bordered--left .ds-tooltip-bordered__arrow {
+  top: 50%;
+  left: calc(100% - var(--ds-tooltip-arrow-slot));
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.ds-tooltip-bordered--right {
+  padding-left: var(--ds-tooltip-arrow-slot);
+}
+.ds-tooltip-bordered--right .ds-tooltip-bordered__arrow {
+  top: 50%;
+  left: var(--ds-tooltip-arrow-slot);
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.ds-tooltip-bordered--top {
+  padding-bottom: var(--ds-tooltip-arrow-slot);
+}
+.ds-tooltip-bordered--top .ds-tooltip-bordered__arrow {
+  left: 50%;
+  top: calc(100% - var(--ds-tooltip-arrow-slot));
+  transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.ds-tooltip-bordered--bottom {
+  padding-top: var(--ds-tooltip-arrow-slot);
+}
+.ds-tooltip-bordered--bottom .ds-tooltip-bordered__arrow {
+  left: 50%;
+  top: var(--ds-tooltip-arrow-slot);
+  transform: translate(-50%, -50%) rotate(-45deg);
+}

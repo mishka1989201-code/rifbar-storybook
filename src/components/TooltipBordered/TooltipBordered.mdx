@@ -1,0 +1,115 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TooltipBorderedStories from './TooltipBordered.stories';
+
+<Meta of={TooltipBorderedStories} />
+
+# TooltipBordered
+
+A white hint bubble with a **border, an arrow and a soft shadow**, for tooltips with richer content
+(a headline + text). Implements the Figma component set
+[`Tooltip with border + shadow`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=73-57190)
+— 4 positions × 2 width modes. Figma note: “appears on hover; white type — for more complex content”.
+
+<Canvas of={TooltipBorderedStories.Default} />
+<Controls of={TooltipBorderedStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Prop | Value |
+|---|---|---|
+| `Position=Left` | `position="left"` (default) | Bubble left of the target, arrow on the right edge |
+| `Position=Right` | `position="right"` | Arrow on the left edge |
+| `Position=Top` | `position="top"` | Arrow on the bottom edge |
+| `Position=Bottom` | `position="bottom"` | Arrow on the top edge |
+| `Width mode=Fixed` | `widthMode="fixed"` (default) | 300px bubble (+ 8px arrow slot), text wraps |
+| `Width mode=Hug` | `widthMode="hug"` | One line, as wide as the text |
+| `Show headline` | `title` | Headline, Headings/h6 Medium. Empty = hidden |
+| `Show body text` | `children` | Body, Body/Small Medium. Empty = hidden |
+
+## When to use
+
+- ✅ A hint with a headline and a sentence or two (explaining a field, a limit, a status).
+- ✅ On hover or keyboard focus of an element that needs more explanation.
+
+## When NOT to use
+
+- ❌ A one-word label on an icon — a simple dark tooltip is enough.
+- ❌ Something the user must read or act on — use a message or a modal, a tooltip disappears.
+- ❌ Interactive content (links, buttons) — a tooltip is not focusable.
+
+## Positions
+
+<Canvas of={TooltipBorderedStories.Left} />
+<Canvas of={TooltipBorderedStories.Right} />
+<Canvas of={TooltipBorderedStories.Top} />
+<Canvas of={TooltipBorderedStories.Bottom} />
+
+## Width
+
+<Canvas of={TooltipBorderedStories.Hug} />
+
+## Content
+
+<Canvas of={TooltipBorderedStories.BodyOnly} />
+<Canvas of={TooltipBorderedStories.TitleOnly} />
+
+## Edge cases
+
+<Canvas of={TooltipBorderedStories.LongWord} />
+
+## All variants
+
+<Canvas of={TooltipBorderedStories.AllVariants} />
+
+## Example
+
+<Canvas of={TooltipBorderedStories.Example} />
+
+**Figma notes:**
+- In Figma `Fixed` is 308px for Left/Right and 297px for Top/Bottom. Same bubble, a 3px inconsistency —
+  in code both are a 300px bubble.
+- The `Space adjust` layers (0.01px, only in `Hug`) are spacing helpers and are not rebuilt.
+- Showing/hiding on hover and the placement next to the target are not part of the atom.
+- Empty, loading and error states are not applicable (static text).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | bubble and arrow fill | `#FFFFFF` | Figma: Component color / Background (White) |
+| `--color-headlines` | border (bubble and arrow) | `#4549A1` | Figma: Headlines |
+| `--color-primary-blue-dark` | text | `#1D2542` | Figma: Primary Blue Dark |
+| `--font-size-h6` / `--font-line-height-h6` | headline | `16px` / `24px` | Figma: Headings/h6 Medium |
+| `--font-size-small` / `--font-line-height-small` | body | `14px` / `21px` | Figma: Body/Small Medium |
+| `--font-weight-medium` | text | `500` | Figma: Medium |
+| `--spacing-10` | padding top / bottom | `10px` | **New.** Figma: padding 10 |
+| `--spacing-12` | padding left / right | `12px` | **New.** Figma: padding 12 |
+| `--spacing-4` | gap headline ↔ body | `4px` | Figma: gap 4 |
+| `--spacing-2` | arrow tip radius | `2px` | Figma: arrow radius 2 |
+| `--radius-tooltip` | bubble corner radius | `8px` | **New.** Figma: radius 8 |
+| `--shadow-tooltip-filter` | shadow (follows the arrow) | 6 layers | **New.** Figma: Tooltip Shadow, as a CSS filter. Same values as `--shadow-tooltip` with half the blur |
+
+Not tokens (sizes of this atom only): bubble width `300px`, arrow square `11.7px`, arrow slot `8px`.
+
+## Props
+
+<ArgTypes of={TooltipBorderedStories} />
+
+## Code example
+
+```tsx
+import { TooltipBordered } from 'rifbar-ds';
+
+<TooltipBordered position="top" title="Credit limit">
+  Used 8 400 of 10 000 ₴
+</TooltipBordered>
+
+<TooltipBordered position="bottom" widthMode="hug">Copied</TooltipBordered>
+```
+
+## Accessibility
+
+- Has `role="tooltip"`. Connect it to the target with `id` + `aria-describedby` on the target, and show it
+  on both hover **and** keyboard focus; hide it on `Escape`.
+- Text is Primary Blue Dark on White (15:1) and the Headlines border is 7.7:1 against White.
+- It is not focusable and must not contain links or buttons.
