@@ -1,0 +1,45 @@
+/* HeaderMenu — every value references a token from src/tokens/tokens.json. */
+
+.ds-header-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--header-menu-gap);
+}
+
+.ds-header-menu__item {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--header-menu-icon);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+/* ─── Hover (Figma Hover → Hover Blue Light) ────────────────────────── */
+.ds-header-menu__item:is(:hover:not(:disabled), .is-hover) {
+  color: var(--header-menu-icon-hover);
+}
+
+/* ─── Active (Figma Active → Headlines). Also shown while pressed. ──── */
+.ds-header-menu__item:is(.is-active, :active:not(:disabled)) {
+  color: var(--header-menu-icon-active);
+}
+
+/* ─── Focus (not designed in Figma — same ring as Button) ───────────── */
+.ds-header-menu__item:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: var(--spacing-2);
+}
+
+/* ─── Disabled (not designed — same 20% opacity as other atoms) ─────── */
+.ds-header-menu__item:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}

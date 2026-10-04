@@ -1,0 +1,120 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as HeaderMenuStories from './HeaderMenu.stories';
+
+<Meta of={HeaderMenuStories} />
+
+# HeaderMenu
+
+The icons at the right of the page header: **Support, Bag (orders), Bell (notifications)**, each with an optional
+notification dot. Implements the Figma components
+[`Header Menu`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=9-9215)
+and [`Header Menu Variants`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7016-21250).
+Built from [Icon](?path=/docs/atoms-icon--docs) (24px, with `dot`).
+
+Two parts:
+- `HeaderMenu` — the row (right-aligned, gap 16px).
+- `HeaderMenuItem` — one icon button.
+
+<Canvas of={HeaderMenuStories.Default} />
+<Controls of={HeaderMenuStories.Default} />
+
+<Canvas of={HeaderMenuStories.FullMenu} />
+
+## Figma → code mapping
+
+| Figma | Code | Value |
+|---|---|---|
+| `Header Menu` (auto layout, gap 16, align right) | `<HeaderMenu>` | `--header-menu-gap` |
+| `Support Icom` = true | `<HeaderMenuItem icon="support" dot="success" />` | Green Light dot |
+| `Chart Icon` = true (draws a bag) | `<HeaderMenuItem icon="bag" dot="success" />` | Green Light dot |
+| `Notif Icon` = true (default) | `<HeaderMenuItem icon="bell" dot="warning" />` | Warning dot |
+| Static | — | Grey Dark |
+| Hover | `:hover` (`forceHover` for docs) | Hover Blue Light |
+| Active | `active` | Headlines |
+
+## When to use
+
+- ✅ Global actions in the page header: support chat, orders / cart, notifications.
+- ✅ Show `dot` when there is something new behind the icon.
+
+## When NOT to use
+
+- ❌ Actions inside a page or table — use [IconButton](?path=/docs/atoms-iconbutton--docs) or [Button](?path=/docs/atoms-button--docs).
+- ❌ To show a number of new items — the dot has no counter (would need a new design).
+
+## States
+
+<Canvas of={HeaderMenuStories.States} />
+
+- **Static / Hover / Active** — from Figma. The dot keeps its color in every state.
+- **Active** means “the panel of this icon is open” (or its page is open). Add `aria-expanded` (panel) or
+  `aria-current="page"` (link-like) yourself — the component cannot know which one.
+- **Focus** (not designed): same 2px Headlines ring as Button.
+- **Disabled** (not designed): 20% opacity, like other atoms.
+- **Loading, error** — not applicable.
+
+## Empty state
+
+<Canvas of={HeaderMenuStories.NoNotifications} />
+
+No dots = nothing new. The icons stay, so the header does not jump.
+
+## Example: opens a panel
+
+<Canvas of={HeaderMenuStories.InteractiveExample} />
+
+## Dark theme
+
+<Canvas of={HeaderMenuStories.DarkTheme} />
+
+**Figma notes:**
+- The Figma property for the bag is named `Chart Icon` and the support one `Support Icom` (typo) — in code they are just `icon="bag"` / `icon="support"`.
+- The dot is the same as in Icon `… New Notif`: 12px fill with a 2px White ring, centred at (20, 1).
+- Hover here is **Hover Blue Light**, not Headlines like the plain Icon `Hover` — so the header has its own tokens.
+- No dark theme in Figma — Active dark value is AI-defined.
+- Click area = the 24px icon (matches Figma spacing; 24px is the minimum recommended target).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--header-menu-icon` | icon color, Static | `#5D6E82` (Grey Dark) | Figma: Header Menu → Static |
+| `--header-menu-icon-hover` | icon color, Hover | `#888CF6` (Hover Blue Light) | Figma: Header Menu Variants → Hover |
+| `--header-menu-icon-active` | icon color, Active | `#4549A1` (Headlines) · dark `#BDC5E2` | Figma: Header Menu Variants → Active · dark AI-defined |
+| `--header-menu-gap` | gap between icons | `16px` (`--spacing-16`) | Figma: auto layout gap 16 |
+| `--icon-dot-success` | Bag / Support dot | `#1FD246` (Green Light) | Existing (Icon) |
+| `--icon-dot-warning` | Bell dot | `#F68F57` (Warning) | Existing (Icon) |
+| `--icon-dot-ring` | dot ring | `#FFFFFF` · dark `#000000` | Existing (Icon) |
+| `--size-icon-lg` | icon size | `24px` | Existing (Icon) |
+| `--radius-sm` | focus ring corners | `5px` | Existing |
+| `--color-headlines` / `--border-width-lg` / `--spacing-2` | focus ring | `#4549A1` / `2px` / `2px` | Existing (same ring as Button) |
+| `--opacity-disabled` | disabled | `0.2` | Existing |
+
+## Props
+
+### HeaderMenuItem
+
+<ArgTypes of={HeaderMenuStories} />
+
+### HeaderMenu
+
+Any `<div>` props. Give it an `aria-label` (e.g. “Header actions”).
+
+## Code example
+
+```tsx
+import { HeaderMenu, HeaderMenuItem } from 'rifbar-ds';
+
+<HeaderMenu aria-label="Header actions">
+  <HeaderMenuItem icon="support" label="Support" dot="success" onClick={openSupport} />
+  <HeaderMenuItem icon="bag" label="Orders" dot="success" onClick={openOrders} />
+  <HeaderMenuItem
+    icon="bell"
+    label="Notifications"
+    dot={hasUnread ? 'warning' : undefined}
+    active={isOpen}
+    aria-expanded={isOpen}
+    onClick={toggleNotifications}
+  />
+</HeaderMenu>
+```
