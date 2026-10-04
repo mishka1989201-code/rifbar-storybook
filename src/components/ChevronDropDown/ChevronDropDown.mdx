@@ -1,0 +1,127 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ChevronDropDownStories from './ChevronDropDown.stories';
+
+<Meta of={ChevronDropDownStories} />
+
+# ChevronDropDown
+
+A small pill with a label and an arrow that **opens a list of options** (filter, status, warehouse…). Implements the Figma component
+[`Chevron.DropDown`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=78-15533).
+Built from [Icon](?path=/docs/atoms-icon--docs) `arrow-drop-down` / `arrow-drop-up`.
+
+This is only the **trigger**. The list itself is drawn by the parent (a DS dropdown list will come later as a molecule).
+
+<Canvas of={ChevronDropDownStories.Default} />
+<Controls of={ChevronDropDownStories.Default} />
+
+## All colors and states
+
+<Canvas of={ChevronDropDownStories.AllStates} />
+
+## Figma → code mapping
+
+The Figma variant names do not match the board labels — code follows the **board labels**:
+
+| Board column | Figma variant | Code | Look |
+|---|---|---|---|
+| Static | `Status=Static` | default | 1px stroke + text in the color |
+| Hover / Focus | `Status=Focus or pressed` | `:hover`, `:focus-visible` (`forceHover` for docs) | + colored glow 4px |
+| Active | `Status=Hover` | `open` | darker color, arrow **up**, `aria-expanded="true"` |
+| Disabled | `Status=Static` @ 20% | `disabled` | 20% opacity |
+
+| `color` | Static | Active (open) | Glow |
+|---|---|---|---|
+| `primary` | Hover Blue `#6368DF` | `#4D51B5` | Hover Blue 70% |
+| `secondary` | Grey Dark `#5D6E82` | `#3E4A57` | Grey Dark 60% |
+| `success` | Green Light `#1FD246` | `#1DA73B` | Green Light 70% |
+| `info` | Headlines `#4549A1` | `#1997BE` | Blue Light 60% |
+| `warning` | Warning `#F68F57` | `#DA6C31` | Warning 60% |
+| `danger` | Danger `#ED5742` | `#BF3C2A` | Danger 70% |
+| `light` | BG Color fill, Grey Dark text, no stroke | + Grey Dark stroke | Grey Dark 40% |
+| `dark` | Primary Blue Dark `#1D2542` | `#505978` | Primary Blue Dark 60% |
+| `white` | White text, no frame (Body/Small Medium) | Secondary Light `#ECEEFB` | White 2px glow on text |
+
+## When to use
+
+- ✅ A compact choice in a filter bar or a card header: status, period, warehouse.
+- ✅ `white` on dark headers / dark panels.
+
+## When NOT to use
+
+- ❌ A form field with a label — use [InputField](?path=/docs/atoms-inputfield--docs).
+- ❌ A status that cannot be changed — use [ChevronStatus](?path=/docs/atoms-chevronstatus--docs).
+- ❌ An applied filter with × — use [FilterChevron](?path=/docs/atoms-filterchevron--docs).
+
+## States
+
+<Canvas of={ChevronDropDownStories.HoverFocus} />
+<Canvas of={ChevronDropDownStories.Open} />
+<Canvas of={ChevronDropDownStories.Disabled} />
+<Canvas of={ChevronDropDownStories.White} />
+
+- **Hover and keyboard focus look the same** (Figma: one column). The glow is the focus indicator.
+- **Hover while open** — not designed: the glow is added on top of the open look.
+- **Loading, error, empty** — not applicable to the trigger. An empty list is the list’s job.
+
+## Edge cases
+
+<Canvas of={ChevronDropDownStories.LongLabel} />
+<Canvas of={ChevronDropDownStories.ShortLabel} />
+
+## Example: opens a list
+
+<Canvas of={ChevronDropDownStories.WithMenuExample} />
+
+**Figma notes:**
+- `info` uses **Headlines** for stroke and text, but its glow and open color are from the **Blue Light** family (as drawn in Figma).
+- `white` in Figma uses a Font Awesome caret glyph — in code it is the DS `arrow-drop-down` icon for consistency.
+- `white` in Figma: Medium 14 / 19 with 5px padding = 29px. Code: Body/Small line 21px + 4px padding = the same 29px, using existing tokens.
+- Open colors and glows are raw values in Figma (no variables) — added as tokens below.
+- No dark theme in Figma. On dark backgrounds use `white`.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-hover-blue` / `--color-hover-blue-shade` | primary: static / open | `#6368DF` / `#4D51B5` | Figma Colors: Hover Blue / raw fill (new) |
+| `--color-grey-dark` / `--color-grey-dark-shade` | secondary, light text / secondary open | `#5D6E82` / `#3E4A57` | Figma Colors / raw fill (new) |
+| `--color-green-light` / `--color-green-light-shade` | success | `#1FD246` / `#1DA73B` | Figma Colors / raw fill (new) |
+| `--color-headlines` / `--color-blue-light-shade` | info | `#4549A1` / `#1997BE` | Figma Colors / raw fill (new) |
+| `--color-warning` / `--color-warning-shade` | warning | `#F68F57` / `#DA6C31` | Figma Colors / raw fill (new) |
+| `--color-danger` / `--color-danger-shade` | danger | `#ED5742` / `#BF3C2A` | Figma Colors / raw fill (new) |
+| `--color-bg` | light fill | `#F6F8FC` | Figma Colors: BG Color |
+| `--color-primary-blue-dark` / `--color-primary-blue-dark-tint` | dark | `#1D2542` / `#505978` | Figma Colors / raw fill (new) |
+| `--color-white` / `--color-secondary-light` | white: static / open | `#FFFFFF` / `#ECEEFB` | Figma Colors |
+| `--shadow-focus` | primary glow | `0 0 4px rgba(98,104,223,.7)` | Figma: Shadows → Focus or pressed |
+| `--shadow-focus-secondary` | secondary glow | `0 0 4px rgba(93,110,130,.6)` | Figma raw effect (new) |
+| `--shadow-focus-success` | success glow | `0 0 4px rgba(31,210,70,.7)` | Figma raw effect (new) |
+| `--shadow-focus-info` | info glow | `0 0 4px rgba(10,171,222,.6)` | Figma raw effect (new) |
+| `--shadow-focus-warning` | warning glow | `0 0 4px rgba(246,143,87,.6)` | Figma raw effect (new) |
+| `--shadow-focus-danger` | danger glow | `0 0 4px rgba(237,87,66,.7)` | Figma raw effect (new) |
+| `--shadow-focus-light` | light glow | `0 0 4px rgba(93,110,130,.4)` | Figma raw effect (new) |
+| `--shadow-focus-dark` | dark glow | `0 0 4px rgba(29,37,66,.6)` | Figma raw effect (new) |
+| `--shadow-focus-white` | white glow (drop-shadow on text) | `0 0 2px #FFFFFF` | Figma raw effect (new) |
+| `--font-size-mini` / `--font-line-height-mini` / `--font-weight-semibold` | label | `12px` / `18px` / `600` | Figma: Body/Mini Semi-Bold |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | white label | `14px` / `21px` / `500` | Existing (Body/Small Medium) |
+| `--spacing-4` / `--spacing-2` / `--spacing-8` | padding top-bottom / right / left; white gap | `4px` / `2px` / `8px` | Figma: padding 4 / 2 / 8 |
+| `--border-width-sm` | stroke | `1px` | Existing |
+| `--radius-pill` / `--radius-xs` | corners / white corners | `9999px` / `3px` | Figma: radius 30 / 3 |
+| `--size-icon` | arrow | `16px` | Existing (Icon) |
+| `--opacity-disabled` | disabled | `0.2` | Existing |
+
+## Props
+
+<ArgTypes of={ChevronDropDownStories} />
+
+## Code example
+
+```tsx
+import { ChevronDropDown } from 'rifbar-ds';
+
+const [open, setOpen] = useState(false);
+
+<ChevronDropDown color="secondary" open={open} aria-controls="status-menu" onClick={() => setOpen(!open)}>
+  {status}
+</ChevronDropDown>
+{open && <ul id="status-menu" role="menu">…</ul>}
+```

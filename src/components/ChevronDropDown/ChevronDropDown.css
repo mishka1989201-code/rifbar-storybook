@@ -1,0 +1,126 @@
+/* Chevron.DropDown — every value references a token from src/tokens/tokens.json.
+   Height 26px = 18px line height + 2 × 4px padding; the 1px stroke is "inside"
+   in Figma, so it is drawn with an inset box-shadow (no layout shift).
+
+   Figma column names → code:
+     Static              → default
+     Focus or pressed    → :hover / :focus-visible (glow)
+     Hover               → open (darker color, arrow up)
+     Static @ 20%        → :disabled */
+
+.ds-chevron-dropdown {
+  --ds-cdd-color: var(--color-hover-blue);
+  --ds-cdd-open: var(--color-hover-blue-shade);
+  --ds-cdd-glow: var(--shadow-focus);
+  --ds-cdd-stroke: var(--ds-cdd-color);
+  --ds-cdd-bg: transparent;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--spacing-4) var(--spacing-2) var(--spacing-4) var(--spacing-8);
+  border: none;
+  border-radius: var(--radius-pill);
+  background-color: var(--ds-cdd-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--ds-cdd-stroke);
+  color: var(--ds-cdd-color);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: box-shadow 150ms ease, color 150ms ease, filter 150ms ease;
+}
+
+.ds-chevron-dropdown__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Colors ────────────────────────────────────────────────────────── */
+.ds-chevron-dropdown--secondary {
+  --ds-cdd-color: var(--color-grey-dark);
+  --ds-cdd-open: var(--color-grey-dark-shade);
+  --ds-cdd-glow: var(--shadow-focus-secondary);
+}
+
+.ds-chevron-dropdown--success {
+  --ds-cdd-color: var(--color-green-light);
+  --ds-cdd-open: var(--color-green-light-shade);
+  --ds-cdd-glow: var(--shadow-focus-success);
+}
+
+.ds-chevron-dropdown--info {
+  --ds-cdd-color: var(--color-headlines);
+  --ds-cdd-open: var(--color-blue-light-shade);
+  --ds-cdd-glow: var(--shadow-focus-info);
+}
+
+.ds-chevron-dropdown--warning {
+  --ds-cdd-color: var(--color-warning);
+  --ds-cdd-open: var(--color-warning-shade);
+  --ds-cdd-glow: var(--shadow-focus-warning);
+}
+
+.ds-chevron-dropdown--danger {
+  --ds-cdd-color: var(--color-danger);
+  --ds-cdd-open: var(--color-danger-shade);
+  --ds-cdd-glow: var(--shadow-focus-danger);
+}
+
+.ds-chevron-dropdown--light {
+  --ds-cdd-color: var(--color-grey-dark);
+  --ds-cdd-open: var(--color-grey-dark);
+  --ds-cdd-glow: var(--shadow-focus-light);
+  --ds-cdd-stroke: transparent;
+  --ds-cdd-bg: var(--color-bg);
+}
+
+.ds-chevron-dropdown--dark {
+  --ds-cdd-color: var(--color-primary-blue-dark);
+  --ds-cdd-open: var(--color-primary-blue-dark-tint);
+  --ds-cdd-glow: var(--shadow-focus-dark);
+}
+
+/* White: plain text + arrow, no frame. Figma: Medium 14 / 19 + 5px padding = 29px;
+   here 21px line (Body/Small) + 4px padding = the same 29px with existing tokens. */
+.ds-chevron-dropdown--white {
+  --ds-cdd-color: var(--color-white);
+  --ds-cdd-open: var(--color-secondary-light);
+  --ds-cdd-stroke: transparent;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4) 0;
+  border-radius: var(--radius-xs);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+}
+
+/* ─── Open (Figma Status=Hover): darker color, stroke follows it ────── */
+.ds-chevron-dropdown.is-open {
+  --ds-cdd-stroke: var(--ds-cdd-open);
+  color: var(--ds-cdd-open);
+}
+
+.ds-chevron-dropdown--white.is-open {
+  --ds-cdd-stroke: transparent;
+}
+
+/* ─── Hover / Focus (Figma Status=Focus or pressed): colored glow ───── */
+.ds-chevron-dropdown:is(:hover:not(:disabled), :focus-visible, .is-hover) {
+  outline: none;
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--ds-cdd-stroke), var(--ds-cdd-glow);
+}
+
+.ds-chevron-dropdown--white:is(:hover:not(:disabled), :focus-visible, .is-hover) {
+  box-shadow: none;
+  filter: drop-shadow(var(--shadow-focus-white));
+}
+
+/* ─── Disabled (Figma: Static at 20% opacity) ───────────────────────── */
+.ds-chevron-dropdown:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
