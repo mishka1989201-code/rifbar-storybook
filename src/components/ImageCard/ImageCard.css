@@ -1,0 +1,46 @@
+/* ImageCard — every value references a token from src/tokens/tokens.json.
+   Figma stroke is "inside", so it is drawn with an inset box-shadow
+   on top of the photo (::after) to keep 64px / 32px exact. */
+
+.ds-image-card {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-image-card);
+  height: var(--size-image-card);
+  overflow: hidden;
+  border-radius: var(--radius-image-card);
+  background-color: var(--image-card-bg);
+  vertical-align: middle;
+}
+
+.ds-image-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--image-card-border);
+  pointer-events: none;
+}
+
+.ds-image-card--sm {
+  width: var(--size-image-card-sm);
+  height: var(--size-image-card-sm);
+  border-radius: var(--radius-xs);
+}
+
+.ds-image-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ds-image-card__image--cover {
+  object-fit: cover;
+}
+
+.ds-image-card__image--contain {
+  object-fit: contain;
+}

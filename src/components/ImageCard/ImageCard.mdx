@@ -1,0 +1,87 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ImageCardStories from './ImageCard.stories';
+
+<Meta of={ImageCardStories} />
+
+# ImageCard
+
+A square **product photo thumbnail** with a light frame. Implements the Figma component
+[`imageCards`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=883-338248).
+
+<Canvas of={ImageCardStories.Default} />
+<Controls of={ImageCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Prop | Value |
+|---|---|---|
+| `Property 1=Middle` | `size="md"` (default) | 64×64, radius 4px |
+| `Property 1=Small` | `size="sm"` | 32×32, radius 3px |
+| `img` layer (image fill, Fill/crop) | `src`, `fit="cover"` | White behind the photo |
+| Stroke | — | 1px inside, Stroke Light V2 |
+
+<Canvas of={ImageCardStories.Sizes} />
+
+## When to use
+
+- ✅ Product photo in lists, tables, orders, cart.
+- ✅ `md` in cards and detail rows, `sm` in dense tables and dropdowns.
+
+## When NOT to use
+
+- ❌ A person or a department — use [Avatar](?path=/docs/atoms-avatar--docs).
+- ❌ Big product gallery — would need a new, larger design.
+
+## States
+
+- **Hover, focus, active, disabled** — not designed: the thumbnail is a picture, not a control. If it must open the photo, wrap it in a button/link.
+- **Empty** (no `src`) and **error** (photo failed to load) — not designed in Figma. A grey `image` icon is shown in the same frame (24px on `md`, 16px on `sm`).
+
+<Canvas of={ImageCardStories.NoPhoto} />
+<Canvas of={ImageCardStories.BrokenPhoto} />
+
+## Edge cases
+
+<Canvas of={ImageCardStories.WidePhoto} />
+
+Figma crops the photo to fill the square (`cover`). For photos that must be shown whole (packaging with text, wide sets), use `fit="contain"`.
+
+## Example: product list
+
+<Canvas of={ImageCardStories.InList} />
+
+## Dark theme
+
+<Canvas of={ImageCardStories.DarkTheme} />
+
+**Figma notes:**
+- In Figma the demo photo is zoomed to 150% and moved — that is just how that one picture was placed. In code any photo is centred and cropped by `cover`.
+- Empty / error placeholder and dark theme are not in Figma — AI-defined, check them.
+- `alt` is required: pass the product name, or `""` when the name is written next to the photo.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--size-image-card` | width / height, Middle | `64px` | Figma: Property 1=Middle |
+| `--size-image-card-sm` | width / height, Small | `32px` | Figma: Property 1=Small |
+| `--radius-image-card` | corner radius, Middle | `4px` | Figma: radius 4 |
+| `--radius-xs` | corner radius, Small | `3px` | Existing (Figma: radius 3) |
+| `--image-card-bg` | background behind photo | `#FFFFFF` (White) | Figma: img fill White |
+| `--image-card-border` | 1px stroke | `#D8E2EE` (Stroke Light V2) · dark `#242424` | Figma: Stroke Light V2 · dark: Figma dark palette |
+| `--border-width-sm` | stroke width | `1px` | Existing |
+| `--icon-secondary` | placeholder icon | `#5D6E82` (Grey Dark) | Existing (Icon) |
+| `--size-icon-lg` / `--size-icon` | placeholder icon size | `24px` / `16px` | Existing (Icon) |
+
+## Props
+
+<ArgTypes of={ImageCardStories} />
+
+## Code example
+
+```tsx
+import { ImageCard } from 'rifbar-ds';
+
+<ImageCard src={product.photo} alt={product.name} />
+<ImageCard src={product.photo} alt="" size="sm" /> {/* name is written next to it */}
+```
