@@ -1,0 +1,50 @@
+/* ViewSwitch — every value references a token from src/tokens/tokens.json. */
+
+.ds-view-switch {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.ds-view-switch__label {
+  color: var(--color-headlines);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-small);
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.ds-view-switch__buttons {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+}
+
+.ds-view-switch__button {
+  display: inline-flex;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-xs);
+  /* Figma: the view that is not chosen is Secondary Grey. */
+  color: var(--color-secondary-grey);
+  cursor: pointer;
+}
+
+/* Figma (node 828:254538): hover on the other view = Hover Blue Light. */
+.ds-view-switch__button:hover {
+  color: var(--color-hover-blue-light);
+}
+
+/* Figma: chosen view = Primary Blue Dark. */
+.ds-view-switch__button.is-active {
+  color: var(--icon-primary);
+  cursor: default;
+}
+
+/* AI-defined: Figma has no focus state. */
+.ds-view-switch__button:focus-visible {
+  outline: var(--border-width-sm) solid var(--color-hover-blue-light);
+  outline-offset: var(--spacing-4);
+}

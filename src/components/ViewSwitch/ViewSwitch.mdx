@@ -1,0 +1,67 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ViewSwitchStories from './ViewSwitch.stories';
+
+<Meta of={ViewSwitchStories} />
+
+# ViewSwitch
+
+“View:” switch above a list: two icon buttons — cards and list. Implements the Figma component
+[`viewing style`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=68-25756) and its hover state
+([`828:254538`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=828-254538)). Composes [Icon](?path=/docs/atoms-icon--docs) (`cards-view`, `list-view`).
+
+<Canvas of={ViewSwitchStories.Default} />
+<Controls of={ViewSwitchStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `viewing style` (row, gap 8) | `.ds-view-switch` |
+| “View:” (Semi-Bold Headings/h7, Headlines) | `label` |
+| `Icons 24px` List View, Primary Blue Dark | chosen button (`is-active`) |
+| `Icons 24px` Cards, Secondary Grey | not chosen button |
+| Cards in Hover Blue Light (`828:254538`) | `:hover` of the not chosen button |
+
+## When to use
+
+- ✅ Switching a catalog or table between a card grid and a list.
+
+## When NOT to use
+
+- ❌ Switching more than two views or tabs — use [TabsHeader](?path=/docs/molecules-tabsheader--docs).
+
+## Variants and edge cases
+
+<Canvas of={ViewSwitchStories.CardsChosen} />
+<Canvas of={ViewSwitchStories.Interactive} />
+<Canvas of={ViewSwitchStories.CustomLabel} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines` | label | `#4549A1` | Figma: Headlines |
+| `--font-size-small` / `--font-weight-semibold` | label | `14px` / `600` | Figma: Semi-Bold Headings/h7 |
+| `--icon-primary` | chosen icon | `#1D2542` | Figma: Primary Blue Dark |
+| `--color-secondary-grey` | not chosen icon | `#A7A4B7` | Figma: Secondary Grey |
+| `--color-hover-blue-light` | hover icon | `#888CF6` | Figma: Hover Blue Light |
+| `--spacing-8` / `--spacing-4` | gaps | — | Figma |
+
+No new tokens. The Figma frames show only these two colour sets; reading the `828` frame as the hover of the not chosen view is an assumption.
+AI-defined: `:focus-visible` ring, `aria-pressed`, dark theme (the colours are not themed).
+
+## Props
+
+<ArgTypes of={ViewSwitchStories} />
+
+## Code example
+
+```tsx
+import { ViewSwitch } from 'rifbar-ds';
+
+<ViewSwitch value={view} onChange={setView} />
+```
+
+## Accessibility
+
+- A `group` named by the label; each icon button has an `aria-label` and `aria-pressed`.

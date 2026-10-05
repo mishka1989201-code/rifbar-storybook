@@ -1,0 +1,64 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ShowSelectStories from './ShowSelect.stories';
+
+<Meta of={ShowSelectStories} />
+
+# ShowSelect
+
+“Show: [8 ⌄]” — a label and a select with a list of numbers (rows per page). Implements the Figma component
+[`viewing style 2`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=68-33107). Composes the `FilterField` atom
+([InputField](?path=/docs/atoms-inputfield--docs)). The same control sits inside [PaginationBar](?path=/docs/molecules-paginationbar--docs),
+which now uses this component.
+
+<Canvas of={ShowSelectStories.Default} />
+<Controls of={ShowSelectStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `viewing style 2` (row, gap 8) | `.ds-show-select` |
+| “Show:” (Semi-Bold Headings/h7, Headlines) | `label` |
+| `InputField` 32px, border Input field, value “8”, chevron-down | `FilterField` with `value` |
+
+## When to use
+
+- ✅ Page size above or below a list or table.
+
+## When NOT to use
+
+- ❌ A free-form select with text options — use `FilterField` from InputField.
+
+## Variants and edge cases
+
+<Canvas of={ShowSelectStories.Interactive} />
+<Canvas of={ShowSelectStories.CustomLabel} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines` | label | `#4549A1` | Figma: Headlines |
+| `--font-size-small` / `--font-weight-semibold` | label | `14px` / `600` | Figma: Semi-Bold Headings/h7 |
+| `--spacing-8` | gap label ↔ select, value ↔ chevron | `8px` | Figma |
+| `--color-white`, `--radius-sm`, `--shadow-tooltip`, `--spacing-4` | option list | — | AI-defined |
+| `--color-text`, `--color-secondary-light`, `--color-headlines` | list option, hover, chosen | — | AI-defined |
+
+The field itself (32px, border, 14px Medium value) comes from `FilterField`. No new tokens.
+The option list is not in Figma — AI-defined: opens above the field, closes on outside click and Escape.
+
+## Props
+
+<ArgTypes of={ShowSelectStories} />
+
+## Code example
+
+```tsx
+import { ShowSelect } from 'rifbar-ds';
+
+<ShowSelect value={pageSize} options={[8, 16, 32]} onChange={setPageSize} />
+```
+
+## Accessibility
+
+- The list is a `listbox` of `option`s labelled by “Show:”; Enter / Space choose, Escape closes.

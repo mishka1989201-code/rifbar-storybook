@@ -54,3 +54,5 @@ export * from './components/InfoRowCard';
 export * from './components/TableRowMobile';
 export * from './components/CategoryCard';
 export * from './components/LogoBar';
+export * from './components/ViewSwitch';
+export * from './components/ShowSelect';
