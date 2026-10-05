@@ -1,0 +1,70 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as CardStrokeRowStories from './CardStrokeRow.stories';
+
+<Meta of={CardStrokeRowStories} />
+
+# CardStrokeRow
+
+One line inside a card: a caption on the left and a value on the right. Implements the Figma component
+[`Row.CardStroke`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=68-24983) (298px wide in the mockup, here 100% of the container).
+
+<Canvas of={CardStrokeRowStories.Default} />
+<Controls of={CardStrokeRowStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Row.CardStroke` (flex, space-between, padding 0 16) | `.ds-card-stroke-row` |
+| Text "Colors:" | `label` |
+| Frame `Frame 427320358` → text "8" (right aligned) | `value` |
+| Hidden instance `Icons 16px` inside the value frame | not drawn — put an `<Icon>` into `value` |
+
+## When to use
+
+- ✅ Short spec lines in a card: "Colors: 8", "Sizes: S, M, L".
+
+## When NOT to use
+
+- ❌ Several label/value pairs with a caption above the value — use [InfoClient](?path=/docs/molecules-infoclient--docs).
+
+## Variants and edge cases
+
+<Canvas of={CardStrokeRowStories.InList} />
+<Canvas of={CardStrokeRowStories.LongLabel} />
+<Canvas of={CardStrokeRowStories.LongValue} />
+<Canvas of={CardStrokeRowStories.NarrowContainer} />
+
+## Figma notes
+
+- The name says "CardStroke" but the standalone frame has no stroke or fill of its own: the card border comes from the parent (e.g. `ProductCard`).
+- Long label/value are not designed. AI-defined: the label is truncated with an ellipsis, the value stays on one line (max 60% of the row).
+- The 8px gap between label and value is AI-defined (Figma has none, the two are pushed apart).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-text` | text color | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | label and value | 14 / 21 / 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--spacing-16` | side padding | `16px` | Existing tokens.json · Figma: padding 16 |
+| `--spacing-2` | gap inside value frame | `2px` | Existing tokens.json · Figma: Frame 427320358 gap 2 |
+| `--spacing-8` | min gap label ↔ value | `8px` | AI-defined use: keep text apart when it is long |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={CardStrokeRowStories} />
+
+## Code example
+
+```tsx
+import { CardStrokeRow } from 'rifbar-ds';
+
+<CardStrokeRow label="Colors:" value="8" />
+```
+
+## Accessibility
+
+- Plain text in a `div`; text color #292639 on white has high contrast. If the rows form a list of facts, wrap them in your own `<dl>`/`role="list"`.

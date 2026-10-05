@@ -1,0 +1,75 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as UserDropdownStories from './UserDropdown.stories';
+
+<Meta of={UserDropdownStories} />
+
+# UserDropdown
+
+The user block of a header: avatar, name and a chevron — a button that opens a user menu.
+Implements the Figma component [`user`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=48-10504). Composes the [Avatar](?path=/docs/atoms-avatar--docs)
+(`variant="user"`) and [Icon](?path=/docs/atoms-icon--docs) atoms. Only the trigger; the menu is rendered by the parent.
+
+<Canvas of={UserDropdownStories.Default} />
+<Controls of={UserDropdownStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `user` (row, gap 8) | `.ds-user-dropdown` |
+| `ava` 32px, initials "JC" | `<Avatar variant="user">` (initials from `name`, photo via `src`) |
+| Text "Jennifer Corbett" (Body/Small Medium, Primary Blue Dark) | `name` |
+| `Icons 16px` chevron-down, Color=Primary | `<Icon name="chevron-down" color="primary">` |
+| Frame `name` (gap 2) | `.ds-user-dropdown__name` |
+
+## When to use
+
+- ✅ The user name in the header that opens profile / sign-out.
+
+## When NOT to use
+
+- ❌ A static name without a menu — use `Avatar` + text.
+
+## States and edge cases
+
+<Canvas of={UserDropdownStories.Open} />
+<Canvas of={UserDropdownStories.Disabled} />
+<Canvas of={UserDropdownStories.SingleName} />
+<Canvas of={UserDropdownStories.LongName} />
+<Canvas of={UserDropdownStories.AllStates} />
+
+## Figma notes
+
+- Figma draws only the static state. AI-defined: Open (chevron-up, `aria-expanded`), Focus (`--shadow-focus`), Disabled (`--opacity-disabled`), hover underline (skipped under reduced motion).
+- Long name is not designed. AI-defined: truncated with an ellipsis.
+- Dark theme not designed — light values are used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-primary-blue-dark` | name color | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | name | 14 / 21 / 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--spacing-8` / `--spacing-2` | gaps | `8px` / `2px` | Existing tokens.json · Figma: gap 8, gap 2 |
+| `--shadow-focus` | focus ring | — | AI-defined use: same ring as other controls |
+| `--opacity-disabled` | disabled | `20%` | AI-defined use: same as other controls |
+| `--radius-sm` | focus ring shape | `5px` | AI-defined use: rounds the focus ring |
+
+Avatar tokens (dark fill, ring, shadow) come from `Avatar`. No new tokens.
+
+## Props
+
+<ArgTypes of={UserDropdownStories} />
+
+## Code example
+
+```tsx
+import { UserDropdown } from 'rifbar-ds';
+
+<UserDropdown name="Jennifer Corbett" open={open} onClick={() => setOpen(!open)} />
+```
+
+## Accessibility
+
+- `<button aria-haspopup aria-expanded>`; the accessible name is the user name (the avatar is hidden from screen readers).
+- Name #1D2542 on white has high contrast. The 32px target is below 44px (kept as designed).

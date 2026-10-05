@@ -1,0 +1,28 @@
+/* InfoRowCard — every value references a token from src/tokens/tokens.json. */
+
+.ds-info-row-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-8) 0;
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-h7);
+  line-height: var(--font-line-height-h7);
+}
+
+.ds-info-row-card__label {
+  flex: 0 1 var(--size-info-row-label);
+  min-width: 0;
+  font-weight: var(--font-weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.ds-info-row-card__value {
+  flex: 1 1 0;
+  min-width: 0;
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}

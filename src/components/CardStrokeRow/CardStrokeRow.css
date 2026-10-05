@@ -1,0 +1,34 @@
+/* CardStrokeRow — every value references a token from src/tokens/tokens.json. */
+
+.ds-card-stroke-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 var(--spacing-16);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-card-stroke-row__label {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ds-card-stroke-row__value {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  gap: var(--spacing-2);
+  max-width: 60%;
+  text-align: right;
+  white-space: nowrap;
+}

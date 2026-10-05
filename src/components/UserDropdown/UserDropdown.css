@@ -1,0 +1,51 @@
+/* UserDropdown — every value references a token from src/tokens/tokens.json.
+   Avatar = Avatar atom (variant user), chevron = Icon atom. */
+
+.ds-user-dropdown {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-primary-blue-dark);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ds-user-dropdown:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.ds-user-dropdown:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.ds-user-dropdown__name {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.ds-user-dropdown__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ds-user-dropdown .ds-icon { flex: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ds-user-dropdown:hover .ds-user-dropdown__text { text-decoration: underline; }
+}

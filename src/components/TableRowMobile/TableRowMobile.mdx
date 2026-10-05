@@ -1,0 +1,89 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableRowMobileStories from './TableRowMobile.stories';
+
+<Meta of={TableRowMobileStories} />
+
+# TableRowMobile
+
+A compact table row for narrow screens: a caption, a centered value, a right-aligned value and a full-width action button.
+Implements the Figma component set [`TableRow`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7047-352588) (`Property 1` = 360px / 480px — one component with a `size` prop).
+Composes the [Button](?path=/docs/atoms-button--docs) atom (`variant="dark"`, `iconLeft="edit"`).
+For the wide products table see [TableProductsRow](?path=/docs/molecules-tableproductsrow--docs).
+
+<Canvas of={TableRowMobileStories.Default} />
+<Controls of={TableRowMobileStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Component `TableRow` (White, bottom 1px Stroke Light V1, padding 12 16, gap 10) | `.ds-table-row-mobile` |
+| `Property 1=360px` (320px wide) | `size="360"` (default) |
+| `Property 1=480px` (416px wide, button padding 12 / 8) | `size="480"` |
+| Header with Sort "KPI" (Semi-Bold h7) | `label` |
+| Email "1440 / 1200" (Body/Small Medium, centered) | `value` |
+| Header with Sort "116%" (right-aligned) | `result` |
+| `button_action` Style=Dark BG, icon edit, "Edit" | `<Button variant="dark" iconLeft="edit">` via `actionLabel` / `actionProps` |
+
+## When to use
+
+- ✅ A table on a phone: each record is a row with 3 key values and one action.
+
+## When NOT to use
+
+- ❌ Wide desktop tables — use [TableProductsRow](?path=/docs/molecules-tableproductsrow--docs). Cards with images and many fields — use `CardRow`.
+
+## Variants, states and edge cases
+
+<Canvas of={TableRowMobileStories.Size480} />
+<Canvas of={TableRowMobileStories.NoAction} />
+<Canvas of={TableRowMobileStories.CustomAction} />
+<Canvas of={TableRowMobileStories.OtherData} />
+<Canvas of={TableRowMobileStories.InTable} />
+<Canvas of={TableRowMobileStories.DisabledAction} />
+<Canvas of={TableRowMobileStories.LongText} />
+<Canvas of={TableRowMobileStories.Narrow} />
+<Canvas of={TableRowMobileStories.AllVariants} />
+
+## Figma notes
+
+- The two Figma variants differ only in width (320 / 416) and the button padding (8 / 12 × 8). In code the row is always 100% of its container; `size` switches only the button height.
+- The cell widths in Figma (50 / 100 / 40px) are fixed boxes; in code the first and last cells hug their content and the middle one takes the rest and is centered — the same positions.
+- The Figma cell names are "Header with Sort" / "Email": leftovers of the table header and email cell. There is no sort control in this row.
+- Not designed, AI-defined: hover / focus / disabled of the button (come from `Button`), long text (cut with an ellipsis, caption up to 40% of the row), hidden action.
+- The 480px button padding (12 / 8) is not a `Button` size, so it is applied as an override of the row. Dark theme not designed.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-stroke-light-v1` / `--border-width-sm` | bottom line | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--color-text` | cell text | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--font-size-h7` / `--font-line-height-h7` / `--font-weight-semibold` | caption | 14 / 21 / 600 | Existing tokens.json · Figma: Semi-Bold Headings/h7 |
+| `--font-weight-medium` | value, result | 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--spacing-12` / `--spacing-16` | row padding | `12px` / `16px` | Existing tokens.json · Figma: padding 12 16 |
+| `--spacing-10` | gap cells ↔ button | `10px` | Existing tokens.json · Figma: gap 10 |
+| `--spacing-8` | min gap between cells | `8px` | AI-defined use: keep cells apart when text is long |
+| `--spacing-12` / `--spacing-8` | 480 button padding | `12px` / `8px` | Existing tokens.json · Figma: button_action px 8, py 12 |
+
+Button tokens (Primary Blue Dark fill, radius 5, icon 16, Body/Small Medium white) come from `Button`. No new tokens.
+
+## Props
+
+<ArgTypes of={TableRowMobileStories} />
+
+## Code example
+
+```tsx
+import { TableRowMobile } from 'rifbar-ds';
+
+<TableRowMobile label="KPI" value="1440 / 1200" result="116%" actionProps={{ onClick: edit }} />
+<TableRowMobile size="480" action={null} />
+```
+
+## Accessibility
+
+- Cells have `role="row"` / `role="cell"`: put rows into a container with `role="table"` (and a header row) so the roles are valid.
+- Give the button a specific name via `actionProps` (`aria-label="Edit KPI"`), because every row says "Edit".
+- White on Primary Blue Dark is high contrast. The 37px button is below the 44px touch target (kept as designed).

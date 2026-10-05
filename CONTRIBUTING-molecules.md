@@ -22,6 +22,14 @@
 | StepCard | крок процесу (Card/Step): круглa іконка, назва, дата |
 | StatCard | число з підписом (Card/InProcessingV1+V2): `footer` + `watermark` або `aside` |
 | Notification | повідомлення (Figma Notiffications): `kind` success/info/warning/error + `layout` toast/banner (Sign the Contract), `actions`, `onClose` |
+| CardStrokeRow | рядок картки (Row.CardStroke): `label` ліворуч, `value` праворуч |
+| DepartmentSection | секція панелі (Section.Department): заголовок + пілюля `ChevronDropDown` «Change» + підказка; усі тексти — пропи |
+| RowInfoBlock | рядок списку з нижньою лінією (Figma RowInfoBlock): `variant` `pair` / `line` / `cells`, пропи `label`, `value`, `cells` |
+| ChartLegendItem | елемент легенди графіка (ChartDescription): кольоровий квадрат, `value` («-»), `label`; пропи `color` |
+| UserDropdown | юзер у шапці (Figma user): `Avatar` + імʼя + chevron; кнопка, `open` |
+| DepartmentItem | відділ (Figma Department): квадратний `Avatar` + назва; `initials` |
+| InfoRowCard | двоколонковий рядок картки (InfoRow.Card 1024px): `label` (semi-bold, 200px) + `value` |
+| TableRowMobile | компактний рядок таблиці для вузьких екранів (Figma TableRow 360px/480px): `label` / `value` / `result` + кнопка `Button`; проп `size`, слот `action` |
 
 Усі експортуються з `src/index.ts`.
 

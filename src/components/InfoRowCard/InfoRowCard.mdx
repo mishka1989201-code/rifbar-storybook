@@ -1,0 +1,68 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as InfoRowCardStories from './InfoRowCard.stories';
+
+<Meta of={InfoRowCardStories} />
+
+# InfoRowCard
+
+A two-column line of an info card: a semi-bold caption on the left (200px) and a value that fills the rest.
+Implements the Figma component [`InfoRow.Card 1024px`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=181-81235) (412px wide in the mockup, here 100% of the container).
+
+<Canvas of={InfoRowCardStories.Default} />
+<Controls of={InfoRowCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `InfoRow.Card 1024px` (row, gap 8, padding 8 0) | `.ds-info-row-card` |
+| Column 200px, text "Mickey Herman" (Semi-Bold Headings/h7, Color Text) | `label`, `--size-info-row-label` |
+| Column fill, text "Sam's Club" (Body/Small Medium, Color Text) | `value` |
+
+## When to use
+
+- ✅ Rows of an info card on desktop pages ("1024px" in the Figma name).
+
+## When NOT to use
+
+- ❌ Rows with a bottom line — use [RowInfoBlock](?path=/docs/molecules-rowinfoblock--docs). Caption above value — use [InfoClient](?path=/docs/molecules-infoclient--docs).
+
+## Variants and edge cases
+
+<Canvas of={InfoRowCardStories.InList} />
+<Canvas of={InfoRowCardStories.LongText} />
+<Canvas of={InfoRowCardStories.NarrowContainer} />
+
+## Figma notes
+
+- The name says "1024px": presumably there are other breakpoints, but only this one is in the linked frame. Mobile is not designed, so none is assumed.
+- The label column is 200px but can shrink (`flex: 0 1`) in a narrow container. AI-defined.
+- Long text is not designed. AI-defined: it wraps (long words break) instead of being cut.
+- Figma has no line-height on the label (100% in the style); `--font-line-height-h7` (21px) is used, like the value.
+- Dark theme not designed — light values are used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-text` | label and value | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--font-size-h7` / `--font-line-height-h7` / `--font-weight-semibold` | label | 14 / 21 / 600 | Existing tokens.json · Figma: Semi-Bold Headings/h7 |
+| `--font-weight-medium` | value | 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--spacing-8` | gap, vertical padding | `8px` | Existing tokens.json · Figma: gap 8, padding 8 |
+| `--size-info-row-label` | label column width | `200px` | **New** · Figma: label column 200 |
+
+## Props
+
+<ArgTypes of={InfoRowCardStories} />
+
+## Code example
+
+```tsx
+import { InfoRowCard } from 'rifbar-ds';
+
+<InfoRowCard label="Mickey Herman" value="Sam's Club" />
+```
+
+## Accessibility
+
+- Plain text in `div`s. For a list of facts wrap rows in your own `<dl>` / `<ul>`. #292639 on white has high contrast.

@@ -1,0 +1,31 @@
+/* ChartLegendItem — every value references a token from src/tokens/tokens.json. */
+
+.ds-chart-legend-item {
+  --ds-legend-color: var(--color-hover-blue);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  max-width: 100%;
+  color: var(--color-chart-label);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.ds-chart-legend-item__swatch {
+  flex: none;
+  width: var(--size-icon);
+  height: var(--size-icon);
+  border-radius: var(--radius-avatar-square);
+  background-color: var(--ds-legend-color);
+}
+
+.ds-chart-legend-item__value { flex: none; }
+
+.ds-chart-legend-item__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
