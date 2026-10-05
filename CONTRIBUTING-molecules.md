@@ -24,6 +24,7 @@
 | Notification | повідомлення (Figma Notiffications): `kind` success/info/warning/error + `layout` toast/banner (Sign the Contract), `actions`, `onClose` |
 | CardStrokeRow | рядок картки (Row.CardStroke): `label` ліворуч, `value` праворуч |
 | DepartmentSection | секція панелі (Section.Department): заголовок + пілюля `ChevronDropDown` «Change» + підказка; усі тексти — пропи |
+| RowInfoBlock | рядок списку з нижньою лінією (Figma RowInfoBlock): `variant` `pair` / `line` / `cells`, пропи `label`, `value`, `cells` |
 
 Усі експортуються з `src/index.ts`.
 

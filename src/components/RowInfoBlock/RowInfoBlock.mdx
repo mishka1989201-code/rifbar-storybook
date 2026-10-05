@@ -1,0 +1,87 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as RowInfoBlockStories from './RowInfoBlock.stories';
+
+<Meta of={RowInfoBlockStories} />
+
+# RowInfoBlock
+
+A row of an info list with a bottom line: caption + value, a larger "info line", or a multi-column order line.
+Implements the Figma component set [`RowInfoBlock`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7045-348261) — three variants of one row, so one component with a `variant` prop.
+
+<Canvas of={RowInfoBlockStories.Default} />
+<Controls of={RowInfoBlockStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Property 1` | Code | Notes |
+|---|---|---|
+| `order-list__item` (582px) | `variant="pair"` | Body/Small Medium, label `--color-text`, value `--color-grey-dark`, line Stroke Light V2 |
+| `Info Line 1` (516px) | `variant="line"` | 16px caption (Secondary Grey) + 16px value (Primary Blue Dark), line Stroke Light V2 |
+| `order-list_item2` (518px) | `variant="cells"` | “Astro / Banana Ice / 120”, line Stroke Light V1 |
+| Frame padding 8 0, border-bottom 1px | `.ds-row-info-block` | |
+
+## When to use
+
+- ✅ Lists of facts in an order / warehouse details panel; `cells` for item lines (name · flavor · quantity).
+
+## When NOT to use
+
+- ❌ Label above value in a card — use [InfoClient](?path=/docs/molecules-infoclient--docs). A short card line without a bottom line — use [CardStrokeRow](?path=/docs/molecules-cardstrokerow--docs).
+
+## Variants and edge cases
+
+<Canvas of={RowInfoBlockStories.InfoLine} />
+<Canvas of={RowInfoBlockStories.Cells} />
+<Canvas of={RowInfoBlockStories.TwoCells} />
+<Canvas of={RowInfoBlockStories.InList} />
+<Canvas of={RowInfoBlockStories.LongValue} />
+<Canvas of={RowInfoBlockStories.LongInfoLine} />
+<Canvas of={RowInfoBlockStories.NarrowCells} />
+<Canvas of={RowInfoBlockStories.AllVariants} />
+
+## Figma notes
+
+- `line`: Figma uses fixed columns 200px + 16px + 300px; in code they are a `2fr / 3fr` grid, so they scale with the container and match at 516px.
+- `cells`: Figma gives the columns 47 / 160 / 30px; in code the first and last cell hug their content and the middle ones share the remaining space and are centered — identical position at 518px.
+- Figma shows the three variants with different widths (582 / 516 / 518); in code the row is 100% of its container.
+- The hidden `Image and Name` wrapper in `Info Line 1` holds only the caption, no image is drawn.
+- Not designed, AI-defined: long text is cut with an ellipsis; first cell of `cells` is limited to 40% of the row; 8px minimum gap in `pair`/`cells`; dark theme — light values are used.
+- `cells` color roles (first = Color Text, others = Grey Dark) follow the Figma frame.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-text` | pair label, first cell | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--color-grey-dark` | pair value, cells | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--color-secondary-grey` | line caption | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey |
+| `--color-primary-blue-dark` | line value | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--color-stroke-light-v2` / `--border-width-sm` | bottom line (pair, line) | `#D8E2EE` / `1px` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--color-stroke-light-v1` | bottom line (cells) | `#F1F2F9` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | pair, cells | 14 / 21 / 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--font-size-h6` / `--font-line-height-h6` / `--font-weight-medium` | line caption | 16 / 24 / 500 | Existing tokens.json · Figma: Medium Headings/h6 |
+| `--font-size-standard` / `--font-line-height-standard` / `--font-weight-regular` | line value | 16 / 24 / 400 | Existing tokens.json · Figma: Body/Standart |
+| `--spacing-8` | vertical padding | `8px` | Existing tokens.json · Figma: padding 8 0 |
+| `--spacing-16` | gap in `line` | `16px` | Existing tokens.json · Figma: gap 16 |
+| `--spacing-8` | min gap in `pair` / `cells` | `8px` | AI-defined use: keep text apart when it is long |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={RowInfoBlockStories} />
+
+## Code example
+
+```tsx
+import { RowInfoBlock } from 'rifbar-ds';
+
+<RowInfoBlock label="Name" value="David Schwimmer" />
+<RowInfoBlock variant="line" label="Warehouse from" value="Chongqing #3" />
+<RowInfoBlock variant="cells" cells={['Astro', 'Banana Ice', '120']} />
+```
+
+## Accessibility
+
+- Plain text in a `div`. For a real list of facts wrap rows in your own `<ul>`/`<dl>`.
+- Secondary Grey #A7A4B7 (`line` caption) on white is below 3:1 contrast — kept as designed. Grey Dark #5D6E82 on white passes.

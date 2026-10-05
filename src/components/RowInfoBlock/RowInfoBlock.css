@@ -1,0 +1,68 @@
+/* RowInfoBlock — every value references a token from src/tokens/tokens.json.
+   One row, three Figma variants (pair / line / cells). The bottom line is a real 1px border. */
+
+.ds-row-info-block {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-8) 0;
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  font-family: var(--font-family-base);
+}
+
+.ds-row-info-block > * {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── pair — Figma `order-list__item`: Body/Small Medium ───────────────────── */
+.ds-row-info-block--pair {
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.ds-row-info-block--pair .ds-row-info-block__label { color: var(--color-text); }
+.ds-row-info-block--pair .ds-row-info-block__value { color: var(--color-grey-dark); }
+
+/* ─── line — Figma `Info Line 1`: 200px + 16px gap + 300px = 2 : 3 ──────────── */
+.ds-row-info-block--line {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--spacing-16);
+}
+
+.ds-row-info-block--line .ds-row-info-block__label {
+  color: var(--color-secondary-grey);
+  font-size: var(--font-size-h6);
+  line-height: var(--font-line-height-h6);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-row-info-block--line .ds-row-info-block__value {
+  color: var(--color-primary-blue-dark);
+  font-size: var(--font-size-standard);
+  line-height: var(--font-line-height-standard);
+  font-weight: var(--font-weight-regular);
+}
+
+/* ─── cells — Figma `order-list_item2`: first / centered middle / right-aligned last ─ */
+.ds-row-info-block--cells {
+  gap: var(--spacing-8);
+  border-bottom-color: var(--color-stroke-light-v1);
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.ds-row-info-block__cell { flex: 1 1 0; text-align: center; }
+.ds-row-info-block__cell:first-child { flex: none; max-width: 40%; color: var(--color-text); text-align: left; }
+.ds-row-info-block__cell:last-child { flex: none; text-align: right; }
+.ds-row-info-block__cell:first-child:last-child { flex: 1 1 auto; max-width: none; }
