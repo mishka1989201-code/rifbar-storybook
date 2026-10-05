@@ -1,0 +1,67 @@
+/* Scrollbar — every value references a token from src/tokens/tokens.json.
+   Chrome / Safari / Edge draw the Figma scrollbar with ::-webkit-scrollbar.
+   Firefox cannot set a scrollbar width in px, so it gets `thin` + colors.
+   (Setting scrollbar-color in Chrome would switch ::-webkit-scrollbar off,
+   which is why the Firefox rules sit inside @supports not selector(...).) */
+
+.ds-scrollbar {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.ds-scrollbar--y { overflow-y: auto; }
+.ds-scrollbar--x { overflow-x: auto; }
+.ds-scrollbar--both { overflow: auto; }
+
+/* ─── Content: 11px track (transparent), 7px thumb, 2px gap each side ── */
+.ds-scrollbar--content {
+  --ds-scrollbar-thumb: var(--color-secondary-grey);
+  --ds-scrollbar-track: transparent;
+}
+.ds-scrollbar--content::-webkit-scrollbar {
+  width: var(--size-scrollbar-content);
+  height: var(--size-scrollbar-content);
+}
+.ds-scrollbar--content::-webkit-scrollbar-track {
+  background: var(--ds-scrollbar-track);
+}
+/* Thumb = fill + 1px 15% white inside stroke. The 2px side / 1px end gap is
+   a transparent border clipped away by background-clip. */
+.ds-scrollbar--content::-webkit-scrollbar-thumb {
+  background-color: var(--ds-scrollbar-thumb);
+  background-clip: padding-box;
+  border: var(--spacing-2) solid transparent;
+  border-block-width: var(--border-width-sm);
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-white-alpha-15);
+}
+
+/* ─── Dropdown & pop-up: 3px track filled, 3px thumb ────────────────── */
+.ds-scrollbar--dropdown {
+  --ds-scrollbar-thumb: var(--color-text);
+  --ds-scrollbar-track: var(--color-stroke-light-v1);
+}
+.ds-scrollbar--dropdown::-webkit-scrollbar {
+  width: var(--size-scrollbar-thin);
+  height: var(--size-scrollbar-thin);
+}
+.ds-scrollbar--dropdown::-webkit-scrollbar-track {
+  background: var(--ds-scrollbar-track);
+}
+.ds-scrollbar--dropdown::-webkit-scrollbar-thumb {
+  background: var(--ds-scrollbar-thumb);
+  border-radius: var(--radius-pill);
+}
+
+/* ─── Firefox ───────────────────────────────────────────────────────── */
+@supports not selector(::-webkit-scrollbar) {
+  .ds-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ds-scrollbar-thumb) var(--ds-scrollbar-track);
+  }
+}
+
+/* Focus (not designed in Figma): same ring as IconButton. */
+.ds-scrollbar:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: var(--spacing-2);
+}

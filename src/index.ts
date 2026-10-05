@@ -24,3 +24,4 @@ export * from './components/ImageCard';
 export * from './components/TooltipBordered';
 export * from './components/SearchField';
 export * from './components/Pagination';
+export * from './components/Scrollbar';
