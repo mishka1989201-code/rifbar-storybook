@@ -17,6 +17,10 @@
 | ClientDetails | картка з довільним текстом |
 | InfoBlock | `CardHeader` + `InfoClient` (або `children`) |
 | CardRow | мобільна картка списку (Figma V1–V6): один компонент, пропи `direction`, `index`, `selectable`, `image`, `fields`, `actions` |
+| ProductCard | картка товару (Figma Card/Category): фото + бейдж + чекбокс, spec-рядки, слот `action` |
+| OrderCard | картка замовлення (Card/Order): заголовок + кнопка, превʼю документа, рядки label/value |
+| StepCard | крок процесу (Card/Step): круглa іконка, назва, дата |
+| StatCard | число з підписом (Card/InProcessingV1+V2): `footer` + `watermark` або `aside` |
 
 Усі експортуються з `src/index.ts`.
 
@@ -48,6 +52,7 @@
 
 - Токени: після змін у `src/tokens/tokens.json` запускати `npm run build:tokens` (`src/tokens/build/` не в git).
   Нові «raw» значення Figma додавати з `source` і датою за зразком `green-light-tint`.
+- Figma-вузол з кількома різними розкладками (`Card`: Category/Order/Step/InProcessing) розбивати на окремі молекули, якщо структура вмісту різна; V1/V2 зі схожою структурою — один компонент (`StatCard`).
 - Іконки: брати лише з наявного набору (`Icon`). Якщо у Figma растровий SVG без назви, підбирати за виглядом
   і зазначати це в MDX. Приклади: `download-cloud`, `tick`, `user` (Figma `person`).
 - Колір, якого не видно у `get_design_context` (зображення), знімати з рендера і позначати в MDX

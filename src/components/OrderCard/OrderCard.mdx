@@ -1,0 +1,72 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as OrderCardStories from './OrderCard.stories';
+
+<Meta of={OrderCardStories} />
+
+# OrderCard
+
+Document card: title with a button, a document preview and label/value rows. Implements the Figma [`Card`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7038-332399) Property 2=Order. Status values use [ChevronStatus](?path=/docs/atoms-chevronstatus--docs).
+
+<Canvas of={OrderCardStories.Default} />
+<Controls of={OrderCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame Order (White, 1px Stroke Light V2, radius 9, padding 4/4/24) | `.ds-order-card` |
+| `Header Card` (“Order #4645” + light icon button) | `title` + `action` |
+| `image 423` 204×204, radius 10 | `preview` |
+| `Card Stroke 1–4` (Mini Semi-Bold) | `fields` (value can be a `ChevronStatus`) |
+
+## When to use
+
+- ✅ Order / invoice summary with a document thumbnail.
+
+## When NOT to use
+
+- ❌ Plain label/value blocks without a preview — use `InfoBlock`.
+
+## Variants and edge cases
+
+<Canvas of={OrderCardStories.NoPreview} />
+<Canvas of={OrderCardStories.NoAction} />
+<Canvas of={OrderCardStories.LongText} />
+<Canvas of={OrderCardStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--color-stroke-light-v2` / `--border-width-sm` | border | `#D8E2EE` / `1px` | Figma |
+| `--radius-lg` | card / preview radius | `10px` | Figma radius is **9px** for the card; nearest token used |
+| `--shadow-card-raised` | shadow | `4px 4px 16px -2px rgba(0,0,0,.11)` | Figma: raw effect — **new token** |
+| `--size-card-preview` | preview size | `204px` | Figma — **new token** |
+| `--color-headlines` / `--color-text` | labels / values | `#4549A1` / `#292639` | Figma |
+| `--font-size-mini` + semibold | all text | 12 / 18 / 600 | Figma: Body/Mini Semi-Bold |
+| `--spacing-4/16/24/40` | paddings, gaps | — | Figma |
+
+`object-position: top` on the preview approximates the Figma crop (needs confirmation). Icon `chevron-down` in the button matches Figma.
+
+## Props
+
+<ArgTypes of={OrderCardStories} />
+
+## Code example
+
+```tsx
+import { OrderCard, Button, ChevronStatus } from 'rifbar-ds';
+
+<OrderCard
+  title="Order #4645"
+  action={<Button variant="light" iconOnly="chevron-down" aria-label="Expand" />}
+  preview={url}
+  fields={[{ id: 'status', label: 'Status:', value: <ChevronStatus color="light">Awaiting payment</ChevronStatus> }]}
+/>
+```
+
+## Accessibility
+
+- Icon-only `action` needs `aria-label`; give the preview an `previewAlt`.
+- Underlined values are plain text, not links.

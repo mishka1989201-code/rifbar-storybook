@@ -1,0 +1,78 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ProductCardStories from './ProductCard.stories';
+
+<Meta of={ProductCardStories} />
+
+# ProductCard
+
+Product tile: photo with badge and checkbox, name, spec rows and a big button. Implements the Figma [`Card`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7038-332399) Property 2=Category. Composes [Checkbox](?path=/docs/atoms-checkbox--docs) and [Button](?path=/docs/atoms-button--docs) (passed as `action`).
+
+<Canvas of={ProductCardStories.Default} />
+<Controls of={ProductCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame Category (White, 1px Stroke Light V2, radius 14, padding 4, Card shadow) | `.ds-product-card` |
+| `image 423` radius 10 | `image` |
+| `Discount` badge (Headlines, radius 5) | `badge` |
+| Checkbox 24px top-right | `selectable` + `checkboxProps` |
+| Title / subtitle | `title` / `subtitle` |
+| `Card Stroke 1–4` rows | `specs` |
+| `button_action More` (Big, Dark) | `action` |
+
+## When to use
+
+- ✅ Product grid on mobile/tablet.
+
+## When NOT to use
+
+- ❌ Compact list rows — use `CardRow`.
+
+## Variants and edge cases
+
+<Canvas of={ProductCardStories.Minimal} />
+<Canvas of={ProductCardStories.Selected} />
+<Canvas of={ProductCardStories.NoImage} />
+<Canvas of={ProductCardStories.LongText} />
+<Canvas of={ProductCardStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--color-stroke-light-v2` / `--border-width-sm` | border | `#D8E2EE` / `1px` | Figma: Stroke Light V2 |
+| `--radius-xl` | card radius | `14px` | Figma: radius 14 — **new token** |
+| `--radius-lg` / `--radius-sm` | photo / badge radius | `10px` / `5px` | Figma |
+| `--shadow-card-raised` | shadow | `4px 4px 16px -2px rgba(0,0,0,.11)` | Figma: raw effect — **new token** |
+| `--color-headlines` | title, labels, badge | `#4549A1` | Figma: Headlines |
+| `--color-text` | values | `#292639` | Figma: Color Text |
+| `--font-size-h5` / `--font-size-small` / `--font-size-mini` | title / rows / subtitle | 20 / 14 / 12 | Figma |
+| `--spacing-4/8/16/24` | paddings, gaps | — | Figma |
+
+Square photo (`aspect-ratio: 1`) and the full-width button are AI-defined (Figma is a fixed 284px card).
+
+## Props
+
+<ArgTypes of={ProductCardStories} />
+
+## Code example
+
+```tsx
+import { ProductCard, Button } from 'rifbar-ds';
+
+<ProductCard
+  image={url}
+  title="Astro"
+  badge="$25"
+  specs={[{ id: 'colors', label: 'Colors:', value: '8' }]}
+  action={<Button variant="dark" size="big">More info</Button>}
+/>
+```
+
+## Accessibility
+
+- Give the photo a meaningful `imageAlt`; the checkbox needs `checkboxProps={{ 'aria-label': … }}`.
+- Rendered as an `<article>` with an `<h3>`; specs are a description list.
