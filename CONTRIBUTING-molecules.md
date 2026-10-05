@@ -29,6 +29,7 @@
 | UserDropdown | юзер у шапці (Figma user): `Avatar` + імʼя + chevron; кнопка, `open` |
 | DepartmentItem | відділ (Figma Department): квадратний `Avatar` + назва; `initials` |
 | InfoRowCard | двоколонковий рядок картки (InfoRow.Card 1024px): `label` (semi-bold, 200px) + `value` |
+| TableRowMobile | компактний рядок таблиці для вузьких екранів (Figma TableRow 360px/480px): `label` / `value` / `result` + кнопка `Button`; проп `size`, слот `action` |
 
 Усі експортуються з `src/index.ts`.
 

@@ -1,0 +1,52 @@
+/* TableRowMobile — every value references a token from src/tokens/tokens.json.
+   The action button is the Button atom (dark, small, icon left). */
+
+.ds-table-row-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--spacing-10);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  background: var(--color-white);
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-h7);
+  line-height: var(--font-line-height-h7);
+}
+
+.ds-table-row-mobile__cells {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+}
+
+.ds-table-row-mobile__cell {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-table-row-mobile__label { flex: none; max-width: 40%; font-weight: var(--font-weight-semibold); }
+.ds-table-row-mobile__value { flex: 1 1 auto; text-align: center; }
+.ds-table-row-mobile__result { flex: none; text-align: right; }
+
+.ds-table-row-mobile__action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-10);
+}
+
+.ds-table-row-mobile__button { flex: 1 1 0; min-width: 0; }
+
+/* Figma 480px: the button is taller (12 / 8 instead of 8). */
+.ds-table-row-mobile--480 .ds-table-row-mobile__button {
+  padding: var(--spacing-12) var(--spacing-8);
+}
