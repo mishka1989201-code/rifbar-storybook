@@ -34,6 +34,7 @@
 | LogoBar | ліва частина хедера (Figma Logo, Icon - Navbar): бургер + `Logo` (`inverse`); `expanded`, `onMenuClick`, `href`, `hideMenu` |
 | ViewSwitch | перемикач «View:» (Figma viewing style): іконки cards/list, `value`, `onChange` |
 | ShowSelect | «Show: [8 ⌄]» (Figma viewing style 2): `FilterField` + список, `value`, `options`, `onChange`; його ж використовує `PaginationBar` |
+| SwitchGroup | дріжка з `SwitchButton` (Figma Switch: Light / Dark + hover): `options`, `value`, `onChange`, `tone` |
 
 Усі експортуються з `src/index.ts`.
 

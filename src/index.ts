@@ -56,3 +56,4 @@ export * from './components/CategoryCard';
 export * from './components/LogoBar';
 export * from './components/ViewSwitch';
 export * from './components/ShowSelect';
+export * from './components/SwitchGroup';

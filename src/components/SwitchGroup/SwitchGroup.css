@@ -1,0 +1,34 @@
+/* SwitchGroup — every value references a token from src/tokens/tokens.json.
+   Buttons are the SwitchButton atom. */
+
+.ds-switch-group {
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  height: var(--spacing-56);
+  max-width: 100%;
+  padding: var(--spacing-4);
+  border: var(--border-width-lg) solid transparent;
+  border-radius: var(--radius-lg);
+}
+
+/* Figma: Light = White fill and border, Table Row shadow. */
+.ds-switch-group--light {
+  background: var(--color-white);
+  border-color: var(--color-white);
+  box-shadow: var(--shadow-table-row);
+}
+
+/* Figma: Dark = Stroke Light V2 fill and border. */
+.ds-switch-group--dark {
+  background: var(--color-stroke-light-v2);
+  border-color: var(--color-stroke-light-v2);
+}
+
+/* The buttons fill the track height (Figma: Tab height = 100%). */
+.ds-switch-group__button {
+  height: auto;
+  min-width: 0;
+}

@@ -46,8 +46,9 @@ Implements the Figma component set
 <Canvas of={SwitchButtonStories.Focused} />
 <Canvas of={SwitchButtonStories.Disabled} />
 
-**Not designed in Figma:** Hover, Focus, Disabled.
-- Hover — AI-defined: Not Active button gets Headlines text. Active buttons do not change.
+Hover is drawn in the [`Switch`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=41-8767) frames: a Not Active button gets a fill — Stroke Light V2 for `light`, BG Color for `dark`. Active buttons do not change.
+
+**Not designed in Figma:** Focus, Disabled.
 - Focus — AI-defined: 2px Headlines outline, 2px offset, same as Button.
 - Disabled — AI-defined: 20% opacity, same as other atoms.
 
@@ -68,7 +69,9 @@ Implements the Figma component set
 | `--color-white` | Dark active text | `#FFFFFF` | Figma: White |
 | `--color-secondary-light` | Light active fill | `#ECEEFB` | Figma: Secondary Light (style) |
 | `--color-grey-dark` | not active text | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
-| `--color-headlines` | hover text, focus ring | `#4549A1` | Figma: Headlines (hover / focus AI-defined) |
+| `--color-stroke-light-v2` / `--color-bg` | hover fill (`light` / `dark`) | `#D8E2EE` / `#F6F8FC` | Figma: Switch → Light Hover / Hover Dark |
+| `--color-headlines` | focus ring | `#4549A1` | AI-defined |
+| `--spacing-10` | gap icon ↔ label | `10px` | Figma: Tab gap 10 |
 | `--font-family-base` | label | `'Poppins', system-ui, sans-serif` | Existing tokens.json |
 | `--font-weight-medium` | label | `500` | Figma: Medium Headings/h6 |
 | `--font-size-h6` / `--font-line-height-h6` | label | `16px` / `24px` | Figma: Medium Headings/h6 |

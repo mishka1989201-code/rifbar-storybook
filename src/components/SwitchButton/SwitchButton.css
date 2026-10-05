@@ -4,6 +4,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--spacing-10);
   height: var(--size-control-lg);
   margin: 0;
   padding: 0 var(--spacing-16);
@@ -32,9 +33,14 @@
   color: var(--color-primary-blue-dark);
 }
 
-/* ─── Hover (not designed in Figma — AI-defined): Not Active → Headlines text ─ */
-.ds-switch-button:is(:hover:not(:disabled), .is-hover):not(.ds-switch-button--active) {
-  color: var(--color-headlines);
+/* ─── Hover on a Not Active button (Figma Switch: Light Hover / Hover Dark):
+       Style=Light → Stroke Light V2 fill, Style=Dark → BG Color fill. Text stays Grey Dark. ─ */
+.ds-switch-button--light:is(:hover:not(:disabled), .is-hover):not(.ds-switch-button--active) {
+  background-color: var(--color-stroke-light-v2);
+}
+
+.ds-switch-button--dark:is(:hover:not(:disabled), .is-hover):not(.ds-switch-button--active) {
+  background-color: var(--color-bg);
 }
 
 /* ─── Focus (not designed in Figma — same ring as Button) ──────────────── */
