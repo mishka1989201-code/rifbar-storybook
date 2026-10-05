@@ -16,6 +16,8 @@ const meta = {
   args: { title: 'Client info' },
   argTypes: {
     title: { control: 'text' },
+    variant: { control: 'inline-radio', options: ['info', 'ticket'] },
+    sections: { control: 'object', description: '`ticket` variant: props of the `DepartmentSection`s' },
     icon: { control: 'text', description: 'Icon name from the 16px set' },
     infoProps: { control: 'object', description: 'Props of the default `InfoClient` body' },
     actions: { control: false },
@@ -31,6 +33,37 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 // ─── VARIANTS ────────────────────────────────────────────────────────────────
+/** Figma `TicketInfo/v1` (node 139:47455). */
+export const Ticket: Story = {
+  name: 'Ticket info (TicketInfo/v1)',
+  decorators: [(Story) => <div style={{ maxWidth: 400, paddingBottom: 40 }}><Story /></div>],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=139-47455',
+    },
+  },
+  args: {
+    variant: 'ticket',
+    title: 'Responsibility',
+    sections: [{ title: 'Department' }, { title: 'Manager' }],
+  },
+};
+
+export const TicketWithValues: Story = {
+  name: 'Ticket info with chosen values',
+  decorators: [(Story) => <div style={{ maxWidth: 400, paddingBottom: 40 }}><Story /></div>],
+  args: {
+    variant: 'ticket',
+    title: 'Responsibility',
+    sections: [
+      { title: 'Department', description: 'Support', actionLabel: 'Change' },
+      { title: 'Manager', description: 'Paul Rudd', actionLabel: 'Change' },
+      { title: 'Priority', description: null, actionLabel: 'High' },
+    ],
+  },
+};
+
 export const CustomFields: Story = {
   name: 'Custom fields',
   args: {
@@ -61,6 +94,12 @@ export const CustomBody: Story = {
 };
 
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
+export const TicketNarrow: Story = {
+  name: 'Ticket info, narrow container',
+  decorators: [(Story) => <div style={{ maxWidth: 260, paddingBottom: 40 }}><Story /></div>],
+  args: { variant: 'ticket', title: 'Responsibility for this support ticket', sections: [{ title: 'Department responsible for this particular ticket' }] },
+};
+
 export const NarrowContainer: Story = {
   name: 'Narrow container',
   decorators: [(Story) => <div style={{ maxWidth: 520, paddingBottom: 40 }}><Story /></div>],

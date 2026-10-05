@@ -5,7 +5,7 @@ import * as InfoBlockStories from './InfoBlock.stories';
 
 # InfoBlock
 
-Bordered info card: a title row and a body of label/value pairs. Implements the Figma component
+Bordered info card: a title row and a body of label/value pairs, or — in the `ticket` variant — of sections with a “Change” pill. Implements the Figma component
 [`InfoBlock.board_all-orders`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=32-10609)
 (1290px wide in the mockup, here 100% of the container). It only composes existing molecules:
 [CardHeader](?path=/docs/molecules-cardheader--docs) (title row) + [InfoClient](?path=/docs/molecules-infoclient--docs) (body).
@@ -21,6 +21,16 @@ Bordered info card: a title row and a body of label/value pairs. Implements the 
 | Instance `Row.HeaderCard` “Client info” | `<CardHeader title icon actions>` |
 | Frame `Info` → `info_client` (6 label/value pairs) | `<InfoClient {...infoProps}>` (or your `children`) |
 
+### Variant `ticket` — Figma [`TicketInfo/v1`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=139-47455)
+
+| Figma | Code |
+|---|---|
+| Frame `TicketInfo/v1` (White, 1px Stroke Light V2, radius 10, Cards Shadow, 400px) | `variant="ticket"` |
+| `head Card` — violet ellipse + “Responsibility” | `CardHeader tone="violet"` (set automatically) |
+| `Information 1` (padding 16) with two `Section.Department` | `sections={[{ title: 'Department' }, { title: 'Manager' }]}` → [DepartmentSection](?path=/docs/molecules-departmentsection--docs) |
+
+The last section has no bottom line. Without `sections` pass your own `children`.
+
 The title row line is Stroke Light V2 here (the standalone `Row.HeaderCard` frame uses Secondary Light), so `InfoBlock` overrides that one border color.
 
 ## When to use
@@ -33,6 +43,9 @@ The title row line is Stroke Light V2 here (the standalone `Row.HeaderCard` fram
 
 ## Variants and edge cases
 
+<Canvas of={InfoBlockStories.Ticket} />
+<Canvas of={InfoBlockStories.TicketWithValues} />
+<Canvas of={InfoBlockStories.TicketNarrow} />
 <Canvas of={InfoBlockStories.CustomFields} />
 <Canvas of={InfoBlockStories.WithActions} />
 <Canvas of={InfoBlockStories.CustomBody} />
@@ -46,9 +59,11 @@ The title row line is Stroke Light V2 here (the standalone `Row.HeaderCard` fram
 | `--color-stroke-light-v1` / `--border-width-sm` | card border | `#F1F2F9` / `1px` | Figma: colorBorders (Stroke Light V1) |
 | `--radius-lg` | card radius | `10px` | Figma: radius 10 |
 | `--shadow-card` | drop shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Figma: Cards Shadow |
-| `--color-stroke-light-v2` | title row bottom line | `#D8E2EE` | Figma: Stroke Light V2 |
+| `--color-stroke-light-v2` | title row bottom line; card border in `ticket` | `#D8E2EE` | Figma: Stroke Light V2 |
+| `--spacing-16` | body padding in `ticket` | `16px` | Figma: Information 1 padding 16 |
 
-Everything inside comes from `CardHeader` and `InfoClient` (see their docs). No new tokens.
+Everything inside comes from `CardHeader`, `InfoClient` and `DepartmentSection` (see their docs). The only new token is `--color-violet-tint` (violet badge, in `CardHeader`).
+The Figma `ticket` frame is 400px wide; here it is 100% of the container. Long titles and narrow containers are AI-defined.
 `actions` slot and custom `children` are AI-defined (not in Figma).
 
 ## Props
@@ -61,6 +76,12 @@ Everything inside comes from `CardHeader` and `InfoClient` (see their docs). No 
 import { InfoBlock } from 'rifbar-ds';
 
 <InfoBlock title="Client info" />
+
+<InfoBlock
+  variant="ticket"
+  title="Responsibility"
+  sections={[{ title: 'Department' }, { title: 'Manager' }]}
+/>
 
 <InfoBlock
   title="Order info"

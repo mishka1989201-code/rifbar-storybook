@@ -12,10 +12,10 @@
 | TableProductsHeader, TableProductsRow | темний заголовок і рядок таблиці продуктів |
 | TableHeader | один компонент із пресетами `warehouses` / `categories` / `clients` або власними `columns` |
 | TotalRow | рядок «Total» + кнопки (Button) |
-| CardHeader | заголовок картки: бейдж-іконка + h3; слот `actions` |
+| CardHeader | заголовок картки: бейдж-іконка + h3; `tone` `blue`/`violet`; слот `actions` |
 | InfoClient | пари label/value; один flex-компонент, проп `justify` (`between` = Figma Line, `start` = Wrap) |
 | ClientDetails | картка з довільним текстом |
-| InfoBlock | `CardHeader` + `InfoClient` (або `children`) |
+| InfoBlock | `CardHeader` + `InfoClient` (або `children`); `variant="ticket"` (Figma TicketInfo/v1) — фіолетовий бейдж і `sections` (`DepartmentSection`) |
 | CardRow | мобільна картка списку (Figma V1–V6) і варіанти 1024/768: один компонент, пропи `direction`, `index`, `selectable`, `image`, `imageSize`, `fields` (з `label` → двоколонкова лінія), `actions` |
 | ProductCard | картка товару (Figma Card/Category): фото + бейдж + чекбокс, spec-рядки, слот `action` |
 | OrderCard | картка замовлення (Card/Order): заголовок + кнопка, превʼю документа, рядки label/value |
