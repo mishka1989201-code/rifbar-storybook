@@ -1,0 +1,78 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ClientDetailsStories from './ClientDetails.stories';
+
+<Meta of={ClientDetailsStories} />
+
+# ClientDetails
+
+Free-text note block of a client card: a light-grey rounded card with a grey caption and a multi-paragraph text. Implements the Figma frame
+[`Client Details`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=32-10673)
+(1290px wide in the mockup, here 100% of the container). Usually sits below [CardHeader](?path=/docs/molecules-cardheader--docs)
+and [InfoClient](?path=/docs/molecules-infoclient--docs).
+
+<Canvas of={ClientDetailsStories.Default} />
+<Controls of={ClientDetailsStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Client Details` (White, padding 0 16 32) | `.ds-client-details` |
+| `Content` (BG Color, 1px Stroke Light V2, radius 10, padding 16, gap 2) | `.ds-client-details__card` |
+| “Detailed information” (Body/Standart Medium, Secondary Grey) | `title` |
+| Two paragraphs (Body/Standart Regular, 24px line, 12px gap) | `children` (string split on blank lines, or any node) |
+
+## When to use
+
+- ✅ Free-form notes, comments or description of a client / order.
+
+## When NOT to use
+
+- ❌ Structured label/value data — use `InfoClient`.
+- ❌ Editable text — use a text field.
+
+## Variants and edge cases
+
+<Canvas of={ClientDetailsStories.CustomTitle} />
+<Canvas of={ClientDetailsStories.RichContent} />
+<Canvas of={ClientDetailsStories.LongWord} />
+<Canvas of={ClientDetailsStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | outer background | `#FFFFFF` | Figma: White |
+| `--spacing-16` | side padding, card padding | `16px` | Figma: px 16, p 16 |
+| `--spacing-32` | bottom padding | `32px` | Figma: pb 32 |
+| `--color-bg` | card background | `#F6F8FC` | Figma: BG Color |
+| `--color-stroke-light-v2` / `--border-width-sm` | card border | `#D8E2EE` / `1px` | Figma: Stroke Light V2 |
+| `--radius-lg` | card radius | `10px` | Figma: radius 10 |
+| `--spacing-2` | gap caption ↔ text | `2px` | Figma: gap 2 |
+| `--spacing-12` | gap between paragraphs | `12px` | Figma: mb 12 |
+| `--color-secondary-grey` | caption color | `#A7A4B7` | Figma: Secondary Grey |
+| `--color-text` | text color | `#292639` | Figma: Color Text |
+| `--font-size-standard` / `--font-line-height-standard` | text | `16px` / `24px` | Figma: Body/Standart |
+| `--font-weight-medium` / `--font-weight-regular` | caption / text | `500` / `400` | Figma: Poppins Medium / Regular |
+| `--font-family-base` | font family | Poppins | Figma: Poppins |
+| caption `line-height: 1` | caption | — | Figma: `leading-none` (raw) |
+| `overflow-wrap: anywhere` | long words | — | AI-defined |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={ClientDetailsStories} />
+
+## Code example
+
+```tsx
+import { ClientDetails } from 'rifbar-ds';
+
+<ClientDetails>{`First paragraph.\n\nSecond paragraph.`}</ClientDetails>
+<ClientDetails title="Comment">Call before delivery.</ClientDetails>
+```
+
+## Accessibility
+
+- Plain text content; no interactive elements. Text color `#292639` on `#F6F8FC` is well above AA.
