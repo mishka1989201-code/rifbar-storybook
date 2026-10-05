@@ -1,0 +1,49 @@
+/* TableProductsRow — every value references a token from src/tokens/tokens.json.
+   Column widths match TableProductsHeader (Figma: same grid). */
+
+.ds-table-products-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  background: var(--color-white);
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-table-products-row__lead {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-32);
+  flex: none;
+}
+
+.ds-table-products-row__cell {
+  flex: none;
+  box-sizing: border-box;
+}
+
+/* Semi-Bold cells */
+.ds-table-products-row__id,
+.ds-table-products-row__name {
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-table-products-row__id { width: 30px; text-align: center; }
+.ds-table-products-row__name { width: 170px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Figma: flavor wraps (min-width 100% of 230px). */
+.ds-table-products-row__flavor { width: 230px; overflow-wrap: anywhere; }
+
+.ds-table-products-row__type { width: 203px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.ds-table-products-row__nicotine,
+.ds-table-products-row__quantity { width: 59px; text-align: right; white-space: nowrap; }
+
+.ds-table-products-row__amount { width: 75px; text-align: right; white-space: nowrap; }

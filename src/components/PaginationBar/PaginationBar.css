@@ -1,0 +1,75 @@
+/* PaginationBar — every value references a token from src/tokens/tokens.json.
+   “Show:” select = FilterField atom; page buttons = Pagination molecule. */
+
+.ds-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-table-row);
+}
+
+.ds-pagination-bar__show {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.ds-pagination-bar__label {
+  color: var(--color-headlines);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-small);
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.ds-pagination-bar__select {
+  position: relative;
+}
+
+/* Figma: gap 8 between value and chevron (the atom default is wider). */
+.ds-pagination-bar__field {
+  gap: var(--spacing-8);
+}
+
+/* Option list (not designed in Figma — AI-defined): opens above the field,
+   white card with the tooltip shadow, like other dropdown surfaces. */
+.ds-pagination-bar__list {
+  position: absolute;
+  bottom: calc(100% + var(--spacing-4));
+  left: 0;
+  z-index: 10;
+  min-width: 100%;
+  margin: 0;
+  padding: var(--spacing-4) 0;
+  list-style: none;
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-tooltip);
+}
+
+.ds-pagination-bar__option {
+  padding: var(--spacing-4) var(--spacing-8);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  cursor: pointer;
+}
+
+.ds-pagination-bar__option:hover,
+.ds-pagination-bar__option:focus-visible {
+  background: var(--color-secondary-light);
+  outline: none;
+}
+
+.ds-pagination-bar__option.is-selected {
+  color: var(--color-headlines);
+}

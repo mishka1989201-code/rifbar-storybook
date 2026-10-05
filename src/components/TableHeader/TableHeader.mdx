@@ -1,0 +1,90 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableHeaderStories from './TableHeader.stories';
+
+<Meta of={TableHeaderStories} />
+
+# TableHeader
+
+Header row of a table with sortable columns. One flexible component for three Figma frames that share the same look and
+differ only in columns: [`Table Header 4` — warehouses](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=587-173767),
+[`Table Header 4` — categories](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1299-436979)
+and [`Table Header 5` — clients](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1226-374723)
+(1524px wide in the mockups, here 100% of the container). It has no background of its own — it sits on the table/page surface.
+Dark header for the products table: [TableProductsHeader](?path=/docs/molecules-tableproductsheader--docs).
+
+Pick a column set with `preset` or pass your own `columns`.
+
+<Canvas of={TableHeaderStories.Default} />
+<Controls of={TableHeaderStories.Default} />
+
+## Presets
+
+<Canvas of={TableHeaderStories.Warehouses} />
+<Canvas of={TableHeaderStories.Categories} />
+<Canvas of={TableHeaderStories.Clients} />
+
+| Preset | Figma | Columns (width, px) |
+|---|---|---|
+| `warehouses` (default) | `Table Header 4`, `587:173767` | ID (auto) + Warehouse 170 (group, gap 32), Location 300, Manager 150, Latest update (auto, right), Actions 84 (right) |
+| `categories` | `Table Header 4`, `1299:436979` | Image 64 + Category 170 (group), Flavors/Types 170, Colors 150, Puffs 220, E-Liquid capacity (auto), Actions 84 (right) |
+| `clients` | `Table Header 5`, `1226:374723` | Name 170, Company 170, Phone 150, Email 220, Joined 80 (right), Actions 166 (right) |
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame (padding 8/16, `justify-between`) | `.ds-table-header` |
+| `Header with Sort` cell (label + `sort-solid`) | column with `sortable: true` → `<button>` + `<Icon name="sort" />` |
+| Cell without sort (“Image”, “Actions”) | column without `sortable` |
+| Cell `justify-end` / `Amount` (right-aligned) | `align: 'end'` |
+| Two cells in one inner frame, gap 32 | columns with the same `group` |
+| Fixed cell width | `width` (px); omit for auto width |
+
+## When to use
+
+- ✅ Header of the warehouses, categories or clients table, or of any table with the same look: pass `columns`.
+
+## When NOT to use
+
+- ❌ Dark header of the products table — use `TableProductsHeader`.
+- ❌ Mobile layouts: cells have fixed widths.
+
+## Variants and edge cases
+
+<Canvas of={TableHeaderStories.CustomColumns} />
+<Canvas of={TableHeaderStories.LongLabel} />
+<Canvas of={TableHeaderStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines` | text and sort icon color | `#4549A1` | Figma: Headlines |
+| `--spacing-8` | padding-y | `8px` | Figma: py 8 |
+| `--spacing-16` | padding-x | `16px` | Figma: px 16 |
+| `--spacing-32` | gap between `Image` and `Category` | `32px` | Figma: gap 32 |
+| `--font-family-base` | font family | Poppins | Figma: Poppins |
+| `--font-weight-semibold` | font weight | `600` | Figma: Semi-Bold Headings/h7 |
+| `--font-size-h7` / `--font-line-height-h7` | font size / line height | `14px` / `21px` | Figma: Headings/h7 |
+| `--border-width-lg`, `--color-headlines`, `--radius-sm` | keyboard focus ring on sortable header | `2px`, `#4549A1`, `5px` | AI-defined (no focus state in Figma) |
+| ellipsis / `nowrap` on cells | long labels | — | AI-defined |
+| `role="row"` / `columnheader`, `<button>` for sortable | semantics | — | AI-defined |
+
+No new tokens. Sort direction / active-sort states are not drawn in Figma, so there are none (the icon is the static two-arrow `sort`).
+
+## Props
+
+<ArgTypes of={TableHeaderStories} />
+
+## Code example
+
+```tsx
+import { TableHeader } from 'rifbar-ds';
+
+<TableHeader preset="clients" onSort={(id) => setSortBy(id)} />
+```
+
+## Accessibility
+
+- `role="row"` with `role="columnheader"` cells; use it inside an element with `role="table"` (or `grid`).
+- Sortable headers are real `<button>`s, reachable with Tab and activated with Enter / Space. Sort direction is not drawn in Figma, so `aria-sort` is not set.

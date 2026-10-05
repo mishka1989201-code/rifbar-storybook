@@ -1,0 +1,59 @@
+/* BreadCrumbs — every value references a token from src/tokens/tokens.json. */
+
+.ds-breadcrumbs {
+  padding: var(--spacing-8) 0;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+}
+
+.ds-breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16) var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-breadcrumbs__crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.ds-breadcrumbs__sep {
+  flex: none;
+}
+
+.ds-breadcrumbs__item {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-primary-blue-dark);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ds-breadcrumbs__item--root {
+  color: var(--color-grey-dark);
+}
+
+/* Hover / focus (not designed in Figma — AI-defined): underline; focus ring like Tab. */
+a.ds-breadcrumbs__item,
+button.ds-breadcrumbs__item {
+  cursor: pointer;
+}
+a.ds-breadcrumbs__item:hover,
+button.ds-breadcrumbs__item:hover {
+  text-decoration: underline;
+}
+a.ds-breadcrumbs__item:focus-visible,
+button.ds-breadcrumbs__item:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: var(--border-width-lg);
+}

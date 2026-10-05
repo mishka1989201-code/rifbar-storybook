@@ -1,0 +1,75 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TotalRowStories from './TotalRow.stories';
+
+<Meta of={TotalRowStories} />
+
+# TotalRow
+
+Summary bar under a table or order: caption and large total on the left, actions on the right. Implements the Figma frame
+[`Row.Total`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=78-27027)
+(1524px wide in the mockup, here 100% of the container). Built from [Button](?path=/docs/atoms-button--docs).
+
+<Canvas of={TotalRowStories.Default} />
+<Controls of={TotalRowStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Row.Total` (White, padding 16, `justify-between`, Cards Shadow) | `.ds-total-row` |
+| `total-price`: “Total” (Semi-Bold h7) | `label` |
+| `total-price`: “$19140” (Semi-Bold h1, 40/60) | `total` |
+| `button_action v1` (Dark BG, icon only 37×37) | `<Button variant="dark" iconOnly="download-cloud">` via `onDownload` |
+| `button_action` “View doc” (Dark BG, padding 8/16, icon left) | `<Button variant="dark" size="medium" iconLeft="tick">` via `onViewDoc` |
+
+Icons were matched by look to the 16px set (`download-cloud`, `tick`); swap them in `TotalRow.tsx` if the designer meant others.
+
+## When to use
+
+- ✅ Directly below a table, cart or order where the grand total and document actions are shown.
+
+## When NOT to use
+
+- ❌ Per-row totals inside a table — use `TableProductsRow`.
+- ❌ Other action sets — compose your own bar from `Button`.
+
+## Variants and edge cases
+
+<Canvas of={TotalRowStories.CustomLabels} />
+<Canvas of={TotalRowStories.WithoutActions} />
+<Canvas of={TotalRowStories.LargeAmount} />
+<Canvas of={TotalRowStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--shadow-card` | drop shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Figma: Cards Shadow |
+| `--color-text` | text color | `#292639` | Figma: Color Text |
+| `--spacing-16` | padding | `16px` | Figma: p 16 |
+| `--spacing-8` | gap between buttons | `8px` | Figma: gap 8 |
+| `--font-family-base`, `--font-weight-semibold` | Poppins Semi-Bold | `600` | Figma: Semi-Bold Headings |
+| `--font-size-h7` / `--font-line-height-h7` | caption | `14px` / `21px` | Figma: Headings/h7 |
+| `--font-size-h1` / `--font-line-height-h1` | amount | `40px` / `60px` | Figma: Headings/h1 |
+| `--spacing-16` | min gap between the groups | `16px` | AI-defined (Figma has `justify-between` only) |
+| ellipsis on the amount, hidden buttons without handlers | edge cases | — | AI-defined |
+
+Button colors, radius and sizes: see the Button docs. No new tokens.
+
+## Props
+
+<ArgTypes of={TotalRowStories} />
+
+## Code example
+
+```tsx
+import { TotalRow } from 'rifbar-ds';
+
+<TotalRow total="$19140" onDownload={downloadPdf} onViewDoc={openDoc} />
+```
+
+## Accessibility
+
+- The icon-only button has `aria-label` (`downloadLabel`, default “Download”).
+- Both buttons are native `<button>`s reachable with Tab.

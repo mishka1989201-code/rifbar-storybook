@@ -1,0 +1,77 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as BreadCrumbsStories from './BreadCrumbs.stories';
+
+<Meta of={BreadCrumbsStories} />
+
+# BreadCrumbs
+
+Shows where the user is in the page hierarchy and lets them go back up. Implements the Figma frame
+[`Bread Crumbs`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=32-9619)
+(root “Clients” + 4 crumbs; 1524px wide in the mockup, here 100% of the container).
+
+<Canvas of={BreadCrumbsStories.Default} />
+<Controls of={BreadCrumbsStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| First text (Grey Dark) | `items[0]` |
+| Next texts (Primary Blue Dark) | `items[1..]` |
+| `Icons 16px` Rifbar Small, Color=Secondary | separator, `<Icon name="rifbar-small" color="secondary">` |
+| Frame `flex-wrap`, gap 16 / 4, padding-y 8 | `.ds-breadcrumbs__list` |
+
+## When to use
+
+- ✅ Pages two or more levels deep (Clients → All → …).
+
+## When NOT to use
+
+- ❌ Switching sections of one page — use [Tabs](?path=/docs/atoms-tabs--docs).
+
+## Variants and edge cases
+
+<Canvas of={BreadCrumbsStories.Short} />
+<Canvas of={BreadCrumbsStories.SingleItem} />
+<Canvas of={BreadCrumbsStories.LongPath} />
+
+**Not designed in Figma:** hover and focus on crumbs. AI-defined: hover underlines the crumb; focus draws a 2px Headlines outline. The last crumb is the current page and is not interactive.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-grey-dark` | root crumb text | `#5D6E82` | Figma: Grey Dark (Not Active menu) |
+| `--color-primary-blue-dark` | other crumbs text | `#1D2542` | Figma: Primary Blue Dark |
+| `--icon-secondary` (via `Icon`) | separator | `#5D6E82` | Figma: Icons 16px Color=Secondary |
+| `--font-family-base`, `--font-weight-regular` | text | `Poppins`, `400` | Figma: Body/Small Regular |
+| `--font-size-small` / `--font-line-height-small` | text | `14px` / `21px` | Figma: Body/Small Regular |
+| `--spacing-8` | padding top / bottom | `8px` | Figma: padding-y 8 |
+| `--spacing-16` / `--spacing-4` | row gap / column gap | `16px` / `4px` | Figma: gap 16 4 |
+| `--color-headlines`, `--border-width-lg` | focus ring | `#4549A1`, `2px` | AI-defined (same as Tab) |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={BreadCrumbsStories} />
+
+## Code example
+
+```tsx
+import { BreadCrumbs } from 'rifbar-ds';
+
+<BreadCrumbs
+  items={[
+    { label: 'Clients', href: '/clients' },
+    { label: 'All', href: '/clients/all' },
+    { label: 'Acme Ltd.' },
+  ]}
+/>
+```
+
+## Accessibility
+
+- `<nav aria-label="Breadcrumb">` with an ordered list; the last crumb has `aria-current="page"`.
+- The separator icon is decorative (`aria-hidden`).
+- Contrast: Grey Dark on White 5.2:1, Primary Blue Dark on White 15:1.
