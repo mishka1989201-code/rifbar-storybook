@@ -1,0 +1,117 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as SearchFieldStories from './SearchField.stories';
+
+<Meta of={SearchFieldStories} />
+
+# SearchField
+
+One-line search field with an attached search button. From the Figma component
+[`SearchField`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=255-127339)
+— 2 sizes × 3 styles. It is built from a native `<input type="search">` and the
+[IconButton](?path=/docs/atoms-iconbutton--docs) `search`, inside a `<form role="search">`.
+
+<Canvas of={SearchFieldStories.Default} />
+<Controls of={SearchFieldStories.Default} />
+
+## Figma → code mapping
+
+| Figma | What it means | In code |
+|---|---|---|
+| `Property 1=Desktop` | 32px high | `size="desktop"` (default) |
+| `Property 1=Mobile` | 40px high | `size="mobile"` |
+| `Style=Static` | Empty: Stroke Light V2 border, placeholder in Secondary Grey | default (no value) |
+| `Style=Active` | Has text: Input field border, Color Text, dark button | `value` / `defaultValue` (detected automatically) |
+| `Style=Disabled` | Not available, 20% opacity | `disabled` |
+
+## When to use
+
+- ✅ Search by keyword over a table or list (header, filter bar).
+- ✅ Search that runs on Enter or on the button (`onSearch`).
+
+## When NOT to use
+
+- ❌ Entering data in a form — use [InputField](?path=/docs/atoms-inputfield--docs).
+- ❌ Picking one value from a list — use `FilterField`.
+- ❌ A search button without a field — use [IconButton](?path=/docs/atoms-iconbutton--docs) `search`.
+
+## Sizes × styles
+
+<Canvas of={SearchFieldStories.AllVariants} />
+
+## Desktop
+
+<Canvas of={SearchFieldStories.Static} />
+<Canvas of={SearchFieldStories.Active} />
+<Canvas of={SearchFieldStories.Focus} />
+<Canvas of={SearchFieldStories.Disabled} />
+
+## Mobile
+
+<Canvas of={SearchFieldStories.MobileStatic} />
+<Canvas of={SearchFieldStories.MobileActive} />
+<Canvas of={SearchFieldStories.MobileDisabled} />
+
+## Edge cases
+
+<Canvas of={SearchFieldStories.LongText} />
+<Canvas of={SearchFieldStories.Narrow} />
+
+## Example: search a list
+
+<Canvas of={SearchFieldStories.SearchExample} />
+
+**Figma notes:**
+- In Figma, `Property 1=Mobile, Style=Static` exists twice. The second one (node `821:197521`) is drawn at 20% opacity, so it is Disabled; it is documented as `MobileDisabled`.
+- Focus is not drawn. It uses the same Input field border + Focus shadow as InputField.
+- ⚠️ This frame still uses the **old** colors: border Stroke Light V2 (1.3:1) and placeholder Secondary Grey (2.4:1). On 2026-10-02 InputField got Stroke Input `#8A87A0` and Grey Dark `#5D6E82` for contrast. SearchField follows Figma as drawn; if it should match InputField, update the Figma frame (or tell me) and the two tokens change in one place.
+- The text “Search by keyword” and the sample value are placeholders from Figma, not fixed text.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-stroke-light-v2` | border (Static, Disabled); button stroke | `#D8E2EE` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--color-input-field` | border (Active, Focus); active button stroke | `#65578B` | Existing tokens.json · Figma: Input field |
+| `--color-secondary-grey` | placeholder | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey |
+| `--color-text` | value text | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--color-secondary-light` | button fill (Static) | `#ECEEFB` | Existing tokens.json · Figma: Secondary Light (via IconButton) |
+| `--color-primary-blue-dark` | button fill (Active) | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark (via IconButton) |
+| `--shadow-focus` | Focus shadow | `0 0 4px 0 rgba(98, 104, 223, 0.7)` | Existing tokens.json · AI-defined use: Focus is not drawn, same as InputField |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | text | `14px` / `21px` / `500` | Existing tokens.json · Figma: Body/Small Medium |
+| `--size-control-xs` | height (Desktop), button | `32px` | Existing tokens.json · Figma: SearchField Desktop 32px |
+| `--size-control-md` | height (Mobile), button | `40px` | Existing tokens.json · Figma: SearchField Mobile 40px |
+| `--spacing-8` | left padding | `8px` | Existing tokens.json · Figma: padding-left 8 |
+| `--radius-sm` | field radius | `5px` | Existing tokens.json · Figma: radius 5 |
+| `--border-width-sm` | border | `1px` | Existing tokens.json · Figma: stroke 1 |
+| `--opacity-disabled` | Disabled | `0.2` | Existing tokens.json · Figma: layer opacity |
+
+No new tokens were needed.
+
+## Props
+
+<ArgTypes of={SearchFieldStories} />
+
+## Code example
+
+```tsx
+import { SearchField } from 'rifbar-ds';
+
+<SearchField
+  value={query}
+  onChange={(e) => setQuery(e.target.value)}
+  onSearch={(text) => runSearch(text)}
+  aria-label="Search warehouses"
+/>
+
+<SearchField size="mobile" placeholder="Search by keyword" aria-label="Search" />
+```
+
+## Accessibility
+
+- `<form role="search">` lets screen readers jump to the search landmark; Enter submits.
+- There is no visible label — always pass `aria-label` (or a linked `<label>`). A placeholder is not a label.
+- The search button has `aria-label="Search"` (change it with `searchLabel`).
+- Focus is shown by the Input field border **and** the Focus shadow.
+- ⚠️ Static border 1.3:1 and placeholder 2.4:1 are below WCAG (see Figma notes). Value text on White is 14.7:1.
+- ⚠️ Desktop height 32px is below the 44px touch target — kept as designed; Mobile (40px) is closer.
+- ⚠️ Disabled at 20% opacity is below 3:1 contrast (same as Button and InputField).
