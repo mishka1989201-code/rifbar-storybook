@@ -1,0 +1,35 @@
+/* LogoBar — every value references a token from src/tokens/tokens.json. */
+
+.ds-logo-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-24);
+  color: var(--theme-nav-text-active);
+}
+
+.ds-logo-bar__burger {
+  display: inline-flex;
+  flex: none;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-xs);
+  color: inherit;
+  cursor: pointer;
+}
+
+/* AI-defined: Figma has no hover/focus for the burger. Hover uses the same color as active nav items. */
+.ds-logo-bar__burger:hover {
+  color: var(--theme-nav-subtab-active);
+}
+
+.ds-logo-bar__burger:focus-visible {
+  outline: var(--border-width-sm) solid var(--theme-nav-subtab-active);
+  outline-offset: var(--spacing-4);
+}
+
+.ds-logo-bar__logo {
+  display: inline-flex;
+  min-width: 0;
+  color: inherit;
+}

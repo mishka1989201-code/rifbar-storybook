@@ -53,3 +53,4 @@ export * from './components/DepartmentItem';
 export * from './components/InfoRowCard';
 export * from './components/TableRowMobile';
 export * from './components/CategoryCard';
+export * from './components/LogoBar';
