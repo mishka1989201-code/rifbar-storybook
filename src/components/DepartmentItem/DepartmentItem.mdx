@@ -1,0 +1,68 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as DepartmentItemStories from './DepartmentItem.stories';
+
+<Meta of={DepartmentItemStories} />
+
+# DepartmentItem
+
+A department line: a square avatar with an abbreviation and the department name.
+Implements the Figma component [`Department`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=139-48594) (368px wide in the mockup, here 100% of the container).
+Composes the [Avatar](?path=/docs/atoms-avatar--docs) atom (`variant="department"`).
+
+<Canvas of={DepartmentItemStories.Default} />
+<Controls of={DepartmentItemStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Department` (row, gap 8) | `.ds-department-item` |
+| `Department Avatar` 28px square, radius 4, Hover Blue, "MG" | `<Avatar variant="department" initials>` |
+| Text "Management" (Body/Small Regular, Grey Dark) | `name` |
+
+## When to use
+
+- ✅ The responsible department in a ticket, order or list.
+
+## When NOT to use
+
+- ❌ A person — use [UserDropdown](?path=/docs/molecules-userdropdown--docs) or `Avatar` with the `chat` variant.
+
+## Variants and edge cases
+
+<Canvas of={DepartmentItemStories.AutoInitials} />
+<Canvas of={DepartmentItemStories.InList} />
+<Canvas of={DepartmentItemStories.LongName} />
+
+## Figma notes
+
+- Figma shows "MG" for "Management", which is not what the first letters give ("M"). So `Avatar` got an optional `initials` prop; without it the initials come from `name`.
+- Long name is not designed. AI-defined: truncated with an ellipsis.
+- Dark theme not designed — light values are used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-grey-dark` | name color | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-regular` | name | 14 / 21 / 400 | Existing tokens.json · Figma: Body/Small Regular |
+| `--spacing-8` | gap | `8px` | Existing tokens.json · Figma: gap 8 |
+
+Avatar tokens (Hover Blue fill, radius 4, size 28, Body/Mini Regular) come from `Avatar`. No new tokens.
+
+## Props
+
+<ArgTypes of={DepartmentItemStories} />
+
+## Code example
+
+```tsx
+import { DepartmentItem } from 'rifbar-ds';
+
+<DepartmentItem name="Management" initials="MG" />
+```
+
+## Accessibility
+
+- The avatar is decorative (`aria-hidden`), the name is visible text next to it.
+- Name #5D6E82 on white is about 5:1 ✅. White initials on Hover Blue are 4.6:1 ✅.

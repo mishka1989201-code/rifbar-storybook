@@ -1,0 +1,73 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ChartLegendItemStories from './ChartLegendItem.stories';
+
+<Meta of={ChartLegendItemStories} />
+
+# ChartLegendItem
+
+One entry of a chart legend: a color swatch, a value (or "-") and the series name.
+Implements the Figma component [`ChartDescription`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=88-76033).
+
+<Canvas of={ChartLegendItemStories.Default} />
+<Controls of={ChartLegendItemStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `ChartDescription` (row, gap 8) | `.ds-chart-legend-item` |
+| Rectangle 16×16, radius 4, Hover Blue | `.ds-chart-legend-item__swatch`, `color` (default Hover Blue) |
+| Text "-" | `value` (default "-", `null` hides it) |
+| Text "Previous indicators" | `label` |
+
+## When to use
+
+- ✅ Under or next to a chart to name a series.
+
+## When NOT to use
+
+- ❌ Chart tooltips or axis labels — they have their own styles.
+
+## Variants and edge cases
+
+<Canvas of={ChartLegendItemStories.WithValue} />
+<Canvas of={ChartLegendItemStories.NoValue} />
+<Canvas of={ChartLegendItemStories.OtherColor} />
+<Canvas of={ChartLegendItemStories.LegendRow} />
+<Canvas of={ChartLegendItemStories.LongLabel} />
+
+## Figma notes
+
+- Only the Hover Blue swatch is drawn. Other series colors are AI-defined: pass any token through `color`.
+- The "-" in Figma is probably a placeholder for a value; it is a prop with "-" as default.
+- Long label is not designed. AI-defined: truncated with an ellipsis.
+- Dark theme not designed. The legend text is black at 60% in both themes — on a dark background pass your own color via CSS.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-hover-blue` | swatch fill | `#6368DF` | Existing tokens.json · Figma: Hover Blue |
+| `--color-chart-label` | text color | `rgba(0,0,0,.6)` | **New** · Figma: Light/Base/Axis & Legend Label #000000 @ 60% |
+| `--font-size-mini` / `--font-line-height-mini` / `--font-weight-medium` | text | 12 / 18 / 500 | Existing tokens.json · Figma: Body/Mini Medium |
+| `--size-icon` | swatch size | `16px` | Existing tokens.json · same 16px value as Icons 16px |
+| `--radius-avatar-square` | swatch radius | `4px` | Existing tokens.json · same 4px value as Department Avatar |
+| `--spacing-8` | gap | `8px` | Existing tokens.json · Figma: gap 8 |
+
+## Props
+
+<ArgTypes of={ChartLegendItemStories} />
+
+## Code example
+
+```tsx
+import { ChartLegendItem } from 'rifbar-ds';
+
+<ChartLegendItem label="Previous indicators" />
+<ChartLegendItem color="var(--color-green-light)" value="1 240" label="Current" />
+```
+
+## Accessibility
+
+- The swatch is decorative (`aria-hidden`): color alone must not carry meaning, so keep the label.
+- Black at 60% on white is about 7:1 ✅. The legend does not make a chart accessible on its own — give the chart a text alternative.

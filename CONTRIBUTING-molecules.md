@@ -25,6 +25,10 @@
 | CardStrokeRow | рядок картки (Row.CardStroke): `label` ліворуч, `value` праворуч |
 | DepartmentSection | секція панелі (Section.Department): заголовок + пілюля `ChevronDropDown` «Change» + підказка; усі тексти — пропи |
 | RowInfoBlock | рядок списку з нижньою лінією (Figma RowInfoBlock): `variant` `pair` / `line` / `cells`, пропи `label`, `value`, `cells` |
+| ChartLegendItem | елемент легенди графіка (ChartDescription): кольоровий квадрат, `value` («-»), `label`; пропи `color` |
+| UserDropdown | юзер у шапці (Figma user): `Avatar` + імʼя + chevron; кнопка, `open` |
+| DepartmentItem | відділ (Figma Department): квадратний `Avatar` + назва; `initials` |
+| InfoRowCard | двоколонковий рядок картки (InfoRow.Card 1024px): `label` (semi-bold, 200px) + `value` |
 
 Усі експортуються з `src/index.ts`.
 

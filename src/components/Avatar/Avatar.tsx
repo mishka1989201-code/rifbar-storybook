@@ -15,6 +15,8 @@ export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: AvatarVariant;
   /** `xs` = 20px (inside Email - Chevron). Only for `chat` / `department`; `user` is always 32px. */
   size?: AvatarSize;
+  /** Own initials instead of the ones taken from `name` (e.g. a department “Management” → “MG”). */
+  initials?: string;
   /** Photo URL. If it is missing or fails to load, the initials are shown. */
   src?: string;
   /** Hide from screen readers when the name is already written next to the avatar. */
@@ -32,7 +34,7 @@ export function getInitials(name: string) {
  * Figma `ava`, `Chat Avatar`, `Department Avatar`: a person's or a department's
  * photo or initials.
  */
-export function Avatar({ name, variant = 'chat', size = 'md', src, decorative = false, className, ...rest }: AvatarProps) {
+export function Avatar({ name, variant = 'chat', size = 'md', initials, src, decorative = false, className, ...rest }: AvatarProps) {
   const [failed, setFailed] = useState<string>();
   const showImage = src && failed !== src;
   const classes = [
@@ -50,7 +52,7 @@ export function Avatar({ name, variant = 'chat', size = 'md', src, decorative = 
       {showImage ? (
         <img className="ds-avatar__image" src={src} alt="" onError={() => setFailed(src)} />
       ) : (
-        getInitials(name)
+        initials ?? getInitials(name)
       )}
     </span>
   );
