@@ -1,0 +1,60 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as BarStories from './TimeTrackerBar.stories';
+
+<Meta of={BarStories} />
+
+# TimeTracker / Bar
+
+The top bar of the time tracker: [Title](?path=/docs/molecules-timetracker-title--docs) on the left,
+[Date](?path=/docs/molecules-timetracker-date--docs) on the right. Implements the Figma component
+[`TimeTracker/Play Actions Menu`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=662-271087) (1492px wide in the mockup, here 100%).
+The time tracker is built from four molecules: [Title](?path=/docs/molecules-timetracker-title--docs), [Date](?path=/docs/molecules-timetracker-date--docs), [Bar](?path=/docs/molecules-timetracker-bar--docs) (Title + Date) and [TimeScale](?path=/docs/molecules-timetracker-timescale--docs).
+
+<Canvas of={BarStories.Default} />
+<Controls of={BarStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame (White, padding 16, bottom line 1px Stroke Light V1, space-between) | `.ds-time-tracker-bar` |
+| Instance `TimeTracker/Play Buttons and Title` | `TimeTrackerTitle` (`titleProps`) |
+| Instance `TimeTracker/Date` | `TimeTrackerDate` (`dateProps`) |
+
+## When to use
+
+- ✅ Header of the time tracker page or card, above the [TimeScale](?path=/docs/molecules-timetracker-timescale--docs).
+
+## Variants and edge cases
+
+<Canvas of={BarStories.Interactive} />
+<Canvas of={BarStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--spacing-16` | padding, gap | `16px` | Figma: p 16 |
+| `--color-stroke-light-v1` / `--border-width-sm` | bottom line | `#F1F2F9` / `1px` | Figma: Stroke Light V1 |
+
+Everything inside comes from the two parts. No new tokens. AI-defined: wrapping on a narrow bar (the date block goes under the title).
+
+## Props
+
+<ArgTypes of={BarStories} />
+
+## Code example
+
+```tsx
+import { TimeTrackerBar } from 'rifbar-ds';
+
+<TimeTrackerBar
+  titleProps={{ title: 'My Time', playProps: { onClick: start } }}
+  dateProps={{ label: 'Today', onPrev, onReset, onNext }}
+/>
+```
+
+## Accessibility
+
+- See the parts: native buttons with accessible names.

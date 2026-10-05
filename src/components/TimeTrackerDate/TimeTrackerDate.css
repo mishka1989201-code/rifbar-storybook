@@ -1,0 +1,34 @@
+/* TimeTrackerDate — every value references a token from src/tokens/tokens.json.
+   Buttons are the Button atom (variant light, icon only). */
+
+.ds-time-tracker-date {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  font-family: var(--font-family-base);
+}
+
+.ds-time-tracker-date__title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 0;
+  color: var(--color-headlines);
+}
+
+.ds-time-tracker-date__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-time-tracker-date__buttons {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+  flex: none;
+}

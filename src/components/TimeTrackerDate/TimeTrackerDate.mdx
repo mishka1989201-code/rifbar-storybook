@@ -1,0 +1,59 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as DateStories from './TimeTrackerDate.stories';
+
+<Meta of={DateStories} />
+
+# TimeTracker / Date
+
+Calendar icon with the date and three buttons: previous day, today, next day. Implements the Figma component
+[`TimeTracker/Date`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=662-271082). Composes [Icon](?path=/docs/atoms-icon--docs) and [Button](?path=/docs/atoms-button--docs).
+The time tracker is built from four molecules: [Title](?path=/docs/molecules-timetracker-title--docs), [Date](?path=/docs/molecules-timetracker-date--docs), [Bar](?path=/docs/molecules-timetracker-bar--docs) (Title + Date) and [TimeScale](?path=/docs/molecules-timetracker-timescale--docs).
+
+<Canvas of={DateStories.Default} />
+<Controls of={DateStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame (row, gap 16) | `.ds-time-tracker-date` |
+| `Title and Icon`: 24px icon + “Today” (Medium h5, Headlines) | `Icon date` + `label` |
+| `Buttons Arrows` (3 × `button_action` Light Fill, icon only, gap 8) | `Button variant="light" iconOnly`: `chevron-left`, `reboot`, `chevron-right` |
+
+## When to use
+
+- ✅ Switching the day in the time tracker (right part of [Bar](?path=/docs/molecules-timetracker-bar--docs)).
+
+## Variants and edge cases
+
+<Canvas of={DateStories.OtherDay} />
+<Canvas of={DateStories.NextDisabled} />
+<Canvas of={DateStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-16` / `--spacing-8` | gaps (block / icon ↔ text and between buttons) | — | Figma |
+| `--color-headlines` | icon and date | `#4549A1` | Figma: Headlines |
+| `--font-size-h5` / `--font-line-height-h5` / `--font-weight-medium` | date | `20px` / `30px` / `500` | Figma: Medium Headings/h5 |
+
+Buttons bring their own tokens (Secondary Light fill, Primary Blue Dark icon, 37px). No new tokens.
+Icons: `date` (24px), `chevron-left`, `chevron-right`, `reboot` — matched by look (the Figma icons are unnamed images).
+AI-defined: disabled arrows, ellipsis for a long date, accessible names.
+
+## Props
+
+<ArgTypes of={DateStories} />
+
+## Code example
+
+```tsx
+import { TimeTrackerDate } from 'rifbar-ds';
+
+<TimeTrackerDate label="Today" onPrev={prevDay} onReset={today} onNext={nextDay} />
+```
+
+## Accessibility
+
+- Icon-only buttons have `aria-label`s (“Previous day”, “Today”, “Next day”).

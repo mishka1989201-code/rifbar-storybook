@@ -1,0 +1,20 @@
+/* TimeTrackerTitle — every value references a token from src/tokens/tokens.json. */
+
+.ds-time-tracker-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  min-width: 0;
+  font-family: var(--font-family-base);
+}
+
+.ds-time-tracker-title__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+  font-weight: var(--font-weight-medium);
+}
