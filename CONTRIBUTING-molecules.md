@@ -16,7 +16,7 @@
 | InfoClient | пари label/value; один flex-компонент, проп `justify` (`between` = Figma Line, `start` = Wrap) |
 | ClientDetails | картка з довільним текстом |
 | InfoBlock | `CardHeader` + `InfoClient` (або `children`) |
-| CardRow | мобільна картка списку (Figma V1–V6): один компонент, пропи `direction`, `index`, `selectable`, `image`, `fields`, `actions` |
+| CardRow | мобільна картка списку (Figma V1–V6) і варіанти 1024/768: один компонент, пропи `direction`, `index`, `selectable`, `image`, `imageSize`, `fields` (з `label` → двоколонкова лінія), `actions` |
 | ProductCard | картка товару (Figma Card/Category): фото + бейдж + чекбокс, spec-рядки, слот `action` |
 | OrderCard | картка замовлення (Card/Order): заголовок + кнопка, превʼю документа, рядки label/value |
 | StepCard | крок процесу (Card/Step): круглa іконка, назва, дата |

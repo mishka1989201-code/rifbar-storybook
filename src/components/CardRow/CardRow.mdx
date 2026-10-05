@@ -25,6 +25,19 @@ Composes [Button](?path=/docs/atoms-button--docs), [Checkbox](?path=/docs/atoms-
 | V5 — as V2 with red delete + info buttons | `direction="column"` + two icon-only buttons |
 | V6 — as V5 in a 476px card, ID on the left | `direction="row"` + `index` |
 
+The Figma set also has 1024 / 768 variants (node
+[`7049-379761`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7049-379761)):
+
+| Figma | Code |
+|---|---|
+| 1024 v1 — contact card, call + More | `direction="row"` (default), no image |
+| 1024 v2 — checkbox, 111px image, More | `selectable` + `image` + `imageSize="lg"` |
+| 1024 v3 — three two-column info lines | fields with `label` (rendered as [InfoRowCard](?path=/docs/molecules-inforowcard--docs)) |
+| 1024 v4 | same as V2/V5 above (`direction="column"`) |
+| 768 v1 — ID, 111px image, delete + edit | `index` + `image` + `imageSize="lg"` |
+| 768 v2 | same as V6 above |
+| 1024 Dou — two cards side by side | two `CardRow`s in a flex container (story) |
+
 Values are `fields` (`weight`, `underline`, `grow` for wrapping text); a status is a `ChevronStatus` in `content`.
 
 ## When to use
@@ -42,6 +55,11 @@ Values are `fields` (`weight`, `underline`, `grow` for wrapping text); a status 
 <Canvas of={CardRowStories.Request} />
 <Canvas of={CardRowStories.WithDelete} />
 <Canvas of={CardRowStories.Wide} />
+<Canvas of={CardRowStories.Contact1024} />
+<Canvas of={CardRowStories.Product1024} />
+<Canvas of={CardRowStories.InfoLines1024} />
+<Canvas of={CardRowStories.Product768} />
+<Canvas of={CardRowStories.Pair1024} />
 <Canvas of={CardRowStories.LongText} />
 <Canvas of={CardRowStories.NarrowContainer} />
 <Canvas of={CardRowStories.NoActions} />
@@ -62,9 +80,12 @@ Values are `fields` (`weight`, `underline`, `grow` for wrapping text); a status 
 | `--color-stroke-light-v2`, `--radius-image-card` | image border, radius | `#D8E2EE`, `4px` | Figma |
 | `--size-control-sm` | actions row height | `37px` | Figma: Buttons height 37 |
 
-Buttons, checkbox and status pills bring their own tokens. No new tokens.
+| `--size-card-row-image-lg` | 111px image | `111px` | **New** · Figma: imageCards 111×111 |
+| `--size-card-row-labeled-min` | min width of a labeled line | `412px` | **New** · Figma: Info Line 412 |
+
+Buttons, checkbox and status pills bring their own tokens.
 `min-width` handling, wrapping of `grow` fields and the `no actions` state are AI-defined (not in Figma).
-Icons: `info`, `delete`, `call` (Figma `Call-Filled`, matched by look).
+Icons: `info`, `delete`, `edit` (768 v1, matched by look), `call` (Figma `Call-Filled`, matched by look).
 
 ## Props
 
