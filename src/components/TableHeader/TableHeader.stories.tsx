@@ -1,31 +1,56 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TableCategoryHeader } from './TableCategoryHeader';
+import { TableHeader } from './TableHeader';
 
 const FIGMA_URL =
-  'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1299-436979';
+  'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=587-173767';
 
 const meta = {
-  title: 'Molecules/TableCategoryHeader',
-  component: TableCategoryHeader,
+  title: 'Molecules/TableHeader',
+  component: TableHeader,
   parameters: {
     layout: 'padded',
     design: { type: 'figma', url: FIGMA_URL },
   },
   argTypes: {
+    preset: {
+      control: 'inline-radio',
+      options: ['warehouses', 'categories', 'clients'],
+      description: 'Column set drawn in Figma. Ignored when `columns` is set.',
+    },
     columns: {
       control: 'object',
-      description: 'Cells: `{ id, label, width?, align?, sortable?, group? }`. Defaults to the Figma frame.',
+      description: 'Custom cells: `{ id, label, width?, align?, sortable?, group? }`. Overrides `preset`.',
     },
     onSort: { action: 'sort' },
   },
   decorators: [(Story) => <div style={{ maxWidth: 1524 }}><Story /></div>],
-} satisfies Meta<typeof TableCategoryHeader>;
+} satisfies Meta<typeof TableHeader>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 // ─── DEFAULT (Figma) ─────────────────────────────────────────────────────────
 export const Default: Story = {};
+
+// ─── FIGMA PRESETS ───────────────────────────────────────────────────────────
+export const Warehouses: Story = {
+  parameters: { design: { type: 'figma', url: FIGMA_URL } },
+  args: { preset: 'warehouses' },
+};
+
+export const Categories: Story = {
+  args: { preset: 'categories' },
+  parameters: {
+    design: { type: 'figma', url: FIGMA_URL.replace('587-173767', '1299-436979') },
+  },
+};
+
+export const Clients: Story = {
+  args: { preset: 'clients' },
+  parameters: {
+    design: { type: 'figma', url: FIGMA_URL.replace('587-173767', '1226-374723') },
+  },
+};
 
 // ─── VARIANTS ────────────────────────────────────────────────────────────────
 export const CustomColumns: Story = {

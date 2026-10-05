@@ -1,6 +1,6 @@
-/* TableCategoryHeader — every value references a token from src/tokens/tokens.json. */
+/* TableHeader — every value references a token from src/tokens/tokens.json. */
 
-.ds-table-category-header {
+.ds-table-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,14 +15,14 @@
 }
 
 /* Figma: `Image` + `Category` sit in one group, gap 32. */
-.ds-table-category-header__group {
+.ds-table-header__group {
   display: flex;
   align-items: center;
   gap: var(--spacing-32);
   flex: none;
 }
 
-.ds-table-category-header__cell {
+.ds-table-header__cell {
   display: flex;
   align-items: center;
   flex: none;
@@ -31,15 +31,15 @@
   white-space: nowrap;
 }
 
-.ds-table-category-header__cell--end { justify-content: flex-end; }
+.ds-table-header__cell--end { justify-content: flex-end; }
 
-.ds-table-category-header__label {
+.ds-table-header__label {
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 /* Sortable header: label + sort icon, no button chrome. */
-.ds-table-category-header__sort {
+.ds-table-header__sort {
   display: inline-flex;
   align-items: center;
   max-width: 100%;
@@ -52,7 +52,7 @@
   cursor: pointer;
 }
 
-.ds-table-category-header__sort:focus-visible {
+.ds-table-header__sort:focus-visible {
   outline: var(--border-width-lg) solid var(--color-headlines);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
