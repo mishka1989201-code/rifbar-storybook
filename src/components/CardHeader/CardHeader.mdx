@@ -1,0 +1,74 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as CardHeaderStories from './CardHeader.stories';
+
+<Meta of={CardHeaderStories} />
+
+# CardHeader
+
+Title row at the top of a card or form section: round icon badge and a heading. Implements the Figma frame
+[`Row.HeaderCard`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=32-10560)
+(1290px wide in the mockup, here 100% of the container).
+
+<Canvas of={CardHeaderStories.Default} />
+<Controls of={CardHeaderStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Row.HeaderCard` (White, padding 16, gap 8, bottom stroke Secondary Light) | `.ds-card-header` |
+| `Ellipse 42` 26px, light blue fill | `.ds-card-header__badge` |
+| `Icons 16px` person in the ellipse | `<Icon name="user">` via `icon` |
+| “Client info” (Semi-Bold h5, Headlines) | `title`, rendered as `<h3>` |
+
+## When to use
+
+- ✅ Header of an info card or form block, above its fields.
+
+## When NOT to use
+
+- ❌ Page titles — use the page heading.
+- ❌ Table headers — use `TableHeader`.
+
+## Variants and edge cases
+
+<Canvas of={CardHeaderStories.CustomIcon} />
+<Canvas of={CardHeaderStories.WithActions} />
+<Canvas of={CardHeaderStories.LongTitle} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--color-secondary-light` | bottom border color | `#ECEEFB` | Figma: Secondary Light |
+| `--border-width-sm` | bottom border width | `1px` | Figma: 1px stroke |
+| `--color-blue-light-tint` | badge fill | `rgba(10,171,222,.22)` | Figma: raw ellipse fill (sampled `#C9EDF8` on white), **new token** |
+| `--color-headlines` | title and icon color | `#4549A1` | Figma: Headlines / colorTitles |
+| `--spacing-16` | padding | `16px` | Figma: p 16 |
+| `--spacing-8` | gap badge ↔ title | `8px` | Figma: gap 8 |
+| `--font-family-base`, `--font-weight-semibold` | Poppins Semi-Bold | `600` | Figma: Semi-Bold Headings/h5 |
+| `--font-size-h5` / `--font-line-height-h5` | title | `20px` / `30px` | Figma: Headings/h5 |
+| badge size `26px` | ellipse | — | Figma: 26×26 (raw, no size token) |
+| `actions` slot, ellipsis on title, `<h3>` | extras | — | AI-defined (not in Figma) |
+
+The ellipse color could not be read from Figma directly (the asset was an image), so it was sampled from the render and
+matched to Blue Light `#0AABDE` at 22%, the same pattern as `--color-green-light-tint`. Check it with the designer.
+
+## Props
+
+<ArgTypes of={CardHeaderStories} />
+
+## Code example
+
+```tsx
+import { CardHeader } from 'rifbar-ds';
+
+<CardHeader title="Client info" />
+<CardHeader title="Payment" icon="cart" actions={<Button>Edit</Button>} />
+```
+
+## Accessibility
+
+- The title is an `<h3>`; adjust the level in your page structure if needed.
+- The badge icon is decorative (`aria-hidden`).
