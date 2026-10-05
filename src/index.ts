@@ -22,3 +22,4 @@ export * from './components/Logo';
 export * from './components/HeaderMenu';
 export * from './components/ImageCard';
 export * from './components/TooltipBordered';
+export * from './components/SearchField';
