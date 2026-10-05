@@ -26,6 +26,7 @@ export * from './components/SearchField';
 export * from './components/TabsHeader';
 export * from './components/BreadCrumbs';
 export * from './components/PaginationBar';
+export * from './components/TableActionsRow';
 export * from './components/Pagination';
 export * from './components/Scrollbar';
 export * from './components/Slider';
