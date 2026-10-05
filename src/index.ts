@@ -40,6 +40,7 @@ export * from './components/ProductCard';
 export * from './components/OrderCard';
 export * from './components/StepCard';
 export * from './components/StatCard';
+export * from './components/Notification';
 export * from './components/Pagination';
 export * from './components/Scrollbar';
 export * from './components/Slider';

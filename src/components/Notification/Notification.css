@@ -1,0 +1,95 @@
+/* Notification — every value references a token from src/tokens/tokens.json. */
+
+.ds-notification {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-32);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-8) var(--spacing-16);
+  border: var(--border-width-sm) solid var(--ds-notification-border);
+  border-radius: var(--radius-md);
+  background: var(--ds-notification-bg);
+  box-shadow: var(--shadow-table-row);
+  color: var(--ds-notification-color);
+  font-family: var(--font-family-base);
+}
+
+.ds-notification--success {
+  --ds-notification-bg: var(--color-success-bg);
+  --ds-notification-border: var(--color-success-border);
+  --ds-notification-color: var(--color-green-dark);
+}
+.ds-notification--info {
+  --ds-notification-bg: var(--color-info-bg);
+  --ds-notification-border: var(--color-info-border);
+  --ds-notification-color: var(--color-headlines);
+}
+.ds-notification--warning {
+  --ds-notification-bg: var(--color-warning-bg);
+  --ds-notification-border: var(--color-warning-border);
+  --ds-notification-color: var(--color-warning);
+}
+.ds-notification--error {
+  --ds-notification-bg: var(--color-error-bg);
+  --ds-notification-border: var(--color-error-border);
+  --ds-notification-color: var(--color-danger);
+}
+
+.ds-notification__main {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ds-notification__text {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--font-size-h6);
+  line-height: var(--font-line-height-h6);
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+.ds-notification__title {
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-notification__close {
+  display: inline-flex;
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ds-notification__close:focus-visible {
+  outline: var(--border-width-lg) solid currentColor;
+  outline-offset: var(--spacing-2);
+  border-radius: var(--radius-xs);
+}
+
+/* Figma “Sign the Contract”: text hugs the left, buttons the right; wraps on narrow screens. */
+.ds-notification--banner {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+}
+
+/* AI-defined: the text takes at least half of the bar, otherwise the buttons wrap under it. */
+.ds-notification--banner .ds-notification__main {
+  flex: 1 1 50%;
+}
+
+.ds-notification__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16);
+  flex: none;
+}
