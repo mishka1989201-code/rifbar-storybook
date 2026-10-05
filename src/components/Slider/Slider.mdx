@@ -1,0 +1,95 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as SliderStories from './Slider.stories';
+
+<Meta of={SliderStories} />
+
+# Slider
+
+A thin track with a round handle for picking a value from a range. From the Figma component
+[`Slider Light`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=3923-227118)
+(a Material "enabled discrete slider"). It is a native `<input type="range">`.
+
+<Canvas of={SliderStories.Default} />
+<Controls of={SliderStories.Default} />
+
+## Figma → code mapping
+
+| Figma | What it means | In code |
+|---|---|---|
+| `Slider Light` (139px) | One state: handle in the middle of the track | `min=0 max=100 defaultValue=50` (the defaults of the story) |
+| Inactive track (2px, Not Active) | The whole track. There is no drawn "filled" part | CSS track, not configurable |
+| Handle container (14px + 1px stroke) | The round handle | CSS thumb |
+| "discrete" | Handle snaps to steps | `step` |
+
+## When to use
+
+- ✅ Picking a number from a range where an exact value is not important.
+- ✅ A few discrete steps (`step`).
+
+## When NOT to use
+
+- ❌ An exact number is needed — use [InputField](?path=/docs/atoms-inputfield--docs).
+- ❌ Switching one option on or off — use [Toggle](?path=/docs/atoms-toggle--docs).
+
+## Values
+
+<Canvas of={SliderStories.AtStart} />
+<Canvas of={SliderStories.AtEnd} />
+<Canvas of={SliderStories.Discrete} />
+
+## States
+
+<Canvas of={SliderStories.Focus} />
+<Canvas of={SliderStories.Disabled} />
+
+## Edge cases
+
+<Canvas of={SliderStories.Wide} />
+
+## Example: with a value
+
+<Canvas of={SliderStories.Example} />
+
+**Figma notes:**
+- Figma has only one state (handle at 50%). Focus and Disabled are not drawn: Focus uses the same Focus shadow as InputField, Disabled uses 20% opacity like the other atoms.
+- The Figma frame draws no "filled" part left of the handle, so none is drawn here.
+- The frame is 48px high (touch area) with 8px padding on the sides; the track is 123px of the 139px.
+- The handle fill is the Figma variable `White (Dark)`, which is `#FFFFFF` in the light theme. It is not wired to the dark theme yet — here it is `--color-white`. The component name says "Light": a dark version is not designed.
+- The handle SVG could not be downloaded; the handle is drawn in CSS from its values (14px circle, white fill, 1px Not Active stroke).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-not-active` | track fill; handle stroke | `#D2D3D9` | Existing tokens.json · Figma: Not Active |
+| `--color-white` | handle fill | `#FFFFFF` | Existing tokens.json · Figma: White (Dark), light value |
+| `--size-slider-track` | track height | `2px` | **New** · Figma: Inactive track height 2 |
+| `--size-slider-handle` | handle size | `16px` | **New** · Figma: Handle container 14 + 1px stroke |
+| `--size-slider-touch` | height of the control | `48px` | **New** · Figma: component height 48 |
+| `--spacing-8` | side padding | `8px` | Existing tokens.json · Figma: padding 8 |
+| `--radius-pill` | track radius | `9999px` | Existing tokens.json · Figma: radius 2–4 on a 2px track (fully rounded) |
+| `--radius-round` | handle shape | `50%` | Existing tokens.json · Figma: circle |
+| `--border-width-sm` | handle stroke | `1px` | Existing tokens.json · Figma: stroke 1 |
+| `--shadow-focus` | Focus | `0 0 4px 0 rgba(98, 104, 223, 0.7)` | Existing tokens.json · AI-defined use: not drawn, same as InputField |
+| `--opacity-disabled` | Disabled | `0.2` | Existing tokens.json · AI-defined use: not drawn, same as other atoms |
+
+## Props
+
+<ArgTypes of={SliderStories} />
+
+## Code example
+
+```tsx
+import { Slider } from 'rifbar-ds';
+
+<Slider value={volume} onChange={(e) => setVolume(Number(e.target.value))} aria-label="Volume" />
+
+<Slider min={0} max={5} step={1} defaultValue={2} aria-label="Rating" />
+```
+
+## Accessibility
+
+- A native range input: arrow keys, Home/End and PageUp/PageDown work. Always pass `aria-label` or link a `<label>`.
+- The handle area is 48px high (above the 44px touch target).
+- ⚠️ Track and handle stroke `#D2D3D9` on white is 1.5:1, below the 3:1 for UI elements. Kept as designed.
+- ⚠️ Disabled at 20% opacity is below 3:1 contrast (same as other components).

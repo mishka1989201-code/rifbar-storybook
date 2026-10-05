@@ -1,0 +1,80 @@
+/* Slider — every value references a token from src/tokens/tokens.json.
+   The input is 48px high (Figma touch area) with 8px side padding, like the
+   Figma frame (139px wide, track 123px). Track and handle are drawn on the
+   WebKit and Firefox pseudo-elements. */
+
+.ds-slider {
+  --ds-slider-track: var(--color-not-active);
+  --ds-slider-handle-stroke: var(--color-not-active);
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: var(--size-slider-touch);
+  margin: 0;
+  padding: 0 var(--spacing-8);
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.ds-slider:focus {
+  outline: none;
+}
+
+/* ─── Track ─────────────────────────────────────────────────────────── */
+.ds-slider::-webkit-slider-runnable-track {
+  height: var(--size-slider-track);
+  border-radius: var(--radius-pill);
+  background: var(--ds-slider-track);
+}
+.ds-slider::-moz-range-track {
+  height: var(--size-slider-track);
+  border-radius: var(--radius-pill);
+  background: var(--ds-slider-track);
+}
+
+/* ─── Handle: 14px white circle + 1px Not Active stroke = 16px ─────── */
+.ds-slider::-webkit-slider-thumb {
+  box-sizing: border-box;
+  width: var(--size-slider-handle);
+  height: var(--size-slider-handle);
+  /* center the handle on the 2px track */
+  margin-top: calc((var(--size-slider-track) - var(--size-slider-handle)) / 2);
+  border: var(--border-width-sm) solid var(--ds-slider-handle-stroke);
+  border-radius: var(--radius-round);
+  background: var(--color-white);
+  appearance: none;
+  -webkit-appearance: none;
+  transition: box-shadow 150ms ease;
+}
+.ds-slider::-moz-range-thumb {
+  box-sizing: border-box;
+  width: var(--size-slider-handle);
+  height: var(--size-slider-handle);
+  border: var(--border-width-sm) solid var(--ds-slider-handle-stroke);
+  border-radius: var(--radius-round);
+  background: var(--color-white);
+  transition: box-shadow 150ms ease;
+}
+
+/* ─── Focus (not designed in Figma): Focus shadow, same as InputField ── */
+.ds-slider:is(:focus-visible, .is-focus):not(:disabled)::-webkit-slider-thumb {
+  box-shadow: var(--shadow-focus);
+}
+.ds-slider:is(:focus-visible, .is-focus):not(:disabled)::-moz-range-thumb {
+  box-shadow: var(--shadow-focus);
+}
+
+/* ─── Disabled (not designed in Figma): 20% opacity like the other atoms ─ */
+.ds-slider:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-slider::-webkit-slider-thumb,
+  .ds-slider::-moz-range-thumb {
+    transition: none;
+  }
+}
