@@ -1,0 +1,79 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableProductsRowStories from './TableProductsRow.stories';
+
+<Meta of={TableProductsRowStories} />
+
+# TableProductsRow
+
+Body row of the products table: white background, 1px bottom stroke. Implements the Figma frame
+[`Table Products Row`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=78-26107)
+(1524px wide in the mockup, here 100% of the container). Uses the same column grid as
+[TableProductsHeader](?path=/docs/molecules-tableproductsheader--docs).
+
+<Canvas of={TableProductsRowStories.Default} />
+<Controls of={TableProductsRowStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame (White, bottom stroke Stroke Light V2, padding 12/16, `justify-between`) | `.ds-table-products-row` |
+| `ID` “1” (30px, centered, Semi-Bold) + “Astro” (170px, Semi-Bold), group gap 32 | `id`, `name` |
+| `Email` “Malibu peach…” (230px, wraps) | `flavor` |
+| “RECHARGEABLE / DISPOSABLE” 203px | `type` |
+| “5%” 59px, “15” 59px, right-aligned | `nicotine`, `quantity` |
+| “$150” 75px, right-aligned | `amount` |
+
+## When to use
+
+- ✅ Each product line of the products table, under `TableProductsHeader`.
+
+## When NOT to use
+
+- ❌ Rows with actions, checkboxes or other column sets — build a separate row.
+- ❌ Mobile layouts: cells have fixed widths.
+
+## Variants and edge cases
+
+<Canvas of={TableProductsRowStories.WithHeader} />
+<Canvas of={TableProductsRowStories.LongText} />
+<Canvas of={TableProductsRowStories.EmptyCells} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--color-text` | text color | `#292639` | Figma: Color Text |
+| `--color-stroke-light-v2` | bottom border color | `#D8E2EE` | Figma: Stroke Light V2 |
+| `--border-width-sm` | bottom border width | `1px` | Figma: 1px stroke |
+| `--spacing-12` | padding-y | `12px` | Figma: py 12 |
+| `--spacing-16` | padding-x | `16px` | Figma: px 16 |
+| `--spacing-32` | gap between `id` and `name` | `32px` | Figma: gap 32 |
+| `--font-family-base` | font family | Poppins | Figma: Poppins |
+| `--font-weight-medium` | body weight | `500` | Figma: Body/Small Medium |
+| `--font-weight-semibold` | `id`, `name` weight | `600` | Figma: Semi-Bold Headings/h7 |
+| `--font-size-small` / `--font-line-height-small` | size / line height | `14px` / `21px` | Figma: Body/Small Medium |
+| ellipsis on `name`, `type`; wrap on `flavor` | overflow | — | AI-defined (Figma shows only short text; wrap follows the `min-w-full` flavor cell) |
+| `role="row"` / `cell` | semantics | — | AI-defined |
+
+No new tokens. No hover / selected states in Figma, none added.
+
+## Props
+
+<ArgTypes of={TableProductsRowStories} />
+
+## Code example
+
+```tsx
+import { TableProductsHeader, TableProductsRow } from 'rifbar-ds';
+
+<div role="table">
+  <TableProductsHeader />
+  <TableProductsRow id={1} name="Astro" flavor="Malibu peach" type="DISPOSABLE" nicotine="5%" quantity={15} amount="$150" />
+</div>
+```
+
+## Accessibility
+
+- `role="row"` with `role="cell"` cells; place inside `role="table"` after a `TableProductsHeader`.
