@@ -1,0 +1,69 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableActionsRowStories from './TableActionsRow.stories';
+
+<Meta of={TableActionsRowStories} />
+
+# TableActionsRow
+
+Toolbar above a table: bulk actions on the left, keyword search on the right. Implements the Figma frame
+[`TableActionsRow`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=29-18706)
+(1556px wide in the mockup, here 100% of the container). Built from [Button](?path=/docs/atoms-button--docs)
+and [SearchField](?path=/docs/atoms-searchfield--docs); it has no background of its own.
+
+<Canvas of={TableActionsRowStories.Default} />
+<Controls of={TableActionsRowStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `button_action Export` (Dark BG, icon left `export`) | `<Button variant="dark" iconLeft="export">` |
+| `button_action` “Clear” (Outline, icon left `clear`) | `<Button variant="outline" iconLeft="clear">` |
+| `SearchField` 232px | `<SearchField>` via `searchProps` |
+| Frame: `justify-between`, buttons gap 8 | `.ds-table-actions` |
+
+## When to use
+
+- ✅ Directly above a table or list that can be exported, reset and searched.
+
+## When NOT to use
+
+- ❌ Filters with dropdowns or chips — build them next to the buttons in a separate row.
+- ❌ Global search of the whole app — use the header search.
+
+## Variants and edge cases
+
+<Canvas of={TableActionsRowStories.WithSearchText} />
+<Canvas of={TableActionsRowStories.CustomLabels} />
+<Canvas of={TableActionsRowStories.SearchDisabled} />
+<Canvas of={TableActionsRowStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-8` | gap between the two buttons | `8px` | Figma: Buttons & Filters gap 8 |
+| `--spacing-16` | min gap between the groups | `16px` | AI-defined (Figma has `justify-between` only) |
+
+Button and search colors, radius, typography: see the atom docs. No new tokens.
+
+## Props
+
+<ArgTypes of={TableActionsRowStories} />
+
+## Code example
+
+```tsx
+import { TableActionsRow } from 'rifbar-ds';
+
+<TableActionsRow
+  onExport={exportCsv}
+  onClear={resetFilters}
+  searchProps={{ value: query, onChange: (e) => setQuery(e.target.value), onSearch: runSearch }}
+/>
+```
+
+## Accessibility
+
+- Wrapped in `role="toolbar"` with an accessible name; buttons and the search field are reachable with Tab.
+- Search has `aria-label="Search table"` (override via `searchProps`).

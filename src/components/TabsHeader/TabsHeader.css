@@ -1,0 +1,15 @@
+/* TabsHeader — every value references a token from src/tokens/tokens.json. */
+
+.ds-tabs-header {
+  display: flex;
+  align-items: flex-end;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: auto;
+  background: var(--color-white);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.ds-tabs-header > .ds-tab {
+  flex: 0 0 auto;
+}

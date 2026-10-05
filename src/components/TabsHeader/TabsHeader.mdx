@@ -1,0 +1,78 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TabsHeaderStories from './TabsHeader.stories';
+
+<Meta of={TabsHeaderStories} />
+
+# TabsHeader
+
+White bar with a row of [Tabs](?path=/docs/atoms-tabs--docs) at the top of a card or page section. Implements the Figma frame
+[`Tabs Header`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=13-13595)
+(7 tabs, first one active, 1202px wide in the mockup).
+
+<Canvas of={TabsHeaderStories.Default} />
+<Controls of={TabsHeaderStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Tabs Header` frame (white, radius 6 top, 1202px) | `<TabsHeader>`; width = 100% of the container |
+| `Tabs` Tab #=Active | `items[i].id === value` |
+| `Tabs` Tab #=Not Active | any other item |
+| `Tabs` Tab #=Disabled | `items[i].disabled` |
+
+## When to use
+
+- ✅ Switching between sections of one page or card.
+
+## When NOT to use
+
+- ❌ Filtering a list — use [SwitchButtons](?path=/docs/atoms-switchbuttons--docs).
+- ❌ A single tab on its own — use the `Tab` atom.
+
+## Variants and edge cases
+
+<Canvas of={TabsHeaderStories.MiddleTabActive} />
+<Canvas of={TabsHeaderStories.WithDisabledTab} />
+<Canvas of={TabsHeaderStories.TwoTabs} />
+<Canvas of={TabsHeaderStories.LongLabels} />
+<Canvas of={TabsHeaderStories.Overflow} />
+
+Hover and focus states come from the `Tab` atom (not designed in Figma, AI-defined there).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | bar background | `#FFFFFF` | Figma: Theme Color/White |
+| `--radius-md` | top-left / top-right corners | `6px` | Figma: Tabs Header corner radius 6 (top only) |
+
+Tab colors, typography, padding and underline: see the [Tabs](?path=/docs/atoms-tabs--docs) atom. No new tokens.
+
+## Props
+
+<ArgTypes of={TabsHeaderStories} />
+
+## Code example
+
+```tsx
+import { TabsHeader } from 'rifbar-ds';
+
+const [tab, setTab] = useState('general');
+
+<TabsHeader
+  aria-label="Client"
+  value={tab}
+  onChange={setTab}
+  items={[
+    { id: 'general', label: 'General' },
+    { id: 'orders', label: 'Orders (12)' },
+    { id: 'archive', label: 'Archive', disabled: true },
+  ]}
+/>
+```
+
+## Accessibility
+
+- `role="tablist"` with `aria-label`; each tab is a `role="tab"` button with `aria-selected` (from the `Tab` atom).
+- Contrast and touch target: same as the Tab atom (7.7:1 active, 5.2:1 inactive, 53px high).
