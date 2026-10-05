@@ -44,3 +44,5 @@ export * from './components/Notification';
 export * from './components/Pagination';
 export * from './components/Scrollbar';
 export * from './components/Slider';
+export * from './components/CardStrokeRow';
+export * from './components/DepartmentSection';

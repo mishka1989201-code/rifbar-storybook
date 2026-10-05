@@ -22,6 +22,8 @@
 | StepCard | крок процесу (Card/Step): круглa іконка, назва, дата |
 | StatCard | число з підписом (Card/InProcessingV1+V2): `footer` + `watermark` або `aside` |
 | Notification | повідомлення (Figma Notiffications): `kind` success/info/warning/error + `layout` toast/banner (Sign the Contract), `actions`, `onClose` |
+| CardStrokeRow | рядок картки (Row.CardStroke): `label` ліворуч, `value` праворуч |
+| DepartmentSection | секція панелі (Section.Department): заголовок + пілюля `ChevronDropDown` «Change» + підказка; усі тексти — пропи |
 
 Усі експортуються з `src/index.ts`.
 

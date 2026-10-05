@@ -1,0 +1,84 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as DepartmentSectionStories from './DepartmentSection.stories';
+
+<Meta of={DepartmentSectionStories} />
+
+# DepartmentSection
+
+Section of a ticket / details panel: a title with a "Change" dropdown pill, a grey hint and a bottom divider.
+Implements the Figma component [`Section.Department`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=139-47444) (368px wide in the mockup, here 100% of the container).
+Composes the existing atom [ChevronDropDown](?path=/docs/atoms-chevrondropdown--docs). Title, hint and pill label are props, so the same
+component serves other sections ("Priority", "Assignee"…).
+
+<Canvas of={DepartmentSectionStories.Default} />
+<Controls of={DepartmentSectionStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Section.Department` (column, gap 8, padding 16 0, bottom border Stroke Light V2) | `.ds-department-section` |
+| Frame `Status` (row, space-between) | `.ds-department-section__head` |
+| Text "Department" | `title` |
+| Instance `Chevron.DropDown` "Change" (Color=Primary, Static) | `<ChevronDropDown>` via `actionLabel` / `actionProps` |
+| Text "Select the department responsible…" | `description` |
+| Hidden instance `Department` (368×28) | not drawn — the list is rendered by the parent |
+
+## When to use
+
+- ✅ A details-panel row where a single value (department, priority, assignee) can be changed from a list.
+
+## When NOT to use
+
+- ❌ A full form field with an input — use [InputField](?path=/docs/atoms-inputfield--docs).
+
+## Variants, states and edge cases
+
+<Canvas of={DepartmentSectionStories.Open} />
+<Canvas of={DepartmentSectionStories.Disabled} />
+<Canvas of={DepartmentSectionStories.ChosenValue} />
+<Canvas of={DepartmentSectionStories.NoDescription} />
+<Canvas of={DepartmentSectionStories.OtherSection} />
+<Canvas of={DepartmentSectionStories.LongText} />
+<Canvas of={DepartmentSectionStories.NarrowContainer} />
+
+## Figma notes
+
+- The hidden `Department` instance (the opened list) is not visible in Figma, so the list is not part of this molecule.
+- Open and Disabled states of the pill come from `ChevronDropDown` (AI-defined by analogy there).
+- Long title / hint are not designed. AI-defined: title is truncated with an ellipsis, the hint wraps.
+- Dark theme not designed — light values are used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-text` | title color | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--color-grey-dark` | hint color | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--color-stroke-light-v2` / `--border-width-sm` | bottom line | `#D8E2EE` / `1px` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | title | 14 / 21 / 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--font-weight-regular` | hint | 400 | Existing tokens.json · Figma: Body/Small Regular |
+| `--spacing-16` | vertical padding | `16px` | Existing tokens.json · Figma: padding 16 |
+| `--spacing-8` | gap title ↔ hint | `8px` | Existing tokens.json · Figma: gap 8 |
+| Pill (`--color-hover-blue`, 12/18/600, `--radius-pill`) | "Change" | — | Existing tokens.json · Figma: Hover Blue, Body/Mini Semi-Bold (see ChevronDropDown) |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={DepartmentSectionStories} />
+
+## Code example
+
+```tsx
+import { DepartmentSection } from 'rifbar-ds';
+
+<DepartmentSection actionProps={{ onClick: openList }} />
+
+<DepartmentSection title="Priority" description="Choose how urgent this ticket is" actionLabel="High" />
+```
+
+## Accessibility
+
+- The pill is a `<button aria-haspopup aria-expanded>` (from `ChevronDropDown`); give it an `aria-label` such as "Change department" via `actionProps`, because "Change" alone is not descriptive.
+- Hint #5D6E82 on white is about 5:1 — passes. The 26px pill is below the 44px touch target (kept as designed).
