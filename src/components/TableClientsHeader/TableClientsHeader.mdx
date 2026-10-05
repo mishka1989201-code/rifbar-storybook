@@ -1,0 +1,70 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableClientsHeaderStories from './TableClientsHeader.stories';
+
+<Meta of={TableClientsHeaderStories} />
+
+# TableClientsHeader
+
+Header row of the clients table with sortable columns. Implements the Figma frame
+[`Table Header 5`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1226-374723)
+(1524px wide in the mockup, here 100% of the container). Visually identical to
+[TableCategoryHeader](?path=/docs/molecules-tablecategoryheader--docs): the component is a thin wrapper over it with the
+clients column set, so all styles and behavior live in one place.
+
+<Canvas of={TableClientsHeaderStories.Default} />
+<Controls of={TableClientsHeaderStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Table Header 5` (padding 8/16, `justify-between`) | `TableCategoryHeader` → `.ds-table-category-header` |
+| “Name” 170, “Company” 170, “Phone” 150, “Email” 220 + sort icon | columns `name`, `company`, `phone`, `email`, `sortable: true` |
+| “Joined” 80 + sort icon, right-aligned | column `joined`, `align: 'end'`, `sortable: true` |
+| `Amount` “Actions” 166px, right-aligned | column `actions`, `align: 'end'` |
+| `Icons 16px` sort-solid | `<Icon name="sort" />` |
+
+## When to use
+
+- ✅ Header of the clients table: name, company, phone, email, joined date, actions.
+
+## When NOT to use
+
+- ❌ Other column sets with the same look — pass your own `columns` to `TableCategoryHeader`.
+- ❌ Dark header of the products table — use `TableProductsHeader`.
+
+## Variants and edge cases
+
+<Canvas of={TableClientsHeaderStories.CustomColumns} />
+<Canvas of={TableClientsHeaderStories.LongLabel} />
+<Canvas of={TableClientsHeaderStories.NarrowContainer} />
+
+## Design tokens used
+
+Same as `TableCategoryHeader`; this component adds none.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines` | text and sort icon color | `#4549A1` | Figma: Headlines |
+| `--spacing-8` / `--spacing-16` | padding-y / padding-x | `8px` / `16px` | Figma: py 8, px 16 |
+| `--font-family-base`, `--font-weight-semibold` | Poppins Semi-Bold | `600` | Figma: Semi-Bold Headings/h7 |
+| `--font-size-h7` / `--font-line-height-h7` | size / line height | `14px` / `21px` | Figma: Headings/h7 |
+| focus ring, ellipsis, ARIA roles | — | — | AI-defined (see `TableCategoryHeader`) |
+
+The “Name” cell sits alone in its Figma group, so the 32px group gap has no visible effect and is not used.
+
+## Props
+
+<ArgTypes of={TableClientsHeaderStories} />
+
+## Code example
+
+```tsx
+import { TableClientsHeader } from 'rifbar-ds';
+
+<TableClientsHeader onSort={(id) => setSortBy(id)} />
+```
+
+## Accessibility
+
+- Same as `TableCategoryHeader`: `role="row"` / `columnheader`, sortable headers are `<button>`s. Sort direction is not drawn in Figma, so `aria-sort` is not set.
