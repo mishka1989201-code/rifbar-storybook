@@ -133,6 +133,93 @@ export const Wide: Story = {
   },
 };
 
+// ─── DESKTOP / TABLET (Figma 1024 and 768) ───────────────────────────────────
+const call = <Button variant="dark" iconOnly="call" aria-label="Call" />;
+const contact = [
+  { id: 'name', content: 'Mickey Herman', weight: 'semibold' as const },
+  { id: 'company', content: "Sam's Club" },
+  { id: 'phone', content: '+44 32 567 8473', weight: 'semibold' as const },
+  { id: 'email', content: 'mickeyherman23@gmail.com' },
+  { id: 'date', content: '07.23.2023' },
+];
+
+export const Contact1024: Story = {
+  name: '1024 · Contact (v1)',
+  decorators: [(Story) => <div style={{ maxWidth: 444 }}><Story /></div>],
+  args: {
+    fields: contact,
+    actions: (
+      <>
+        {call}
+        {more}
+      </>
+    ),
+  },
+};
+
+export const Product1024: Story = {
+  name: '1024 · Product, 111px image (v2)',
+  decorators: [(Story) => <div style={{ maxWidth: 310 }}><Story /></div>],
+  args: { ...Default.args, imageSize: 'lg' },
+};
+
+export const InfoLines1024: Story = {
+  name: '1024 · Info lines (v3)',
+  decorators: [(Story) => <div style={{ maxWidth: 444 }}><Story /></div>],
+  args: {
+    fields: [
+      { id: 'name', label: 'Mickey Herman', content: "Sam's Club" },
+      { id: 'contacts', label: '+44 32 567 8473', content: 'mickeyherman23@gmail.com' },
+      {
+        id: 'date',
+        label: '07.23.2023',
+        content: (
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
+            {call}
+            {more}
+          </div>
+        ),
+      },
+    ],
+  },
+};
+
+export const Product768: Story = {
+  name: '768 · Product, index + delete/edit (v1)',
+  decorators: [(Story) => <div style={{ maxWidth: 348 }}><Story /></div>],
+  args: {
+    index: '1',
+    image: IMG,
+    imageSize: 'lg',
+    fields: [
+      { id: 'name', content: 'ASTRO (de-08) - 15ml', weight: 'semibold' },
+      { id: 'flavor', content: 'Malibu peach pineapple orange' },
+      { id: 'color', content: 'Orange', weight: 'semibold' },
+      { id: 'limit', content: 'up to 7500' },
+      { id: 'volume', content: '15ml' },
+      { id: 'price', content: '$25' },
+    ],
+    actions: (
+      <>
+        <Button variant="danger" iconOnly="delete" aria-label="Delete" />
+        <Button variant="light" iconOnly="edit" aria-label="Edit" />
+      </>
+    ),
+  },
+};
+
+export const Pair1024: Story = {
+  name: '1024 · Two cards side by side (Dou)',
+  args: { fields: contact },
+  decorators: [(Story) => <div style={{ maxWidth: 944 }}><Story /></div>],
+  render: () => (
+    <div style={{ display: 'flex', gap: 16 }}>
+      <CardRow fields={contact} actions={<>{call}{more}</>} />
+      <CardRow fields={contact} actions={<>{call}{more}</>} />
+    </div>
+  ),
+};
+
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
 export const LongText: Story = {
   name: 'Long text',

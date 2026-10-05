@@ -1,0 +1,56 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TitleStories from './TimeTrackerTitle.stories';
+
+<Meta of={TitleStories} />
+
+# TimeTracker / Title
+
+The Play button and the title “My Time”. Implements the Figma component
+[`TimeTracker/Play Buttons and Title`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=662-271081). Composes [PlayButton](?path=/docs/atoms-playbutton--docs).
+The time tracker is built from four molecules: [Title](?path=/docs/molecules-timetracker-title--docs), [Date](?path=/docs/molecules-timetracker-date--docs), [Bar](?path=/docs/molecules-timetracker-bar--docs) (Title + Date) and [TimeScale](?path=/docs/molecules-timetracker-timescale--docs).
+
+<Canvas of={TitleStories.Default} />
+<Controls of={TitleStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame (row, gap 16) | `.ds-time-tracker-title` |
+| `Button.Play` 38px, Type=Play, Static | `PlayButton` (via `playProps`) |
+| “My Time” (Medium Headings/h5, Grey Dark) | `title` |
+
+## When to use
+
+- ✅ Left part of the time tracker header ([Bar](?path=/docs/molecules-timetracker-bar--docs)), or alone.
+
+## Variants and edge cases
+
+<Canvas of={TitleStories.Running} />
+<Canvas of={TitleStories.LongTitle} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-16` | gap button ↔ title | `16px` | Figma |
+| `--color-grey-dark` | title | `#5D6E82` | Figma: Grey Dark |
+| `--font-size-h5` / `--font-line-height-h5` / `--font-weight-medium` | title | `20px` / `30px` / `500` | Figma: Medium Headings/h5 |
+
+The button comes from `PlayButton`. No new tokens. AI-defined: ellipsis for a long title, `Stop` state (from the PlayButton atom).
+
+## Props
+
+<ArgTypes of={TitleStories} />
+
+## Code example
+
+```tsx
+import { TimeTrackerTitle } from 'rifbar-ds';
+
+<TimeTrackerTitle title="My Time" playProps={{ kind: running ? 'stop' : 'play', onClick: toggle }} />
+```
+
+## Accessibility
+
+- The button is a native `button` named “Play” / “Stop” (override with `playProps['aria-label']`).

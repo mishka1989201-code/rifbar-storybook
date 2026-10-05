@@ -1,0 +1,75 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as CategoryCardStories from './CategoryCard.stories';
+
+<Meta of={CategoryCardStories} />
+
+# CategoryCard
+
+Small tile for a category grid: a picture and a centred one-line name. Implements the Figma component
+[`Card Category`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=3843-306191)
+(Property 1 = Static / Hover).
+
+<Canvas of={CategoryCardStories.Default} />
+<Controls of={CategoryCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame, White, 1px Stroke Light V2, radius 14, padding 4/4/8, Cards Shadow | `.ds-category-card` |
+| `image 423` (radius 10) | `image` |
+| Title (Body/Mini Medium, Color Text, centred, ellipsis) | `title` |
+| Property 1=Hover (Headlines border, Hover Small Cards shadow) | `:hover` / `:focus-visible` |
+
+## When to use
+
+- ✅ Category or collection grid where a picture and a name are enough.
+
+## When NOT to use
+
+- ❌ Product with price, specs and action — use [ProductCard](?path=/docs/molecules-productcard--docs).
+
+## States and edge cases
+
+<Canvas of={CategoryCardStories.Hover} />
+<Canvas of={CategoryCardStories.AsLink} />
+<Canvas of={CategoryCardStories.Grid} />
+<Canvas of={CategoryCardStories.NoImage} />
+<Canvas of={CategoryCardStories.LongText} />
+<Canvas of={CategoryCardStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--color-stroke-light-v2` / `--border-width-sm` | border | `#D8E2EE` / `1px` | Figma: Stroke Light V2 |
+| `--radius-xl` / `--radius-lg` | card / picture radius | `14px` / `10px` | Figma |
+| `--shadow-card` | shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Figma: Cards Shadow |
+| `--theme-card-hover-border` / `--shadow-hover-card-sm` | hover border / shadow | Headlines `#4549A1` / blue shadow | Figma: Hover Small Cards |
+| `--color-text` | title | `#292639` | Figma: Color Text |
+| `--font-size-mini` / `--font-line-height-mini` / `--font-weight-medium` | title | `12px` / `18px` / `500` | Figma: Body/Mini Medium |
+| `--spacing-4` / `--spacing-8` | padding, gap | — | Figma |
+| `--color-bg` | picture placeholder | `#F6F8FC` | AI-defined (no image state) |
+
+No new tokens.
+
+AI-defined (not in Figma): square picture (`aspect-ratio: 1`, Figma is 172px in a 176.5px card), fluid width,
+`:focus-visible` = hover look, `href` rendering as a link, no-image placeholder, narrow/long-text behaviour.
+
+## Props
+
+<ArgTypes of={CategoryCardStories} />
+
+## Code example
+
+```tsx
+import { CategoryCard } from 'rifbar-ds';
+
+<CategoryCard image="/img/astro.png" title="Disposables" href="/catalog/disposables" />
+```
+
+## Accessibility
+
+- With `href` the whole tile is one link named by `title`; the picture has empty `alt` by default so the name is not read twice.
+- Without `href` it is plain content; make it interactive yourself if needed.

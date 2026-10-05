@@ -1,0 +1,71 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as LogoBarStories from './LogoBar.stories';
+
+<Meta of={LogoBarStories} />
+
+# LogoBar
+
+Left part of the page header: the burger that opens the side menu and the Rifbar logo. Implements the Figma component
+[`Logo, Icon - Navbar`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=48-12690).
+Composes [Icon](?path=/docs/atoms-icon--docs) (`burger`) and [Logo](?path=/docs/atoms-logo--docs) (`tone="inverse"`).
+It has no background: place it on the dark Navbar / header.
+
+<Canvas of={LogoBarStories.Default} />
+<Controls of={LogoBarStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Logo, Icon - Navbar` (row, gap 24) | `.ds-logo-bar` |
+| `Icons 24px` burger (White) | burger `button` with `Icon name="burger" size={24}` |
+| `Logo Rifbar Header Big` 184×46 (White) | `Logo size="lg" tone="inverse"` |
+
+## When to use
+
+- ✅ Top-left of the page header, next to the `HeaderMenu` / `UserDropdown`.
+
+## When NOT to use
+
+- ❌ Logo alone (login page, footer) — use [Logo](?path=/docs/atoms-logo--docs).
+
+## Variants and edge cases
+
+<Canvas of={LogoBarStories.Expanded} />
+<Canvas of={LogoBarStories.Interactive} />
+<Canvas of={LogoBarStories.Medium} />
+<Canvas of={LogoBarStories.WithoutMenu} />
+<Canvas of={LogoBarStories.AsLink} />
+<Canvas of={LogoBarStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-24` | gap burger ↔ logo | `24px` | Figma: gap 24 |
+| `--theme-nav-text-active` | burger and logo color | White | Figma: White |
+| `--size-logo-desktop-lg-*` | logo size | `184×46` | Existing tokens.json (via `Logo`) |
+| `--theme-nav-subtab-active` | burger hover / focus ring | Hover Blue Light | AI-defined |
+| `--radius-xs`, `--spacing-4`, `--border-width-sm` | focus ring | — | AI-defined |
+
+No new tokens. The Figma width 236px is the sum 24 + 24 + 184; here the width follows the content.
+
+AI-defined (not in Figma): burger hover and focus-visible, `expanded` state (`burger-rolled-up` icon and
+`aria-expanded`), `href`, `hideMenu`, `logoSize="md"`.
+
+## Props
+
+<ArgTypes of={LogoBarStories} />
+
+## Code example
+
+```tsx
+import { LogoBar } from 'rifbar-ds';
+
+<LogoBar expanded={open} onMenuClick={() => setOpen(!open)} href="/" />
+```
+
+## Accessibility
+
+- The burger is a `button` with `aria-label` (“Menu”) and `aria-expanded`.
+- The logo is an image named “Rifbar”; with `href` it is a link to the home page.

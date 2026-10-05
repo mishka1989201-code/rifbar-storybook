@@ -1,0 +1,74 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TimeScaleStories from './TimeScale.stories';
+
+<Meta of={TimeScaleStories} />
+
+# TimeTracker / TimeScale
+
+A day scale: a pill split into hour parts, worked periods in green, hour labels below. Implements the Figma component
+[`TimeTracker/Time Scale and Numbers`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=662-271469) (1492px wide in the mockup, here 100%).
+The time tracker is built from four molecules: [Title](?path=/docs/molecules-timetracker-title--docs), [Date](?path=/docs/molecules-timetracker-date--docs), [Bar](?path=/docs/molecules-timetracker-bar--docs) (Title + Date) and [TimeScale](?path=/docs/molecules-timetracker-timescale--docs).
+
+<Canvas of={TimeScaleStories.Default} />
+<Controls of={TimeScaleStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Time Scale` (25px, radius 30, 12 × `Part` Stroke Light V2 with a 2px BG Color line) | `.ds-time-scale__track`, `hours` parts |
+| Two green raster rectangles (195px and 19px) | `segments`: `[{ start: 8, end: 9.6 }, { start: 10, end: 10.15 }]` (hours of the day) |
+| `Time Numbers` (Medium h7, Headlines, 2 lines: “08:00” / “am”) | labels, from `startHour` to `startHour + hours` |
+
+## When to use
+
+- ✅ Showing when during a working day time was tracked.
+
+## When NOT to use
+
+- ❌ Progress of a task or upload — use [Slider](?path=/docs/atoms-slider--docs) or a progress bar.
+
+## Variants and edge cases
+
+<Canvas of={TimeScaleStories.Empty} />
+<Canvas of={TimeScaleStories.FullDay} />
+<Canvas of={TimeScaleStories.OtherHours} />
+<Canvas of={TimeScaleStories.OutOfRange} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--size-time-scale-height` | scale height | `25px` | **New** · Figma: height 25 |
+| `--size-time-scale-inset` | scale inset from both edges | `20.5px` | **New** · Figma: 1451px scale in a 1492px frame |
+| `--radius-pill` | scale radius | fully round | Figma: radius 30 (on 25px height) |
+| `--color-stroke-light-v2` | scale fill | `#D8E2EE` | Figma: Stroke Light V2 |
+| `--color-bg` / `--border-width-lg` | part dividers | `#F6F8FC` / `2px` | Figma: BG Color, border-r 2 |
+| `--color-time-worked-gradient` | worked period | `#7EE595 → #07B52D` | **New** · Figma raster fills, stops sampled from the render |
+| `--color-headlines` | labels | `#4549A1` | Figma: Headlines |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | labels | `14px` / `21px` / `500` | Figma: Medium Headings/h7 |
+| `--spacing-4` | gap scale ↔ labels | `4px` | Figma: gap 4 |
+
+Needs confirmation:
+- The green is a raster image in Figma; the gradient is sampled from the render (left light green → right dark green on each period).
+- Figma labels the 5th tick “12:00 am” and the next “01:00 pm”. Here the labels are computed, so noon is “12:00 pm”.
+- Period positions are my reading of the mockup (about 08:00 – 09:36 and 10:00 – 10:09).
+
+AI-defined: any `startHour` / `hours`, clipping of periods to the scale, `role="img"` with a text summary.
+The scale needs about 560px (13 labels); narrower containers are not handled.
+
+## Props
+
+<ArgTypes of={TimeScaleStories} />
+
+## Code example
+
+```tsx
+import { TimeScale } from 'rifbar-ds';
+
+<TimeScale segments={[{ start: 8, end: 9.6 }, { start: 10, end: 10.15 }]} />
+```
+
+## Accessibility
+
+- The scale is one image with a text summary (`aria-label`: range and worked periods); the visible labels are hidden from screen readers.

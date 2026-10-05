@@ -1,0 +1,62 @@
+/* ShowSelect — every value references a token from src/tokens/tokens.json.
+   Select = FilterField atom. */
+
+.ds-show-select {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.ds-show-select__label {
+  color: var(--color-headlines);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-small);
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.ds-show-select__select {
+  position: relative;
+}
+
+/* Figma: gap 8 between value and chevron (the atom default is wider). */
+.ds-show-select__field {
+  gap: var(--spacing-8);
+}
+
+/* Option list (not designed in Figma — AI-defined): opens above the field,
+   white card with the tooltip shadow, like other dropdown surfaces. */
+.ds-show-select__list {
+  position: absolute;
+  bottom: calc(100% + var(--spacing-4));
+  left: 0;
+  z-index: 10;
+  min-width: 100%;
+  margin: 0;
+  padding: var(--spacing-4) 0;
+  list-style: none;
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-tooltip);
+}
+
+.ds-show-select__option {
+  padding: var(--spacing-4) var(--spacing-8);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  cursor: pointer;
+}
+
+.ds-show-select__option:hover,
+.ds-show-select__option:focus-visible {
+  background: var(--color-secondary-light);
+  outline: none;
+}
+
+.ds-show-select__option.is-selected {
+  color: var(--color-headlines);
+}

@@ -12,11 +12,11 @@
 | TableProductsHeader, TableProductsRow | темний заголовок і рядок таблиці продуктів |
 | TableHeader | один компонент із пресетами `warehouses` / `categories` / `clients` або власними `columns` |
 | TotalRow | рядок «Total» + кнопки (Button) |
-| CardHeader | заголовок картки: бейдж-іконка + h3; слот `actions` |
+| CardHeader | заголовок картки: бейдж-іконка + h3; `tone` `blue`/`violet`; слот `actions` |
 | InfoClient | пари label/value; один flex-компонент, проп `justify` (`between` = Figma Line, `start` = Wrap) |
 | ClientDetails | картка з довільним текстом |
-| InfoBlock | `CardHeader` + `InfoClient` (або `children`) |
-| CardRow | мобільна картка списку (Figma V1–V6): один компонент, пропи `direction`, `index`, `selectable`, `image`, `fields`, `actions` |
+| InfoBlock | `CardHeader` + `InfoClient` (або `children`); `variant="ticket"` (Figma TicketInfo/v1) — фіолетовий бейдж і `sections` (`DepartmentSection`) |
+| CardRow | мобільна картка списку (Figma V1–V6) і варіанти 1024/768: один компонент, пропи `direction`, `index`, `selectable`, `image`, `imageSize`, `fields` (з `label` → двоколонкова лінія), `actions` |
 | ProductCard | картка товару (Figma Card/Category): фото + бейдж + чекбокс, spec-рядки, слот `action` |
 | OrderCard | картка замовлення (Card/Order): заголовок + кнопка, превʼю документа, рядки label/value |
 | StepCard | крок процесу (Card/Step): круглa іконка, назва, дата |
@@ -30,6 +30,17 @@
 | DepartmentItem | відділ (Figma Department): квадратний `Avatar` + назва; `initials` |
 | InfoRowCard | двоколонковий рядок картки (InfoRow.Card 1024px): `label` (semi-bold, 200px) + `value` |
 | TableRowMobile | компактний рядок таблиці для вузьких екранів (Figma TableRow 360px/480px): `label` / `value` / `result` + кнопка `Button`; проп `size`, слот `action` |
+| CategoryCard | плитка категорії (Figma Card Category): картинка + назва в один рядок; `href` робить її посиланням, hover — стан (`:hover`/`:focus-visible`) |
+| LogoBar | ліва частина хедера (Figma Logo, Icon - Navbar): бургер + `Logo` (`inverse`); `expanded`, `onMenuClick`, `href`, `hideMenu` |
+| ViewSwitch | перемикач «View:» (Figma viewing style): іконки cards/list, `value`, `onChange` |
+| ShowSelect | «Show: [8 ⌄]» (Figma viewing style 2): `FilterField` + список, `value`, `options`, `onChange`; його ж використовує `PaginationBar` |
+| SwitchGroup | дріжка з `SwitchButton` (Figma Switch: Light / Dark + hover): `options`, `value`, `onChange`, `tone` |
+| TimeTrackerTitle | Play-кнопка + «My Time» (Figma TimeTracker/Play Buttons and Title); `title`, `playProps` |
+| TimeTrackerDate | іконка + дата + три кнопки prev/reset/next (Figma TimeTracker/Date) |
+| TimeTrackerBar | верхня панель трекера = Title + Date (Figma TimeTracker/Play Actions Menu) |
+| TimeScale | шкала дня з відпрацьованими періодами (Figma TimeTracker/Time Scale and Numbers); `segments` у годинах, `startHour`, `hours` |
+| AccessModeRow | карта «Default / Custom» (Figma Edit User Access): два radio (`Checkbox`) + кнопка «Edit» (активна лише для Custom); `value`, `onChange`, `onEdit`, `disabled` |
+| DocumentCard | карта документа (Figma Edit User Access New): іконка + заголовок + значення, вертикальні кнопки в `actions` |
 
 Усі експортуються з `src/index.ts`.
 

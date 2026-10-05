@@ -1,0 +1,16 @@
+/* TimeTrackerBar — every value references a token from src/tokens/tokens.json.
+   Left = TimeTrackerTitle, right = TimeTrackerDate. */
+
+.ds-time-tracker-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* AI-defined: Figma has no wrapping; on a narrow bar the date block drops under the title. */
+  flex-wrap: wrap;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-16);
+  background: var(--color-white);
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}

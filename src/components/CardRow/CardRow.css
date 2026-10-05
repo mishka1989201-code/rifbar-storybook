@@ -31,6 +31,12 @@
   box-sizing: border-box;
 }
 
+/* Figma 1024 v2 / 768 v1: 111px thumbnail. */
+.ds-card-row.has-image--lg .ds-card-row__image {
+  width: var(--size-card-row-image-lg);
+  height: var(--size-card-row-image-lg);
+}
+
 .ds-card-row__index {
   flex: none;
   font-size: var(--font-size-small);
@@ -119,4 +125,10 @@
 
 .ds-card-row:not(.ds-card-row--column) .ds-card-row__actions {
   gap: var(--spacing-10);
+}
+
+/* Figma 1024 v3: InfoRow.Card lines wrap as two-column blocks (min 412px → one per row in a narrow card). */
+.ds-card-row__item--labeled {
+  flex: 1 1 var(--size-card-row-labeled-min);
+  min-width: 0;
 }

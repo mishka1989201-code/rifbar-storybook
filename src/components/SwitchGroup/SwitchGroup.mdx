@@ -1,0 +1,87 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as SwitchGroupStories from './SwitchGroup.stories';
+
+<Meta of={SwitchGroupStories} />
+
+# SwitchGroup
+
+A track with two or more [SwitchButton](?path=/docs/atoms-switchbutton--docs)s — one is chosen. Switches which part of a list is shown
+(Purchase / Sample, All clients / Pending (8)). Implements the Figma component set
+[`Switch`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=41-8767) — 4 variants: Light, Dark, Light Hover, Hover Dark.
+
+<Canvas of={SwitchGroupStories.Default} />
+<Controls of={SwitchGroupStories.Default} />
+
+## Figma → code mapping
+
+| Figma variant | Code |
+|---|---|
+| Light (white track, Table Row shadow, chosen = Secondary Light, icons) | `tone="light"` |
+| Dark (Stroke Light V2 track, chosen = Primary Blue Dark) | `tone="dark"` |
+| Light Hover — Not Active button on Stroke Light V2 | `:hover` of a button in a `light` group |
+| Hover Dark — Not Active button on BG Color | `:hover` of a button in a `dark` group |
+| Frame: height 56, padding 4, border 2, radius 10, gap 8 | `.ds-switch-group` |
+| `Tab 1` / `Tab 2` | `options` → `SwitchButton` |
+
+## When to use
+
+- ✅ 2–3 mutually exclusive filters of one list, with the choice always visible.
+
+## When NOT to use
+
+- ❌ Navigation between pages — use [TabsHeader](?path=/docs/molecules-tabsheader--docs).
+- ❌ Cards / list view — use [ViewSwitch](?path=/docs/molecules-viewswitch--docs).
+- ❌ Theme switch — use [Switcher](?path=/docs/atoms-switcher--docs).
+
+## States and edge cases
+
+<Canvas of={SwitchGroupStories.Dark} />
+<Canvas of={SwitchGroupStories.Interactive} />
+<Canvas of={SwitchGroupStories.Hover} />
+<Canvas of={SwitchGroupStories.WithDisabledOption} />
+<Canvas of={SwitchGroupStories.ThreeOptions} />
+<Canvas of={SwitchGroupStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-56` | track height | `56px` | Figma: height 56 (existing spacing token reused as size) |
+| `--spacing-4` / `--spacing-8` | padding / gap | — | Figma |
+| `--border-width-lg` | track border | `2px` | Figma: border 2 |
+| `--radius-lg` | track radius | `10px` | Figma: radius 10 |
+| `--color-white`, `--shadow-table-row` | Light track | — | Figma: White, Table Row |
+| `--color-stroke-light-v2` | Dark track | `#D8E2EE` | Figma: Stroke Light V2 |
+
+Button colours, 16px / 500 text and hover fills come from the `SwitchButton` atom (hover updated to the Figma values in this change).
+No new tokens.
+
+AI-defined (not in Figma): disabled option (20% opacity), focus ring, more than two options, narrow container (the track keeps its height,
+buttons shrink and the track is clipped by the parent).
+
+Icons: `shipping-local` (Figma truck) and `bag` — matched by look.
+
+## Props
+
+<ArgTypes of={SwitchGroupStories} />
+
+## Code example
+
+```tsx
+import { SwitchGroup } from 'rifbar-ds';
+
+<SwitchGroup
+  tone="dark"
+  aria-label="Clients"
+  value={filter}
+  onChange={setFilter}
+  options={[
+    { value: 'all', label: 'All clients' },
+    { value: 'pending', label: 'Pending (8)' },
+  ]}
+/>
+```
+
+## Accessibility
+
+- A `group` with an `aria-label`; each button has `aria-pressed`. Tab moves between buttons, Enter / Space choose.

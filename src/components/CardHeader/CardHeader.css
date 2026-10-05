@@ -32,6 +32,12 @@
   color: var(--color-headlines);
 }
 
+/* Figma TicketInfo/v1: violet ellipse (Violet Icons @ 22%) with a Violet Icons glyph. */
+.ds-card-header__badge--violet {
+  background: var(--color-violet-tint);
+  color: var(--color-violet-icons);
+}
+
 .ds-card-header__text {
   margin: 0;
   overflow: hidden;

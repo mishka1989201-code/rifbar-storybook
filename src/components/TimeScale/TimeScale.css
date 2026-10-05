@@ -1,0 +1,57 @@
+/* TimeScale — every value references a token from src/tokens/tokens.json. */
+
+.ds-time-scale {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-4);
+  box-sizing: border-box;
+  width: 100%;
+  font-family: var(--font-family-base);
+}
+
+/* Figma: 1451px scale inside 1492px = half a label on each side, so ticks sit under the labels. */
+.ds-time-scale__track {
+  position: relative;
+  display: flex;
+  height: var(--size-time-scale-height);
+  margin-inline: var(--size-time-scale-inset);
+  overflow: clip;
+  border-radius: var(--radius-pill);
+  background: var(--color-stroke-light-v2);
+}
+
+/* Figma: each part is Stroke Light V2 with a 2px BG Color line on its right (not on the last). */
+.ds-time-scale__part {
+  flex: 1 0 0;
+  min-width: 0;
+  border-right: var(--border-width-lg) solid var(--color-bg);
+}
+
+.ds-time-scale__part--last {
+  border-right: 0;
+}
+
+.ds-time-scale__worked {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--color-time-worked-gradient);
+}
+
+.ds-time-scale__numbers {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: var(--color-headlines);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ds-time-scale__number {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { Checkbox, type CheckboxProps } from '../Checkbox';
+import { InfoRowCard } from '../InfoRowCard';
 import './CardRow.css';
 
 export interface CardRowField {
@@ -7,6 +8,8 @@ export interface CardRowField {
   id: string;
   /** Text or any node, e.g. a `ChevronStatus`. */
   content: ReactNode;
+  /** Caption. When set, the field is a two-column `InfoRowCard` line (Figma 1024 v3) with `content` as the value. */
+  label?: ReactNode;
   /** `semibold` = Figma “First Info” / bold values, `medium` = Body/Small Medium. Default `medium`. */
   weight?: 'medium' | 'semibold';
   /** Underlined text (Figma: client / manager names). */
@@ -29,8 +32,10 @@ export interface CardRowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chil
   selectable?: boolean;
   /** Props of the checkbox, e.g. `checked`, `onChange`, `aria-label`. */
   checkboxProps?: Omit<CheckboxProps, 'size' | 'type'>;
-  /** Thumbnail URL (80px, Figma V1). */
+  /** Thumbnail URL (Figma V1). */
   image?: string;
+  /** Thumbnail size: `sm` = 80px (mobile), `lg` = 111px (Figma 1024 v2, 768 v1). Default `sm`. */
+  imageSize?: 'sm' | 'lg';
   /** Alt text of the thumbnail. */
   imageAlt?: string;
   /** Buttons, right-aligned under the lines (Figma `Buttons`). */
@@ -50,12 +55,13 @@ export function CardRow({
   checkboxProps,
   image,
   imageAlt = '',
+  imageSize = 'sm',
   actions,
   className,
   ...rest
 }: CardRowProps) {
   const isRow = direction === 'row';
-  const classes = ['ds-card-row', `ds-card-row--${direction}`, image && 'has-image', className]
+  const classes = ['ds-card-row', `ds-card-row--${direction}`, image && 'has-image', image && imageSize === 'lg' && 'has-image--lg', className]
     .filter(Boolean)
     .join(' ');
 
@@ -68,6 +74,13 @@ export function CardRow({
     ]
       .filter(Boolean)
       .join(' ');
+    if (field.label !== undefined) {
+      return (
+        <div key={field.id} className="ds-card-row__item ds-card-row__item--labeled">
+          <InfoRowCard label={field.label} value={field.content} />
+        </div>
+      );
+    }
     const node = <div className={itemClasses}>{field.content}</div>;
     if (i === 0 && !isRow && index !== undefined) {
       return (

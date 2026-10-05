@@ -1,0 +1,48 @@
+/* DocumentCard — every value references a token from src/tokens/tokens.json.
+   Buttons passed as `actions` are the Button atom, stretched to the card width. */
+
+.ds-document-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-16);
+  background: var(--color-bg);
+  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+}
+
+.ds-document-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-document-card__title {
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.ds-document-card__value {
+  min-width: 0;
+  color: var(--color-grey-dark);
+  font-weight: var(--font-weight-regular);
+  overflow-wrap: anywhere;
+}
+
+.ds-document-card__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-16);
+}
+
+.ds-document-card__actions > .ds-button {
+  width: 100%;
+}
