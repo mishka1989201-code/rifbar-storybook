@@ -18,7 +18,7 @@ Body row of the products table: white background, 1px bottom stroke. Implements 
 | Figma | Code |
 |---|---|
 | Frame (White, bottom stroke Stroke Light V2, padding 12/16, `justify-between`) | `.ds-table-products-row` |
-| `ID` “1” (30px, centered, Semi-Bold) + “Astro” (170px, Semi-Bold), group gap 32 | `id`, `name` |
+| `ID` “1” (30px, centered, Semi-Bold) + “Astro” (170px, Semi-Bold), group gap 32 | `index`, `name` |
 | `Email` “Malibu peach…” (230px, wraps) | `flavor` |
 | “RECHARGEABLE / DISPOSABLE” 203px | `type` |
 | “5%” 59px, “15” 59px, right-aligned | `nicotine`, `quantity` |
@@ -49,10 +49,10 @@ Body row of the products table: white background, 1px bottom stroke. Implements 
 | `--border-width-sm` | bottom border width | `1px` | Figma: 1px stroke |
 | `--spacing-12` | padding-y | `12px` | Figma: py 12 |
 | `--spacing-16` | padding-x | `16px` | Figma: px 16 |
-| `--spacing-32` | gap between `id` and `name` | `32px` | Figma: gap 32 |
+| `--spacing-32` | gap between `index` and `name` | `32px` | Figma: gap 32 |
 | `--font-family-base` | font family | Poppins | Figma: Poppins |
 | `--font-weight-medium` | body weight | `500` | Figma: Body/Small Medium |
-| `--font-weight-semibold` | `id`, `name` weight | `600` | Figma: Semi-Bold Headings/h7 |
+| `--font-weight-semibold` | `index`, `name` weight | `600` | Figma: Semi-Bold Headings/h7 |
 | `--font-size-small` / `--font-line-height-small` | size / line height | `14px` / `21px` | Figma: Body/Small Medium |
 | ellipsis on `name`, `type`; wrap on `flavor` | overflow | — | AI-defined (Figma shows only short text; wrap follows the `min-w-full` flavor cell) |
 | `role="row"` / `cell` | semantics | — | AI-defined |
@@ -70,7 +70,7 @@ import { TableProductsHeader, TableProductsRow } from 'rifbar-ds';
 
 <div role="table">
   <TableProductsHeader />
-  <TableProductsRow id={1} name="Astro" flavor="Malibu peach" type="DISPOSABLE" nicotine="5%" quantity={15} amount="$150" />
+  <TableProductsRow index={1} name="Astro" flavor="Malibu peach" type="DISPOSABLE" nicotine="5%" quantity={15} amount="$150" />
 </div>
 ```
 

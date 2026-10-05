@@ -3,7 +3,7 @@ import './TableProductsRow.css';
 
 export interface TableProductsRowProps extends HTMLAttributes<HTMLDivElement> {
   /** Row number (“#” column). */
-  id?: ReactNode;
+  index?: ReactNode;
   /** Product name. */
   name?: ReactNode;
   /** Flavor / group; wraps to several lines in its 230px cell. */
@@ -22,7 +22,7 @@ export interface TableProductsRowProps extends HTMLAttributes<HTMLDivElement> {
  * Same column grid as `TableProductsHeader`; `#` and name are Semi-Bold, the rest Medium.
  */
 export function TableProductsRow({
-  id,
+  index,
   name,
   flavor,
   type,
@@ -36,7 +36,7 @@ export function TableProductsRow({
   return (
     <div role="row" className={classes} {...rest}>
       <div className="ds-table-products-row__lead">
-        <div role="cell" className="ds-table-products-row__cell ds-table-products-row__id">{id}</div>
+        <div role="cell" className="ds-table-products-row__cell ds-table-products-row__id">{index}</div>
         <div role="cell" className="ds-table-products-row__cell ds-table-products-row__name">{name}</div>
       </div>
       <div role="cell" className="ds-table-products-row__cell ds-table-products-row__flavor">{flavor}</div>

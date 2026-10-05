@@ -13,7 +13,7 @@ const meta = {
     design: { type: 'figma', url: FIGMA_URL },
   },
   args: {
-    id: 1,
+    index: 1,
     name: 'Astro',
     flavor: 'Malibu peach pineapple orange',
     type: 'RECHARGEABLE / DISPOSABLE',
@@ -37,8 +37,8 @@ export const WithHeader: Story = {
     <div role="table">
       <TableProductsHeader />
       <TableProductsRow {...args} />
-      <TableProductsRow {...args} id={2} name="Elf Bar" flavor="Blueberry" nicotine="2%" quantity={40} amount="$320" />
-      <TableProductsRow {...args} id={3} name="Lost Mary" flavor="Watermelon ice" nicotine="0%" quantity={8} amount="$64" />
+      <TableProductsRow {...args} index={2} name="Elf Bar" flavor="Blueberry" nicotine="2%" quantity={40} amount="$320" />
+      <TableProductsRow {...args} index={3} name="Lost Mary" flavor="Watermelon ice" nicotine="0%" quantity={8} amount="$64" />
     </div>
   ),
   parameters: { docs: { description: { story: 'Row and header share one column grid.' } } },
