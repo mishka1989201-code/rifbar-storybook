@@ -1,0 +1,88 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as NotificationStories from './Notification.stories';
+
+<Meta of={NotificationStories} />
+
+# Notification
+
+Tinted message bar: success, info, warning or error toast, or the "Sign the Contract" banner with buttons. Implements the Figma component
+[`Notiffications`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=996-395949) (5 variants) as **one component**: `kind` sets colors and icon, `layout` the arrangement.
+Buttons in `actions` are [Button](?path=/docs/atoms-button--docs).
+
+<Canvas of={NotificationStories.Default} />
+<Controls of={NotificationStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Property 1` | Code |
+|---|---|
+| Success | `kind="success"` |
+| Info | `kind="info"` |
+| Warning | `kind="warning"` |
+| Error | `kind="error"` |
+| Sign the Contract (1524px, close on the left, two buttons) | `kind="info" layout="banner" title actions` |
+
+Icons: `tick`, `info`, `warning-v1`, `warning-v2`, close = `xmark` (24px). Chosen by look; Error / Warning triangle vs circle need confirmation.
+"Upload Contract" = `reboot`, "Sign the Contract" = `export` (16px, matched by look).
+
+## When to use
+
+- ✅ Result of an action (saved, failed) and page-level notices that need a decision.
+
+## When NOT to use
+
+- ❌ Inline field errors — use the field's own error state.
+
+## Variants and edge cases
+
+<Canvas of={NotificationStories.Info} />
+<Canvas of={NotificationStories.Warning} />
+<Canvas of={NotificationStories.Error} />
+<Canvas of={NotificationStories.SignTheContract} />
+<Canvas of={NotificationStories.NoClose} />
+<Canvas of={NotificationStories.Dismissable} />
+<Canvas of={NotificationStories.LongText} />
+<Canvas of={NotificationStories.NarrowContainer} />
+<Canvas of={NotificationStories.NarrowBanner} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-success-bg` / `--color-info-bg` / `--color-warning-bg` / `--color-error-bg` | background | `#F3FFFA` / `#F0FBFF` / `#FFF5F0` / `#FFEBE9` | Figma: Success / Info / Warning / Error BG |
+| `--color-success-border` / `--color-info-border` / `--color-warning-border` / `--color-error-border` | border | rgba @ 30% | Figma: raw borders — **new tokens**. Info toast is 20% in Figma, mapped to the 30% token |
+| `--color-green-dark` / `--color-headlines` / `--color-warning` / `--color-danger` | text and icons | `#00864E` / `#4549A1` / `#F68F57` / `#ED5742` | Figma |
+| `--radius-md` / `--border-width-sm` | radius / border | `6px` / `1px` | Figma |
+| `--shadow-table-row` | shadow | `0 4px 4px rgba(0,0,0,.05)` | Figma: Table Row |
+| `--font-size-h6` + medium (title semibold) | text | 16 / 24 | Figma: Medium Headings/h6 |
+| `--spacing-8/16/32` | paddings, gaps | — | Figma |
+
+Fixed Figma widths (500 / 428 / 1524px) become `width: 100%`. Wrapping of the banner, close-button focus ring and `role` are AI-defined.
+
+## Props
+
+<ArgTypes of={NotificationStories} />
+
+## Code example
+
+```tsx
+import { Notification, Button } from 'rifbar-ds';
+
+<Notification kind="error" onClose={dismiss}>Something went wrong.</Notification>
+
+<Notification
+  kind="info"
+  layout="banner"
+  title="Important Notice:"
+  onClose={dismiss}
+  actions={<Button variant="dark" iconLeft="export">Sign the Contract</Button>}
+>
+  In order to make purchases, you need to sign a contract.
+</Notification>
+```
+
+## Accessibility
+
+- `role="alert"` for warning and error, `role="status"` for success and info.
+- The close button has `aria-label` (`closeLabel`).
+- Warning text (#F68F57 on #FFF5F0) has low contrast — it follows Figma; avoid putting critical info only in this color.
