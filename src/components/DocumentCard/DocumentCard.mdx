@@ -1,0 +1,89 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as DocumentCardStories from './DocumentCard.stories';
+
+<Meta of={DocumentCardStories} />
+
+# DocumentCard
+
+Grey card with a document line (icon, title, value) and full-width buttons under it — for example an invoice with
+Download and Send via Email. Implements the Figma component
+[`Edit User Access New`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=4632-522811). Composes [Icon](?path=/docs/atoms-icon--docs)
+and [Button](?path=/docs/atoms-button--docs) (passed as `actions`).
+
+The Figma name is a leftover from [AccessModeRow](?path=/docs/molecules-accessmoderow--docs): the content has nothing to do with user access,
+so the component is named after what it shows.
+
+<Canvas of={DocumentCardStories.Default} />
+<Controls of={DocumentCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame (BG Color, 1px Stroke Light V2, radius 10, padding 16, gap 16) | `.ds-document-card` |
+| `icons/24px/solid/finance` | `icon` (default `finance`, 24px) |
+| “Invoice#” (Body/Small Medium, Primary Blue Dark) | `title` |
+| Value (Body/Small Regular, Grey Dark) | `value` |
+| `Vertical Buttons` | `actions` |
+| `button_action` “Download” (Stroke Button, Stroke Light V1 fill, floppy icon) | `Button variant="outline" iconLeft="save-fill"` |
+| `button_action_new` “Send via Email” (Primary Blue Dark, mail icon) | `Button variant="dark" iconLeft="mail"` |
+
+## When to use
+
+- ✅ A side card of a document page with the main actions for that document.
+
+## When NOT to use
+
+- ❌ Actions in a table row — use [CardRow](?path=/docs/molecules-cardrow--docs) or [TableRowMobile](?path=/docs/molecules-tablerowmobile--docs).
+
+## Variants and edge cases
+
+<Canvas of={DocumentCardStories.OneAction} />
+<Canvas of={DocumentCardStories.NoActions} />
+<Canvas of={DocumentCardStories.OtherIcon} />
+<Canvas of={DocumentCardStories.LongValue} />
+<Canvas of={DocumentCardStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-bg` | background | `#F6F8FC` | Figma: BG Color |
+| `--color-stroke-light-v2` / `--border-width-sm` | border | `#D8E2EE` / `1px` | Figma: Stroke Light V2 |
+| `--radius-lg` | radius | `10px` | Figma |
+| `--spacing-16` | padding, gap | `16px` | Figma |
+| `--spacing-4` | gap icon / title / value | `4px` | Figma |
+| `--color-primary-blue-dark` | icon, title | `#1D2542` | Figma: Primary Blue Dark |
+| `--color-grey-dark` | value | `#5D6E82` | Figma: Grey Dark |
+| `--font-size-small` / `--font-line-height-small` | text | `14px` / `21px` | Figma |
+| `--font-weight-medium` / `--font-weight-regular` | title / value | `500` / `400` | Figma |
+
+Buttons bring their own tokens. No new tokens. The Figma card is 384px wide; here it is 100% of the container.
+
+Icons: `finance` (24px, matched by name), `save-fill` for Download (floppy) and `mail` — matched by look.
+AI-defined: wrapping of the header row, breaking of long values, no-actions state.
+
+## Props
+
+<ArgTypes of={DocumentCardStories} />
+
+## Code example
+
+```tsx
+import { DocumentCard, Button } from 'rifbar-ds';
+
+<DocumentCard
+  title="Invoice#"
+  value="hfjFhOFKlKLljkjkjgkJrutJFj"
+  actions={
+    <>
+      <Button variant="outline" iconLeft="save-fill">Download</Button>
+      <Button variant="dark" iconLeft="mail">Send via Email</Button>
+    </>
+  }
+/>
+```
+
+## Accessibility
+
+- Plain text and native buttons; the icon is decorative. Give the buttons clear labels (they are the only controls).

@@ -1,0 +1,41 @@
+/* AccessModeRow — every value references a token from src/tokens/tokens.json.
+   Radios = Checkbox atom (type radio), button = Button atom. */
+
+.ds-access-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-16);
+  background: var(--color-bg);
+  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border-radius: var(--radius-lg);
+}
+
+.ds-access-row__radios {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+  min-width: 0;
+}
+
+/* Figma label: Not chosen = Regular, Grey Dark; Chosen = Medium, Headlines. */
+.ds-access-row .ds-checkbox__label {
+  color: var(--color-grey-dark);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  white-space: nowrap;
+}
+
+.ds-access-row .ds-checkbox:has(input:checked) .ds-checkbox__label {
+  color: var(--color-headlines);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-access-row .ds-button {
+  flex: none;
+}

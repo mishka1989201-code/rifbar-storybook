@@ -1,0 +1,78 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as AccessModeRowStories from './AccessModeRow.stories';
+
+<Meta of={AccessModeRowStories} />
+
+# AccessModeRow
+
+Grey card with a choice between two modes — Default and Custom — and an “Edit” button that is active only for Custom
+(Figma: access rights of a user). Implements the Figma component set
+[`Edit User Access`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=147-86490) — 3 variants.
+Composes [Checkbox](?path=/docs/atoms-checkbox--docs) (`type="radio"`) and [Button](?path=/docs/atoms-button--docs).
+
+<Canvas of={AccessModeRowStories.Default} />
+<Controls of={AccessModeRowStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Property 1` | Code |
+|---|---|
+| Custom — Custom chosen, Edit active | `value="custom"` |
+| Default — Default chosen, Edit at 20% | `value="default"` (Edit is disabled automatically) |
+| Disabled — radios, labels and Edit at 20% | `disabled` |
+| Frame (BG Color, 1px Stroke Light V2, radius 10, padding 16) | `.ds-access-row` |
+| Radiobutton 16px + label | `Checkbox type="radio" size={16}` |
+| `button_action` “Edit” with pencil | `Button variant="outline" iconLeft="edit"` |
+
+## When to use
+
+- ✅ A setting with a preset (“Default”) and an editable alternative (“Custom”).
+
+## When NOT to use
+
+- ❌ More than two modes — use a group of [Checkbox](?path=/docs/atoms-checkbox--docs) radios or [SwitchGroup](?path=/docs/molecules-switchgroup--docs).
+
+## States and edge cases
+
+<Canvas of={AccessModeRowStories.DefaultChosen} />
+<Canvas of={AccessModeRowStories.Disabled} />
+<Canvas of={AccessModeRowStories.Interactive} />
+<Canvas of={AccessModeRowStories.CustomLabels} />
+<Canvas of={AccessModeRowStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-bg` | background | `#F6F8FC` | Figma: BG Color |
+| `--color-stroke-light-v2` / `--border-width-sm` | border | `#D8E2EE` / `1px` | Figma: Stroke Light V2 |
+| `--radius-lg` | radius | `10px` | Figma |
+| `--spacing-16` | padding, gap between radios | `16px` | Figma |
+| `--color-grey-dark` | not chosen label | `#5D6E82` | Figma: Grey Dark |
+| `--color-headlines` | chosen label | `#4549A1` | Figma: Headlines |
+| `--font-weight-regular` / `--font-weight-medium` | not chosen / chosen label | `400` / `500` | Figma: Body/Small Regular / Medium |
+| `--font-size-small` / `--font-line-height-small` | label | `14px` / `21px` | Figma |
+
+The radios and the button bring their own tokens (including the 20% disabled opacity). No new tokens.
+
+Differences from Figma / AI-defined:
+- In the Figma `Default` variant the Edit button sits right after the radios; in `Custom` and `Disabled` it is at the right edge.
+  Here it is always at the right edge, so the row does not jump when the mode changes.
+- Long labels and a narrow container are not designed: labels do not wrap and the Edit button keeps its size.
+
+## Props
+
+<ArgTypes of={AccessModeRowStories} />
+
+## Code example
+
+```tsx
+import { AccessModeRow } from 'rifbar-ds';
+
+<AccessModeRow value={mode} onChange={setMode} onEdit={openEditor} />
+```
+
+## Accessibility
+
+- The radios form a `radiogroup` of native `input type="radio"`; arrow keys move between them.
+- Edit is a native `button`; in `default` mode it is `disabled`.
