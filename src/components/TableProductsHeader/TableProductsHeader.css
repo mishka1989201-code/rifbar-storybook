@@ -1,0 +1,36 @@
+/* TableProductsHeader — every value references a token from src/tokens/tokens.json. */
+
+.ds-table-products-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-8) var(--spacing-16);
+  background: var(--color-primary-blue-dark);
+  color: var(--color-white);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-h7);
+  line-height: var(--font-line-height-h7);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Figma: `#` + `Name` sit in one 232px group, gap 32. */
+.ds-table-products-header__group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-32);
+  flex: none;
+}
+
+.ds-table-products-header__cell {
+  flex: none;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ds-table-products-header__cell--start { text-align: left; }
+.ds-table-products-header__cell--center { text-align: center; }
+.ds-table-products-header__cell--end { text-align: right; }

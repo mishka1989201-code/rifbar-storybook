@@ -1,0 +1,82 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableProductsHeaderStories from './TableProductsHeader.stories';
+
+<Meta of={TableProductsHeaderStories} />
+
+# TableProductsHeader
+
+Dark header row of the products table. Implements the Figma frame
+[`Table Products Header`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=78-26106)
+(1524px wide in the mockup, here 100% of the container). Pure text cells; the frame is named “Header with Sort”
+per cell in Figma, but no sort icons are drawn in this design.
+
+<Canvas of={TableProductsHeaderStories.Default} />
+<Controls of={TableProductsHeaderStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Table Products Header` (Primary Blue Dark, padding 8/16, `justify-between`) | `.ds-table-products-header` |
+| `ID` cell “#” (30px, centered) + `Header with Sort` “Name” (170px), group gap 32 | columns `id` + `name`, `group: 'lead'` |
+| “Flavor/Group” 230, “Type” 203, “Nicotine” 59 | columns `flavor`, `type`, `nicotine` |
+| “Quantity” (auto width, right-aligned) | column `quantity`, `align: 'end'` |
+| `Amount` “Ampunt” 75px, right-aligned | column `amount`, `align: 'end'` |
+
+“Ampunt” is the label as drawn in Figma (typo for “Amount”) — kept for fidelity; override it via `columns`.
+
+## When to use
+
+- ✅ Header of the products table in the ERP.
+
+## When NOT to use
+
+- ❌ Tables with other column sets that need sorting — extend `columns` and add sort controls separately.
+- ❌ Mobile layouts: cells have fixed widths.
+
+## Variants and edge cases
+
+<Canvas of={TableProductsHeaderStories.CustomColumns} />
+<Canvas of={TableProductsHeaderStories.LongLabel} />
+<Canvas of={TableProductsHeaderStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-primary-blue-dark` | background | `#1D2542` | Figma: Primary Blue Dark |
+| `--color-white` | text color | `#FFFFFF` | Figma: White |
+| `--spacing-8` | padding-y | `8px` | Figma: py 8 |
+| `--spacing-16` | padding-x | `16px` | Figma: px 16 |
+| `--spacing-32` | gap between `#` and `Name` | `32px` | Figma: gap 32 |
+| `--font-family-base` | font family | Poppins | Figma: Poppins |
+| `--font-weight-semibold` | font weight | `600` | Figma: Semi-Bold Headings/h7 |
+| `--font-size-h7` / `--font-line-height-h7` | font size / line height | `14px` / `21px` | Figma: Headings/h7 |
+| ellipsis / `nowrap` on cells | long labels | — | AI-defined (not in Figma) |
+| `role="row"` / `columnheader` | semantics | — | AI-defined |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={TableProductsHeaderStories} />
+
+## Code example
+
+```tsx
+import { TableProductsHeader } from 'rifbar-ds';
+
+<TableProductsHeader />
+
+<TableProductsHeader
+  columns={[
+    { id: 'sku', label: 'SKU', width: 120 },
+    { id: 'stock', label: 'In stock', width: 100, align: 'end' },
+  ]}
+/>
+```
+
+## Accessibility
+
+- `role="row"` with `role="columnheader"` cells; use it inside an element with `role="table"` (or `grid`).
+- White on `#1D2542` text contrast is well above AA.
