@@ -1,0 +1,91 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as PaginationStories from './Pagination.stories';
+
+<Meta of={PaginationStories} />
+
+# Pagination
+
+Page switcher for tables and lists. From the Figma component
+[`Pagination`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=6294-253370)
+— 2 versions. It is built from [IconButton](?path=/docs/atoms-iconbutton--docs)
+(`page`, `prev`, `next`) inside a `<nav>`.
+
+<Canvas of={PaginationStories.Short} />
+<Controls of={PaginationStories.Short} />
+
+## Figma → code mapping
+
+| Figma | What it means | In code |
+|---|---|---|
+| `Version=1` | Short list: `< 1 2 3 >` | `pageCount={3}` (any list that fits, no gaps) |
+| `Version=2` | Long list: `< 1 2 3 4 5 6 ... 14 >` | `pageCount={14}`, `page={4}` |
+| `Icon Button=Pagination Number`, `Status=Static` | Other page | IconButton `page` |
+| `Icon Button=Pagination Number`, `Status=Active` | Current page | IconButton `page` + `active` (`aria-current="page"`) |
+| `Pagination Arrow Left / Right` | Previous / next page | IconButton `prev` / `next` |
+| `...` | Skipped pages | not interactive |
+
+## When to use
+
+- ✅ Long tables and lists split into pages.
+
+## When NOT to use
+
+- ❌ Few steps in a flow — use [Tabs](?path=/docs/atoms-tabs--docs).
+- ❌ One page only — hide the component.
+
+## Versions
+
+<Canvas of={PaginationStories.AllVersions} />
+
+## Which pages are shown
+
+Up to 7 pages are shown in full. More than that: the first and last page are always shown, the current page has 2 pages on each side (`siblingCount`), the rest is `...`. Near the start or end one block of 6 pages is shown, so the width does not jump (as in Figma, `1 2 3 4 5 6 ... 14`).
+
+<Canvas of={PaginationStories.Long} />
+<Canvas of={PaginationStories.LongMiddle} />
+
+## Edge cases
+
+<Canvas of={PaginationStories.LongFirstPage} />
+<Canvas of={PaginationStories.LongLastPage} />
+<Canvas of={PaginationStories.SinglePage} />
+
+**Figma notes:**
+- Figma draws the arrows as the text `<` and `>`; IconButton does the same.
+- The `...` is a 40×40 box with the text at the bottom, no fill (as in Figma). It is hidden from screen readers.
+- Disabled arrows are not drawn in Figma; they use IconButton Disabled (20% opacity).
+- Hover and focus come from IconButton.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-4` | gap between buttons | `4px` | Existing tokens.json · Figma: gap 4 |
+| `--spacing-8` | `...` horizontal padding | `8px` | Existing tokens.json · Figma: padding 8 |
+| `--size-control-md` | button and `...` size | `40px` | Existing tokens.json · Figma: 40×40 |
+| `--color-secondary-light` | button fill (Static) | `#ECEEFB` | Existing tokens.json · Figma: Secondary Light (via IconButton) |
+| `--color-primary-blue-dark` | current page fill; `...` and number text | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--color-white` | current page text | `#FFFFFF` | Existing tokens.json · Figma (via IconButton) |
+| `--radius-sm` | button radius | `5px` | Existing tokens.json · Figma: radius 5 (via IconButton) |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | text | `14px` / `21px` / `500` | Existing tokens.json · Figma: Body/Small Medium |
+
+No new tokens were needed.
+
+## Props
+
+<ArgTypes of={PaginationStories} />
+
+## Code example
+
+```tsx
+import { Pagination } from 'rifbar-ds';
+
+<Pagination page={page} pageCount={14} onPageChange={setPage} aria-label="Orders pages" />
+```
+
+## Accessibility
+
+- `<nav aria-label>` is a navigation landmark; change the name if there are several paginations on a page.
+- The current page has `aria-current="page"`; arrows have `Previous page` / `Next page` labels.
+- ⚠️ Buttons are 40×40px, slightly below the 44px touch target — kept as designed.
+- ⚠️ Disabled arrows at 20% opacity are below 3:1 contrast (same as other components).
