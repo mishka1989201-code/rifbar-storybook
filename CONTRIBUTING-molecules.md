@@ -30,6 +30,7 @@
 | DepartmentItem | відділ (Figma Department): квадратний `Avatar` + назва; `initials` |
 | InfoRowCard | двоколонковий рядок картки (InfoRow.Card 1024px): `label` (semi-bold, 200px) + `value` |
 | TableRowMobile | компактний рядок таблиці для вузьких екранів (Figma TableRow 360px/480px): `label` / `value` / `result` + кнопка `Button`; проп `size`, слот `action` |
+| CategoryCard | плитка категорії (Figma Card Category): картинка + назва в один рядок; `href` робить її посиланням, hover — стан (`:hover`/`:focus-visible`) |
 
 Усі експортуються з `src/index.ts`.
 

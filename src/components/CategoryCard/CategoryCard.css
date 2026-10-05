@@ -1,0 +1,52 @@
+/* CategoryCard — every value references a token from src/tokens/tokens.json. */
+
+.ds-category-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-4) var(--spacing-4) var(--spacing-8);
+  overflow: clip;
+  background: var(--color-white);
+  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-family-base);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* Hover — Figma Hover Small Cards: Headlines border + blue shadow. Focus-visible is AI-defined (same look). */
+.ds-category-card:hover,
+.ds-category-card:focus-visible {
+  border-color: var(--theme-card-hover-border);
+  box-shadow: var(--shadow-hover-card-sm);
+  outline: none;
+}
+
+.ds-category-card__media {
+  /* Figma: 172px photo in a 176.5px card (≈ square). */
+  aspect-ratio: 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.ds-category-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ds-category-card__title {
+  min-width: 0;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+}

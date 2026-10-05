@@ -52,3 +52,4 @@ export * from './components/UserDropdown';
 export * from './components/DepartmentItem';
 export * from './components/InfoRowCard';
 export * from './components/TableRowMobile';
+export * from './components/CategoryCard';
