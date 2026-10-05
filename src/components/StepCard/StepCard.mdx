@@ -1,0 +1,65 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as StepCardStories from './StepCard.stories';
+
+<Meta of={StepCardStories} />
+
+# StepCard
+
+Process step tile: a round icon, a step name and a date. Implements the Figma [`Card`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7038-332399) Property 2=Step.
+
+<Canvas of={StepCardStories.Default} />
+<Controls of={StepCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame Step (White, 1px Stroke Light V2, radius 10, padding 24, Cards Shadow) | `.ds-step-card` |
+| `Admin Icons` circle 50px (#E6FCE6) + `Document add` 24px | `icon` (default `doc-new`) |
+| “New” (Medium h5) / “08/12/2022” (Grey Dark) | `title` / `caption` |
+
+## When to use
+
+- ✅ Steps of an order or document flow.
+
+## When NOT to use
+
+- ❌ Numbers and metrics — use `StatCard`.
+
+## Variants and edge cases
+
+<Canvas of={StepCardStories.OtherIcon} />
+<Canvas of={StepCardStories.NoCaption} />
+<Canvas of={StepCardStories.LongTitle} />
+<Canvas of={StepCardStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--color-stroke-light-v2` / `--border-width-sm` | border | `#D8E2EE` / `1px` | Figma |
+| `--radius-lg` / `--radius-round` | card / badge | `10px` / `50%` | Figma |
+| `--shadow-card` | shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Figma: Cards Shadow |
+| `--color-green-pale` | badge background | `#E6FCE6` | Figma: raw fill — **new token** |
+| `--color-green-light` | icon color | `#1FD246` | Figma: Green Light (icon fill sampled from the render, needs confirmation) |
+| `--color-primary-blue-dark` / `--color-grey-dark` | title / caption | `#1D2542` / `#5D6E82` | Figma |
+| `--font-size-h5` / `--font-size-small` | title / caption | 20 / 14 | Figma |
+
+Badge size 50px with 6px padding is taken from Figma as is (no size token).
+
+## Props
+
+<ArgTypes of={StepCardStories} />
+
+## Code example
+
+```tsx
+import { StepCard } from 'rifbar-ds';
+
+<StepCard title="New" caption="08/12/2022" />
+```
+
+## Accessibility
+
+- The icon is decorative; the step name is the `<h3>`.

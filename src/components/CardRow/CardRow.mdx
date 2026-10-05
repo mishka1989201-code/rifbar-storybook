@@ -1,0 +1,92 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as CardRowStories from './CardRow.stories';
+
+<Meta of={CardRowStories} />
+
+# CardRow
+
+Mobile list card: a wrapping list of values and a right-aligned row of buttons. Implements the Figma component
+[`CardRow`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7038-307795)
+(variants V1–V6). The six variants differ only in direction, ID / checkbox / image and content, so it is **one flexible component**.
+Composes [Button](?path=/docs/atoms-button--docs), [Checkbox](?path=/docs/atoms-checkbox--docs) and
+[ChevronStatus](?path=/docs/atoms-chevronstatus--docs).
+
+<Canvas of={CardRowStories.Default} />
+<Controls of={CardRowStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Property 1` | Code |
+|---|---|
+| V1 — checkbox, 80px image, lines, “More” | `selectable` + `image` + `direction="row"` |
+| V2 — ID + name, address, status, dates, “More” | `direction="column"` + `index` |
+| V3 — client, manager, count, sum, date, status | `direction="column"` |
+| V4 — client, email, comment, date, status, dark call button | `direction="column"` + `actions` |
+| V5 — as V2 with red delete + info buttons | `direction="column"` + two icon-only buttons |
+| V6 — as V5 in a 476px card, ID on the left | `direction="row"` + `index` |
+
+Values are `fields` (`weight`, `underline`, `grow` for wrapping text); a status is a `ChevronStatus` in `content`.
+
+## When to use
+
+- ✅ Compact list item on mobile/tablet where a table row does not fit.
+
+## When NOT to use
+
+- ❌ Desktop tables — use `TableProductsRow`.
+
+## Variants and edge cases
+
+<Canvas of={CardRowStories.Delivery} />
+<Canvas of={CardRowStories.Order} />
+<Canvas of={CardRowStories.Request} />
+<Canvas of={CardRowStories.WithDelete} />
+<Canvas of={CardRowStories.Wide} />
+<Canvas of={CardRowStories.LongText} />
+<Canvas of={CardRowStories.NarrowContainer} />
+<Canvas of={CardRowStories.NoActions} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--color-stroke-light-v1` / `--border-width-sm` | card border | `#F1F2F9` / `1px` | Figma: Stroke Light V1 |
+| `--radius-lg` | card radius | `10px` | Figma: radius 10 |
+| `--shadow-table-row` | drop shadow | `0 4px 4px rgba(0,0,0,.05)` | Figma: Table Row |
+| `--color-text` | text | `#292639` | Figma: Color Text |
+| `--font-size-small` / `--font-line-height-small` | values | `14px` / `21px` | Figma: Body/Small Medium |
+| `--font-weight-medium` / `--font-weight-semibold` | values / first value | `500` / `600` | Figma |
+| `--spacing-8/10/12/16/32` | paddings and gaps | — | Figma |
+| `--spacing-80` | image size | `80px` | Figma (existing spacing token reused as size) |
+| `--color-stroke-light-v2`, `--radius-image-card` | image border, radius | `#D8E2EE`, `4px` | Figma |
+| `--size-control-sm` | actions row height | `37px` | Figma: Buttons height 37 |
+
+Buttons, checkbox and status pills bring their own tokens. No new tokens.
+`min-width` handling, wrapping of `grow` fields and the `no actions` state are AI-defined (not in Figma).
+Icons: `info`, `delete`, `call` (Figma `Call-Filled`, matched by look).
+
+## Props
+
+<ArgTypes of={CardRowStories} />
+
+## Code example
+
+```tsx
+import { CardRow, Button, ChevronStatus } from 'rifbar-ds';
+
+<CardRow
+  direction="column"
+  index="1"
+  fields={[
+    { id: 'name', content: 'Warsaw #345', weight: 'semibold' },
+    { id: 'status', content: <ChevronStatus color="success">In delivery</ChevronStatus> },
+  ]}
+  actions={<Button variant="light" iconLeft="info">More</Button>}
+/>
+```
+
+## Accessibility
+
+- Icon-only buttons need `aria-label`; the checkbox needs `checkboxProps={{ 'aria-label': … }}`.
+- Underlined values are plain text, not links — wrap them in `<a>` when they navigate.

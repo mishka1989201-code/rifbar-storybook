@@ -1,0 +1,52 @@
+/* CardHeader — every value references a token from src/tokens/tokens.json. */
+
+.ds-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-16);
+  background: var(--color-white);
+  border-bottom: var(--border-width-sm) solid var(--color-secondary-light);
+  font-family: var(--font-family-base);
+}
+
+.ds-card-header__title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+/* Figma: 26px ellipse with the 16px icon centered. */
+.ds-card-header__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-blue-light-tint);
+  color: var(--color-headlines);
+}
+
+.ds-card-header__text {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-headlines);
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-card-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  flex: none;
+  margin-left: auto;
+}

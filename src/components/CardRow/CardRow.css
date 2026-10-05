@@ -1,0 +1,122 @@
+/* CardRow — every value references a token from src/tokens/tokens.json. */
+
+.ds-card-row {
+  display: flex;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  background: var(--color-white);
+  border: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-table-row);
+  font-family: var(--font-family-base);
+  color: var(--color-text);
+}
+
+/* Figma V1 (checkbox + image) uses 10px side padding. */
+.ds-card-row.has-image {
+  align-items: flex-start;
+  padding-inline: var(--spacing-10);
+}
+
+/* Figma: 80px thumbnail, 1px Stroke Light V2, radius 4. */
+.ds-card-row__image {
+  flex: none;
+  width: var(--spacing-80);
+  height: var(--spacing-80);
+  object-fit: cover;
+  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border-radius: var(--radius-image-card);
+  box-sizing: border-box;
+}
+
+.ds-card-row__index {
+  flex: none;
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-card-row__index--side {
+  min-width: 15px;
+  text-align: center;
+}
+
+.ds-card-row__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.ds-card-row__lines {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--spacing-8) var(--spacing-32);
+  padding-bottom: var(--spacing-16);
+}
+
+.ds-card-row.has-image .ds-card-row__lines,
+.ds-card-row--column .ds-card-row__lines {
+  padding-top: var(--spacing-8);
+}
+
+.ds-card-row--column {
+  flex-direction: column;
+  gap: var(--spacing-32);
+}
+
+.ds-card-row--column .ds-card-row__lines {
+  gap: var(--spacing-16);
+}
+
+.ds-card-row--column .ds-card-row__body {
+  flex: none;
+  width: 100%;
+}
+
+.ds-card-row__first {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.ds-card-row__item {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.ds-card-row__field {
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+.ds-card-row__field--semibold {
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-card-row__field--underline {
+  text-decoration: underline;
+}
+
+/* Fixed-width Figma blocks (address, comment): take the whole line so long text wraps. */
+.ds-card-row__item:has(> .ds-card-row__field--grow) {
+  flex: 1 1 100%;
+}
+
+.ds-card-row__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-16);
+  min-height: var(--size-control-sm);
+}
+
+.ds-card-row:not(.ds-card-row--column) .ds-card-row__actions {
+  gap: var(--spacing-10);
+}

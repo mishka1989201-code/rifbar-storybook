@@ -1,0 +1,32 @@
+/* InfoBlock — every value references a token from src/tokens/tokens.json.
+   Title row = CardHeader, body = InfoClient (or any children). */
+
+.ds-info-block {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: clip;
+  background: var(--color-white);
+  border: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* Figma: inside this card the title row line is Stroke Light V2 (standalone Row.HeaderCard uses Secondary Light). */
+.ds-info-block > .ds-card-header {
+  flex: none;
+  border-bottom-color: var(--color-stroke-light-v2);
+}
+
+.ds-info-block__body {
+  display: flex;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.ds-info-block__body > * {
+  flex: 1 0 0;
+  min-width: 0;
+}

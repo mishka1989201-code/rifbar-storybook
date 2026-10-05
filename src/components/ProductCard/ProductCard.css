@@ -1,0 +1,120 @@
+/* ProductCard — every value references a token from src/tokens/tokens.json. */
+
+.ds-product-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-4);
+  overflow: clip;
+  background: var(--color-white);
+  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card-raised);
+  font-family: var(--font-family-base);
+}
+
+.ds-product-card__media {
+  position: relative;
+  /* AI-defined: Figma photo is 284px tall in a 284px wide card → square. */
+  aspect-ratio: 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.ds-product-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ds-product-card__badge {
+  position: absolute;
+  top: var(--spacing-8);
+  left: var(--spacing-8);
+  padding: var(--spacing-4) var(--spacing-8);
+  background: var(--color-headlines);
+  border-radius: var(--radius-sm);
+  color: var(--color-white);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-product-card__check {
+  position: absolute;
+  top: var(--spacing-8);
+  right: var(--spacing-8);
+}
+
+.ds-product-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+}
+
+.ds-product-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.ds-product-card__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ds-product-card__title {
+  margin: 0;
+  color: var(--color-headlines);
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+  font-weight: var(--font-weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.ds-product-card__subtitle {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-product-card__specs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  margin: 0;
+}
+
+.ds-product-card__spec {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  padding-inline: var(--spacing-8);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-product-card__label {
+  margin: 0;
+  color: var(--color-headlines);
+}
+
+.ds-product-card__value {
+  margin: 0;
+  color: var(--color-text);
+  text-align: right;
+}
+
+.ds-product-card__action > .ds-button {
+  width: 100%;
+}

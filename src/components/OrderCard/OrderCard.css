@@ -1,0 +1,88 @@
+/* OrderCard — every value references a token from src/tokens/tokens.json. */
+
+.ds-order-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-4) var(--spacing-4) var(--spacing-24);
+  overflow: clip;
+  background: var(--color-white);
+  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  /* Figma radius is 9px; the nearest token is radius-lg (10px). */
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card-raised);
+  font-family: var(--font-family-base);
+}
+
+.ds-order-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  padding-left: var(--spacing-40);
+}
+
+.ds-order-card__title {
+  margin: 0;
+  min-width: 0;
+  color: var(--color-text);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.ds-order-card__preview {
+  display: flex;
+  justify-content: center;
+  padding-inline: var(--spacing-40);
+}
+
+.ds-order-card__image {
+  display: block;
+  box-sizing: border-box;
+  width: var(--size-card-preview);
+  max-width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: top;
+  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border-radius: var(--radius-lg);
+}
+
+.ds-order-card__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  margin: 0;
+  padding-inline: var(--spacing-40);
+}
+
+.ds-order-card__field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-order-card__label {
+  margin: 0;
+  color: var(--color-headlines);
+}
+
+.ds-order-card__value {
+  margin: 0;
+  min-width: 0;
+  color: var(--color-text);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.ds-order-card__value.is-underline {
+  text-decoration: underline;
+}

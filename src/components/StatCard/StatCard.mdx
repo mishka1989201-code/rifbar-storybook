@@ -1,0 +1,65 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as StatCardStories from './StatCard.stories';
+
+<Meta of={StatCardStories} />
+
+# StatCard
+
+Number card: a caption and a big number, with either a link and a watermark (V1) or a right-aligned amount (V2). Implements the Figma [`Card`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7038-332399) Property 1=Card.InProcessingV1 / V2 as one component.
+
+<Canvas of={StatCardStories.Default} />
+<Controls of={StatCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Card.InProcessingV1` (column, padding 16, 1px Secondary Light) | `label` + `value` + `footer` + `watermark` |
+| `Card.InProcessingV2` (row, padding 12/16) | `label` + `value` + `aside` |
+| “See all >” (`button_action` Text & Arrow) | `footer` = `<Button variant="text-arrow">` |
+| `Logo` 62×89 | `watermark` |
+
+## When to use
+
+- ✅ Dashboard metrics on mobile.
+
+## When NOT to use
+
+- ❌ Process steps — use `StepCard`.
+
+## Variants and edge cases
+
+<Canvas of={StatCardStories.WithAside} />
+<Canvas of={StatCardStories.Minimal} />
+<Canvas of={StatCardStories.LongValue} />
+<Canvas of={StatCardStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--color-secondary-light` / `--border-width-sm` | border | `#ECEEFB` / `1px` | Figma |
+| `--radius-lg` | radius | `10px` | Figma |
+| `--shadow-card` | shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Figma: Cards Shadow |
+| `--color-headlines` / `--color-primary-blue-dark` | value / caption | `#4549A1` / `#1D2542` | Figma |
+| `--font-size-h2` / `--font-size-mini` / `--font-size-h6` | value / caption / amount | 32 / 12 / 16 | Figma |
+| `--color-primary-blue-dark-light` | watermark | `#BDC5E2` @ 60% | AI-defined (Figma logo is an image; colour sampled from the render, needs confirmation) |
+
+The watermark size (62×89) is in CSS as is; the sign paths are the same as in `Logo`.
+
+## Props
+
+<ArgTypes of={StatCardStories} />
+
+## Code example
+
+```tsx
+import { StatCard, Button } from 'rifbar-ds';
+
+<StatCard label="In processing" value="19.39k" watermark footer={<Button variant="text-arrow">See all</Button>} />
+```
+
+## Accessibility
+
+- The watermark is `aria-hidden`; the link in `footer` needs a clear label.

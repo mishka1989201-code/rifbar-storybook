@@ -1,0 +1,81 @@
+/* StatCard — every value references a token from src/tokens/tokens.json. */
+
+.ds-stat-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-16);
+  overflow: clip;
+  background: var(--color-white);
+  border: var(--border-width-sm) solid var(--color-secondary-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-family-base);
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-stat-card.has-aside {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--spacing-12);
+}
+
+.ds-stat-card__main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ds-stat-card__label {
+  margin: 0;
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-stat-card__value {
+  margin: 0;
+  color: var(--color-headlines);
+  font-size: var(--font-size-h2);
+  line-height: var(--font-line-height-h2);
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+.ds-stat-card__footer {
+  position: relative;
+}
+
+.ds-stat-card__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-4);
+  flex: none;
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-stat-card__aside > :last-child {
+  font-size: var(--font-size-h6);
+  line-height: var(--font-line-height-h6);
+}
+
+/* Figma: 62×89 pale sign, 15px from the top and right edges. Colour is sampled from the render
+   (needs confirmation), so a light tint of the dark-blue family is used. */
+.ds-stat-card__watermark {
+  position: absolute;
+  top: var(--spacing-16);
+  right: var(--spacing-16);
+  width: 62px;
+  height: 89px;
+  color: var(--color-primary-blue-dark-light);
+  opacity: 0.6;
+  pointer-events: none;
+}

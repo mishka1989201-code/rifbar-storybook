@@ -1,0 +1,83 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as InfoClientStories from './InfoClient.stories';
+
+<Meta of={InfoClientStories} />
+
+# InfoClient
+
+White block with label/value pairs — a client's summary. Implements the Figma component
+[`InfoClient`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=4539-268692)
+(`Direction=Line` and `Direction=Wrap`, 1290px wide in the mockup, here 100% of the container).
+
+The two Figma variants differ only in how fields sit in the row, so they are **one flex component**: fields wrap
+automatically and `justify` picks `space-between` (Line) or `flex-start` (Wrap).
+
+<Canvas of={InfoClientStories.Default} />
+<Controls of={InfoClientStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `InfoClient` frame (White, padding 32/16) | `.ds-info-client` |
+| `Direction=Line` (`justify-between`, row gap 16) | `justify="between"` (default) |
+| `Direction=Wrap` (`gap 16 / 24`, packed left) | `justify="start"` |
+| Field: caption “Name” (Mini Medium, Secondary Grey) | `fields[i].label` → `<dt>` |
+| Field: value “Mickey Herman” (Semi-Bold h5, Color Text) | `fields[i].value` → `<dd>` |
+| Gap caption ↔ value 2 | `--spacing-2` |
+
+## When to use
+
+- ✅ Summary of a client / order / document at the top of a details page.
+
+## When NOT to use
+
+- ❌ Editable forms — use input fields.
+- ❌ Long key-value lists — use a table.
+
+## Variants and edge cases
+
+<Canvas of={InfoClientStories.Start} />
+<Canvas of={InfoClientStories.CustomFields} />
+<Canvas of={InfoClientStories.NarrowContainer} />
+<Canvas of={InfoClientStories.LongValue} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--spacing-32` / `--spacing-16` | padding-y / padding-x | `32px` / `16px` | Figma: py 32, px 16 |
+| `--spacing-16` | row gap | `16px` | Figma: gap-y 16 |
+| `--spacing-24` | column gap | `24px` | Figma: Wrap gap-x 24; for `between` AI-defined (minimum gap before wrapping) |
+| `--spacing-2` | gap caption ↔ value | `2px` | Figma: gap 2 |
+| `--color-secondary-grey` | caption color | `#A7A4B7` | Figma: Secondary Grey |
+| `--font-size-mini` / `--font-line-height-mini` / `--font-weight-medium` | caption | `12px` / `18px` / `500` | Figma: Body/Mini Medium |
+| `--color-text` | value color | `#292639` | Figma: Color Text |
+| `--font-size-h5` / `--font-line-height-h5` / `--font-weight-semibold` | value | `20px` / `30px` / `600` | Figma: Semi-Bold Headings/h5 |
+| `--font-family-base` | font family | Poppins | Figma: Poppins |
+| ellipsis on value, `<dl>/<dt>/<dd>` semantics | extras | — | AI-defined |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={InfoClientStories} />
+
+## Code example
+
+```tsx
+import { InfoClient } from 'rifbar-ds';
+
+<InfoClient
+  justify="start"
+  fields={[
+    { id: 'name', label: 'Name', value: 'Mickey Herman' },
+    { id: 'country', label: 'Country', value: 'USA' },
+  ]}
+/>
+```
+
+## Accessibility
+
+- Rendered as a description list (`<dl>`, `<dt>` label, `<dd>` value), so label/value pairs are announced together.
