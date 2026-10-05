@@ -32,6 +32,7 @@ export * from './components/TableProductsRow';
 export * from './components/TableHeader';
 export * from './components/TotalRow';
 export * from './components/CardHeader';
+export * from './components/InfoClient';
 export * from './components/Pagination';
 export * from './components/Scrollbar';
 export * from './components/Slider';

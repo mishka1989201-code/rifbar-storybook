@@ -1,0 +1,52 @@
+/* InfoClient — every value references a token from src/tokens/tokens.json. */
+
+.ds-info-client {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16) var(--spacing-24);
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: var(--spacing-32) var(--spacing-16);
+  background: var(--color-white);
+  font-family: var(--font-family-base);
+}
+
+/* Figma Direction=Line: fields spread edge to edge. */
+.ds-info-client--between { justify-content: space-between; }
+
+/* Figma Direction=Wrap: fields packed to the left. */
+.ds-info-client--start { justify-content: flex-start; }
+
+.ds-info-client__field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing-2);
+  flex: none;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.ds-info-client__label {
+  margin: 0;
+  color: var(--color-secondary-grey);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.ds-info-client__value {
+  margin: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text);
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+  font-weight: var(--font-weight-semibold);
+}
