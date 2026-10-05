@@ -30,6 +30,7 @@ export * from './components/TableActionsRow';
 export * from './components/TableProductsHeader';
 export * from './components/TableProductsRow';
 export * from './components/TableHeader';
+export * from './components/TotalRow';
 export * from './components/Pagination';
 export * from './components/Scrollbar';
 export * from './components/Slider';
