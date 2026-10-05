@@ -1,0 +1,83 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as PaginationBarStories from './PaginationBar.stories';
+
+<Meta of={PaginationBarStories} />
+
+# PaginationBar
+
+Footer of a table or list: how many rows to show on the left, page switcher on the right. Implements the Figma frame
+[`Sow Menu Pagination`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=68-33100)
+(1524px wide in the mockup, here 100% of the container). Built from the
+[InputField → FilterField](?path=/docs/atoms-inputfield--docs) atom and the
+[Pagination](?path=/docs/molecules-pagination--docs) molecule.
+
+<Canvas of={PaginationBarStories.Default} />
+<Controls of={PaginationBarStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| “Show:” (SemiBold, Headlines) | `label` |
+| `InputField` Type=Filter, filled “8” | `FilterField`, `pageSize` |
+| `Pagination` Version 1 | `Pagination`, `page` / `pageCount` |
+| Frame white, radius 5, shadow Table Row | `.ds-pagination-bar` |
+
+## When to use
+
+- ✅ Under a table or long list that is split into pages.
+
+## When NOT to use
+
+- ❌ Infinite-scroll lists.
+- ❌ Only the page buttons are needed — use [Pagination](?path=/docs/molecules-pagination--docs).
+
+## Variants and edge cases
+
+<Canvas of={PaginationBarStories.MiddlePage} />
+<Canvas of={PaginationBarStories.ManyPages} />
+<Canvas of={PaginationBarStories.SinglePage} />
+<Canvas of={PaginationBarStories.NarrowContainer} />
+
+**Not designed in Figma:** the open list of page sizes. AI-defined: a white card above the field (the bar sits at the bottom of the page) with the Tooltip shadow; options in Body/Small Medium, hover on Secondary Light, selected option in Headlines. Closes on outside click, Escape or choice.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | bar background | `#FFFFFF` | Figma: Theme Color/White |
+| `--radius-sm` | bar corners | `5px` | Figma: corner radius 5 |
+| `--shadow-table-row` | bar shadow | `0 4px 4px 0 rgba(0,0,0,.05)` | Figma: Table Row effect |
+| `--spacing-12` / `--spacing-16` | padding y / x | `12px` / `16px` | Figma: padding 12 16 |
+| `--spacing-8` | gap label–field, value–chevron | `8px` | Figma: gap 8 |
+| `--color-headlines` | “Show:” label | `#4549A1` | Figma: Headlines |
+| `--font-weight-semibold`, `--font-size-small` | “Show:” label | `600`, `14px` | Figma: Headings/h7 |
+| `--color-text`, `--font-weight-medium` | list options | `#292639`, `500` | AI-defined (as the field value) |
+| `--color-secondary-light` | option hover | `#ECEEFB` | AI-defined |
+| `--shadow-tooltip` | list shadow | 6 layers | AI-defined (as Tooltip) |
+
+Field and page buttons use their own tokens, see the atom docs. No new tokens.
+
+## Props
+
+<ArgTypes of={PaginationBarStories} />
+
+## Code example
+
+```tsx
+import { PaginationBar } from 'rifbar-ds';
+
+<PaginationBar
+  page={page}
+  pageCount={Math.ceil(total / pageSize)}
+  onPageChange={setPage}
+  pageSize={pageSize}
+  onPageSizeChange={(s) => { setPageSize(s); setPage(1); }}
+/>
+```
+
+## Accessibility
+
+- Page switcher is a `<nav aria-label="Pagination">` (from `Pagination`).
+- The size select is a button with `aria-haspopup="listbox"` / `aria-expanded`, the list is `role="listbox"` and options are reachable with Tab, chosen with Enter / Space.
+- Escape closes the list.
