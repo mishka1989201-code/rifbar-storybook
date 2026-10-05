@@ -35,6 +35,7 @@ export * from './components/CardHeader';
 export * from './components/InfoClient';
 export * from './components/ClientDetails';
 export * from './components/InfoBlock';
+export * from './components/CardRow';
 export * from './components/Pagination';
 export * from './components/Scrollbar';
 export * from './components/Slider';

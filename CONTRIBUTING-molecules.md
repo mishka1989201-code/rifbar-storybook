@@ -16,6 +16,7 @@
 | InfoClient | пари label/value; один flex-компонент, проп `justify` (`between` = Figma Line, `start` = Wrap) |
 | ClientDetails | картка з довільним текстом |
 | InfoBlock | `CardHeader` + `InfoClient` (або `children`) |
+| CardRow | мобільна картка списку (Figma V1–V6): один компонент, пропи `direction`, `index`, `selectable`, `image`, `fields`, `actions` |
 
 Усі експортуються з `src/index.ts`.
 
