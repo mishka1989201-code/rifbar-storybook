@@ -1,0 +1,59 @@
+/* TableCategoryHeader — every value references a token from src/tokens/tokens.json. */
+
+.ds-table-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-8) var(--spacing-16);
+  color: var(--color-headlines);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-h7);
+  line-height: var(--font-line-height-h7);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Figma: `Image` + `Category` sit in one group, gap 32. */
+.ds-table-category-header__group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-32);
+  flex: none;
+}
+
+.ds-table-category-header__cell {
+  display: flex;
+  align-items: center;
+  flex: none;
+  box-sizing: border-box;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.ds-table-category-header__cell--end { justify-content: flex-end; }
+
+.ds-table-category-header__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Sortable header: label + sort icon, no button chrome. */
+.ds-table-category-header__sort {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ds-table-category-header__sort:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}

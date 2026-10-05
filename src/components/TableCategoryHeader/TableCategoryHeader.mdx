@@ -1,0 +1,74 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableCategoryHeaderStories from './TableCategoryHeader.stories';
+
+<Meta of={TableCategoryHeaderStories} />
+
+# TableCategoryHeader
+
+Light header row of the categories table with sortable columns. Implements the Figma frame
+[`Table Header 4`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1299-436979)
+(1524px wide in the mockup, here 100% of the container). It has no background of its own — it sits on the table/page surface.
+Dark variant for the products table: [TableProductsHeader](?path=/docs/molecules-tableproductsheader--docs).
+
+<Canvas of={TableCategoryHeaderStories.Default} />
+<Controls of={TableCategoryHeaderStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `Table Header 4` (padding 8/16, `justify-between`) | `.ds-table-category-header` |
+| “Image” 64px + “Category” 170px + sort icon, group gap 32 | columns `image` + `category`, `group: 'lead'` |
+| “Flavors/Types” 170, “Colors” 150, “Puffs” 220 + sort icon | columns `flavors`, `colors`, `puffs`, `sortable: true` |
+| “E-Liquid capacity” (auto width) + sort icon | column `capacity`, `sortable: true` |
+| `Amount` “Actions” 84px, right-aligned | column `actions`, `align: 'end'` |
+| `Icons 16px` sort-solid | `<Icon name="sort" />` (inherits label color) |
+
+## When to use
+
+- ✅ Header of the categories table: image, category, flavors, colors, puffs, capacity, actions.
+
+## When NOT to use
+
+- ❌ Dark header of the products table — use `TableProductsHeader`.
+- ❌ Mobile layouts: cells have fixed widths.
+
+## Variants and edge cases
+
+<Canvas of={TableCategoryHeaderStories.CustomColumns} />
+<Canvas of={TableCategoryHeaderStories.LongLabel} />
+<Canvas of={TableCategoryHeaderStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines` | text and sort icon color | `#4549A1` | Figma: Headlines |
+| `--spacing-8` | padding-y | `8px` | Figma: py 8 |
+| `--spacing-16` | padding-x | `16px` | Figma: px 16 |
+| `--spacing-32` | gap between `Image` and `Category` | `32px` | Figma: gap 32 |
+| `--font-family-base` | font family | Poppins | Figma: Poppins |
+| `--font-weight-semibold` | font weight | `600` | Figma: Semi-Bold Headings/h7 |
+| `--font-size-h7` / `--font-line-height-h7` | font size / line height | `14px` / `21px` | Figma: Headings/h7 |
+| `--border-width-lg`, `--color-headlines`, `--radius-sm` | keyboard focus ring on sortable header | `2px`, `#4549A1`, `5px` | AI-defined (no focus state in Figma) |
+| ellipsis / `nowrap` on cells | long labels | — | AI-defined |
+| `role="row"` / `columnheader`, `<button>` for sortable | semantics | — | AI-defined |
+
+No new tokens. Sort direction / active-sort states are not drawn in Figma, so there are none (the icon is the static two-arrow `sort`).
+
+## Props
+
+<ArgTypes of={TableCategoryHeaderStories} />
+
+## Code example
+
+```tsx
+import { TableCategoryHeader } from 'rifbar-ds';
+
+<TableCategoryHeader onSort={(id) => setSortBy(id)} />
+```
+
+## Accessibility
+
+- `role="row"` with `role="columnheader"` cells; use it inside an element with `role="table"` (or `grid`).
+- Sortable headers are real `<button>`s, reachable with Tab and activated with Enter / Space. Sort direction is not drawn in Figma, so `aria-sort` is not set.
