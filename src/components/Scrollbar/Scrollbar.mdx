@@ -1,0 +1,95 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ScrollbarStories from './Scrollbar.stories';
+
+<Meta of={ScrollbarStories} />
+
+# Scrollbar
+
+A scroll container that wears the Figma scrollbar. Two Figma components are
+collected into one, with a `variant`:
+[`Scrollbar Content`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=4216-477062)
+and
+[`Scrollbar.DropdownAndPopUp`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7030-226168).
+
+<Canvas of={ScrollbarStories.Default} />
+<Controls of={ScrollbarStories.Default} />
+
+## Figma → code mapping
+
+| Figma | What it means | In code |
+|---|---|---|
+| `Scrollbar Content` | Page, panel and table scroll. 11px track, 7px rounded thumb | `variant="content"` (default) |
+| `Property 1=Big` / `Small` | Only the length of the drawn thumb (342px / 81px area). Not a style | A taller or shorter container: the thumb length follows the content |
+| `Scrollbar.DropdownAndPopUp` | Lists in dropdowns and pop-ups. 3px track with a fill, 3px thumb | `variant="dropdown"` |
+
+## When to use
+
+- ✅ Any area with its own scroll: table body, side panel, long dropdown list, pop-up.
+
+## When NOT to use
+
+- ❌ Scrolling the whole page — the browser scrollbar is left as is.
+- ❌ Content that never overflows — it draws nothing, so there is no need to wrap it.
+
+## Content
+
+<Canvas of={ScrollbarStories.ContentBig} />
+<Canvas of={ScrollbarStories.ContentSmall} />
+
+## Dropdown and pop-up
+
+<Canvas of={ScrollbarStories.Dropdown} />
+
+## Edge cases
+
+<Canvas of={ScrollbarStories.NoOverflow} />
+<Canvas of={ScrollbarStories.Horizontal} />
+
+## All variants
+
+<Canvas of={ScrollbarStories.AllVariants} />
+
+**Figma notes:**
+- A scrollbar cannot be drawn by hand in CSS, so it is styled with `::-webkit-scrollbar` (Chrome, Edge, Safari). **Firefox** cannot set the width in px: it gets its own thin scrollbar with the same colors. Hover and drag states are not drawn in Figma.
+- The Content thumb is 7px wide inside an 11px track, 2px from each side and 1px from each end, with a 1px stroke of white at 15%. The 3.5px (Content) and 2px (Dropdown) radii are at least half the thumb width, so both are fully rounded: `--radius-pill` is used.
+- The Content track has no fill; the Dropdown track is filled with Stroke Light V1.
+- The area is focusable (`tabIndex=0`, `role="region"`) so keyboard users can scroll it. Focus is not drawn in Figma; it uses the IconButton ring.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-secondary-grey` | Content thumb fill | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey |
+| `--color-white-alpha-15` | Content thumb stroke | `rgba(255, 255, 255, 0.15)` | **New** · Figma: raw stroke White @ 15% (no variable) |
+| `--color-text` | Dropdown thumb fill | `#292639` | Existing tokens.json · Figma: Color Text (`#292639`) |
+| `--color-stroke-light-v1` | Dropdown track fill | `#F1F2F9` | Existing tokens.json · Figma: Stroke Light V1 (`#F1F2F9`) |
+| `--size-scrollbar-content` | Content track width | `11px` | **New** · Figma: Scrollbar Content width 11 |
+| `--size-scrollbar-thin` | Dropdown track and thumb width | `3px` | **New** · Figma: Scrollbar.DropdownAndPopUp width 3 |
+| `--spacing-2` | Content thumb side gap; focus offset | `2px` | Existing tokens.json · Figma: thumb inset 2 |
+| `--border-width-sm` | Content thumb stroke and end gap | `1px` | Existing tokens.json · Figma: stroke 1 |
+| `--radius-pill` | thumb radius | `9999px` | Existing tokens.json · Figma: radius 3.5 / 2 (fully rounded) |
+| `--color-headlines` / `--border-width-lg` | focus ring | `#4549A1` / `2px` | Existing tokens.json · AI-defined use: same as IconButton |
+
+## Props
+
+<ArgTypes of={ScrollbarStories} />
+
+## Code example
+
+```tsx
+import { Scrollbar } from 'rifbar-ds';
+
+<Scrollbar aria-label="Warehouses" style={{ height: 342 }}>
+  {warehouses.map((w) => <Row key={w.id} {...w} />)}
+</Scrollbar>
+
+<Scrollbar variant="dropdown" aria-label="Options" style={{ maxHeight: 154 }}>
+  {options}
+</Scrollbar>
+```
+
+## Accessibility
+
+- Always pass `aria-label` (or `aria-labelledby`): the area is a `region` landmark.
+- ⚠️ Content thumb on a white background: `#A7A4B7` is 2.4:1, below the 3:1 for UI elements (the same Secondary Grey issue as in SearchField). Kept as designed.
+- ⚠️ The Dropdown scrollbar is 3px wide: hard to grab with a mouse and below the 44px touch target. Kept as designed; touch devices scroll by swipe.
