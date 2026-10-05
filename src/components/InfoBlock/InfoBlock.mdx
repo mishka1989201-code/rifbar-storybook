@@ -1,0 +1,74 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as InfoBlockStories from './InfoBlock.stories';
+
+<Meta of={InfoBlockStories} />
+
+# InfoBlock
+
+Bordered info card: a title row and a body of label/value pairs. Implements the Figma component
+[`InfoBlock.board_all-orders`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=32-10609)
+(1290px wide in the mockup, here 100% of the container). It only composes existing molecules:
+[CardHeader](?path=/docs/molecules-cardheader--docs) (title row) + [InfoClient](?path=/docs/molecules-infoclient--docs) (body).
+
+<Canvas of={InfoBlockStories.Default} />
+<Controls of={InfoBlockStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Frame `InfoBlock.board_all-orders` (White, 1px Stroke Light V1, radius 10, Cards Shadow, clip) | `.ds-info-block` |
+| Instance `Row.HeaderCard` “Client info” | `<CardHeader title icon actions>` |
+| Frame `Info` → `info_client` (6 label/value pairs) | `<InfoClient {...infoProps}>` (or your `children`) |
+
+The title row line is Stroke Light V2 here (the standalone `Row.HeaderCard` frame uses Secondary Light), so `InfoBlock` overrides that one border color.
+
+## When to use
+
+- ✅ Info card of a client / order / document on a details page.
+
+## When NOT to use
+
+- ❌ Only a title row — use `CardHeader`. Only label/value pairs without a card — use `InfoClient`.
+
+## Variants and edge cases
+
+<Canvas of={InfoBlockStories.CustomFields} />
+<Canvas of={InfoBlockStories.WithActions} />
+<Canvas of={InfoBlockStories.CustomBody} />
+<Canvas of={InfoBlockStories.NarrowContainer} />
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Figma: White |
+| `--color-stroke-light-v1` / `--border-width-sm` | card border | `#F1F2F9` / `1px` | Figma: colorBorders (Stroke Light V1) |
+| `--radius-lg` | card radius | `10px` | Figma: radius 10 |
+| `--shadow-card` | drop shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Figma: Cards Shadow |
+| `--color-stroke-light-v2` | title row bottom line | `#D8E2EE` | Figma: Stroke Light V2 |
+
+Everything inside comes from `CardHeader` and `InfoClient` (see their docs). No new tokens.
+`actions` slot and custom `children` are AI-defined (not in Figma).
+
+## Props
+
+<ArgTypes of={InfoBlockStories} />
+
+## Code example
+
+```tsx
+import { InfoBlock } from 'rifbar-ds';
+
+<InfoBlock title="Client info" />
+
+<InfoBlock
+  title="Order info"
+  icon="cart"
+  infoProps={{ justify: 'start', fields: [{ id: 'order', label: 'Order', value: '#10428' }] }}
+/>
+```
+
+## Accessibility
+
+- Rendered as a `<section>` whose heading is the `CardHeader` `<h3>`; the body is a description list (see `InfoClient`).
