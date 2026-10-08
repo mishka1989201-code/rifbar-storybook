@@ -40,6 +40,7 @@
 | TimeTrackerDate | іконка + дата + три кнопки prev/reset/next (Figma TimeTracker/Date) |
 | TimeTrackerBar | верхня панель трекера = Title + Date (Figma TimeTracker/Play Actions Menu) |
 | AlertRow | рядок-підказка (Figma Welcome Card → Option 1/4/5): крапка + речення (`lead` Medium + решта) + `Button text-arrow`; `tone` warning / info |
+| CheckListModal | діалог зі списком чекбоксів (Figma Info Modal): `Modal size="list" elevated` + `Button` у шапці + рядки `Checkbox`; `options`, `value`, `onChange`, `allLabel`, `searchable`, `description` |
 | TimeScale | шкала дня з відпрацьованими періодами (Figma TimeTracker/Time Scale and Numbers); `segments` у годинах, `startHour`, `hours` |
 | AccessModeRow | карта «Default / Custom» (Figma Edit User Access): два radio (`Checkbox`) + кнопка «Edit» (активна лише для Custom); `value`, `onChange`, `onEdit`, `disabled` |
 | DocumentCard | карта документа (Figma Edit User Access New): іконка + заголовок + значення, вертикальні кнопки в `actions` |

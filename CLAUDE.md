@@ -105,7 +105,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
 - **Molecules** (cards / info): Accordion, CardHeader, CardRow, CardStrokeRow, CategoryCard, ChartLegendItem, ClientDetails, DepartmentItem,
   DepartmentSection, DocumentCard, InfoBlock (info / ticket / details / form), InfoClient, InfoRowCard, InfoTable, NoteCard, OrderCard,
   ProductCard, RowInfoBlock, StatCard, StepCard
-- **Molecules** (forms / dialogs): AccessModeRow, BarcodeSettings, ConfirmModal, Dropdown, FilterActions, LabeledField, MessageBox, Modal
+- **Molecules** (forms / dialogs): AccessModeRow, BarcodeSettings, CheckListModal, ConfirmModal, Dropdown, FilterActions, LabeledField, MessageBox, Modal
   (+ ModalSection, ModalField, ModalRow; sizes desktop / mobile / wide), RadioGroupCard
 - **Molecules** (chat / feedback): AlertRow, ChatHeader, ChatMessage, Notification, NotificationLine
 - **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle

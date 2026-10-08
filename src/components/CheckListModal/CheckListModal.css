@@ -1,0 +1,63 @@
+/* CheckListModal — every value references a token from src/tokens/tokens.json.
+   Surface = Modal (size list, elevated); header button = Button atom; rows = Checkbox atom. */
+
+/* Figma: the 37px header button sits flush right; keep it from shrinking. */
+.ds-check-list-modal .ds-modal__header > .ds-button {
+  flex: none;
+}
+
+/* AI-defined: Figma's description is hidden; it sits in the body, above the list, on the modal padding. */
+.ds-check-list-modal__description {
+  margin: 0;
+  padding: var(--spacing-16) var(--spacing-16) 0;
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Figma `Search Box`: 16px above and below the 40px field (hidden in Figma). */
+.ds-check-list-modal__search {
+  padding: var(--spacing-16);
+}
+
+/* Figma `modal__body`: 16px sides, 24px at the bottom. */
+.ds-check-list-modal__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0 var(--spacing-16) var(--spacing-24);
+  list-style: none;
+}
+
+/* Figma `RowInfoBlock`: 16px vertical padding, a Stroke Light V1 line under every row but the last. */
+.ds-check-list-modal__row {
+  display: flex;
+  padding: var(--spacing-16) 0;
+}
+
+.ds-check-list-modal__row:not(:last-child) {
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}
+
+/* The whole row is the label: text at the left, the checkbox at the right. */
+.ds-check-list-modal__check.ds-checkbox {
+  flex: 1 1 auto;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  min-width: 0;
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-check-list-modal__check .ds-checkbox__label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ds-check-list-modal__empty {
+  padding: var(--spacing-16) 0;
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+}

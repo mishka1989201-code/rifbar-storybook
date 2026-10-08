@@ -77,6 +77,7 @@ export * from './components/TimeTrackerBar';
 export * from './components/TimeScale';
 export * from './components/TimeTracker';
 export * from './components/AlertRow';
+export * from './components/CheckListModal';
 export * from './components/WelcomeCard';
 export * from './components/NotificationLine';
 export * from './components/TableRowExpandable';

@@ -3,8 +3,11 @@ import { Icon, type IconName } from '../Icon';
 import { IconButton } from '../IconButton';
 import './Modal.css';
 
-/** Figma `Property 1`: Desktop = 450px wide, Mobile = 340px wide. `wide` = 630px (Figma `Add Product Modal`, two-column form). */
-export type ModalSize = 'desktop' | 'mobile' | 'wide';
+/**
+ * Figma `Property 1`: Desktop = 450px wide, Mobile = 340px wide. `wide` = 630px (Figma `Add Product Modal`, two-column form).
+ * `list` = 736px (Figma `Info Modal`, a list of options).
+ */
+export type ModalSize = 'desktop' | 'mobile' | 'wide' | 'list';
 
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Header title, e.g. “Create warehouse”. */
@@ -15,6 +18,10 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
   size?: ModalSize;
   /** Called on click of the close button in the header. */
   onClose?: () => void;
+  /** Replaces the close button in the header (Figma `Info Modal` has a 37px `button_action` with a chevron up). */
+  headerAction?: ReactNode;
+  /** Draws the Tooltip Shadow around the dialog (Figma `Info Modal`). Default: no shadow, the page adds its own. */
+  elevated?: boolean;
   /** Accessible name of the close button. */
   closeLabel?: string;
   /** Body: `ModalSection`s. */
@@ -33,6 +40,8 @@ export function Modal({
   icon = 'plus-box',
   size = 'desktop',
   onClose,
+  headerAction,
+  elevated = false,
   closeLabel = 'Close',
   children,
   actions,
@@ -40,7 +49,7 @@ export function Modal({
   ...rest
 }: ModalProps) {
   const titleId = useId();
-  const classes = ['ds-modal', `ds-modal--${size}`, className].filter(Boolean).join(' ');
+  const classes = ['ds-modal', `ds-modal--${size}`, elevated && 'ds-modal--elevated', className].filter(Boolean).join(' ');
   return (
     <div role="dialog" aria-labelledby={titleId} className={classes} {...rest}>
       <div className="ds-modal__header">
@@ -54,7 +63,7 @@ export function Modal({
             {title}
           </h2>
         </div>
-        <IconButton kind="close" aria-label={closeLabel} onClick={onClose} />
+        {headerAction ?? <IconButton kind="close" aria-label={closeLabel} onClick={onClose} />}
       </div>
       {children != null && <div className="ds-modal__body">{children}</div>}
       {actions != null && <div className="ds-modal__footer">{actions}</div>}
