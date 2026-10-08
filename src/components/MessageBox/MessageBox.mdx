@@ -1,0 +1,108 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as MessageBoxStories from './MessageBox.stories';
+
+<Meta of={MessageBoxStories} />
+
+# MessageBox
+
+The bar at the bottom of a chat: a one-line text field and a send arrow. Implements the Figma component set
+[`message box`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=139-41662) — 4 variants: Static, Focus, Disabled, Focus & Hover.
+It is a real `<form>` with an `<input>`, so Enter sends and screen readers work.
+
+<Canvas of={MessageBoxStories.Default} />
+<Controls of={MessageBoxStories.Default} />
+
+## Figma → code mapping
+
+| Figma variant | Code |
+|---|---|
+| `Static` — placeholder Secondary Grey, grey arrow | default, empty and not focused |
+| `Focus` — text Primary Blue Dark, Hover Blue arrow | `:focus-within` (preview: `forceFocus`) |
+| `Focus & Hover` — Hover Blue Light arrow | arrow `:hover` while focused (preview: `forceFocus` + `forceHover`) |
+| `Disabled` — whole bar at 20% | `disabled` |
+| `Icons 24px` send arrow | `Icon send-chat`, 24px |
+| Frame: padding 12 / 16, border-top 1 Stroke Light V2, Header Shadow, width 893 | `.ds-message-box` (fills its container; the stories use 893px) |
+
+## When to use
+
+- ✅ Writing a message at the bottom of a conversation.
+
+## When NOT to use
+
+- ❌ A search or filter field — use [SearchField](?path=/docs/atoms-searchfield--docs).
+- ❌ A multi-line editor — this field is one line.
+
+## States and edge cases
+
+<Canvas of={MessageBoxStories.Focus} />
+<Canvas of={MessageBoxStories.FocusAndHover} />
+<Canvas of={MessageBoxStories.Disabled} />
+<Canvas of={MessageBoxStories.LongText} />
+<Canvas of={MessageBoxStories.NarrowContainer} />
+<Canvas of={MessageBoxStories.Interactive} />
+<Canvas of={MessageBoxStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the four states above with one line of text.
+
+Not drawn, defined by analogy (AI-defined):
+
+- The arrow also keeps the Focus colour while text is typed and the field is not focused, so it does not look disabled.
+- Keyboard focus ring of the arrow: 2px `--color-hover-blue-light` outline, 2px offset (as the `HeaderMenu` items).
+- Empty or whitespace-only text is not sent; the field is not cleared by the component — the parent does it in `onSend`.
+- Long text scrolls inside the input; narrow container; dark theme (not designed — light values are used).
+
+Assumed / normalised:
+
+- Figma gives the placeholder a 13px line height; the field uses Body/Small 21px (the 24px arrow sets the bar height, so the bar is still 48px).
+- Figma draws the Header Shadow as a drop shadow with radius 12.5 — the same effect as the 25px `--shadow-header` box shadow.
+- The send arrow is the existing 24px `send-chat` icon (a straight arrow; `send` is a tilted paper plane and does not match), chosen by look. Needs designer confirmation.
+- Figma asset downloads were not used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Existing tokens.json · Figma: Theme Color/White |
+| `--color-stroke-light-v2` | top line | `#D8E2EE` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--border-width-sm` | top line width | `1px` | Existing tokens.json · Figma: border 1 |
+| `--shadow-header` | shadow | `0 -3px 25px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Header Shadow |
+| `--spacing-12` / `--spacing-16` / `--spacing-8` | padding / gap | 12 / 16 / 8px | Existing tokens.json · Figma: padding 12 / 16 |
+| `--color-secondary-grey` | placeholder, Static arrow | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey |
+| `--color-primary-blue-dark` | typed text | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--color-hover-blue` | arrow, Focus | `#6368DF` | Existing tokens.json · Figma: Hover Blue |
+| `--color-hover-blue-light` | arrow, Focus & Hover | `#888CF6` | Existing tokens.json · Figma: Hover Blue Light |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-regular` | text | 14 / 21 / 400 | Existing tokens.json · Figma: Body/Small Regular |
+| `--opacity-disabled` | Disabled | `0.2` | Existing tokens.json · Figma: opacity 20% |
+| `--radius-sm`, `--border-width-lg`, `--spacing-2` | arrow focus ring | 5px / 2px / 2px | AI-defined use: focus ring as in other atoms |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={MessageBoxStories} />
+
+## Code example
+
+```tsx
+import { MessageBox } from 'rifbar-ds';
+
+const [text, setText] = useState('');
+
+<MessageBox
+  value={text}
+  onChange={setText}
+  onSend={(message) => {
+    send(message);
+    setText('');
+  }}
+/>
+```
+
+## Accessibility
+
+- The field has no visible label: `inputLabel` (default "Message") is its `aria-label`; the arrow is a button with `sendLabel` ("Send").
+- ⚠️ Kept as designed: placeholder and Static arrow in Secondary Grey on white are 2.4:1, and the Focus & Hover arrow (Hover Blue Light) is 3.0:1 — below 3:1 for the placeholder, borderline for the arrow.
+- ⚠️ Disabled at 20% opacity is below 3:1.
+- ⚠️ The 24px arrow is below the 44px touch target (the bar itself is 48px high).

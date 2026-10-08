@@ -1,0 +1,83 @@
+/* MessageBox — every value references a token from src/tokens/tokens.json. */
+
+.ds-message-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: var(--spacing-12) var(--spacing-16);
+  border-top: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  background: var(--color-white);
+  box-shadow: var(--shadow-header);
+  font-family: var(--font-family-base);
+}
+
+.ds-message-box__input {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+  color: var(--color-primary-blue-dark);
+  font: inherit;
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-regular);
+}
+
+.ds-message-box__input::placeholder {
+  color: var(--color-secondary-grey);
+  opacity: 1;
+}
+
+/* ─── Send arrow: Secondary Grey (Static) → Hover Blue (Focus) → Hover Blue Light (Focus & Hover) ─ */
+.ds-message-box__send {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-secondary-grey);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+/* AI-defined: the arrow also takes the Focus color while text is typed, so it does not look disabled. */
+.ds-message-box:is(:focus-within, .is-focus, .has-value) .ds-message-box__send {
+  color: var(--color-hover-blue);
+}
+
+.ds-message-box:is(:focus-within, .is-focus, .has-value) .ds-message-box__send:is(:hover, :focus-visible),
+.ds-message-box.is-hover .ds-message-box__send {
+  color: var(--color-hover-blue-light);
+}
+
+/* AI-defined: Figma draws no keyboard focus ring for the arrow. */
+.ds-message-box__send:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-hover-blue-light);
+  outline-offset: var(--spacing-2);
+}
+
+/* ─── Disabled (Figma: whole bar at 20%) ─────────────────────────────── */
+.ds-message-box.is-disabled {
+  opacity: var(--opacity-disabled);
+}
+
+.ds-message-box__send:disabled {
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-message-box__send {
+    transition: none;
+  }
+}
