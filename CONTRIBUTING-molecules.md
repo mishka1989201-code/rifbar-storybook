@@ -66,6 +66,7 @@
 | Organism | Примітка |
 |---|---|
 | ChatLayout | вся панель чату (Figma chat  layout v2): `ChatHeader` + тред `items` (`date` / `message`) + `MessageBox`; `onSend`, `messageBoxProps`, `height` (тред скролиться і тримається внизу) |
+| TableProducts | таблиця продуктів (Figma Table - Products): `TableProductsHeader` + `TableProductsRow` з `rows`; `status` `ready` / `loading` / `error`, `emptyText`; у вузькому контейнері скролиться |
 
 ## Процес для кожної молекули
 

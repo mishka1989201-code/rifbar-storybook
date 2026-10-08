@@ -111,7 +111,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
 - **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle
 - **Molecules** (tables): TableActionsRow, TableHeader (presets incl. `productsAnalytics`, `paymentsAnalytics`), TableProductsHeader,
   TableProductsRow, TableRowAnalytics, TableRowExpandable, TableRowMobile, TableRowQuantity, TotalRow
-- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox)
+- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow)
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
 
 Open design questions (also in the PR #10 description):

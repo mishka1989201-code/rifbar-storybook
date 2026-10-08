@@ -1,0 +1,102 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableProductsStories from './TableProducts.stories';
+
+<Meta of={TableProductsStories} />
+
+# TableProducts
+
+The products table: dark header and body rows in one rounded frame. Implements the Figma frame
+[`Table - Products`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=78-27042)
+and is an **Organism** composed only of
+[TableProductsHeader](?path=/docs/molecules-tableproductsheader--docs) and
+[TableProductsRow](?path=/docs/molecules-tableproductsrow--docs). Both already had their own Figma components; this frame only stacks them.
+
+<Canvas of={TableProductsStories.Default} />
+<Controls of={TableProductsStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Table Products Header` | `TableProductsHeader` — `columns` (default: the 7 Figma columns) |
+| `Table Products Row` / `Table Row 15–18` | `TableProductsRow`, one per item of `rows` |
+| `#` column (1…5) | `index`, defaults to the position in `rows` |
+| Frame: stroke Primary Blue Dark 1, radius 10, clip, width 1524 | `.ds-table-products` (fills its container; the stories use 1524px) |
+| Last row has no bottom line | `.ds-table-products__table > .ds-table-products-row:last-child` |
+
+## When to use
+
+- ✅ A list of products with number, name, flavor, type, nicotine, quantity and amount.
+
+## When NOT to use
+
+- ❌ Other tables — use [TableHeader](?path=/docs/molecules-tableheader--docs) presets and the matching rows.
+- ❌ Narrow screens (below ~800px) — use [TableRowMobile](?path=/docs/molecules-tablerowmobile--docs) or `CardRow`.
+
+## States and edge cases
+
+<Canvas of={TableProductsStories.Empty} />
+<Canvas of={TableProductsStories.Loading} />
+<Canvas of={TableProductsStories.ErrorState} />
+<Canvas of={TableProductsStories.SingleRow} />
+<Canvas of={TableProductsStories.LongText} />
+<Canvas of={TableProductsStories.ManyRows} />
+<Canvas of={TableProductsStories.NarrowContainer} />
+<Canvas of={TableProductsStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: header and five rows, 1524px wide, no empty/loading/error states, no hover or selected rows.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Empty, Loading and Error: the header stays, a centred message (Grey Dark; Danger Strong for the error) replaces the rows.
+- Narrow container: columns keep their widths, the table scrolls horizontally.
+- Dark theme: not designed — the light values are used.
+
+Assumed / normalised:
+
+- The Figma stroke is "inside" and lies over the rows; it is drawn with an inset `box-shadow` on an overlay so the 1px does not shrink the content.
+- The header spells the last column `Ampunt` in Figma; this is the default of `TableProductsHeader` and is kept as designed (override with `columns`).
+- Sorting is not drawn (the nested layers are named `Header with Sort`, but there are no arrows), so none is added.
+- `-` in `type` / `nicotine` is plain text, as in Figma.
+
+## Design tokens used
+
+The frame adds no new tokens. Header and row tokens are listed in their own MDX.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-primary-blue-dark` | frame stroke | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--border-width-sm` | frame stroke | `1px` | Existing tokens.json · Figma: border 1 |
+| `--radius-lg` | frame radius | `10px` | Existing tokens.json · Figma: radius 10 |
+| `--color-white` | frame background | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--spacing-24` / `--spacing-16` | status message padding | 24 / 16px | AI-defined use: state not drawn in Figma |
+| `--color-grey-dark` | empty / loading text | `#5D6E82` | AI-defined use: secondary text colour of the DS |
+| `--color-danger-strong` | error text | `#DF2E15` | AI-defined use: Danger hue with 4.6:1 on white |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | status message | 14 / 21px, 500 | AI-defined use: Body/Small Medium, as the rows |
+
+## Props
+
+<ArgTypes of={TableProductsStories} />
+
+## Code example
+
+```tsx
+import { TableProducts } from 'rifbar-ds';
+
+<TableProducts
+  rows={[
+    { id: 1, name: 'Astro', flavor: 'Malibu peach', type: 'DISPOSABLE', nicotine: '5%', quantity: 15, amount: '$150' },
+  ]}
+/>
+
+<TableProducts status="loading" />
+```
+
+## Accessibility
+
+- `role="table"` named by `label`, with `row` / `columnheader` / `cell` from the header and row molecules; `aria-busy` while loading. The status message is `role="status"`, the error `role="alert"`.
+- Contrast, computed: header text white on `#1D2542` 15.05:1; row text `#292639` on white 14.68:1; empty text `#5D6E82` 5.23:1; error text `#DF2E15` 4.63:1 — all pass AA.
+- ⚠️ Kept as designed: the row separators (`#D8E2EE` on white, 1.31:1) are below 3:1, and rows are not interactive, so no touch-target size applies.
+- Sorting and selection are not designed; add them with their own keyboard support if needed.

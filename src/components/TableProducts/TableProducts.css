@@ -1,0 +1,53 @@
+/* TableProducts — every value references a token from src/tokens/tokens.json. */
+
+.ds-table-products {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: clip;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  font-family: var(--font-family-base);
+}
+
+/* Figma stroke is "inside": drawn over the rows so the 1px does not shrink them. */
+.ds-table-products::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-primary-blue-dark);
+  pointer-events: none;
+}
+
+/* Narrow container: columns keep their widths and the table scrolls. */
+.ds-table-products__scroll {
+  overflow-x: auto;
+}
+
+/* One grid track: as wide as the container, but never narrower than the columns. */
+.ds-table-products__table {
+  display: grid;
+  grid-template-columns: minmax(max-content, 1fr);
+}
+
+.ds-table-products__table > .ds-table-products-row:last-child {
+  border-bottom: none;
+}
+
+.ds-table-products__status {
+  position: sticky;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-24) var(--spacing-16);
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}
+
+.ds-table-products__status.is-error {
+  color: var(--color-danger-strong);
+}
