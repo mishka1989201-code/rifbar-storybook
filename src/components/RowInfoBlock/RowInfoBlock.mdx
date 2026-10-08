@@ -18,6 +18,7 @@ Implements the Figma component set [`RowInfoBlock`](https://www.figma.com/design
 | `order-list__item` (582px) | `variant="pair"` | Body/Small Medium, label `--color-text`, value `--color-grey-dark`, line Stroke Light V2 |
 | `Info Line 1` (516px) | `variant="line"` | 16px caption (Secondary Grey) + 16px value (Primary Blue Dark), line Stroke Light V2 |
 | `Info Line` of [`TicketInfo/V2`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=400-199890) | `variant="compact"` | Body/Small Medium both, caption Grey Dark in a 140px column, value (text or a control) fills the rest, line Stroke Light V2 |
+| `order-list__item` mobile ([1160:256434](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1160-256434), 320px) | `variant="stacked"` | `label` (Color Text) over `description` (Grey Dark) on the left, `value` right-aligned Grey Dark, line Stroke Light V1; same data as `cells`, laid out for narrow screens |
 | `order-list_item2` (518px) | `variant="cells"` | “Astro / Banana Ice / 120”, line Stroke Light V1 |
 | Frame padding 8 0, border-bottom 1px | `.ds-row-info-block` | |
 
@@ -33,6 +34,8 @@ Implements the Figma component set [`RowInfoBlock`](https://www.figma.com/design
 
 <Canvas of={RowInfoBlockStories.InfoLine} />
 <Canvas of={RowInfoBlockStories.Compact} />
+<Canvas of={RowInfoBlockStories.Stacked} />
+<Canvas of={RowInfoBlockStories.StackedLong} />
 <Canvas of={RowInfoBlockStories.Cells} />
 <Canvas of={RowInfoBlockStories.TwoCells} />
 <Canvas of={RowInfoBlockStories.InList} />
@@ -61,6 +64,8 @@ Implements the Figma component set [`RowInfoBlock`](https://www.figma.com/design
 | `--color-secondary-grey` | line caption | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey |
 | `--color-primary-blue-dark` | line value | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
 | `--color-stroke-light-v2` / `--border-width-sm` | bottom line (pair, line) | `#D8E2EE` / `1px` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--spacing-4` / `--spacing-8` | stacked line gap / label–value gap | `4` / `8px` | Existing tokens.json · Figma: gap 4; 8 AI-defined |
+| `--color-text` / `--color-grey-dark` / `--color-stroke-light-v1` | stacked label / description + value / line | `#292639` / `#5D6E82` / `#F1F2F9` | Existing tokens.json · Figma: Color Text, Grey Dark, Stroke Light V1 |
 | `--size-info-row-label-compact` | compact caption width | `140px` | **New** · Figma: TicketInfo/V2 → Info Line caption width. Added 2026-10-09 |
 | `--color-grey-dark` / `--color-primary-blue-dark` | compact caption / value | `#5D6E82` / `#1D2542` | Existing tokens.json · Figma: Grey Dark, Primary Blue Dark |
 | `--color-stroke-light-v1` | bottom line (cells) | `#F1F2F9` | Existing tokens.json · Figma: Stroke Light V1 |

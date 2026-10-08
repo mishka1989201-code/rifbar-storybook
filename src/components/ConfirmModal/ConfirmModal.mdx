@@ -1,0 +1,87 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ConfirmModalStories from './ConfirmModal.stories';
+
+<Meta of={ConfirmModalStories} />
+
+# ConfirmModal
+
+A centred yes / no dialog: close button in the corner, a big question, a grey explanation and two actions. Implements the Figma frame [`Approve Modal`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=72-40342).
+Composed of [IconButton](?path=/docs/atoms-iconbutton--docs) (close) and, in the footer, [Button](?path=/docs/atoms-button--docs)s. For form pop-ups use [Modal](?path=/docs/molecules-modal--docs).
+
+It draws **only the dialog**: overlay, centring, scroll lock, focus trap and `Esc` belong to the page.
+
+<Canvas of={ConfirmModalStories.Default} />
+<Controls of={ConfirmModalStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Approve Modal` (White, radius 16, 630px) | `<ConfirmModal>` | `--radius-modal`, `--size-modal-confirm` |
+| `modal__header` + `Icon Button` (40px, Secondary Grey stroke, ✕) | `IconButton kind="close"` | top right, `onClose` |
+| “Do you want approve?” | `title` | Semi-Bold Headings/h4 24 / 36 |
+| “Accept user registration…” | `description` | Medium 14, Secondary Grey, centred, max 450px |
+| `Buttons` (line on top, py 16 / 32) | `actions` | `Button variant="light" iconLeft="xmark"` Cancel + `variant="dark" iconLeft="tick"` Accept |
+
+## When to use
+
+- ✅ Confirming an action in one question: approve, delete, discard changes.
+
+## When NOT to use
+
+- ❌ Forms or several fields — use `Modal`. ❌ A message with no decision — use `Notification`.
+
+## Variants, states and edge cases
+
+<Canvas of={ConfirmModalStories.Destructive} />
+<Canvas of={ConfirmModalStories.WithoutDescription} />
+<Canvas of={ConfirmModalStories.WithoutFooter} />
+<Canvas of={ConfirmModalStories.LongText} />
+<Canvas of={ConfirmModalStories.Narrow} />
+<Canvas of={ConfirmModalStories.Interactive} />
+<Canvas of={ConfirmModalStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws one dialog (630px). The destructive form (`Button variant="danger"`), the missing description / footer and the narrow width are **AI-defined**.
+- The Figma description is 460px wide; the code caps it at 450px (`--size-modal-desktop`, the nearest existing token). The dialog is 100% of its container up to 630px.
+- `role="alertdialog"` is used because the dialog asks for a decision; the page decides the initial focus (usually the safe button).
+- Dark theme not designed.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` / `--radius-modal` | dialog fill / radius | `#FFFFFF` / `16px` | Existing tokens.json · Figma: White, radius 16 |
+| `--size-modal-confirm` | max width | `630px` | **New** · Figma: Approve Modal width 630 |
+| `--spacing-16` / `--spacing-24` / `--spacing-32` | paddings, title–text gap, footer bottom | `16` / `24` / `32px` | Existing tokens.json · Figma: padding 16, gap 24, pb 32 |
+| `--font-size-h4` / `--font-line-height-h4` / `--font-weight-semibold` | title | `24px` / `36px` / `600` | Existing tokens.json · Figma: Semi-Bold Headings/h4 |
+| `--color-primary-blue-dark` | title | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--color-secondary-grey` / `--font-size-small` / `--font-weight-medium` | description | `#A7A4B7` / `14px` / `500` | Existing tokens.json · Figma: Secondary Grey, Medium Headings/h7 |
+| `--size-modal-desktop` | description max width | `450px` | AI-defined use: Figma 460px, nearest token |
+| `--color-stroke-light-v1` / `--border-width-sm` | footer top line | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
+
+## Props
+
+<ArgTypes of={ConfirmModalStories} />
+
+## Code example
+
+```tsx
+import { ConfirmModal, Button } from 'rifbar-ds';
+
+<ConfirmModal
+  title="Do you want approve?"
+  description="Accept user registration for further cooperation."
+  onClose={close}
+  actions={<>
+    <Button variant="light" iconLeft="xmark" onClick={close}>Cancel</Button>
+    <Button variant="dark" iconLeft="tick" onClick={approve}>Accept</Button>
+  </>}
+/>
+```
+
+## Accessibility
+
+- `role="alertdialog"` with `aria-labelledby` / `aria-describedby`; the close button has an accessible name.
+- The description in Secondary Grey `#A7A4B7` on white is below 3:1 contrast — kept as designed. The 40px close button and 37px buttons are below the 44px touch target.

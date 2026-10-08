@@ -18,6 +18,7 @@ const meta = {
   argTypes: {
     title: { control: 'text' },
     variant: { control: 'inline-radio', options: ['info', 'ticket', 'details'] },
+    size: { control: 'inline-radio', options: ['default', 'mobile'] },
     sections: { control: 'object', description: '`ticket` variant: props of the `DepartmentSection`s' },
     rows: { control: 'object', description: '`details` variant: caption / value rows' },
     icon: { control: 'text', description: 'Icon name from the 16px set' },
@@ -146,6 +147,19 @@ export const TicketNarrow: Story = {
   name: 'Ticket info, narrow container',
   decorators: [(Story) => <div style={{ maxWidth: 260, paddingBottom: 40 }}><Story /></div>],
   args: { variant: 'ticket', title: 'Responsibility for this support ticket', sections: [{ title: 'Department responsible for this particular ticket' }] },
+};
+
+/** Figma `board_all-orders`, 320px (node 208:95123). */
+export const Mobile: Story = {
+  name: 'Mobile (320px)',
+  decorators: [(Story) => <div style={{ width: 320, paddingBottom: 40 }}><Story /></div>],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=208-95123',
+    },
+  },
+  args: { size: 'mobile', infoProps: { justify: 'start' } },
 };
 
 export const NarrowContainer: Story = {

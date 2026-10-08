@@ -22,6 +22,8 @@ export interface InfoBlockRow {
 export interface InfoBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Card look. Default `info`. */
   variant?: InfoBlockVariant;
+  /** `mobile` = Figma `board_all-orders` at 320px: title row and body padded 10px instead of 16px. */
+  size?: 'default' | 'mobile';
   /** `ticket` only: sections of the body (title + “Change” pill + hint). Ignored when `children` is set. */
   sections?: (DepartmentSectionProps & { id?: string })[];
   /** `details` only: caption / value rows (`RowInfoBlock variant="compact"`). Ignored when `children` is set. */
@@ -44,6 +46,7 @@ export interface InfoBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ti
  */
 export function InfoBlock({
   variant = 'info',
+  size = 'default',
   sections,
   rows,
   title,
@@ -54,7 +57,7 @@ export function InfoBlock({
   className,
   ...rest
 }: InfoBlockProps) {
-  const classes = ['ds-info-block', `ds-info-block--${variant}`, className].filter(Boolean).join(' ');
+  const classes = ['ds-info-block', `ds-info-block--${variant}`, size === 'mobile' && 'ds-info-block--mobile', className].filter(Boolean).join(' ');
   const isTicket = variant === 'ticket';
   const detailsBody = rows?.map((row, i) => (
     <RowInfoBlock key={row.id ?? i} variant="compact" label={row.label} value={row.value} />

@@ -62,3 +62,7 @@
 .ds-info-block--details .ds-info-block__body > * { flex: none; }
 
 .ds-info-block--details .ds-info-block__body > .ds-row-info-block:last-child { border-bottom-color: transparent; }
+
+/* Figma board_all-orders at 320px: 10px side padding in the title row and in the info body. */
+.ds-info-block--mobile > .ds-card-header { padding-inline: var(--spacing-10); }
+.ds-info-block--mobile .ds-info-client { padding-inline: var(--spacing-10); }
