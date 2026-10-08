@@ -1,0 +1,146 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as NavbarStories from './Navbar.stories';
+
+<Meta of={NavbarStories} />
+
+# Navbar
+
+The dark side menu of the app: the burger with the logo, the list of pages and the signed-in user at the bottom. Implements the Figma frame
+[`Navbar/Full`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=48-13204)
+— 11 variants (`Style` On / Off × `Size` 1920 / 1440 / 1280 / 1024 / 768 / 480 / 360 × `Theme` Light / Dark). They differ only in width, paddings and
+logo size, so this is **one organism** with `size`, `collapsed` and the page theme. It is built from existing parts:
+[LogoBar](?path=/docs/molecules-logobar--docs), [NavbarMenu](?path=/docs/molecules-navbarmenu--docs) and
+[UserDropdown](?path=/docs/molecules-userdropdown--docs).
+
+<Canvas of={NavbarStories.Default} />
+<Controls of={NavbarStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Style=On` / `Style=Off` | `collapsed={false}` (default) / `collapsed` |
+| `Size=1920px` | `size="1920"` (default): 300px, collapsed 108px, logo 184×46 |
+| `Size=1440px` | `size="1440"`: 237px, collapsed 81px, 16px paddings, logo 165×40 |
+| `Size=1280px` / `1024px` | `size="1280"` / `"1024"`: 253px, top padding 30, logo 149×36 (drawn identically) |
+| `Size=768px` / `480px` | `size="768"` / `"480"`: as 1024 with 32px between logo and tabs, 16px between tabs |
+| `Size=360px` | `size="360"`: as 480 with 26px left padding |
+| `Theme=Dark` | page theme `data-theme="dark"` — no prop, the `--theme-*` tokens switch |
+| `Logo, Icon - Navbar` | `LogoBar` (`logoSize`, `hideLogo` when collapsed) |
+| `Navbar menu tabs` / `Navbar Tabs` | `NavbarMenu` — `items`, `value`, `onChange` |
+| `Admin`, `Reports`, `Product Settings` + `Subtabs` | item with `expandable`, `expanded` and `children` |
+| `user` | `UserDropdown tone="inverse"` — `user={{ name, src }}`, `compact` when collapsed |
+
+## When to use
+
+- ✅ The main navigation of the app, next to the page content (desktop) or over it (below 1440px).
+
+## When NOT to use
+
+- ❌ Switching content inside a page — use [TabsHeader](?path=/docs/molecules-tabsheader--docs).
+- ❌ The icons at the right of the page header — use `HeaderMenu`.
+
+## Sizes, states and edge cases
+
+<Canvas of={NavbarStories.Collapsed} />
+<Canvas of={NavbarStories.Size1440} />
+<Canvas of={NavbarStories.Size1440Collapsed} />
+<Canvas of={NavbarStories.Size1280} />
+<Canvas of={NavbarStories.Size1024} />
+<Canvas of={NavbarStories.Size768} />
+<Canvas of={NavbarStories.Size480} />
+<Canvas of={NavbarStories.Size360} />
+<Canvas of={NavbarStories.Dark} />
+<Canvas of={NavbarStories.GroupExpanded} />
+<Canvas of={NavbarStories.UserMenuOpen} />
+<Canvas of={NavbarStories.NoUser} />
+<Canvas of={NavbarStories.FewItems} />
+<Canvas of={NavbarStories.LongContent} />
+<Canvas of={NavbarStories.ShortScreen} />
+<Canvas of={NavbarStories.Interactive} />
+<Canvas of={NavbarStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the 11 variants above, with Clients active; Reports (and Admin, at 1440 / 1280 / 1024) open with their sub-tabs; Product Settings open
+only in the dark frame.
+
+Not drawn, defined by analogy (AI-defined):
+
+- **Active sub-tab** — Hover Blue Light text, Medium (`--theme-nav-subtab-active`, a token Figma names but does not use on any sub-tab).
+- **Hover / focus / disabled** of tabs and sub-tabs — see `NavbarMenu`; the user block and the burger keep their own states.
+- **User menu open** — chevron up. **No user** — the block is not drawn. **Long names** — ellipsis.
+- **Collapsed overlay menu** (1280 and below) — Figma has no `Style=Off` there; the 108px icons-only menu is reused.
+- **Short screens** — the menu is as tall as its container, with the user block pushed to the bottom (`justify-content: space-between`).
+- **Dark theme** — Figma draws it only at 1920px; the other sizes use the same `--theme-*` values.
+
+Normalised or assumed:
+
+- Figma tab bars are as wide as the whole menu (300 / 237 / 253px) while their parent frames are 32 / 16px narrower and clip them. The menu width is used and the bars run edge to edge.
+- Sub-tabs are Regular in all light frames and Medium in the dark frame (Product Settings). Regular is used; Medium is kept for the active sub-tab — **needs designer confirmation**.
+- Sub-tab indent: 56px at 1920 and the overlay sizes, 40px at 1440 (as drawn).
+- The burger is the plain `burger` when the menu is wide and `burger-rolled-up` when collapsed, as in Figma. `LogoBar` previously drew the rolled-up one when `expanded`; the new `rolledUp` prop lets the Navbar choose the icon separately from `aria-expanded`.
+- The `Admin` tab appears only in the 1440 / 1280 / 1024 frames; the 1920 frame has no `Admin`. The items are data, so this is the story's choice, not the component's.
+- Tab icons are unnamed vectors in Figma and are matched by look (see `NavbarMenu`; `admin` for the Admin tab) — **needs designer confirmation**.
+- 1440px collapsed: the burger and tab icons sit at 32px, the avatar at 16px, as drawn.
+- Figma asset downloads were not used; the logo and the icons are the existing `Logo` and `Icon`.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--theme-app-bg` | menu background | `#1D2542` / `#050411` dark | Existing tokens.json · Figma: Primary Blue Dark / Primary Blue Dark (Dark) |
+| `--theme-nav-text-active` | burger, logo, user name | `#FFFFFF` / `#BBC7D6` dark | Existing tokens.json · Figma: White / White (Light) |
+| `--theme-nav-text`, `--theme-nav-tab-active-bg` | tabs and sub-tabs | `#D2D3D9`, `#6368DF` / `#4549A1` dark | Existing tokens.json · Figma: Not Active, Hover Blue |
+| `--theme-nav-subtab-active` | active sub-tab, hover, focus ring | `#888CF6` | AI-defined use: Figma names the token but draws no active sub-tab |
+| `--layout-sidebar-desktop-lg` / `-collapsed` | width 1920 / collapsed | `300px` / `108px` | Existing tokens.json · Figma: Grids → side menu (navbar on / off) |
+| `--layout-sidebar-desktop` / `-collapsed` | width 1440 / collapsed | `237px` / `81px` | Existing tokens.json · Figma: Grids → Standard computers side menu |
+| `--layout-sidebar-overlay` | width 1280 … 360 | `253px` | Existing tokens.json · Figma: Grids → side menu over content |
+| `--spacing-16`, `--spacing-24`, `--spacing-32` | top / bottom / start paddings, gaps | 16 / 24 / 32px | Existing tokens.json · Figma: Navbar/Full auto layout |
+| `--spacing-26` | start padding, 360 | `26px` | Existing tokens.json · Figma: Size=360px (added with `NavbarMenu`) |
+| `--spacing-30` | top padding, 1280 … 360 | `30px` | **New** · Figma: Navbar/Full Size=1280px…360px → top padding |
+| `--spacing-40`, `--spacing-56` | sub-tab indent 1440 / others | 40 / 56px | Existing tokens.json · Figma: Subtabs padding |
+| `--spacing-8` | gap between sub-tabs | `8px` | Existing tokens.json · Figma: Subtabs gap 8 |
+| `--size-nav-user` | user block height | `48px` | **New** · Figma: Navbar/Full → user block height 48 |
+| `--size-logo-overlay-width`, `--size-logo-overlay-height` | logo 1280 … 360 | `149px`, `36px` | **New** · Figma: Logo Rifbar Header Big 149×36 |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-regular`, `--font-weight-medium` | labels | 14 / 21 / 400 / 500 | Existing tokens.json · Figma: Body/Small Regular, Body/Small Medium |
+| `--border-width-lg`, `--opacity-disabled` | focus outline, disabled | `2px`, `0.2` | AI-defined use: same as `NavbarMenu` |
+
+## Props
+
+<ArgTypes of={NavbarStories} />
+
+## Code example
+
+```tsx
+import { Navbar } from 'rifbar-ds';
+
+<Navbar
+  size="1920"
+  collapsed={collapsed}
+  value={page}
+  onChange={setPage}
+  onMenuClick={() => setCollapsed(!collapsed)}
+  user={{ name: 'Jennifer Corbett' }}
+  items={[
+    { id: 'clients', label: 'Clients', icon: 'user' },
+    {
+      id: 'reports',
+      label: 'Reports & Analytics',
+      icon: 'graph',
+      expandable: true,
+      expanded: open === 'reports',
+      children: [{ id: 'legal', label: 'Legal' }],
+    },
+  ]}
+/>
+```
+
+The dark theme is the page theme: set `data-theme="dark"` on `<html>` (or any parent).
+
+## Accessibility
+
+- An `<aside>` holding a `<nav>` landmark with `aria-label`; the active page has `aria-current="page"`, groups `aria-expanded`.
+- Collapsed: tab labels and the user name are not drawn but stay as the accessible name (`aria-label` / visually hidden text).
+- Contrast (calculated): Not Active `#D2D3D9` on `#1D2542` 10.07:1 (dark `#050411` 13.63:1); white on the active fill `#6368DF` **4.59:1**; White (Light) `#BBC7D6` on the dark active fill `#4549A1` **4.50:1**; active sub-tab `#888CF6` on `#1D2542` 5.11:1.
+- ⚠️ Kept as designed: 32px tabs are below the 44px touch target; sub-tabs are only 21px high (text line, no padding) — much smaller. Disabled at 20% opacity is below 3:1.

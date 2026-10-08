@@ -2,8 +2,19 @@ import type { HTMLAttributes } from 'react';
 import { Icon, type Icon16Name } from '../Icon';
 import './NavbarMenu.css';
 
-/** Figma `Size`: `Desktop` = 300px menu, the others are the 253px menu that slides over the content. */
-export type NavbarMenuSize = 'desktop' | '768' | '480' | '360';
+/**
+ * Figma `Size`: `desktop` = 1920px, 300px wide; `1440` = 237px with 16px paddings;
+ * `1024` (also used for 1280px) / `768` / `480` / `360` = the 253px menu that slides over the content.
+ */
+export type NavbarMenuSize = 'desktop' | '1440' | '1024' | '768' | '480' | '360';
+
+/** A link inside an expanded group (Figma `Subtabs`): text only, no icon. */
+export interface NavbarMenuSubItem {
+  /** Stable id, returned by `onChange`. */
+  id: string;
+  label: string;
+  disabled?: boolean;
+}
 
 export interface NavbarMenuItem {
   /** Stable id, returned by `onChange`. */
@@ -20,15 +31,17 @@ export interface NavbarMenuItem {
    * Set it on those tabs to keep that offset; ignored in the other sizes.
    */
   secondary?: boolean;
+  /** Figma `Subtabs`: links shown under the tab while it is `expanded`. */
+  children?: NavbarMenuSubItem[];
   disabled?: boolean;
 }
 
 export interface NavbarMenuProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
   /** Tabs from top to bottom. Figma shows 10. */
   items: NavbarMenuItem[];
-  /** Id of the active tab (Figma: filled `Hover Blue` bar, white Medium label). */
+  /** Id of the active tab (Figma: filled `Hover Blue` bar, white Medium label) or of the active sub-tab. */
   value?: string;
-  /** Called with the id of the tab the user picked. */
+  /** Called with the id of the tab or sub-tab the user picked. */
   onChange?: (id: string) => void;
   /** Figma `Size`. */
   size?: NavbarMenuSize;
@@ -91,6 +104,26 @@ export function NavbarMenu({
                   <Icon name={item.expanded ? 'chevron-up' : 'chevron-down'} size={16} color="current" />
                 )}
               </button>
+              {!collapsed && item.expanded && item.children && item.children.length > 0 && (
+                <ul className="ds-navbar-menu__subtabs">
+                  {item.children.map((sub) => {
+                    const subActive = sub.id === value;
+                    return (
+                      <li key={sub.id}>
+                        <button
+                          type="button"
+                          className={['ds-navbar-menu__subtab', subActive && 'is-active'].filter(Boolean).join(' ')}
+                          disabled={sub.disabled}
+                          aria-current={subActive ? 'page' : undefined}
+                          onClick={() => onChange?.(sub.id)}
+                        >
+                          {sub.label}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </li>
           );
         })}

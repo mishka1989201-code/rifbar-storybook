@@ -25,6 +25,8 @@ so they are **one component** with `size` and `collapsed`.
 | `Tab 1` (Hover Blue fill, white Medium) | tab with `value === id` (`is-active`) |
 | `Tab 2…10` (Not Active, Regular) | other tabs |
 | `Tab 5 Title`, `Product Settings` + chevron | `expandable: true` |
+| `Subtabs` (Admin, Reports, Product Settings) | `children` of an `expanded` item; `value` can be a sub-tab id |
+| `Size=1440px` / `1024px` (Navbar/Full) | `size="1440"` (237px, 16px padding, collapsed 81px) / `size="1024"` (253px, gap 8) |
 | `Icons 16px` | `icon` (16px set) |
 
 ## When to use
@@ -39,11 +41,14 @@ so they are **one component** with `size` and `collapsed`.
 ## Sizes, states and edge cases
 
 <Canvas of={NavbarMenuStories.Collapsed} />
+<Canvas of={NavbarMenuStories.Size1440} />
+<Canvas of={NavbarMenuStories.Size1024} />
 <Canvas of={NavbarMenuStories.Size768} />
 <Canvas of={NavbarMenuStories.Size480} />
 <Canvas of={NavbarMenuStories.Size360} />
 <Canvas of={NavbarMenuStories.MiddleTabActive} />
 <Canvas of={NavbarMenuStories.ExpandedItem} />
+<Canvas of={NavbarMenuStories.WithSubTabs} />
 <Canvas of={NavbarMenuStories.WithDisabledTab} />
 <Canvas of={NavbarMenuStories.FewItems} />
 <Canvas of={NavbarMenuStories.Empty} />
@@ -85,6 +90,8 @@ Normalised or assumed:
 | `--spacing-8` | tab gap (desktop), icon–label gap | `8px` | Existing tokens.json · Figma: auto layout gap 8 |
 | `--spacing-16` | tab gap (narrow), right padding | `16px` | Existing tokens.json · Figma: gap 16, padding-right 16 |
 | `--spacing-32` | left padding | `32px` | Existing tokens.json · Figma: padding-left 32 |
+| `--layout-sidebar-desktop`, `--layout-sidebar-desktop-collapsed` | width, 1440 / 1440 icons | `237px` / `81px` | Existing tokens.json · Figma: Navbar/Full Size=1440px → Tab width |
+| `--spacing-40`, `--spacing-56` | sub-tab indent (1440 / others) | `40px` / `56px` | Existing tokens.json · Figma: Subtabs padding-left |
 | `--spacing-26` | left padding, 360 | `26px` | **New** · Figma: Size=360px → Tab padding-left |
 | `--theme-nav-text` | inactive tab color | `#D2D3D9` | Existing tokens.json · Figma: Not Active |
 | `--theme-nav-text-active` | active tab color | `#FFFFFF` | Existing tokens.json · Figma: White |

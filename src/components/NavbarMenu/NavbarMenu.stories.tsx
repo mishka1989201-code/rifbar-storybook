@@ -29,7 +29,7 @@ const meta = {
   argTypes: {
     items: { control: 'object', description: 'Tabs: `{ id, label, icon, expandable?, expanded?, secondary?, disabled? }`' },
     value: { control: 'text', description: 'Id of the active tab' },
-    size: { control: 'inline-radio', options: ['desktop', '768', '480', '360'] },
+    size: { control: 'inline-radio', options: ['desktop', '1440', '1024', '768', '480', '360'] },
     collapsed: { control: 'boolean' },
     onChange: { action: 'changed' },
   },
@@ -56,6 +56,8 @@ export const Collapsed: Story = {
   args: { collapsed: true },
 };
 
+export const Size1440: Story = { name: 'Size 1440px', args: { size: '1440' } };
+export const Size1024: Story = { name: 'Size 1024px', args: { size: '1024' } };
 export const Size768: Story = { name: 'Size 768px', args: { size: '768' } };
 export const Size480: Story = { name: 'Size 480px', args: { size: '480' } };
 export const Size360: Story = { name: 'Size 360px', args: { size: '360' } };
@@ -67,6 +69,27 @@ export const ExpandedItem: Story = {
   name: 'Expanded item',
   args: { items: ITEMS.map((i) => (i.id === 'reports' ? { ...i, expanded: true } : i)) },
   parameters: { docs: { description: { story: 'Chevron up is AI-defined — Figma only draws the closed state.' } } },
+};
+
+export const WithSubTabs: Story = {
+  name: 'With sub-tabs',
+  args: {
+    value: 'legal',
+    items: ITEMS.map((i) =>
+      i.id === 'reports'
+        ? {
+            ...i,
+            expanded: true,
+            children: [
+              { id: 'warehouse', label: 'Warehouse / POS' },
+              { id: 'legal', label: 'Legal' },
+              { id: 'finance', label: 'Finance' },
+            ],
+          }
+        : i,
+    ),
+  },
+  parameters: { docs: { description: { story: 'Figma `Subtabs`. The active sub-tab (Hover Blue Light, Medium) is AI-defined.' } } },
 };
 
 export const WithDisabledTab: Story = {

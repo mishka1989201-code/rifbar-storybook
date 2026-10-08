@@ -16,6 +16,11 @@
   height: var(--size-logo-desktop-height);
 }
 
+.ds-logo--sm {
+  width: var(--size-logo-overlay-width);
+  height: var(--size-logo-overlay-height);
+}
+
 /* Figma: Primary Blue Dark (color style) */
 .ds-logo--default {
   color: var(--color-primary-blue-dark);

@@ -1,0 +1,87 @@
+/* Navbar — every value references a token from src/tokens/tokens.json.
+   Layout per Figma size; colors come from the theme (light and dark values live in the --theme-nav-* tokens). */
+
+.ds-navbar {
+  --ds-navbar-pad-top: var(--spacing-16);
+  --ds-navbar-pad-bottom: var(--spacing-32);
+  --ds-navbar-pad-start: var(--spacing-32);
+  --ds-navbar-logo-gap: var(--spacing-24);
+  --ds-navbar-section-gap: var(--spacing-32);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: var(--layout-sidebar-desktop-lg);
+  max-width: 100%;
+  min-height: 100%;
+  padding: var(--ds-navbar-pad-top) 0 var(--ds-navbar-pad-bottom);
+  background: var(--theme-app-bg);
+  color: var(--theme-nav-text-active);
+  font-family: var(--font-family-base);
+}
+
+.ds-navbar__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-navbar-section-gap);
+  min-width: 0;
+}
+
+.ds-navbar__logo-bar {
+  gap: var(--ds-navbar-logo-gap);
+  padding-left: var(--ds-navbar-pad-start);
+}
+
+.ds-navbar__user {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: var(--size-nav-user);
+  min-width: 0;
+  padding-left: var(--ds-navbar-pad-start);
+}
+
+/* ─── 1920: collapsed menu is 108px wide ─────────────────────────────── */
+.ds-navbar--1920.ds-navbar--collapsed {
+  width: var(--layout-sidebar-desktop-lg-collapsed);
+}
+
+/* ─── 1440: 237px, 16px paddings; collapsed 81px ─────────────────────── */
+.ds-navbar--1440 {
+  --ds-navbar-pad-bottom: var(--spacing-16);
+  --ds-navbar-pad-start: var(--spacing-16);
+  --ds-navbar-logo-gap: var(--spacing-16);
+  --ds-navbar-section-gap: var(--spacing-16);
+  width: var(--layout-sidebar-desktop);
+}
+
+.ds-navbar--1440.ds-navbar--collapsed {
+  width: var(--layout-sidebar-desktop-collapsed);
+}
+
+/* Collapsed: the burger and the tab icons sit at 32px, the avatar at 16px. */
+.ds-navbar--1440.ds-navbar--collapsed .ds-navbar__logo-bar {
+  padding-left: var(--spacing-32);
+}
+
+/* ─── 1280 / 1024 / 768 / 480 / 360: the 253px menu over the content ─── */
+:is(.ds-navbar--1280, .ds-navbar--1024, .ds-navbar--768, .ds-navbar--480, .ds-navbar--360) {
+  --ds-navbar-pad-top: var(--spacing-30);
+  --ds-navbar-pad-bottom: var(--spacing-16);
+  --ds-navbar-logo-gap: var(--spacing-16);
+  --ds-navbar-section-gap: var(--spacing-16);
+  width: var(--layout-sidebar-overlay);
+}
+
+:is(.ds-navbar--768, .ds-navbar--480, .ds-navbar--360) {
+  --ds-navbar-section-gap: var(--spacing-32);
+}
+
+.ds-navbar--360 {
+  --ds-navbar-pad-start: var(--spacing-26);
+}
+
+/* The overlay menu has no collapsed style in Figma (AI-defined): it keeps its width and hides the labels. */
+:is(.ds-navbar--1280, .ds-navbar--1024, .ds-navbar--768, .ds-navbar--480, .ds-navbar--360).ds-navbar--collapsed {
+  width: var(--layout-sidebar-desktop-lg-collapsed);
+}

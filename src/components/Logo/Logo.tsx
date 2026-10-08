@@ -1,8 +1,8 @@
 import type { SVGAttributes } from 'react';
 import './Logo.css';
 
-/** `lg` — 184×46 (screens ≥ 1920px), `md` — 165×40 (1440–1920px). */
-export type LogoSize = 'lg' | 'md';
+/** `lg` — 184×46 (screens ≥ 1920px), `md` — 165×40 (1440–1920px), `sm` — 149×36 (side menu below 1440px). */
+export type LogoSize = 'lg' | 'md' | 'sm';
 
 /** `default` — Primary Blue Dark (as in Figma), `inverse` — White, for dark surfaces like the Navbar. */
 export type LogoTone = 'default' | 'inverse';

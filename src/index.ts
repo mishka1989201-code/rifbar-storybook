@@ -58,6 +58,7 @@ export * from './components/ViewSwitch';
 export * from './components/ShowSelect';
 export * from './components/SwitchGroup';
 export * from './components/NavbarMenu';
+export * from './components/Navbar';
 export * from './components/ChatMessage';
 export * from './components/ChatHeader';
 export * from './components/MessageBox';
