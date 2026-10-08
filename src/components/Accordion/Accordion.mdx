@@ -1,0 +1,86 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as AccordionStories from './Accordion.stories';
+
+<Meta of={AccordionStories} />
+
+# Accordion
+
+A full-width collapsible section header: a title and a chevron button. Implements the Figma component set [`Accordion`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=155-52780) (`Property 1` Static / Hover / Focus / Disabled).
+The look follows `TableRowExpandable` (same card, hover fill, violet stroke when opened).
+
+<Canvas of={AccordionStories.Default} />
+<Controls of={AccordionStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Property 1=Static` | default | white card, Table Row shadow |
+| `Property 1=Hover` | `:hover` / `forceHover` | Row Hover fill `#EBEBF4`, violet shadow |
+| `Property 1=Focus` | `open` | Headlines stroke + title, chevron **up** — read as the opened state, as in `TableRowExpandable` Active |
+| `Property 1=Disabled` | `disabled` | `--opacity-disabled` (20%) |
+| `Name` “Clients” | `title` | Headings/h5 Medium (20 / 30) |
+| `button_action` + chevron | `.ds-accordion__toggle` | Secondary Light square, radius 5, `chevron-down` / `chevron-up` |
+
+## When to use
+
+- ✅ Grouping long content (filters, form sections, table blocks) under headers that open one at a time or independently.
+
+## When NOT to use
+
+- ❌ A short hint — use a tooltip. ❌ Navigation between pages — use `Tabs`.
+
+## Variants, states and edge cases
+
+<Canvas of={AccordionStories.Hover} />
+<Canvas of={AccordionStories.Focus} />
+<Canvas of={AccordionStories.Disabled} />
+<Canvas of={AccordionStories.OpenWithPanel} />
+<Canvas of={AccordionStories.Interactive} />
+<Canvas of={AccordionStories.LongTitle} />
+<Canvas of={AccordionStories.Narrow} />
+<Canvas of={AccordionStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws only the header (1524px wide). The panel (`children`) is **AI-defined**: 16px padding, Grey Dark Body/Small text.
+- `Focus` in Figma has the up chevron, so it is mapped to `open`. Real keyboard focus is **AI-defined**: `--shadow-focus` on the header.
+- The whole header is one button (Figma only shows the small square as a button) — bigger target, one tab stop. Hover is drawn on the whole card, as in Figma.
+- Figma strokes are inside: drawn as an inset shadow. Shadow `0 4 2 / 5%` in Figma is read as the `Table Row` shadow (`0 4 4 / 5%`) — the style name matches.
+- The toggle is 36px instead of 37px (no 10.5px token), as in `TableRowExpandable`. Dark theme not designed.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | card, open card | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-row-hover` / `--shadow-table-row-hover` | hover fill / shadow | `#EBEBF4` / violet | Existing tokens.json · Figma: Accordion Hover |
+| `--shadow-table-row` | card shadow | `0 4px 4px / 5%` | Existing tokens.json · Figma: Table Row |
+| `--color-headlines` / `--border-width-sm` | open stroke and title | `#4549A1` / `1px` | Existing tokens.json · Figma: Headlines |
+| `--color-primary-blue-dark` | title | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--color-secondary-light` / `--radius-sm` / `--spacing-10` | chevron button | `#ECEEFB` / `5px` / `10px` | Existing tokens.json · Figma: Secondary Light, button_action |
+| `--radius-lg` / `--spacing-16` | card radius / padding | `10px` / `16px` | Existing tokens.json · Figma: corner radius 10, padding 16 |
+| `--font-size-h5` / `--font-line-height-h5` / `--font-weight-medium` | title | `20px` / `30px` / `500` | Existing tokens.json · Figma: Headings/h5 Medium |
+| `--opacity-disabled` | disabled | `20%` | Existing tokens.json · Figma: Disabled opacity |
+| `--shadow-focus` | keyboard focus | — | AI-defined use: not drawn in Figma |
+| `--color-grey-dark` / `--font-size-small` | panel text | `#5D6E82` / `14px` | AI-defined use: panel not drawn |
+
+## Props
+
+<ArgTypes of={AccordionStories} />
+
+## Code example
+
+```tsx
+import { Accordion } from 'rifbar-ds';
+
+<Accordion title="Clients" defaultOpen>
+  Panel content
+</Accordion>
+```
+
+## Accessibility
+
+- The header is a native `<button aria-expanded aria-controls>`; Enter / Space toggle it.
+- Disabled at 20% opacity is below 3:1 — kept as designed.
+- The chevron square is 36px — below the 44px touch target, but the whole 62px-high header is clickable.
