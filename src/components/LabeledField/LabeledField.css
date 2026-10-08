@@ -1,0 +1,19 @@
+/* LabeledField — every value references a token from src/tokens/tokens.json. */
+
+.ds-labeled-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-4);
+  box-sizing: border-box;
+  width: 100%;
+  font-family: var(--font-family-base);
+}
+
+.ds-labeled-field__title {
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}

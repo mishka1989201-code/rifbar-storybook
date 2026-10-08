@@ -67,3 +67,38 @@
 @media (prefers-reduced-motion: reduce) {
   .ds-notification-line { transition: none; }
 }
+
+/* ─── Variant popup: Figma `Notification Line PopUp` ─────────────────── */
+.ds-notification-line--popup {
+  --ds-notification-line-bg: transparent;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  width: var(--size-dropdown-wide);
+  max-width: 100%;
+  padding: var(--spacing-8);
+  border-radius: var(--radius-xs);
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  box-shadow: none;
+}
+
+.ds-notification-line--popup.ds-notification-line--new,
+.ds-notification-line--popup:hover,
+.ds-notification-line--popup.is-hover {
+  --ds-notification-line-bg: var(--color-bg);
+  box-shadow: none;
+}
+
+.ds-notification-line--popup .ds-notification-line__icon { flex: none; }
+.ds-notification-line--popup .ds-notification-line__details { justify-content: flex-start; gap: var(--spacing-2); }
+
+.ds-notification-line--popup .ds-notification-line__message {
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-notification-line--popup .ds-notification-line__date {
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+}

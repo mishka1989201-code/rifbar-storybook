@@ -20,6 +20,7 @@ Implements the Figma component set [`NotificationLine`](https://www.figma.com/de
 | `Property 1=Static` | default | |
 | `Property 1=Hover` | `:hover` / `forceHover` | Stroke Headlines `#4549A1` |
 | `Property 1=Disabled` | `disabled` | `--opacity-disabled` (20%) |
+| `Notification Line PopUp` ([145:57855](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=145-57855)) | `variant="popup"` | 300px row: Warning icon + 12px Medium text, bottom `Stroke Light V1` line, padding 8, gap 4 |
 | `details` (gap 3) | `.ds-notification-line__details` | message + `Time` |
 | `Time` (icon 16 + date) | `.ds-notification-line__time` | `Icon` `warning-v2`, Warning color |
 
@@ -42,6 +43,12 @@ Implements the Figma component set [`NotificationLine`](https://www.figma.com/de
 <Canvas of={NotificationLineStories.WithoutDate} />
 <Canvas of={NotificationLineStories.Narrow} />
 <Canvas of={NotificationLineStories.InList} />
+<Canvas of={NotificationLineStories.Popup} />
+<Canvas of={NotificationLineStories.PopupUnread} />
+<Canvas of={NotificationLineStories.PopupHover} />
+<Canvas of={NotificationLineStories.PopupDisabled} />
+<Canvas of={NotificationLineStories.PopupLongText} />
+<Canvas of={NotificationLineStories.PopupWithDate} />
 <Canvas of={NotificationLineStories.AllVariants} />
 
 ## Figma notes
@@ -53,10 +60,18 @@ Implements the Figma component set [`NotificationLine`](https://www.figma.com/de
 - The raw stroke `#D6DBEE` of `New / Static` has no Figma variable, hence the new token.
 - Dark theme not designed: light values are used.
 
+- `popup`: Figma draws only one state (text, no date). **AI-defined:** `type="new"` and hover use the `--color-bg` fill (as the unread / hover row of `Dropdown` notifications), disabled = 20%, `date` (optional) goes under the text in Grey Dark. The icon is the same unnamed warning glyph, matched to `warning-v2`. The row is the same as a `Dropdown variant="notifications"` row; `Dropdown` keeps its own markup (it needs button semantics and the “See all” footer).
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
 |---|---|---|---|
+| `--size-dropdown-wide` | popup row width | `300px` | Existing tokens.json · Figma: Notification Line PopUp width |
+| `--spacing-8` / `--spacing-4` / `--spacing-2` | popup padding / icon gap / text–date gap | `8` / `4` / `2px` | Existing tokens.json · Figma: padding 8, gap 4; `2` AI-defined |
+| `--radius-xs` | popup radius | `3px` | Existing tokens.json · Figma: corner radius 3 |
+| `--color-stroke-light-v1` / `--border-width-sm` | popup bottom line | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--font-size-mini` / `--font-line-height-mini` / `--font-weight-medium` | popup text | `12px` / `18px` / `500` | Existing tokens.json · Figma: Body/Mini Medium |
+| `--color-bg` | popup new / hover fill | `#F6F8FC` | AI-defined use: not drawn; same as Dropdown notification rows |
 | `--color-white` | `old` background | `#FFFFFF` | Existing tokens.json · Figma: White |
 | `--color-row-hover` | `new` background | `#EBEBF4` | Existing tokens.json · Figma: Row Hover (fill `#EBEBF4`) |
 | `--color-notification-line-border` | `new` static stroke | `#D6DBEE` | **New** · Figma: NotificationLine Type=New Static → stroke (raw fill) |

@@ -1,0 +1,79 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as LabeledFieldStories from './LabeledField.stories';
+
+<Meta of={LabeledFieldStories} />
+
+# LabeledField
+
+A caption above a form control. Implements the Figma component [`Input/Title`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=147-86319): Body/Small Medium title, 4px gap, an `InputField` below.
+It composes the existing `InputField` atoms — the control is passed as `children`, so the same molecule serves `InputField`, `TextField` and `FilterField`.
+
+<Canvas of={LabeledFieldStories.Default} />
+<Controls of={LabeledFieldStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Input/Title` | `<LabeledField title="Name">` | root, column, gap 4 |
+| text “Name” | `title` | Body/Small Medium, Color Text |
+| `InputField` (static, empty) | `children` = `<InputField placeholder="…" />` | field states come from the atom |
+| frame width 188.667px | container width | the code takes 100% of the parent; Figma width is only the frame size |
+
+## When to use
+
+- ✅ A field that needs a visible caption in a form, modal or filter panel.
+
+## When NOT to use
+
+- ❌ A field whose meaning is clear from its own placeholder (search, table filters) — use the bare `InputField`.
+- ❌ A group of radios / checkboxes — they have their own labels; use a `fieldset` with `legend`.
+
+## Variants, states and edge cases
+
+<Canvas of={LabeledFieldStories.Filled} />
+<Canvas of={LabeledFieldStories.WithFilterField} />
+<Canvas of={LabeledFieldStories.WithTextField} />
+<Canvas of={LabeledFieldStories.Focus} />
+<Canvas of={LabeledFieldStories.Error} />
+<Canvas of={LabeledFieldStories.Disabled} />
+<Canvas of={LabeledFieldStories.LongTitle} />
+<Canvas of={LabeledFieldStories.Narrow} />
+<Canvas of={LabeledFieldStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws one state: caption + empty static field. Focus, error and disabled come from `InputField` (see its description in Figma).
+- The title is a single `<label>` around caption and control, so clicking the caption focuses the control and screen readers read it as the control's name.
+- `Modal` has its own `ModalField` with identical styling (it predates this component); it was left unchanged.
+- No new tokens. Dark theme not designed — token values follow the theme automatically.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-text` | title color | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | title | `14px` / `21px` / `500` | Existing tokens.json · Figma: Body/Small Medium |
+| `--spacing-4` | gap title ↔ field | `4px` | Existing tokens.json · Figma: gap 4 |
+| `--font-family-base` | font | Poppins | Existing tokens.json · Figma: Poppins |
+| `--color-stroke-light-v2`, `--color-grey-dark`, `--radius-sm` | field border, placeholder, radius | `#D8E2EE`, `#5D6E82`, `5px` | Existing tokens.json · Figma: Stroke Light V2, Grey Dark (drawn by the `InputField` atom) |
+
+## Props
+
+<ArgTypes of={LabeledFieldStories} />
+
+## Code example
+
+```tsx
+import { LabeledField, InputField } from 'rifbar-ds';
+
+<LabeledField title="Name">
+  <InputField placeholder="Enter the product name" />
+</LabeledField>
+```
+
+## Accessibility
+
+- The `<label>` wraps the control, so the caption is its accessible name; do not add a second `aria-label`.
+- The field is 32px high — below the 44px touch target; kept as designed.
+- Grey Dark placeholder `#5D6E82` on white is above 4.5:1; the empty-state border (Stroke Light V2) is below 3:1 — kept as designed.
