@@ -41,6 +41,11 @@
 | TimeScale | шкала дня з відпрацьованими періодами (Figma TimeTracker/Time Scale and Numbers); `segments` у годинах, `startHour`, `hours` |
 | AccessModeRow | карта «Default / Custom» (Figma Edit User Access): два radio (`Checkbox`) + кнопка «Edit» (активна лише для Custom); `value`, `onChange`, `onEdit`, `disabled` |
 | DocumentCard | карта документа (Figma Edit User Access New): іконка + заголовок + значення, вертикальні кнопки в `actions` |
+| NavbarMenu | вертикальне меню сторінок (Figma Navbar Menu Tabs): `size` desktop/768/480/360, `collapsed` (= Style=Icons), `items`, `value`, `onChange` |
+| ChatMessage | повідомлення чату (Figma Message): `direction` received/sent, `author` (аватар), `time`, `checked` |
+| ChatHeader | шапка чату (Figma chat header): іконка + h5 `title` + `quote` |
+| MessageBox | поле повідомлення (Figma message box): справжня форма з `input` і кнопкою send, `onSend`, `disabled`, `forceFocus` / `forceHover` |
+| TableRowQuantity | рядок вибору кількості (Figma TableRows / Choice of quantity): `name`, `prices`, `InputField` 200px; порожнє поле з рамкою Stroke Light V2 |
 | NotificationLine | рядок списку сповіщень (Figma NotificationLine): `message` + іконка з `date`; `type` `old`/`new`, `disabled`, `forceHover` |
 | TableRowExpandable | картковий рядок таблиці продуктів (Figma Table Row Static/Hover/Active/Disabled): `ImageCard` + колонки + кнопка-перемикач; `expanded`, `onToggle` |
 | FilterActions | мобільна панель (Figma Actions): `Button` «Filter» з `counter` + `SearchField` mobile; `filterCount`, `searchProps` |

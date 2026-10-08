@@ -30,14 +30,16 @@
 
 .ds-modal__title-wrap {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--spacing-16);
   min-width: 0;
 }
 
+/* Figma: the icon is aligned to the first line of the title (padding-top 4), also when the title wraps. */
 .ds-modal__icon {
   display: inline-flex;
   flex: none;
+  padding-top: var(--spacing-4);
 }
 
 .ds-modal__title {
@@ -100,11 +102,6 @@
 
 .ds-modal--mobile .ds-modal__title-wrap {
   flex: 1 1 0;
-  align-items: flex-start;
-}
-
-.ds-modal--mobile .ds-modal__icon {
-  padding-top: var(--spacing-4);
 }
 
 .ds-modal--mobile .ds-modal__title {

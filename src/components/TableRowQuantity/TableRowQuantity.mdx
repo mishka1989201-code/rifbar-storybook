@@ -1,0 +1,107 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableRowQuantityStories from './TableRowQuantity.stories';
+
+<Meta of={TableRowQuantityStories} />
+
+# TableRowQuantity
+
+One row of a list where the user chooses a quantity per item: the item name, its prices and a quantity field. Implements the rows of the Figma frame
+[`TableRows / Choice of quantity`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=631-216083) (10 rows: 9 empty, 1 filled), composed from [InputField](?path=/docs/atoms-inputfield--docs).
+
+<Canvas of={TableRowQuantityStories.Default} />
+<Controls of={TableRowQuantityStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `RowInfoBlock` / `Info Line 9…17` (white card, radius 10, Stroke Light V1, Table Row shadow, padding 12 / 16) | `.ds-table-row-quantity` |
+| `Image and Name` → name (Medium Headings/h6, Grey Dark, 200px) | `name` (+ `image` slot) |
+| `Input & price` → two `$15` (Body/Small Medium, Primary Blue Dark) | `prices` |
+| `InputField` 200px, empty: Stroke Light V2 border, `Type amount` | `InputField` with `placeholder` |
+| `InputField` filled (`15`): Input field border, Color Text | `value` / `defaultValue` (Activated is detected by the atom) |
+| Frame: padding 16 / 28 / 32 / 16, gap 8 | the list wrapper — stories only (`List`) |
+
+## When to use
+
+- ✅ Choosing a quantity (or any number) per item in an order / transfer list.
+
+## When NOT to use
+
+- ❌ A read-only list of values — use [RowInfoBlock](?path=/docs/molecules-rowinfoblock--docs).
+- ❌ A row that opens details — use [TableRowExpandable](?path=/docs/molecules-tablerowexpandable--docs).
+
+## States and edge cases
+
+<Canvas of={TableRowQuantityStories.Filled} />
+<Canvas of={TableRowQuantityStories.Hover} />
+<Canvas of={TableRowQuantityStories.Focus} />
+<Canvas of={TableRowQuantityStories.Invalid} />
+<Canvas of={TableRowQuantityStories.Disabled} />
+<Canvas of={TableRowQuantityStories.LongName} />
+<Canvas of={TableRowQuantityStories.WithoutPrices} />
+<Canvas of={TableRowQuantityStories.WithImage} />
+<Canvas of={TableRowQuantityStories.NarrowContainer} />
+<Canvas of={TableRowQuantityStories.List} />
+<Canvas of={TableRowQuantityStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: 10 rows — nine with the empty field and one (`Mint Ice`) with the value `15`; two `$15` in every row; no hover or focus.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Hover / focus / error / disabled of the field come from `InputField` (Headlines border; Input field border + Focus shadow; Danger border; 20% opacity).
+- Image before the name (Figma has an empty `Image and Name` container), long name, row without prices, narrow container (the prices and field wrap under the name).
+- Dark theme: not designed — light values are used.
+
+Assumed / normalised:
+
+- The empty field has a **Stroke Light V2** border here, while the `InputField` atom's Static border is Stroke Input (`#8A87A0`), as described in Figma's own `InputField` notes. The row overrides only the Static border; the atom stays as it is. Needs designer confirmation.
+- Two of the long names in Figma (`Peach mango Watermelon`, `Malibu…`) have no fixed width; all names use the same flexible column (min 200px, wraps instead of cutting the text).
+- The meaning of the two `$15` values is not named in Figma (unit price and total?), so `prices` is a plain list of nodes. The row has no sum logic.
+- The drop shadow `0 4 2 rgba(0,0,0,.05)` is the existing `--shadow-table-row` (`0 4 4`) as in `TableRowExpandable`; the stroke is drawn inside.
+- 200px (name and field) reuses `--size-info-row-label` (same value); it was added for another row.
+- The field is a text input with `inputMode="numeric"`, not `type="number"` (no spinner, no scroll changes).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | row background | `#FFFFFF` | Existing tokens.json · Figma: white |
+| `--color-stroke-light-v1` | row stroke | `#F1F2F9` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--shadow-table-row` | row shadow | `0 4px 4px rgba(0,0,0,.05)` | Existing tokens.json · Figma: Table Row |
+| `--border-width-sm` | stroke | `1px` | Existing tokens.json · Figma: border 1 |
+| `--radius-lg` | row radius | `10px` | Existing tokens.json · Figma: radius 10 |
+| `--spacing-12` / `--spacing-16` / `--spacing-8` | padding / gaps | 12 / 16 / 8px | Existing tokens.json · Figma: padding 12 / 16, gap 16 / 8 |
+| `--color-grey-dark` | name | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--font-size-h6`, `--font-line-height-h6`, `--font-weight-medium` | name | 16 / 24 / 500 | Existing tokens.json · Figma: Medium Headings/h6 |
+| `--color-primary-blue-dark` | prices | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--font-size-small`, `--font-line-height-small` | prices | 14 / 21px | Existing tokens.json · Figma: Body/Small Medium |
+| `--color-stroke-light-v2` | empty field border | `#D8E2EE` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--size-info-row-label` | name column basis, field width | `200px` | Existing tokens.json (same value) · Figma: name width 200, InputField width 200 |
+
+No new tokens. The field's own colors, height (32px) and states come from `InputField`.
+
+## Props
+
+<ArgTypes of={TableRowQuantityStories} />
+
+## Code example
+
+```tsx
+import { TableRowQuantity } from 'rifbar-ds';
+
+<TableRowQuantity
+  name="Banana Ice"
+  prices={['$15', '$15']}
+  value={quantity}
+  onChange={setQuantity}
+/>
+```
+
+## Accessibility
+
+- The item name labels the field (`aria-labelledby`); keyboard and form behavior come from the native `<input>`.
+- ⚠️ Kept as designed: the empty field's Stroke Light V2 border on white is 1.3:1 (below 3:1 for a control boundary); the placeholder (Grey Dark) is 5.2:1.
+- ⚠️ Disabled at 20% opacity is below 3:1; the 32px field is below the 44px touch target.

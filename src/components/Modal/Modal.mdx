@@ -42,16 +42,19 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 <Canvas of={ModalStories.Interactive} />
 <Canvas of={ModalStories.LongTitle} />
 <Canvas of={ModalStories.LongTitleMobile} />
+<Canvas of={ModalStories.AddEmployee} />
 <Canvas of={ModalStories.InvalidField} />
 <Canvas of={ModalStories.NarrowContainer} />
 <Canvas of={ModalStories.AllVariants} />
 
 ## Figma notes
 
+- Figma `Add Product Modal` ([node 682:287127](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=682-287127)) is this same dialog (450px, `Plus` icon, h4 title, one `Filter` field, Close / Save) — no new component; see the `AddEmployee` story. The frame name says “Product” but the content is about adding an employee to a warehouse.
 - Figma shows only the surface, no overlay, no shadow and no open / close animation; none were added.
 - Figma has a bottom line on the last body section **and** a top line on the footer (two 1px lines in a row); kept as drawn.
 - The mobile footer buttons are 12px high-padded (`12 16`), which does not match any `Button` size (small / medium 8, big 16); `Modal` overrides the padding for buttons inside the mobile footer.
 - The desktop title is `nowrap` in Figma; in code it wraps (`overflow-wrap: anywhere`), the close button keeps its 40px.
+- The title icon is aligned to the first line of the title with a 4px top padding (as in Figma `Add Product Modal`, where the title wraps); before this it was centered against the whole title.
 - Icon: the Figma `Plus` (dark rounded square) matches the existing `plus-box` 24px.
 - Not designed, AI-defined: a modal without icon or without footer, the invalid field state (from `InputField`), focus ring on the close button (from `IconButton`), the modal at narrow widths (`width: 100%` with the Figma widths as `max-width`). Dark theme not designed — light values are used.
 - Figma notes on the `InputField`: Static = Stroke Input border, Grey Dark placeholder — the atom already does this.

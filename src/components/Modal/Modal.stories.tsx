@@ -127,6 +127,27 @@ export const LongTitleMobile: Story = {
   ),
 };
 
+export const AddEmployee: Story = {
+  name: 'Add employee (Figma Add Product Modal)',
+  args: { title: 'Adding an employee to the warehouse' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=682-287127',
+    },
+    docs: { description: { story: 'Figma `Add Product Modal`: the same dialog with one `FilterField`; the long title wraps to two lines. Footer button is called “Save”.' } },
+  },
+  render: (args) => (
+    <Modal {...args} actions={<Actions accept="Save" />}>
+      <ModalSection>
+        <ModalField label="Employee name" htmlFor="add-employee-name">
+          <FilterField id="add-employee-name" placeholder="Choose an employee" />
+        </ModalField>
+      </ModalSection>
+    </Modal>
+  ),
+};
+
 export const InvalidField: Story = {
   name: 'Field with error',
   render: (args) => (
