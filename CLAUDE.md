@@ -101,13 +101,14 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   IconButton, ImageCard, InputField (Input / Filter / Text / Color), Logo, PlayButton, Scrollbar (content + dropdown), SearchField,
   Slider, SwitchButton, Switcher, Tabs, Toggle, TooltipBordered
 - **Molecules** (navigation / layout): BreadCrumbs, LogoBar, NavbarMenu, PageHeader, Pagination, PaginationBar, TabsHeader, UserDropdown,
-  ViewSwitch, ShowSelect, SwitchGroup, HeaderMenu-based bars (TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle, TimeScale)
+  ViewSwitch, ShowSelect, SwitchGroup
 - **Molecules** (cards / info): Accordion, CardHeader, CardRow, CardStrokeRow, CategoryCard, ChartLegendItem, ClientDetails, DepartmentItem,
   DepartmentSection, DocumentCard, InfoBlock (info / ticket / details / form), InfoClient, InfoRowCard, InfoTable, NoteCard, OrderCard,
   ProductCard, RowInfoBlock, StatCard, StepCard
 - **Molecules** (forms / dialogs): AccessModeRow, BarcodeSettings, ConfirmModal, Dropdown, FilterActions, LabeledField, MessageBox, Modal
-  (+ ModalSection, ModalField, ModalRow; sizes desktop / mobile / wide), RadioGroupCard, TimePicker
-- **Molecules** (chat / feedback): AudioPlayer, ChatHeader, ChatMessage, Notification, NotificationLine
+  (+ ModalSection, ModalField, ModalRow; sizes desktop / mobile / wide), RadioGroupCard
+- **Molecules** (chat / feedback): ChatHeader, ChatMessage, Notification, NotificationLine
+- **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle
 - **Molecules** (tables): TableActionsRow, TableHeader (presets incl. `productsAnalytics`, `paymentsAnalytics`), TableProductsHeader,
   TableProductsRow, TableRowAnalytics, TableRowExpandable, TableRowMobile, TableRowQuantity, TotalRow
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
