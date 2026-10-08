@@ -1,0 +1,188 @@
+/* DatePicker — every value references a token from src/tokens/tokens.json.
+   Figma strokes are "inside": drawn with an inset box-shadow next to the Table Row shadow. */
+
+.ds-date-picker {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1), var(--shadow-table-row);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+}
+
+/* ─── Month bar ─────────────────────────────────────────────────────── */
+.ds-date-picker__month {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  padding: var(--spacing-8) var(--spacing-16);
+}
+
+.ds-date-picker__title {
+  color: var(--color-secondary-grey);
+  font-size: var(--font-size-h7);
+  line-height: var(--font-line-height-h7);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+/* 16px arrow, as in Figma; padding and the opposite margin widen the hit area to 32px without moving anything. */
+.ds-date-picker__arrow {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: calc(-1 * var(--spacing-8));
+  padding: var(--spacing-8);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--icon-primary);
+  cursor: pointer;
+}
+
+.ds-date-picker__arrow:hover {
+  background: var(--color-secondary-light);
+}
+
+/* AI-defined: Figma draws no focus for the arrows; same ring as other buttons. */
+.ds-date-picker__arrow:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ─── Calendars ─────────────────────────────────────────────────────── */
+.ds-date-picker__calendars {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing-20);
+  padding: 0 var(--spacing-16);
+}
+
+.ds-date-picker__calendar {
+  flex: none;
+  box-sizing: border-box;
+  width: var(--size-calendar-month);
+  padding: var(--spacing-10) 0;
+}
+
+.ds-date-picker__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  height: var(--spacing-32);
+}
+
+.ds-date-picker__weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-h7);
+  line-height: normal;
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-date-picker__cell {
+  min-width: 0;
+}
+
+.ds-date-picker__day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-calendar-day);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.ds-date-picker__day.is-outside {
+  color: var(--color-secondary-grey);
+}
+
+/* Range: the days between are Secondary Light; the ends are Primary Blue Dark with the outer corners rounded. */
+.ds-date-picker__day.is-in-range {
+  background: var(--color-secondary-light);
+}
+
+.ds-date-picker__day.is-selected {
+  background: var(--color-primary-blue-dark);
+  color: var(--color-white);
+}
+
+.ds-date-picker__day.is-start {
+  border-top-left-radius: var(--radius-calendar-day);
+  border-bottom-left-radius: var(--radius-calendar-day);
+}
+
+.ds-date-picker__day.is-end {
+  border-top-right-radius: var(--radius-calendar-day);
+  border-bottom-right-radius: var(--radius-calendar-day);
+}
+
+/* AI-defined: Figma draws no hover or focus for the days. */
+.ds-date-picker__day:not(.is-selected):hover {
+  border-radius: var(--radius-calendar-day);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-hover-blue-light);
+}
+
+.ds-date-picker__day:focus-visible {
+  outline: none;
+  border-radius: var(--radius-calendar-day);
+  box-shadow: var(--shadow-focus);
+}
+
+/* ─── Range summary (Figma `Full`) ──────────────────────────────────── */
+.ds-date-picker__summary {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--spacing-4) var(--spacing-16);
+  border-top: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}
+
+.ds-date-picker__range {
+  box-sizing: border-box;
+  padding: var(--spacing-8) var(--spacing-16);
+  border-radius: var(--radius-message);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1);
+  font-size: var(--font-size-calendar-day);
+  line-height: normal;
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+/* AI-defined: nothing is picked yet. */
+.ds-date-picker__range.is-empty {
+  color: var(--color-grey-dark);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ─── Footer: Cancel / Apply or Today ───────────────────────────────── */
+.ds-date-picker__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-16);
+  border-top: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+.ds-date-picker .ds-date-picker__action {
+  flex: 1 1 0;
+  min-width: 0;
+}

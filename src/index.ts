@@ -78,6 +78,7 @@ export * from './components/NotificationLine';
 export * from './components/TableRowExpandable';
 export * from './components/FilterActions';
 export * from './components/TimePicker';
+export * from './components/DatePicker';
 export * from './components/RadioGroupCard';
 export * from './components/AudioPlayer';
 export * from './components/Modal';

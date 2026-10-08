@@ -1,0 +1,135 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as DatePickerStories from './DatePicker.stories';
+
+<Meta of={DatePickerStories} />
+
+# DatePicker
+
+A calendar panel to pick a day, a day with a time, or a range of days, with a `Cancel` / `Apply` bar (or a single `Today` button). Implements the Figma frame
+[`date-range-apply`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3922-225782) (four variants) and is an **Organism**, composed from
+[Button](?path=/docs/atoms-button--docs), [Icon](?path=/docs/atoms-icon--docs) and [TimePicker](?path=/docs/molecules-timepicker--docs).
+Days are real buttons in an ARIA grid; the calendar logic (month grid, range, keyboard) is part of the component.
+
+<Canvas of={DatePickerStories.Default} />
+<Controls of={DatePickerStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Property 1` | Code |
+|---|---|
+| [`date`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3773-296145) | `mode="single"` (default), `footer="actions"` |
+| [`date-time`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3923-227673) | `withTime` — adds `TimePicker` under the calendar; the value carries the time |
+| [`OneButtonApply`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3773-296759) | `footer="today"` — one `Today` button; it picks today and applies |
+| [`Full`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=93-37858) | `mode="range"` (two months by default) with the range summary |
+| `Month` bar: chevrons + `Mar 2023` | arrows (`chevron-left` / `chevron-right`) + the month title (`defaultMonth`, `onMonthChange`) |
+| `Weekday` / `Week` / `Day` (230px, 32px rows) | `.ds-date-picker__calendar`, grid of day buttons |
+| Day selected: Primary Blue Dark, radius 8 | `is-selected`; range ends round only the outer side |
+| Day in range: Secondary Light | `is-in-range` |
+| Days of the neighbouring months: Secondary Grey | `is-outside` (still clickable) |
+| `button_action` Cancel (Light Fill, `xmark`) / Apply (Dark, `tick`) | `Button variant="light"` / `"dark"`, `onCancel`, `onApply` |
+| `03/16/2023 - 03/25/2023` box | range summary (`<output>`) |
+| Panel: white, border Stroke Light V1, radius 5, Table Row shadow | `.ds-date-picker` |
+
+## When to use
+
+- ✅ Picking a date or a date range in a popover or a filter; `withTime` for a date and time of an event.
+
+## When NOT to use
+
+- ❌ A date typed by hand — use [InputField](?path=/docs/atoms-inputfield--docs).
+- ❌ Only a time — use [TimePicker](?path=/docs/molecules-timepicker--docs).
+
+## Variants, states and edge cases
+
+<Canvas of={DatePickerStories.DateAndTime} />
+<Canvas of={DatePickerStories.OneButtonApply} />
+<Canvas of={DatePickerStories.Range} />
+<Canvas of={DatePickerStories.NothingPicked} />
+<Canvas of={DatePickerStories.RangeNothingPicked} />
+<Canvas of={DatePickerStories.RangeStartOnly} />
+<Canvas of={DatePickerStories.NoFooter} />
+<Canvas of={DatePickerStories.SixWeekMonth} />
+<Canvas of={DatePickerStories.RangeAcrossMonths} />
+<Canvas of={DatePickerStories.Ukrainian} />
+<Canvas of={DatePickerStories.NarrowContainer} />
+<Canvas of={DatePickerStories.Interactive} />
+<Canvas of={DatePickerStories.AllVariants} />
+
+## Behaviour
+
+- `value` / `defaultValue` is the **draft**: `onChange` fires on every pick, `onApply` on `Apply` (and on `Today`), `onCancel` on `Cancel`. The picker does not close itself.
+- Range: the first click sets the start, the second the end; a click on a day before the start, or a click after the range is complete, starts a new range. `Apply` is disabled until both ends are set.
+- Keyboard: arrows move by a day or a week, `Home` / `End` to the start / end of the week, `PageUp` / `PageDown` by a month; the month changes when the focus leaves it. Only one day is in the tab order.
+- Dates are local days; the week starts on Sunday (Figma). Names and the summary format come from `locale` through `Intl`.
+
+## Figma notes
+
+What Figma draws: March 2023 with the 16th selected (and, in `Full`, 16–25 March), `Cancel` / `Apply` or `Today`, the time picker (13:20) in `date-time`.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Hover of a day (1px Hover Blue Light ring) and keyboard focus (`--shadow-focus`); hover and focus of the month arrows.
+- `Apply` disabled while nothing is picked; empty and start-only ranges.
+- Six-week months, ranges across months, a footer-less picker, locales, narrow containers.
+- Dark theme: not designed — the light values are used.
+
+Assumed / normalised:
+
+- **Mock dates.** Figma puts the 1st of March on a Tuesday and the 16th under `We`; the real March 2023 starts on a Wednesday (the 16th is a Thursday). The component draws the real calendar, so the columns differ from the screenshot.
+- **Fonts.** The day numbers are Manrope SemiBold (and one column Poppins Medium) in Figma — a font that is not in the system. All days use the base font (Poppins Medium 13px) so they stay consistent.
+- **Two months.** In `Full` Figma shows the same month twice under one `Mar 2023` title. The component shows two consecutive months with the title `Mar 2023 – Apr 2023`.
+- The month title is Secondary Grey in Figma (it reads as disabled); kept as designed.
+- The arrows are 16px as in Figma; the hit area is widened to 32px with padding and an equal negative margin, so nothing moves.
+- Range ends are rounded only on the outer side (Figma draws the 16th rounded on the left and the 25th on the right, no rounding at week breaks).
+- The shadow is the existing Table Row (`0 4 4`); Figma's effect list is `0 4 2`. Same decision as for the table rows.
+- The icons `chevron-left` / `chevron-right` / `xmark` / `tick` are matched by look (Figma icons are unnamed vectors).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | panel, weekday cells | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-stroke-light-v1`, `--border-width-sm` | panel border, footer / summary lines, range box | `#F1F2F9`, 1px | Existing tokens.json · Figma: colorBorders |
+| `--shadow-table-row` | panel shadow | `0 4px 4px rgba(0,0,0,.05)` | Existing tokens.json · Figma: Table Row |
+| `--radius-sm` | panel and bar radius | `5px` | Existing tokens.json · Figma: radius 5 |
+| `--radius-message` | range box radius | `4px` | Existing tokens.json · Figma: radius 4 |
+| `--radius-calendar-day` | selected day radius | `8px` (= `--radius-tooltip`) | **New** (alias) · Figma: selected day corner radius 8 |
+| `--color-text` | days, weekdays | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--color-secondary-grey` | month title, neighbouring days | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey |
+| `--color-primary-blue-dark` | selected day | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--color-secondary-light` | days in range, arrow hover | `#ECEEFB` | Existing tokens.json · Figma: Secondary Light |
+| `--icon-primary` | arrows | Primary Blue Dark | Existing tokens.json · Figma: Icons 16px Primary |
+| `--font-size-h7`, `--font-line-height-h7`, `--font-weight-medium` / `-semibold` | month title, weekdays | 14 / 21px | Existing tokens.json · Figma: Medium / Semi-Bold Headings h7 |
+| `--font-size-calendar-day` | day numbers, range summary | `13px` | **New** · Figma: day text 13 (no text style bound) |
+| `--size-calendar-month` | calendar width | `230px` | **New** · Figma: Weekday / Week width 230 |
+| `--spacing-20` | gap between the two calendars | `20px` | **New** · Figma: Full → gap 20 |
+| `--spacing-32` | weekday and week row height | `32px` | Existing tokens.json · Figma: row height 32 |
+| `--spacing-16` / `--spacing-8` / `--spacing-10` / `--spacing-4` | paddings and gaps | 16 / 8 / 10 / 4px | Existing tokens.json · Figma: padding 16 / 8 / 10 / 4 |
+| `--color-hover-blue-light` | day hover ring | `#888CF6` | AI-defined use: Figma draws no hover |
+| `--shadow-focus` | day / arrow focus | Focus or pressed | AI-defined use: the focus shadow of inputs and buttons |
+| `--color-grey-dark` | empty range summary | `#5D6E82` | AI-defined use: secondary text |
+| Button `light` / `dark`, `TimePicker` tokens | footer, time | — | see [Button](?path=/docs/atoms-button--docs), [TimePicker](?path=/docs/molecules-timepicker--docs) |
+
+## Props
+
+<ArgTypes of={DatePickerStories} />
+
+## Code example
+
+```tsx
+import { DatePicker } from 'rifbar-ds';
+
+<DatePicker defaultValue={new Date(2023, 2, 16)} onApply={(date) => setDate(date)} onCancel={close} />
+
+<DatePicker mode="range" onApply={({ start, end }) => setRange(start, end)} />
+
+<DatePicker withTime defaultValue={new Date()} onApply={(dateTime) => setStart(dateTime)} />
+```
+
+## Accessibility
+
+- A `role="group"` with a month `role="grid"` (weekday `columnheader`s with full names, `gridcell`s with day buttons named by the full date, e.g. "Thursday, March 16, 2023"); the picked days have `aria-selected`. The month title is `aria-live="polite"`.
+- Keyboard: see Behaviour. One day is in the tab order; `Cancel` / `Apply` / `Today` are buttons.
+- Contrast, computed: days `#292639` on white 14.68:1, on the range `#ECEEFB` 12.71:1; picked day white on `#1D2542` 15.05:1; `Cancel` `#1D2542` on `#ECEEFB` 13.03:1.
+- ⚠️ Kept as designed: the month title and the days of the neighbouring months (`#A7A4B7` on white) are 2.43:1, below 4.5:1 for text (2.11:1 when a neighbouring day falls in a range); the range band (`#ECEEFB` on white) is 1.15:1 and the panel border 1.12:1 — below 3:1 for non-text; the hover ring (`#888CF6`) is 2.95:1; the days are 32px high (about 33px wide) and `Cancel` / `Apply` are 37px high — below the 44px touch target.
+- Not covered: `min` / `max` dates and disabled days are not designed, so there are no props for them.
