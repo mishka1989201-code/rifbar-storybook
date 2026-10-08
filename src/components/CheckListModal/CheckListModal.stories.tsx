@@ -52,6 +52,11 @@ export const DisabledRow: Story = {
   parameters: { docs: { description: { story: 'A disabled row is shown at 20% opacity (AI-defined) and is not changed by `All`.' } } },
 };
 
+export const Collapsed: Story = {
+  args: { collapsed: true },
+  parameters: { docs: { description: { story: 'The chevron points down and the list is hidden (AI-defined). Used by `FilterMenu`.' } } },
+};
+
 // ─── FIGMA HIDDEN LAYERS ─────────────────────────────────────────────────────
 export const WithDescription: Story = {
   name: 'With description',

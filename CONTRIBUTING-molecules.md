@@ -74,6 +74,7 @@
 | Navbar | бічне меню (Figma Navbar/Full): `LogoBar` + `NavbarMenu` + `UserDropdown`; `size` 1920/1440/1280/1024/768/480/360, `collapsed`, `items` (групи з `children`), `user`; темна тема — через `data-theme` |
 | TimeTracker | картка робочого часу (Figma TimeTracker): `TimeTrackerBar` + статистика `stats` + `TimeScale`; `state` static/active/disabled, `segments`, `onToggle` |
 | WelcomeCard | вітальна картка (Figma Welcome Card): темний заголовок із `title`, `subtitle`, `stats`, `image` + `rows` (`AlertRow`); картинку з Figma не завантажено (403) |
+| FilterMenu | екран фільтрів 768px (Figma Filter Responsive Menu): шапка з `title`, `count`, закриттям + чіпи `FilterChevron` (`filters`) + секції в `children` (`CheckListModal`, `Modal` з `DatePicker`) |
 | DatePicker | календар (Figma date-range-apply: date / date-time / OneButtonApply / Full): `mode` `single` / `range`, `withTime` (`TimePicker`), `footer` `actions` / `today` / `none`, `months`; `value` — чернетка, `onApply` / `onCancel`; клавіатура, `locale` |
 
 ## Процес для кожної молекули

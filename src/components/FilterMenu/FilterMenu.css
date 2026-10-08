@@ -1,0 +1,84 @@
+/* FilterMenu — every value references a token from src/tokens/tokens.json.
+   Chips = FilterChevron, close = IconButton, sections = Modal / CheckListModal passed as children. */
+
+.ds-filter-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: var(--spacing-16);
+  overflow: clip;
+  background: var(--color-bg);
+  font-family: var(--font-family-base);
+}
+
+/* Figma `header`: white, 24 / 16 padding, Stroke Light V1 line and Header Shadow. */
+.ds-filter-menu__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  padding: var(--spacing-24) var(--spacing-16) var(--spacing-16);
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  background: var(--color-white);
+  box-shadow: var(--shadow-header);
+}
+
+.ds-filter-menu__header .ds-icon-button {
+  flex: none;
+}
+
+.ds-filter-menu__title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 0;
+  margin: 0;
+  color: var(--color-headlines);
+  font-size: var(--font-size-h4);
+  line-height: var(--font-line-height-h4);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-filter-menu__title-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Figma `Icons 24px` → Number: an 18px Headlines circle with a white Mini Medium digit. */
+.ds-filter-menu__count {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: var(--size-count-badge);
+  height: var(--size-count-badge);
+  padding-inline: var(--spacing-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-headlines);
+  color: var(--color-white);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-filter-menu__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  padding: 0 var(--spacing-16);
+  min-width: 0;
+}
+
+/* Figma `Filters Chevron Light`: wrapping row, 6px between lines, 16px between chips. */
+.ds-filter-menu__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-6) var(--spacing-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

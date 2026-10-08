@@ -30,7 +30,9 @@ export interface CheckListModalProps extends Omit<ModalProps, 'children' | 'onCh
   searchPlaceholder?: string;
   /** Accessible name of the list. Defaults to the title. */
   listLabel?: string;
-  /** Called on click of the header button (the chevron up). */
+  /** Hides the list; the header button then shows a chevron down. Not in Figma (AI-defined). */
+  collapsed?: boolean;
+  /** Called on click of the header button (the chevron up, or down when `collapsed`). */
   onCollapse?: () => void;
   /** Accessible name of the header button. */
   collapseLabel?: string;
@@ -52,6 +54,7 @@ export function CheckListModal({
   searchable = false,
   searchPlaceholder = 'Search',
   listLabel,
+  collapsed = false,
   onCollapse,
   collapseLabel = 'Collapse',
   title,
@@ -85,9 +88,16 @@ export function CheckListModal({
       className={classes}
       aria-describedby={description != null ? descriptionId : undefined}
       headerAction={
-        <Button variant="light" iconOnly="chevron-up" aria-label={collapseLabel} onClick={onCollapse} />
+        <Button
+          variant="light"
+          iconOnly={collapsed ? 'chevron-down' : 'chevron-up'}
+          aria-label={collapseLabel}
+          aria-expanded={!collapsed}
+          onClick={onCollapse}
+        />
       }
     >
+      {collapsed ? null : <>
       {description != null && (
         <p id={descriptionId} className="ds-check-list-modal__description">
           {description}
@@ -126,6 +136,7 @@ export function CheckListModal({
         ))}
         {visible.length === 0 && <li className="ds-check-list-modal__empty">Nothing found</li>}
       </ul>
+      </>}
     </Modal>
   );
 }

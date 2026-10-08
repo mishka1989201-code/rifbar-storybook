@@ -41,6 +41,7 @@ A dialog with a list of options to tick — for example the statuses to filter b
 <Canvas of={CheckListModalStories.SomeChecked} />
 <Canvas of={CheckListModalStories.NoneChecked} />
 <Canvas of={CheckListModalStories.DisabledRow} />
+<Canvas of={CheckListModalStories.Collapsed} />
 <Canvas of={CheckListModalStories.WithDescription} />
 <Canvas of={CheckListModalStories.Searchable} />
 <Canvas of={CheckListModalStories.WithoutAll} />
@@ -61,6 +62,7 @@ Not drawn, defined by analogy (AI-defined):
 - **`All`** — checked when every enabled row is checked, otherwise empty (no “some” state: the atom has none). Disabled rows are not changed by `All`.
 - **Search** — filters the rows by their text; `All` is hidden while the field has text; an empty result shows “Nothing found”.
 - **Description** — Figma puts it in the header, under the title; the `Modal` header has no such slot, so it sits at the top of the body.
+- **Collapsed** (\`collapsed\`) — the list is hidden and the header button shows a chevron down with \`aria-expanded\`; Figma draws only the open state.
 - **Long labels** wrap; **narrow containers** — the dialog fills them.
 - **Dark theme** — not designed: the light values are used.
 
