@@ -30,6 +30,7 @@
 | DepartmentItem | відділ (Figma Department): квадратний `Avatar` + назва; `initials` |
 | InfoRowCard | двоколонковий рядок картки (InfoRow.Card 1024px): `label` (semi-bold, 200px) + `value` |
 | TableRowMobile | компактний рядок таблиці для вузьких екранів (Figma TableRow 360px/480px): `label` / `value` / `result` + кнопка `Button`; проп `size`, слот `action` |
+| TableRowClient | рядок-картка таблиці клієнтів (Figma Table Row 14 / Table Row Hover Name): `name` (`nameHref` / `onNameClick`), `company`, `phone`, `email`, `joined`, `updated`, кнопка `More`; `forceNameHover` |
 | CategoryCard | плитка категорії (Figma Card Category): картинка + назва в один рядок; `href` робить її посиланням, hover — стан (`:hover`/`:focus-visible`) |
 | LogoBar | ліва частина хедера (Figma Logo, Icon - Navbar): бургер + `Logo` (`inverse`); `expanded`, `onMenuClick`, `href`, `hideMenu` |
 | ViewSwitch | перемикач «View:» (Figma viewing style): іконки cards/list, `value`, `onChange` |
@@ -58,6 +59,17 @@
 | Dropdown | панель меню (Figma Dropdown, 8 стилів): `variant` `list`/`notifications`/`user`, `control` `none`/`radio`/`checkbox`, `searchable` |
 
 Усі експортуються з `src/index.ts`.
+
+## Organisms
+
+Великі компоненти, зібрані лише з молекул. Заголовок історій — `Organisms/<Name>`.
+
+| Organism | Примітка |
+|---|---|
+| ChatLayout | вся панель чату (Figma chat  layout v2): `ChatHeader` + тред `items` (`date` / `message`) + `MessageBox`; `onSend`, `messageBoxProps`, `height` (тред скролиться і тримається внизу) |
+| TableProducts | таблиця продуктів (Figma Table - Products): `TableProductsHeader` + `TableProductsRow` з `rows`; `status` `ready` / `loading` / `error`, `emptyText`; у вузькому контейнері скролиться |
+| TableClients | таблиця клієнтів (Figma Table/Row & Header): `TableHeader` (`DEFAULT_CLIENTS_COLUMNS`) + `TableRowClient` з `rows`; `onSort`, `status`, `emptyText`; у вузькому контейнері скролиться |
+| DatePicker | календар (Figma date-range-apply: date / date-time / OneButtonApply / Full): `mode` `single` / `range`, `withTime` (`TimePicker`), `footer` `actions` / `today` / `none`, `months`; `value` — чернетка, `onApply` / `onCancel`; клавіатура, `locale` |
 
 ## Процес для кожної молекули
 

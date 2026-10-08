@@ -42,7 +42,7 @@ Several Figma components that are one thing in code (e.g. two scrollbars) become
 - Figma property names map 1:1 to props or stories; write the mapping table in the MDX ("Figma → code mapping").
 - Preview-only props are called `forceHover` / `forceFocus`; real hover/focus come from CSS.
 - Honour `prefers-reduced-motion` for transitions.
-- Story titles: `Atoms/<Name>` for small elements, **`Molecules/<Name>`** for compositions of several atoms (`Pagination` is the first one).
+- Story titles: `Atoms/<Name>` for small elements, **`Molecules/<Name>`** for compositions of several atoms (`Pagination` is the first one), **`Organisms/<Name>`** for large blocks composed of molecules (`ChatLayout` is the first one).
   Story names are PascalCase. Every component needs: Default, each variant, each state, edge cases (long text, empty, narrow), an `AllVariants` matrix, and the Figma URL in `parameters.design`.
 - Data-display components also need Empty / Loading / Error stories.
 
@@ -95,12 +95,34 @@ accessibility warnings; what was and was not verified (typecheck, visual render,
 
 ## Current state
 
-Components in `src/components` (all exported from `src/index.ts`):
+Components in `src/components` (all exported from `src/index.ts`). Per-molecule notes (props, Figma nodes) are in `CONTRIBUTING-molecules.md`.
 
-- **Atoms:** Avatar, Button, Checkbox, ChevronDropDown, ChevronStatus, EmailChevron, FilterChevron, HeaderMenu, Icon, IconButton,
-  ImageCard, InputField (Input / Filter / Text / Color), Logo, PlayButton, Scrollbar (content + dropdown), SearchField, Slider,
-  SwitchButton, Switcher, Tabs, Toggle, TooltipBordered
-- **Molecules:** Pagination
+- **Atoms:** Avatar, Button, Checkbox, ChevronDropDown, ChevronStatus, EmailChevron, FileDropzone, FilterChevron, HeaderMenu, Icon,
+  IconButton, ImageCard, InputField (Input / Filter / Text / Color), Logo, PlayButton, Scrollbar (content + dropdown), SearchField,
+  Slider, SwitchButton, Switcher, Tabs, Toggle, TooltipBordered
+- **Molecules** (navigation / layout): BreadCrumbs, LogoBar, NavbarMenu, PageHeader, Pagination, PaginationBar, TabsHeader, UserDropdown,
+  ViewSwitch, ShowSelect, SwitchGroup
+- **Molecules** (cards / info): Accordion, CardHeader, CardRow, CardStrokeRow, CategoryCard, ChartLegendItem, ClientDetails, DepartmentItem,
+  DepartmentSection, DocumentCard, InfoBlock (info / ticket / details / form), InfoClient, InfoRowCard, InfoTable, NoteCard, OrderCard,
+  ProductCard, RowInfoBlock, StatCard, StepCard
+- **Molecules** (forms / dialogs): AccessModeRow, BarcodeSettings, ConfirmModal, Dropdown, FilterActions, LabeledField, MessageBox, Modal
+  (+ ModalSection, ModalField, ModalRow; sizes desktop / mobile / wide), RadioGroupCard
+- **Molecules** (chat / feedback): ChatHeader, ChatMessage, Notification, NotificationLine
+- **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle
+- **Molecules** (tables): TableActionsRow, TableHeader (presets incl. `productsAnalytics`, `paymentsAnalytics`), TableProductsHeader,
+  TableProductsRow, TableRowAnalytics, TableRowClient, TableRowExpandable, TableRowMobile, TableRowQuantity, TotalRow
+- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient),
+  DatePicker (Button + TimePicker; date / date-time / today / range)
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
 
-Next: larger components from the Figma group **Molecules**, one Figma link at a time.
+Open design questions (also in the PR #10 description):
+
+- The empty field border: some frames draw Stroke Light V2, the `InputField` atom uses Stroke Input. `TableRowQuantity` overrides it, the
+  others use the atom — pick one rule.
+- Many icons are matched by look (Figma icons are unnamed vectors) — see the "needs designer confirmation" list in the MDX of each component.
+
+Never verified in a browser: Storybook has not been run yet (everything was checked with `tsc`, the library build and headless Chromium
+renders with a fallback font). Walk through the stories once before relying on interactive behavior.
+
+Next: more components from the Figma file, one link (or several for one component) at a time. Reuse an existing component when the new
+frame only changes layout, sizes or columns (extend it with a prop or a preset instead of adding a new one).

@@ -1,0 +1,111 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableRowClientStories from './TableRowClient.stories';
+
+<Meta of={TableRowClientStories} />
+
+# TableRowClient
+
+Card-like row of the clients table: name, company, phone, email, two dates and a `More` button. Implements the Figma components
+[`Table Row 14`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=17-6506) and
+[`Table Row Hover Name`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=828-255423) (the same row with the name hovered),
+composed from [Button](?path=/docs/atoms-button--docs) (`variant="light"`, icon `info`).
+
+<Canvas of={TableRowClientStories.Default} />
+<Controls of={TableRowClientStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Table Row 14` | `TableRowClient` |
+| `Table Row Hover Name` | the name hovered or focused; preview with `forceNameHover` |
+| Name (Semi-Bold, 170px) | `name`, with `nameHref` (`<a>`) or `onNameClick` (`<button>`) |
+| `Email` frame with `Sam's Club` (170px) | `company` |
+| Phone 150px / email 220px | `phone`, `email` |
+| `Header with Sort` date (80px, right) | `joined` |
+| `Date 3` (119px, right) | `updated` |
+| `Buttons` → `button_action` Light Fill, icon `Info`, `More` | `Button variant="light" iconLeft="info"`, `actionLabel`, `onAction` |
+| Card: white, border Stroke Light V1, radius 10, Table Row shadow, padding 12 / 16 | `.ds-table-row-client` |
+
+## When to use
+
+- ✅ A list of clients where each row opens the client or an action menu.
+
+## When NOT to use
+
+- ❌ Products — use [TableProductsRow](?path=/docs/molecules-tableproductsrow--docs) or [TableRowExpandable](?path=/docs/molecules-tablerowexpandable--docs).
+- ❌ Narrow screens — use [TableRowMobile](?path=/docs/molecules-tablerowmobile--docs) or `CardRow`.
+
+## States and edge cases
+
+<Canvas of={TableRowClientStories.HoverName} />
+<Canvas of={TableRowClientStories.NameAsLink} />
+<Canvas of={TableRowClientStories.NameAsButton} />
+<Canvas of={TableRowClientStories.LongText} />
+<Canvas of={TableRowClientStories.EmptyCells} />
+<Canvas of={TableRowClientStories.CustomAction} />
+<Canvas of={TableRowClientStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the static row and the row with the name in Hover Blue Light and underlined, 1524px wide. The row itself has no hover
+background in either frame.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Keyboard focus of the name: a 2px Hover Blue Light ring (the same colour as the hover; as in other DS controls).
+- Long text: every cell is cut with an ellipsis.
+- Name without `nameHref` / `onNameClick` is plain text and has no hover (the hover implies it is clickable).
+- Dark theme: not designed — the light values are used.
+
+Assumed / normalised:
+
+- The `More` button is the existing `Button` (Light Fill, small): Figma `button_action` with the `Info` icon.
+- The Figma row has a drop shadow `0 4 4 rgba(0,0,0,.05)` (Table Row) while the effect list says `0 4 2`; the Table Row token is used.
+- Figma lays the seven cells out with `justify-between`; the column widths are fixed (170 / 170 / 150 / 220 / 80 / 119 / 119).
+
+## Design tokens used
+
+No new tokens.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | row fill | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-stroke-light-v1`, `--border-width-sm` | row border (inset) | `#F1F2F9`, 1px | Existing tokens.json · Figma: Stroke Light V1 |
+| `--shadow-table-row` | row shadow | `0 4px 4px rgba(0,0,0,.05)` | Existing tokens.json · Figma: Table Row |
+| `--radius-lg` | row radius | `10px` | Existing tokens.json · Figma: radius 10 |
+| `--spacing-12` / `--spacing-16` | padding y / x | 12 / 16px | Existing tokens.json · Figma: py 12, px 16 |
+| `--color-text` | text | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | cells | 14 / 21px, 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--font-weight-semibold` | name | 600 | Existing tokens.json · Figma: Poppins SemiBold |
+| `--color-hover-blue-light` | name on hover | `#888CF6` | Existing tokens.json · Figma: Hover Blue Light |
+| `--border-width-lg`, `--spacing-2`, `--radius-sm` | name focus ring | 2px, 2px, — | AI-defined use: Figma draws no focus |
+| Button `light` tokens | `More` button | — | see [Button](?path=/docs/atoms-button--docs) |
+
+## Props
+
+<ArgTypes of={TableRowClientStories} />
+
+## Code example
+
+```tsx
+import { TableRowClient } from 'rifbar-ds';
+
+<TableRowClient
+  name="Mickey Herman"
+  nameHref="/clients/42"
+  company="Sam's Club"
+  phone="+44 32 567 8473"
+  email="mickeyherman23@gmail.com"
+  joined="07.23.2023"
+  updated="07.23.2023"
+  onAction={() => openMenu()}
+/>
+```
+
+## Accessibility
+
+- Cells are `role="cell"` in a `role="row"`; place the row inside an element with `role="table"` (see [TableClients](?path=/docs/organisms-tableclients--docs)).
+- The name is a real `<a>` or `<button>` when interactive; the `More` button has the visible label as its name. Add context for screen readers with `aria-label` on the row's button if several rows say only "More".
+- Contrast, computed: text `#292639` on white 14.68:1; `More` `#1D2542` on `#ECEEFB` 13.03:1.
+- ⚠️ Kept as designed: the name on hover (`#888CF6` on white) is 2.95:1, below 4.5:1 for text; the card border (`#F1F2F9` on white) is 1.12:1, and the card against the `#F6F8FC` page 1.06:1 — separated by the shadow only; the 37px `More` button is below the 44px touch target.

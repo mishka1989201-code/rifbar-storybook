@@ -1,0 +1,63 @@
+/* ChatLayout — every value references a token from src/tokens/tokens.json. */
+
+.ds-chat-layout {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: clip;
+  border: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-radius: var(--radius-lg);
+  background: var(--color-secondary-light);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-family-base);
+}
+
+/* Header and message box stay above the thread so their shadows fall on it. */
+.ds-chat-layout > :is(.ds-chat-header, .ds-message-box) {
+  position: relative;
+  flex: none;
+}
+
+.ds-chat-layout__list {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-height: 0;
+  padding: var(--spacing-32) var(--spacing-16);
+}
+
+.ds-chat-layout.has-height .ds-chat-layout__list {
+  overflow-y: auto;
+}
+
+.ds-chat-layout__list:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-hover-blue-light);
+  outline-offset: calc(-1 * var(--border-width-lg));
+}
+
+.ds-chat-layout__date,
+.ds-chat-layout__empty {
+  margin: 0;
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-regular);
+  text-align: center;
+}
+
+.ds-chat-layout__row {
+  display: flex;
+  flex: none;
+}
+
+.ds-chat-layout__row--sent {
+  justify-content: flex-end;
+}
+
+/* Cards hug short text and stop at the Figma width (600px). */
+.ds-chat-layout .ds-chat-layout__message {
+  width: auto;
+  max-width: min(100%, var(--size-chat-message-max));
+}
