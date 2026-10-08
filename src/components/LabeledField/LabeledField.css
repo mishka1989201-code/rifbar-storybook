@@ -17,3 +17,5 @@
   font-weight: var(--font-weight-medium);
   overflow-wrap: anywhere;
 }
+
+.ds-labeled-field__required { color: var(--color-warning); }

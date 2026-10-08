@@ -18,6 +18,7 @@ It composes the existing `InputField` atoms — the control is passed as `childr
 | `Input/Title` | `<LabeledField title="Name">` | root, column, gap 4 |
 | text “Name” | `title` | Body/Small Medium, Color Text |
 | `InputField` (static, empty) | `children` = `<InputField placeholder="…" />` | field states come from the atom |
+| `Client*` (orange star, node [1407:445305](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1407-445305)) | `required` | `*` in Warning colour, hidden from screen readers (the control carries `required` or `aria-required`) |
 | frame width 188.667px | container width | the code takes 100% of the parent; Figma width is only the frame size |
 
 ## When to use
@@ -32,6 +33,7 @@ It composes the existing `InputField` atoms — the control is passed as `childr
 ## Variants, states and edge cases
 
 <Canvas of={LabeledFieldStories.Filled} />
+<Canvas of={LabeledFieldStories.Required} />
 <Canvas of={LabeledFieldStories.WithFilterField} />
 <Canvas of={LabeledFieldStories.WithTextField} />
 <Canvas of={LabeledFieldStories.Focus} />
@@ -54,6 +56,7 @@ It composes the existing `InputField` atoms — the control is passed as `childr
 |---|---|---|---|
 | `--color-text` | title color | `#292639` | Existing tokens.json · Figma: Color Text |
 | `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | title | `14px` / `21px` / `500` | Existing tokens.json · Figma: Body/Small Medium |
+| `--color-warning` | required star | `#F68F57` | Existing tokens.json · Figma: Warning |
 | `--spacing-4` | gap title ↔ field | `4px` | Existing tokens.json · Figma: gap 4 |
 | `--font-family-base` | font | Poppins | Existing tokens.json · Figma: Poppins |
 | `--color-stroke-light-v2`, `--color-grey-dark`, `--radius-sm` | field border, placeholder, radius | `#D8E2EE`, `#5D6E82`, `5px` | Existing tokens.json · Figma: Stroke Light V2, Grey Dark (drawn by the `InputField` atom) |

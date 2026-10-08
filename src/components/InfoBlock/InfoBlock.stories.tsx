@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
 import { ChevronDropDown } from '../ChevronDropDown';
 import { ClientDetails } from '../ClientDetails';
+import { FilterField } from '../InputField';
+import { LabeledField } from '../LabeledField';
 import { InfoBlock } from './InfoBlock';
 
 const FIGMA_URL =
@@ -17,7 +19,8 @@ const meta = {
   args: { title: 'Client info' },
   argTypes: {
     title: { control: 'text' },
-    variant: { control: 'inline-radio', options: ['info', 'ticket', 'details'] },
+    variant: { control: 'inline-radio', options: ['info', 'ticket', 'details', 'form'] },
+    columns: { control: false, description: '`form` variant: one node per column' },
     size: { control: 'inline-radio', options: ['default', 'mobile'] },
     sections: { control: 'object', description: '`ticket` variant: props of the `DepartmentSection`s' },
     rows: { control: 'object', description: '`details` variant: caption / value rows' },
@@ -97,6 +100,32 @@ export const TicketPair: Story = {
       <InfoBlock variant="ticket" title="Responsibility" sections={[{ title: 'Department' }, { title: 'Manager' }]} />
     </div>
   ),
+};
+
+/** Figma `Select Client menu` (node 1407:445305). */
+export const Form: Story = {
+  name: 'Form (Select Client menu)',
+  decorators: [(Story) => <div style={{ maxWidth: 1524, paddingBottom: 40 }}><Story /></div>],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1407-445305',
+    },
+  },
+  args: {
+    variant: 'form',
+    title: 'Main information',
+    columns: [
+      <LabeledField key="client" title="Client" required><FilterField placeholder="Select a client" aria-required /></LabeledField>,
+      <LabeledField key="seller" title="Seller" required><FilterField placeholder="Select a seller" aria-required /></LabeledField>,
+    ],
+  },
+};
+
+export const FormNarrow: Story = {
+  name: 'Form, narrow container',
+  decorators: [(Story) => <div style={{ maxWidth: 360, paddingBottom: 40 }}><Story /></div>],
+  args: Form.args,
 };
 
 export const TicketWithValues: Story = {

@@ -8,9 +8,10 @@ import './InfoBlock.css';
 /**
  * `info` — Figma `InfoBlock.board_all-orders`: blue badge, label/value body.
  * `ticket` — Figma `TicketInfo/v1`: violet badge, Stroke Light V2 border, body of `DepartmentSection`s.
+ * `form` — Figma `Select Client menu`: blue badge, body of form `columns` (each a 508px-wide column of fields).
  * `details` — Figma `TicketInfo/V2`: blue badge, Stroke Light V2 border, body of caption / value `rows`.
  */
-export type InfoBlockVariant = 'info' | 'ticket' | 'details';
+export type InfoBlockVariant = 'info' | 'ticket' | 'details' | 'form';
 
 export interface InfoBlockRow {
   id?: string;
@@ -26,6 +27,8 @@ export interface InfoBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ti
   size?: 'default' | 'mobile';
   /** `ticket` only: sections of the body (title + “Change” pill + hint). Ignored when `children` is set. */
   sections?: (DepartmentSectionProps & { id?: string })[];
+  /** `form` only: columns of fields (e.g. `LabeledField`s). Ignored when `children` is set. */
+  columns?: ReactNode[];
   /** `details` only: caption / value rows (`RowInfoBlock variant="compact"`). Ignored when `children` is set. */
   rows?: InfoBlockRow[];
   /** Card title, e.g. “Client info”. */
@@ -49,6 +52,7 @@ export function InfoBlock({
   size = 'default',
   sections,
   rows,
+  columns,
   title,
   icon,
   actions,
@@ -62,11 +66,16 @@ export function InfoBlock({
   const detailsBody = rows?.map((row, i) => (
     <RowInfoBlock key={row.id ?? i} variant="compact" label={row.label} value={row.value} />
   ));
+  const formBody = columns?.map((column, i) => (
+    <div key={i} className="ds-info-block__column">
+      {column}
+    </div>
+  ));
   const ticketBody = sections?.map((section, i) => <DepartmentSection key={section.id ?? i} {...section} />);
   return (
     <section className={classes} {...rest}>
       <CardHeader title={title} icon={icon} actions={actions} tone={isTicket ? 'violet' : 'blue'} />
-      <div className="ds-info-block__body">{children ?? (isTicket ? ticketBody : variant === 'details' ? detailsBody : <InfoClient {...infoProps} />)}</div>
+      <div className="ds-info-block__body">{children ?? (isTicket ? ticketBody : variant === 'details' ? detailsBody : variant === 'form' ? formBody : <InfoClient {...infoProps} />)}</div>
     </section>
   );
 }

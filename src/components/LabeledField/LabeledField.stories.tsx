@@ -9,7 +9,8 @@ const meta = {
   component: LabeledField,
   parameters: { layout: 'padded', design: { type: 'figma', url: FIGMA_URL } },
   args: { title: 'Name', children: <InputField placeholder="Enter the product name" /> },
-  argTypes: { title: { control: 'text' }, children: { control: false } },
+  argTypes: { title: { control: 'text' },
+    required: { control: 'boolean' }, children: { control: false } },
   decorators: [(Story) => <div style={{ width: 189 }}><Story /></div>],
 } satisfies Meta<typeof LabeledField>;
 
@@ -21,6 +22,10 @@ export const Default: Story = {};
 
 // ─── CONTROLS ────────────────────────────────────────────────────────────────
 export const Filled: Story = { args: { children: <InputField defaultValue="Wireless headphones" /> } };
+export const Required: Story = {
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1407-445305' } },
+  args: { title: 'Client', required: true, children: <FilterField placeholder="Select a client" aria-required /> },
+};
 export const WithFilterField: Story = { args: { title: 'Category', children: <FilterField placeholder="Choose a category" /> } };
 export const WithTextField: Story = { args: { title: 'Description', children: <TextField placeholder="Enter a description" /> } };
 

@@ -45,6 +45,17 @@ The title row line is Stroke Light V2 here (the standalone `Row.HeaderCard` fram
 
 Same card as the default one; the title row and the `InfoClient` body have 10px side padding instead of 16px (`size="mobile"`). The fields wrap onto several lines (pairs, then the e-mail alone with an ellipsis), so use `infoProps={{ justify: 'start' }}` as in Figma (gap 16 / 32).
 
+### Variant `form` — Figma [`Select Client menu`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1407-445305)
+
+| Figma | Code |
+|---|---|
+| Frame `Select Client menu` (White, 1px Stroke Light V1, radius 10, Cards Shadow) | `variant="form"` |
+| `Row.HeaderCard` “Main information” (blue badge, Secondary Light line) | `CardHeader` (blue); the line keeps the CardHeader colour |
+| `Information 4`, `Information 5` (508px, padding 32 / 16) | `columns={[<LabeledField …/>, <LabeledField …/>]}` — one node per column, `--size-form-column` |
+| `Input/Title` “Client*” + `InputField` with chevron | [`LabeledField required`](?path=/docs/molecules-labeledfield--docs) + `FilterField` |
+
+Columns sit side by side and wrap under each other in a narrow container.
+
 ### Variant `details` — Figma [`TicketInfo/V2`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=400-199890)
 
 | Figma | Code |
@@ -61,6 +72,8 @@ The last row has no bottom line. The frame in Figma sits next to `TicketInfo/v1`
 <Canvas of={InfoBlockStories.Ticket} />
 <Canvas of={InfoBlockStories.TicketWithValues} />
 <Canvas of={InfoBlockStories.TicketNarrow} />
+<Canvas of={InfoBlockStories.Form} />
+<Canvas of={InfoBlockStories.FormNarrow} />
 <Canvas of={InfoBlockStories.TicketDetails} />
 <Canvas of={InfoBlockStories.TicketDetailsLongValues} />
 <Canvas of={InfoBlockStories.TicketPair} />
@@ -80,6 +93,8 @@ The last row has no bottom line. The frame in Figma sits next to `TicketInfo/v1`
 | `--shadow-card` | drop shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Figma: Cards Shadow |
 | `--color-stroke-light-v2` | title row bottom line; card border in `ticket` | `#D8E2EE` | Figma: Stroke Light V2 |
 | `--spacing-16` | body padding in `ticket` | `16px` | Figma: Information 1 padding 16 |
+| `--size-form-column` | column width in `form` | `508px` | **New** · Figma: Information 4 / 5 width. Added 2026-10-09 |
+| `--spacing-32` / `--spacing-16` / `--color-secondary-light` | column padding / gap in `form` / title row line | `32` / `16px` / `#ECEEFB` | Existing tokens.json · Figma: py 32, px 16, gap 16, Secondary Light |
 | `--spacing-10` | side padding in `mobile` | `10px` | Existing tokens.json · Figma: board_all-orders 320px padding 10 |
 | `--spacing-24` / `--spacing-16` | body padding in `details` | `24px` / `16px` | Existing tokens.json · Figma: Information 1 padding 24 / 16 |
 | `--color-stroke-light-v2` | card border in `details` | `#D8E2EE` | Existing tokens.json · Figma: Stroke Light V2 |

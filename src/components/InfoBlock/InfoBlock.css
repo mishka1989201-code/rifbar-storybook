@@ -66,3 +66,18 @@
 /* Figma board_all-orders at 320px: 10px side padding in the title row and in the info body. */
 .ds-info-block--mobile > .ds-card-header { padding-inline: var(--spacing-10); }
 .ds-info-block--mobile .ds-info-client { padding-inline: var(--spacing-10); }
+
+/* Figma Select Client menu: body = columns of fields, each 508px wide (padding 32 / 16, gap 16);
+   the line under the title row keeps the CardHeader color (Secondary Light). */
+.ds-info-block--form > .ds-card-header { border-bottom-color: var(--color-secondary-light); }
+
+.ds-info-block--form .ds-info-block__body { flex-wrap: wrap; }
+
+.ds-info-block--form .ds-info-block__body > .ds-info-block__column {
+  display: flex;
+  flex: 0 1 var(--size-form-column);
+  flex-direction: column;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  padding: var(--spacing-32) var(--spacing-16);
+}
