@@ -1,6 +1,7 @@
-import { useId, useState, type HTMLAttributes, type ReactNode } from 'react';
+import { useId, useState, type CSSProperties, type HTMLAttributes, type ReactNode } from 'react';
 import { Checkbox } from '../Checkbox';
 import { Icon } from '../Icon';
+import { Scrollbar } from '../Scrollbar';
 import { SearchField, type SearchFieldProps } from '../SearchField';
 import './Dropdown.css';
 
@@ -53,6 +54,13 @@ export interface DropdownProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onC
   onChange?: (value: string | string[]) => void;
   /** `list`: text when the search finds nothing. */
   emptyLabel?: ReactNode;
+  /**
+   * `list`: show at most this many rows, the rest scrolls under the Figma dropdown `Scrollbar`
+   * (Figma SortBy shows 4 rows). Without it the panel grows with its content.
+   */
+  maxRows?: number;
+  /** `list` with `maxRows`: accessible name of the scrolling list. */
+  listLabel?: string;
 
   // ── notifications ──
   notifications?: DropdownNotification[];
@@ -109,6 +117,8 @@ export function Dropdown({
   defaultValue,
   onChange,
   emptyLabel = 'Nothing found',
+  maxRows,
+  listLabel = 'Options',
   notifications = DEFAULT_NOTIFICATIONS,
   onNotificationClick,
   onSeeAll,
@@ -273,9 +283,25 @@ export function Dropdown({
           }}
         />
       )}
-      <div role={listRole} className="ds-dropdown__group">
-        {rows.length > 0 ? rows : <div className="ds-dropdown__row ds-dropdown__row--static ds-dropdown__empty">{emptyLabel}</div>}
-      </div>
+      {(() => {
+        const content =
+          rows.length > 0 ? rows : <div className="ds-dropdown__row ds-dropdown__row--static ds-dropdown__empty">{emptyLabel}</div>;
+        return maxRows ? (
+          <Scrollbar
+            variant="dropdown"
+            role={listRole}
+            aria-label={listLabel}
+            className="ds-dropdown__group ds-dropdown__group--scroll"
+            style={{ '--ds-dropdown-rows': maxRows } as CSSProperties}
+          >
+            {content}
+          </Scrollbar>
+        ) : (
+          <div role={listRole} className="ds-dropdown__group">
+            {content}
+          </div>
+        );
+      })()}
     </div>
   );
 }

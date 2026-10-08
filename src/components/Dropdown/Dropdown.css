@@ -29,6 +29,15 @@
   gap: var(--spacing-2);
 }
 
+/* Scrolling list (`maxRows`): N rows + the gaps between them; the Figma dropdown Scrollbar sits on the right.
+   One row = padding 8 + line 21 + padding 8 (37px), so 4 rows = 154px as in Figma SortBy. */
+.ds-dropdown__group--scroll {
+  max-height: calc(
+    var(--ds-dropdown-rows) * (var(--spacing-8) * 2 + var(--font-line-height-small)) +
+      (var(--ds-dropdown-rows) - 1) * var(--spacing-2)
+  );
+}
+
 /* ─── Row (list, user) ──────────────────────────────────────────────── */
 .ds-dropdown__row {
   display: flex;

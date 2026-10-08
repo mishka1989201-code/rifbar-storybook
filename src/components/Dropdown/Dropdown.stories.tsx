@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Dropdown, type DropdownOption } from './Dropdown';
+import { FilterField } from '../InputField';
+import { Button } from '../Button';
+import { UserDropdown as UserTrigger } from '../UserDropdown';
 
 const FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=32-55784';
 
@@ -23,6 +26,22 @@ const PEOPLE: DropdownOption[] = [
   { value: 'david', label: 'David Schwimmer' },
   { value: 'matthew', label: 'Matthew Perry', forceHover: true },
   { value: 'matt', label: 'Matt LeBlanc' },
+];
+
+const SORT_FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7061-44267';
+
+const SORT_OPTIONS: DropdownOption[] = [
+  { value: 'name', label: 'Order name' },
+  { value: 'price', label: 'Price' },
+  { value: 'type', label: 'Type', forceHover: true },
+  { value: 'date', label: 'Date' },
+  { value: 'status', label: 'Status' },
+  { value: 'client', label: 'Client' },
+];
+
+const DISCOUNTS: DropdownOption[] = [
+  { value: 'off', label: 'Discounts off' },
+  { value: 'active', label: 'Active discounts' },
 ];
 
 const meta = {
@@ -118,6 +137,52 @@ export const LongNotifications: Story = {
 };
 
 export const NoNotifications: Story = { name: 'No notifications', args: { variant: 'notifications', notifications: [] } };
+
+// ─── SCROLLING LIST (Figma: Property 1=SortBy) ───────────────────────────────
+export const SortBy: Story = {
+  name: 'Sort by (scrolling list)',
+  parameters: { design: { type: 'figma', url: SORT_FIGMA_URL } },
+  args: { options: SORT_OPTIONS, defaultValue: 'price', maxRows: 4, listLabel: 'Sort by' },
+};
+
+export const FewerRowsThanMax: Story = {
+  name: 'Fewer rows than maxRows (no scrollbar)',
+  args: { maxRows: 4 },
+};
+
+// ─── TRIGGER + PANEL (Figma: Property 1=Default / SortBy / User) ──────────────
+export const WithFilterTrigger: Story = {
+  name: 'With filter trigger (Figma Default)',
+  parameters: { design: { type: 'figma', url: SORT_FIGMA_URL } },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', alignItems: 'flex-start' }}>
+      <FilterField value="Discounts off" open />
+      <Dropdown control="radio" options={DISCOUNTS} defaultValue="off" />
+    </div>
+  ),
+};
+
+export const WithSortTrigger: Story = {
+  name: 'With sort trigger (Figma SortBy)',
+  parameters: { design: { type: 'figma', url: SORT_FIGMA_URL } },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', alignItems: 'flex-start' }}>
+      <Button variant="outline" iconOnly="sort" aria-label="Sort by" aria-expanded />
+      <Dropdown options={SORT_OPTIONS} defaultValue="price" maxRows={4} listLabel="Sort by" />
+    </div>
+  ),
+};
+
+export const WithUserTrigger: Story = {
+  name: 'With user trigger (Figma User)',
+  parameters: { design: { type: 'figma', url: SORT_FIGMA_URL } },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', alignItems: 'flex-start' }}>
+      <Dropdown variant="user" actions={[{ value: 'settings', label: 'Settings', forceHover: true }, { value: 'logout', label: 'Logout' }]} />
+      <UserTrigger name="Jennifer Corbett" open />
+    </div>
+  ),
+};
 
 // ─── ALL VARIANTS (Figma layout) ─────────────────────────────────────────────
 export const AllVariants: Story = {
