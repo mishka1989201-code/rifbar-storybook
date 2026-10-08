@@ -115,10 +115,18 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   DatePicker (Button + TimePicker; date / date-time / today / range)
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
 
+Open PR: #12 (`claude/peaceful-franklin-tnrmh4` → `main`): Navbar, TimeTracker, WelcomeCard + AlertRow, CheckListModal, FilterMenu, ProductDetailCard.
+If it is merged when the next session starts, restart the branch from `origin/main` (same name, force-with-lease) and open a new PR.
+
 Open design questions (also in the PR #10 description):
 
 - The empty field border: some frames draw Stroke Light V2, the `InputField` atom uses Stroke Input. `TableRowQuantity` overrides it, the
   others use the atom — pick one rule.
+- Figma pictures could not be downloaded (asset proxy 403): `WelcomeCard` and `ProductDetailCard` take `image` as a prop, stories use placeholders.
+- Needs designer confirmation: `--color-deep-blue` (`#08496E`, title of `ProductDetailCard`, not in the palette), `AlertRow` dot colors,
+  `Navbar` sub-tab weight (Regular in light frames, Medium in the dark one), `TableClients` seventh column name ("Updated").
+- `DatePicker`: Figma draws a mock calendar (March 2023) and Manrope day numbers; the component draws a real calendar in Poppins. In wide
+  containers its months keep their own width instead of stretching (Figma `Filter Responsive Menu`).
 - Many icons are matched by look (Figma icons are unnamed vectors) — see the "needs designer confirmation" list in the MDX of each component.
 
 Never verified in a browser: Storybook has not been run yet (everything was checked with `tsc`, the library build and headless Chromium

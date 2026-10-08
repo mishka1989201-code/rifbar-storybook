@@ -128,3 +128,16 @@
   підвищувати специфічність (`.ds-molecule .ds-icon`). Це вже траплялось із `Checkbox` і `Icon` (розмір через `--ds-icon-size`).
 - Перевизначення атомів робити лише всередині молекули (наприклад, gap `Checkbox` 4px у `RadioGroupCard`) і писати це в Figma notes.
 - Іконка без назви у Figma: порівняти кандидатів окремим рендером (так `filter-light` виявилась повзунками, а потрібна `filter-dark`).
+
+## Передача в новий чат
+
+- Гілка `claude/peaceful-franklin-tnrmh4`, відкритий PR #12 у `main`. Якщо його злито — почати гілку наново від `origin/main`
+  (`git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`, пуш `--force-with-lease`) і відкривати **новий** PR лише на прохання.
+- На старті: `npm ci`, `npm run build:tokens`, `git fetch origin`.
+- Figma MCP інколи відключається посеред чату: `ToolSearch` із запитом `figma get_design_context` повертає інструменти після перепідключення.
+  Скіл `figma-design-to-code` читати як MCP-ресурс `skill://figma/figma-design-to-code/SKILL.md` (server `Figma`), у `get_design_context`
+  передавати `skillNames: "resource:figma-design-to-code"`. Дуже великі фрейми (календарі) можуть обрізатись — брати дочірні вузли окремо.
+- Звіт після кожного компонента — за форматом з `CLAUDE.md` («Report format»): що зроблено, історії, нові токени, припущення, доступність
+  (контрасти рахувати скриптом, не на око), що перевірено і що ні.
+- Не перевірено в браузері: Storybook жодного разу не запускався. Якщо буде нагода — пройтися історіями, особливо інтерактивними
+  (`FilterMenu`, `CheckListModal`, `Navbar`, `DatePicker`, `TableClients` Sortable) і вузькими контейнерами.
