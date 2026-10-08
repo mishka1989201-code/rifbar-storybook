@@ -95,12 +95,31 @@ accessibility warnings; what was and was not verified (typecheck, visual render,
 
 ## Current state
 
-Components in `src/components` (all exported from `src/index.ts`):
+Components in `src/components` (all exported from `src/index.ts`). Per-molecule notes (props, Figma nodes) are in `CONTRIBUTING-molecules.md`.
 
-- **Atoms:** Avatar, Button, Checkbox, ChevronDropDown, ChevronStatus, EmailChevron, FilterChevron, HeaderMenu, Icon, IconButton,
-  ImageCard, InputField (Input / Filter / Text / Color), Logo, PlayButton, Scrollbar (content + dropdown), SearchField, Slider,
-  SwitchButton, Switcher, Tabs, Toggle, TooltipBordered
-- **Molecules:** Pagination
+- **Atoms:** Avatar, Button, Checkbox, ChevronDropDown, ChevronStatus, EmailChevron, FileDropzone, FilterChevron, HeaderMenu, Icon,
+  IconButton, ImageCard, InputField (Input / Filter / Text / Color), Logo, PlayButton, Scrollbar (content + dropdown), SearchField,
+  Slider, SwitchButton, Switcher, Tabs, Toggle, TooltipBordered
+- **Molecules** (navigation / layout): BreadCrumbs, LogoBar, NavbarMenu, PageHeader, Pagination, PaginationBar, TabsHeader, UserDropdown,
+  ViewSwitch, ShowSelect, SwitchGroup, HeaderMenu-based bars (TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle, TimeScale)
+- **Molecules** (cards / info): Accordion, CardHeader, CardRow, CardStrokeRow, CategoryCard, ChartLegendItem, ClientDetails, DepartmentItem,
+  DepartmentSection, DocumentCard, InfoBlock (info / ticket / details / form), InfoClient, InfoRowCard, InfoTable, NoteCard, OrderCard,
+  ProductCard, RowInfoBlock, StatCard, StepCard
+- **Molecules** (forms / dialogs): AccessModeRow, BarcodeSettings, ConfirmModal, Dropdown, FilterActions, LabeledField, MessageBox, Modal
+  (+ ModalSection, ModalField, ModalRow; sizes desktop / mobile / wide), RadioGroupCard, TimePicker
+- **Molecules** (chat / feedback): AudioPlayer, ChatHeader, ChatMessage, Notification, NotificationLine
+- **Molecules** (tables): TableActionsRow, TableHeader (presets incl. `productsAnalytics`, `paymentsAnalytics`), TableProductsHeader,
+  TableProductsRow, TableRowAnalytics, TableRowExpandable, TableRowMobile, TableRowQuantity, TotalRow
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
 
-Next: larger components from the Figma group **Molecules**, one Figma link at a time.
+Open design questions (also in the PR #10 description):
+
+- The empty field border: some frames draw Stroke Light V2, the `InputField` atom uses Stroke Input. `TableRowQuantity` overrides it, the
+  others use the atom — pick one rule.
+- Many icons are matched by look (Figma icons are unnamed vectors) — see the "needs designer confirmation" list in the MDX of each component.
+
+Never verified in a browser: Storybook has not been run yet (everything was checked with `tsc`, the library build and headless Chromium
+renders with a fallback font). Walk through the stories once before relying on interactive behavior.
+
+Next: more components from the Figma file, one link (or several for one component) at a time. Reuse an existing component when the new
+frame only changes layout, sizes or columns (extend it with a prop or a preset instead of adding a new one).
