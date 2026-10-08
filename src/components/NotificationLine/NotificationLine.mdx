@@ -1,0 +1,97 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as NotificationLineStories from './NotificationLine.stories';
+
+<Meta of={NotificationLineStories} />
+
+# NotificationLine
+
+A row of the notifications list: message text with a warning icon and the date underneath.
+Implements the Figma component set [`NotificationLine`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=146-62601) — `Type` × `Property 1` (6 variants) in one component.
+
+<Canvas of={NotificationLineStories.Default} />
+<Controls of={NotificationLineStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Type=Old` | `type="old"` (default) | White row, no stroke |
+| `Type=New` | `type="new"` | Row Hover fill + `#D6DBEE` stroke |
+| `Property 1=Static` | default | |
+| `Property 1=Hover` | `:hover` / `forceHover` | Stroke Headlines `#4549A1` |
+| `Property 1=Disabled` | `disabled` | `--opacity-disabled` (20%) |
+| `details` (gap 3) | `.ds-notification-line__details` | message + `Time` |
+| `Time` (icon 16 + date) | `.ds-notification-line__time` | `Icon` `warning-v2`, Warning color |
+
+## When to use
+
+- ✅ Compact list of notifications / alerts with a date, e.g. in a notifications panel or page.
+
+## When NOT to use
+
+- ❌ A toast or banner with a status and actions — use [Notification](?path=/docs/molecules-notification--docs).
+
+## States and edge cases
+
+<Canvas of={NotificationLineStories.New} />
+<Canvas of={NotificationLineStories.OldHover} />
+<Canvas of={NotificationLineStories.NewHover} />
+<Canvas of={NotificationLineStories.OldDisabled} />
+<Canvas of={NotificationLineStories.NewDisabled} />
+<Canvas of={NotificationLineStories.LongText} />
+<Canvas of={NotificationLineStories.WithoutDate} />
+<Canvas of={NotificationLineStories.Narrow} />
+<Canvas of={NotificationLineStories.InList} />
+<Canvas of={NotificationLineStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws the row at a fixed 1524px; in code it is 100% of its container.
+- Hover and Disabled are drawn in Figma; Focus is **not** (the row is not interactive). Not designed, AI-defined: long text wraps (`overflow-wrap: anywhere`); without `date` the time line is omitted; `disabled` also sets `pointer-events: none`.
+- Figma `Type=Old / Hover` has the stroke; `Old / Static` has none — the stroke is drawn as an inset `box-shadow` (colour `transparent` when absent) so the size stays exact.
+- The icon is the Figma `Icons 16px` warning glyph (mask group, no visible name); matched to the existing `warning-v2` and coloured with Warning `#F68F57`. Needs designer confirmation.
+- The raw stroke `#D6DBEE` of `New / Static` has no Figma variable, hence the new token.
+- Dark theme not designed: light values are used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | `old` background | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-row-hover` | `new` background | `#EBEBF4` | Existing tokens.json · Figma: Row Hover (fill `#EBEBF4`) |
+| `--color-notification-line-border` | `new` static stroke | `#D6DBEE` | **New** · Figma: NotificationLine Type=New Static → stroke (raw fill) |
+| `--theme-card-hover-border` | hover stroke | `#4549A1` | Existing tokens.json · Figma: Headlines (stroke on Hover) |
+| `--border-width-sm` | stroke width | `1px` | Existing tokens.json · Figma: stroke 1 |
+| `--radius-lg` | corner radius | `10px` | Existing tokens.json · Figma: corner radius 10 |
+| `--shadow-table-row` | row shadow | `0 4px 4px 0 rgba(0,0,0,.05)` | Existing tokens.json · Figma: Table Row |
+| `--opacity-disabled` | disabled | `0.2` | Existing tokens.json · Figma: layer opacity on Disabled |
+| `--spacing-12` / `--spacing-16` | padding y / x | `12px` / `16px` | Existing tokens.json · Figma: padding 12 16 |
+| `--spacing-3` | gap message ↔ time | `3px` | **New** · Figma: details gap 3 |
+| `--spacing-4` | gap icon ↔ date | `4px` | Existing tokens.json · Figma: Time gap 4 |
+| `--color-primary-blue-dark` | message | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--color-grey-dark` | date | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--color-warning` | icon | `#F68F57` | Existing tokens.json · Figma: Warning |
+| `--font-size-small` / `--font-line-height-small` / `--font-weight-regular` | message | 14 / 21 / 400 | Existing tokens.json · Figma: Body/Small Regular |
+| `--font-size-mini` / `--font-line-height-mini` / `--font-weight-regular` | date | 12 / 18 / 400 | Existing tokens.json · Figma: Body/Mini Regular |
+
+## Props
+
+<ArgTypes of={NotificationLineStories} />
+
+## Code example
+
+```tsx
+import { NotificationLine } from 'rifbar-ds';
+
+<NotificationLine
+  type="new"
+  message="Check the warehouse “Warsaw #345” - problems with the quantity!"
+  date="06/23/2023"
+/>
+```
+
+## Accessibility
+
+- Plain text in a `div`; when the row is clickable, wrap it in a link/button yourself. `disabled` sets `aria-disabled`.
+- Disabled at 20% opacity is below 3:1 contrast — kept as designed.
+- Date Grey Dark `#5D6E82` on white / Row Hover passes 4.5:1; the warning icon `#F68F57` on white is below 3:1 (decorative, kept as designed).
