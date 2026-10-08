@@ -59,6 +59,14 @@
 
 Усі експортуються з `src/index.ts`.
 
+## Organisms
+
+Великі компоненти, зібрані лише з молекул. Заголовок історій — `Organisms/<Name>`.
+
+| Organism | Примітка |
+|---|---|
+| ChatLayout | вся панель чату (Figma chat  layout v2): `ChatHeader` + тред `items` (`date` / `message`) + `MessageBox`; `onSend`, `messageBoxProps`, `height` (тред скролиться і тримається внизу) |
+
 ## Процес для кожної молекули
 
 1. Прочитати Figma через `get_design_context` (fileKey `4Q7E8IQ07a9xFiNVBfmo4M`, nodeId з URL, `-` → `:`).

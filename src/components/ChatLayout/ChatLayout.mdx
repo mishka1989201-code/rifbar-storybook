@@ -1,0 +1,114 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ChatLayoutStories from './ChatLayout.stories';
+
+<Meta of={ChatLayoutStories} />
+
+# ChatLayout
+
+The whole chat panel: the conversation header, the thread of date separators and messages on a Secondary Light canvas, and the message box at the
+bottom. Implements the Figma frame
+[`chat  layout v2`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=139-41787)
+and is the first **Organism**: it is composed only of existing molecules — [ChatHeader](?path=/docs/molecules-chatheader--docs),
+[ChatMessage](?path=/docs/molecules-chatmessage--docs) and [MessageBox](?path=/docs/molecules-messagebox--docs).
+
+<Canvas of={ChatLayoutStories.Default} />
+<Controls of={ChatLayoutStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `chat header` | `ChatHeader` — `title`, `quote`, `icon` |
+| `Date` (`May 7, 2023`) | `{ type: 'date', label }` in `items` |
+| `Message 1…11` (received, 600px, with avatar) | `{ type: 'message', author, text, time }` → `ChatMessage direction="received"` |
+| `Message 2/10/11` (sent, right-aligned, with check) | `{ type: 'message', direction: 'sent', … }` → `ChatMessage direction="sent"` |
+| `Message Box` | `MessageBox` — `onSend`, `messageBoxProps` |
+| Frame: Secondary Light fill, border 1, radius 10, Cards Shadow, width 893 | `.ds-chat-layout` (fills its container; the stories use 893px) |
+| Content: padding 32 / 16, gap 16 | `.ds-chat-layout__list` |
+| Message width 600, short text hugs | `max-width: var(--size-chat-message-max)` |
+
+## When to use
+
+- ✅ A conversation about an order, a contract or a ticket, where the user reads the thread and replies.
+
+## When NOT to use
+
+- ❌ One-off system messages — use [Notification](?path=/docs/molecules-notification--docs).
+- ❌ Comments under a document that are not a live thread — compose `ChatMessage` directly.
+
+## Variants, states and edge cases
+
+<Canvas of={ChatLayoutStories.Empty} />
+<Canvas of={ChatLayoutStories.Disabled} />
+<Canvas of={ChatLayoutStories.FixedHeight} />
+<Canvas of={ChatLayoutStories.NoQuote} />
+<Canvas of={ChatLayoutStories.LongContent} />
+<Canvas of={ChatLayoutStories.NarrowContainer} />
+<Canvas of={ChatLayoutStories.Interactive} />
+<Canvas of={ChatLayoutStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: one filled thread (two dates, three received and three sent messages) and the static message box, at 893px, height 837px
+(the thread is as tall as its content).
+
+Not drawn, defined by analogy (AI-defined):
+
+- Empty thread, closed (disabled) conversation, a layout without the quote.
+- Fixed height: the thread scrolls and is pinned to the newest message; the list gets a focus ring (`--color-hover-blue-light`, as the `MessageBox` send arrow) so it can be scrolled by keyboard.
+- Long titles and unbroken words wrap; narrow containers let the cards take the full width.
+- Dark theme: not designed — the light values are used.
+
+Assumed / normalised:
+
+- Received messages hug their text and stop at 600px; Figma draws both fixed 600px and hugging cards (`Thank you!`), which this covers with one rule.
+- The date separator has an unnamed 12px style in Figma (Body/Mini Regular, Grey Dark); no variable was returned, so the mini tokens are used.
+- The 837px height is the content height, not a fixed size, so it is not a token.
+- Message list is `role="log"`.
+- Figma asset downloads were not used: icons come from the existing set (`chat`, `check-double`, `send-chat`).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-secondary-light` | canvas | `#ECEEFB` | Existing tokens.json · Figma: Secondary Light |
+| `--color-stroke-light-v1` | frame border | `#F1F2F9` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--border-width-sm` | frame border | `1px` | Existing tokens.json · Figma: border 1 |
+| `--radius-lg` | frame radius | `10px` | Existing tokens.json · Figma: radius 10 |
+| `--shadow-card` | frame shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Cards Shadow |
+| `--spacing-32` / `--spacing-16` | thread padding (y / x) | 32 / 16px | Existing tokens.json · Figma: chat content padding |
+| `--spacing-16` | gap between items | `16px` | Existing tokens.json · Figma: chat content gap |
+| `--size-chat-message-max` | message max width | `600px` | **New** · Figma: chat layout v2 → Message width 600 |
+| `--color-grey-dark` | date, empty text | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--font-size-mini`, `--font-line-height-mini`, `--font-weight-regular` | date | 12 / 18px, 400 | Existing tokens.json · Figma: Body/Mini Regular |
+| `--color-hover-blue-light`, `--border-width-lg` | thread focus ring | `#888CF6`, 2px | AI-defined use: same ring as the `MessageBox` send arrow |
+| Tokens of `ChatHeader`, `ChatMessage`, `MessageBox` | header, cards, input bar | — | see the MDX of each molecule |
+
+## Props
+
+<ArgTypes of={ChatLayoutStories} />
+
+## Code example
+
+```tsx
+import { ChatLayout } from 'rifbar-ds';
+
+<ChatLayout
+  title="Help please with Contract."
+  quote="Korem ipsum dolor sit amet…"
+  height={560}
+  items={[
+    { type: 'date', label: 'May 7, 2023' },
+    { type: 'message', id: 1, author: 'David Schwimmer', text: 'Hello!', time: '11.54 am' },
+    { type: 'message', id: 2, direction: 'sent', text: 'Hi, how can I help?', time: '11.55 am' },
+  ]}
+  onSend={(text) => send(text)}
+/>
+```
+
+## Accessibility
+
+- The thread is a `role="log"` region named by `listLabel` (default "Messages"), so new messages are announced; with a fixed `height` it is focusable for keyboard scrolling.
+- The send field and button are labelled by `MessageBox` (`messageBoxProps.inputLabel` / `sendLabel`).
+- Contrast, computed: the date on the Secondary Light canvas (`#5D6E82` on `#ECEEFB`) is 4.53:1 — passes AA; the title (`#4549A1` on white) 7.72:1; the quote and time on white 5.23:1, time on the sent card 4.68:1.
+- ⚠️ Kept as designed: the message cards (white / `#F1F2F9`) are 1.15:1 / 1.03:1 against the canvas — they are separated by the shadow and border only, which is below 3:1 for non-text boundaries; the input placeholder (Secondary Grey `#A7A4B7` on white) is below 3:1; the 24px send arrow is a 24px target, below 44px.

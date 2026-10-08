@@ -42,7 +42,7 @@ Several Figma components that are one thing in code (e.g. two scrollbars) become
 - Figma property names map 1:1 to props or stories; write the mapping table in the MDX ("Figma → code mapping").
 - Preview-only props are called `forceHover` / `forceFocus`; real hover/focus come from CSS.
 - Honour `prefers-reduced-motion` for transitions.
-- Story titles: `Atoms/<Name>` for small elements, **`Molecules/<Name>`** for compositions of several atoms (`Pagination` is the first one).
+- Story titles: `Atoms/<Name>` for small elements, **`Molecules/<Name>`** for compositions of several atoms (`Pagination` is the first one), **`Organisms/<Name>`** for large blocks composed of molecules (`ChatLayout` is the first one).
   Story names are PascalCase. Every component needs: Default, each variant, each state, edge cases (long text, empty, narrow), an `AllVariants` matrix, and the Figma URL in `parameters.design`.
 - Data-display components also need Empty / Loading / Error stories.
 
@@ -111,6 +111,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
 - **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle
 - **Molecules** (tables): TableActionsRow, TableHeader (presets incl. `productsAnalytics`, `paymentsAnalytics`), TableProductsHeader,
   TableProductsRow, TableRowAnalytics, TableRowExpandable, TableRowMobile, TableRowQuantity, TotalRow
+- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox)
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
 
 Open design questions (also in the PR #10 description):
