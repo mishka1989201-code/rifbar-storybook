@@ -41,11 +41,25 @@ The title row line is Stroke Light V2 here (the standalone `Row.HeaderCard` fram
 
 - ❌ Only a title row — use `CardHeader`. Only label/value pairs without a card — use `InfoClient`.
 
+### Variant `details` — Figma [`TicketInfo/V2`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=400-199890)
+
+| Figma | Code |
+|---|---|
+| Frame `TicketInfo/V2` (White, 1px Stroke Light V2, radius 10, Cards Shadow) | `variant="details"` |
+| `Row.HeaderCard` “Ticket info” (blue badge, ticket icon) | `CardHeader` (blue), `icon="ticket"` |
+| `Info v2` → `Information 1` (padding 24 / 16) with `Info Line 1…4` + `Status` | `rows={[{ label, value }]}` → [`RowInfoBlock variant="compact"`](?path=/docs/molecules-rowinfoblock--docs) |
+| `Status` value = `Chevron.DropDown` “Open” | `value: <ChevronDropDown>Open</ChevronDropDown>` |
+
+The last row has no bottom line. The frame in Figma sits next to `TicketInfo/v1` (see the `TicketPair` story).
+
 ## Variants and edge cases
 
 <Canvas of={InfoBlockStories.Ticket} />
 <Canvas of={InfoBlockStories.TicketWithValues} />
 <Canvas of={InfoBlockStories.TicketNarrow} />
+<Canvas of={InfoBlockStories.TicketDetails} />
+<Canvas of={InfoBlockStories.TicketDetailsLongValues} />
+<Canvas of={InfoBlockStories.TicketPair} />
 <Canvas of={InfoBlockStories.CustomFields} />
 <Canvas of={InfoBlockStories.WithActions} />
 <Canvas of={InfoBlockStories.CustomBody} />
@@ -61,9 +75,12 @@ The title row line is Stroke Light V2 here (the standalone `Row.HeaderCard` fram
 | `--shadow-card` | drop shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Figma: Cards Shadow |
 | `--color-stroke-light-v2` | title row bottom line; card border in `ticket` | `#D8E2EE` | Figma: Stroke Light V2 |
 | `--spacing-16` | body padding in `ticket` | `16px` | Figma: Information 1 padding 16 |
+| `--spacing-24` / `--spacing-16` | body padding in `details` | `24px` / `16px` | Existing tokens.json · Figma: Information 1 padding 24 / 16 |
+| `--color-stroke-light-v2` | card border in `details` | `#D8E2EE` | Existing tokens.json · Figma: Stroke Light V2 |
 
 Everything inside comes from `CardHeader`, `InfoClient` and `DepartmentSection` (see their docs). The only new token is `--color-violet-tint` (violet badge, in `CardHeader`).
 The Figma `ticket` frame is 400px wide; here it is 100% of the container. Long titles and narrow containers are AI-defined.
+In `details` the Figma `Status` is a `ChevronDropDown` “Open” (`primary` colour, as drawn); the card has no list of statuses — opening it is up to the parent.
 `actions` slot and custom `children` are AI-defined (not in Figma).
 
 ## Props

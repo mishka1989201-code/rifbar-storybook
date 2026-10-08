@@ -33,7 +33,8 @@
 
 /* Figma TicketInfo/v1: Stroke Light V2 border, body = padding 16 + a column of DepartmentSections;
    the last section has no bottom line. */
-.ds-info-block--ticket {
+.ds-info-block--ticket,
+.ds-info-block--details {
   border-color: var(--color-stroke-light-v2);
 }
 
@@ -50,3 +51,14 @@
 .ds-info-block--ticket .ds-info-block__body > .ds-department-section:last-child {
   border-bottom: 0;
 }
+
+/* Figma TicketInfo/V2: body = padding 24 / 16 + a column of compact info lines; the last line has no bottom line. */
+.ds-info-block--details .ds-info-block__body {
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--spacing-24) var(--spacing-16);
+}
+
+.ds-info-block--details .ds-info-block__body > * { flex: none; }
+
+.ds-info-block--details .ds-info-block__body > .ds-row-info-block:last-child { border-bottom-color: transparent; }

@@ -6,19 +6,20 @@ export interface RowInfoBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, 
    * Figma `Property 1`:
    * `pair` — `order-list__item`: label (dark) and value (grey) at the two edges, Stroke Light V2 line;
    * `line` — `Info Line 1`: grey 16px caption and 16px value in a 2 : 3 grid, Stroke Light V2 line;
+   * `compact` — `Info Line` of `TicketInfo/V2`: 14px Medium, 140px caption + value that fills the rest, Stroke Light V2 line;
    * `cells` — `order-list_item2`: 2+ cells (first at the start, last at the end, the rest centered), Stroke Light V1 line.
    */
-  variant?: 'pair' | 'line' | 'cells';
-  /** `pair` / `line`: caption, e.g. “Name”, “Warehouse from”. */
+  variant?: 'pair' | 'line' | 'compact' | 'cells';
+  /** `pair` / `line` / `compact`: caption, e.g. “Name”, “Warehouse from”. */
   label?: ReactNode;
-  /** `pair` / `line`: value, e.g. “David Schwimmer”, “Chongqing #3”. */
+  /** `pair` / `line` / `compact`: value (any node, e.g. a `ChevronDropDown`), e.g. “David Schwimmer”, “Chongqing #3”. */
   value?: ReactNode;
   /** `cells`: content of the columns, e.g. `['Astro', 'Banana Ice', '120']`. */
   cells?: ReactNode[];
 }
 
 /**
- * Figma `RowInfoBlock` (3 variants of one row) as ONE component: a row with 8px vertical padding
+ * Figma `RowInfoBlock` (4 variants of one row) as ONE component: a row with 8px vertical padding
  * and a bottom line, used in order / warehouse info lists. The variants differ only in
  * typography, column layout and line color, so they are the `variant` prop.
  */

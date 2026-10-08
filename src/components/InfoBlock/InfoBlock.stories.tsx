@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
+import { ChevronDropDown } from '../ChevronDropDown';
 import { ClientDetails } from '../ClientDetails';
 import { InfoBlock } from './InfoBlock';
 
@@ -16,8 +17,9 @@ const meta = {
   args: { title: 'Client info' },
   argTypes: {
     title: { control: 'text' },
-    variant: { control: 'inline-radio', options: ['info', 'ticket'] },
+    variant: { control: 'inline-radio', options: ['info', 'ticket', 'details'] },
     sections: { control: 'object', description: '`ticket` variant: props of the `DepartmentSection`s' },
+    rows: { control: 'object', description: '`details` variant: caption / value rows' },
     icon: { control: 'text', description: 'Icon name from the 16px set' },
     infoProps: { control: 'object', description: 'Props of the default `InfoClient` body' },
     actions: { control: false },
@@ -48,6 +50,52 @@ export const Ticket: Story = {
     title: 'Responsibility',
     sections: [{ title: 'Department' }, { title: 'Manager' }],
   },
+};
+
+const TICKET_ROWS = [
+  { id: 'requester', label: 'Requester:', value: 'David Schwimmer' },
+  { id: 'contacts', label: 'Requester contacts', value: 'matthewperry56@gmail.com' },
+  { id: 'created', label: 'Date created:', value: '07.05.2023' },
+  { id: 'last', label: 'Last message', value: '09.05.2023, 11:56 am' },
+  { id: 'status', label: 'Status', value: <ChevronDropDown>Open</ChevronDropDown> },
+];
+
+/** Figma `TicketInfo/V2` (node 400:199822). */
+export const TicketDetails: Story = {
+  name: 'Ticket details (TicketInfo/V2)',
+  decorators: [(Story) => <div style={{ maxWidth: 455, paddingBottom: 40 }}><Story /></div>],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=400-199890',
+    },
+  },
+  args: { variant: 'details', title: 'Ticket info', icon: 'ticket', rows: TICKET_ROWS },
+};
+
+export const TicketDetailsLongValues: Story = {
+  name: 'Ticket details, long values',
+  decorators: [(Story) => <div style={{ maxWidth: 320, paddingBottom: 40 }}><Story /></div>],
+  args: {
+    variant: 'details',
+    title: 'Ticket info',
+    icon: 'ticket',
+    rows: [
+      { label: 'Requester contacts', value: 'matthewperry56.with.a.very.long.address@example-company-domain.com' },
+      { label: 'Last message', value: '09.05.2023, 11:56 am — waiting for the warehouse to confirm the delivery date' },
+    ],
+  },
+};
+
+export const TicketPair: Story = {
+  name: 'Ticket info + Responsibility (Figma frame)',
+  decorators: [(Story) => <div style={{ maxWidth: 960, paddingBottom: 40 }}><Story /></div>],
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-16)', alignItems: 'flex-start' }}>
+      <InfoBlock variant="details" title="Ticket info" icon="ticket" rows={TICKET_ROWS} />
+      <InfoBlock variant="ticket" title="Responsibility" sections={[{ title: 'Department' }, { title: 'Manager' }]} />
+    </div>
+  ),
 };
 
 export const TicketWithValues: Story = {

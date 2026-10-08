@@ -8,7 +8,7 @@ const meta = {
   component: RowInfoBlock,
   parameters: { layout: 'padded', design: { type: 'figma', url: FIGMA_URL } },
   argTypes: {
-    variant: { control: 'inline-radio', options: ['pair', 'line', 'cells'] },
+    variant: { control: 'inline-radio', options: ['pair', 'line', 'compact', 'cells'] },
     label: { control: 'text' },
     value: { control: 'text' },
     cells: { control: 'object' },
@@ -28,6 +28,9 @@ export const InfoLine: Story = {
   args: { variant: 'line', label: 'Warehouse from', value: 'Chongqing #3' },
   decorators: [(Story) => <div style={{ maxWidth: 516 }}><Story /></div>],
 };
+
+/** Figma `Info Line` of `TicketInfo/V2` (node 400:199822). */
+export const Compact: Story = { args: { variant: 'compact', label: 'Requester:', value: 'David Schwimmer' } };
 
 export const Cells: Story = {
   name: 'Cells',
