@@ -79,6 +79,7 @@ export * from './components/TimeTracker';
 export * from './components/AlertRow';
 export * from './components/CheckListModal';
 export * from './components/FilterMenu';
+export * from './components/ProductDetailCard';
 export * from './components/WelcomeCard';
 export * from './components/NotificationLine';
 export * from './components/TableRowExpandable';

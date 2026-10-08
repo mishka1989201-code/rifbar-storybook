@@ -1,0 +1,126 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ProductDetailCardStories from './ProductDetailCard.stories';
+
+<Meta of={ProductDetailCardStories} />
+
+# ProductDetailCard
+
+The detail card of one product (or file): a large picture at the left and, at the right, the title, a list of label / value rows, a description and the
+actions. Implements the Figma frame [`Product Card`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=914-320788) (1524px). It is an **organism**: the rows are
+[RowInfoBlock](?path=/docs/molecules-rowinfoblock--docs) `variant="line"` and the action is a [Button](?path=/docs/atoms-button--docs).
+It is **not** the small catalogue tile — that one is [ProductCard](?path=/docs/molecules-productcard--docs).
+
+<Canvas of={ProductDetailCardStories.Default} />
+<Controls of={ProductDetailCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Image` 640×640, radius 16, Stroke Light V2 line, white fade at the bottom | `image`, `imageAlt` — `.ds-product-detail-card__image` |
+| Title (Light h1, 40 / 60) | `title` |
+| `Information 1` → `RowInfoBlock`, `Info Line 2…6` | `details={[{ label, value }]}` → `RowInfoBlock variant="line"` |
+| `Description` caption (Medium h5) + text (Body/Standart) | `descriptionTitle`, `description` |
+| `Buttons` → `button_action` Download (Dark, download icon) | `actions` — `<Button variant="dark" iconLeft="download-cloud">` |
+| Card: white, radius 32, padding 16, gap 32, Cards Shadow, width 1524 | `.ds-product-detail-card` (fills its container; the stories use 1524px) |
+| Hidden: `InputField` (640×640 over the picture), `Info Line 7 / 8`, second 80px button | not drawn — see Figma notes |
+
+## When to use
+
+- ✅ A page or a panel showing everything about one product, document or file, with a download or edit action.
+
+## When NOT to use
+
+- ❌ A tile in a catalogue grid — use [ProductCard](?path=/docs/molecules-productcard--docs).
+- ❌ A short summary with numbers — use [InfoBlock](?path=/docs/molecules-infoblock--docs) or [StatCard](?path=/docs/molecules-statcard--docs).
+
+## Variants, states and edge cases
+
+<Canvas of={ProductDetailCardStories.NoImage} />
+<Canvas of={ProductDetailCardStories.TwoActions} />
+<Canvas of={ProductDetailCardStories.NoActions} />
+<Canvas of={ProductDetailCardStories.NoDescription} />
+<Canvas of={ProductDetailCardStories.FewDetails} />
+<Canvas of={ProductDetailCardStories.OnlyTitle} />
+<Canvas of={ProductDetailCardStories.LongContent} />
+<Canvas of={ProductDetailCardStories.NarrowContainer} />
+<Canvas of={ProductDetailCardStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: one filled card — *Cheerleader costume*, six rows (*File type … Manager mobile phone*), a description and the *Download* button, with a photo of the product.
+
+**The photo was not downloaded** (the Figma asset URL answers 403 through the proxy). The component takes it as `image`; the stories use a neutral grey shape on Secondary Light.
+Without `image` the frame is plain white with the Stroke Light V2 line and the fade.
+
+Hidden layers in Figma, not drawn:
+
+- an `InputField` over the picture — looks like an edit mode with a field in place of the photo; it is not described, so it is not implemented;
+- `Info Line 7` and `Info Line 8` (601px) — more rows; `details` takes any number;
+- a second 80px `button_action` next to *Download* — the `TwoActions` story shows two buttons, with a placeholder text.
+
+Not drawn, defined by analogy (AI-defined):
+
+- **No picture, no rows, no description, no actions** — each block disappears; the others close the gap.
+- **Long title / long values** wrap (`overflow-wrap: anywhere`); a long caption wraps in its 200px column.
+- **Narrow container** — the info column drops under the picture (`flex-wrap`); the picture never exceeds the container.
+- **Dark theme** — not designed: the light values are used.
+
+Normalised or assumed:
+
+- The title color `#08496E` is a raw fill with no variable and is not in the palette (`--color-deep-blue`, new) — **needs designer confirmation**; Headlines `#4549A1` or Primary Blue Dark may be meant.
+- The caption color of the rows is Grey Dark `#5D6E82` here; `RowInfoBlock variant="line"` (as in `InfoTable`) uses Secondary Grey, so the card overrides it. Widths: caption 200px, gap 24, value fills the rest (the `line` variant is 2 : 3 with a 16px gap).
+- The picture is a 16:9 band (56.25% of the height, 21.88% from the top) as in Figma, fitted with `contain`; the white fade covers the bottom 35%.
+- The 28px free space at the right of the rows is kept (`--spacing-28`, new).
+- The shadow is the Cards Shadow style (`--shadow-card`); Figma's code draws it as a drop shadow with half the blur.
+- Figma assets were not used; the download icon is the existing `Icon` set.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | card, picture fill | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--radius-product-card` | card radius | `32px` | **New** · Figma: Product Card → corner radius 32 |
+| `--radius-modal` | picture radius | `16px` | Existing tokens.json · Figma: Image radius 16 (same value as the modal radius) |
+| `--shadow-card` | card shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Cards Shadow |
+| `--size-product-image` | picture size | `640px` | **New** · Figma: Product Card → Image 640×640 |
+| `--size-product-info-min` | min width of the info column | `360px` | **New** · AI-defined use: when to wrap under the picture |
+| `--color-stroke-light-v2`, `--border-width-sm` | picture line, row lines | `#D8E2EE`, `1px` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--spacing-16`, `--spacing-32`, `--spacing-24`, `--spacing-8`, `--spacing-10` | paddings, gaps | 16 / 32 / 24 / 8 / 10px | Existing tokens.json · Figma: card padding 16, gap 32, row gap 24, description gap 8, buttons gap 10 |
+| `--spacing-28` | right padding of the rows | `28px` | **New** · Figma: Information 1 right padding 28 |
+| `--color-deep-blue` | title | `#08496E` | **New** · Figma: title raw fill (no variable) |
+| `--font-size-h1`, `--font-line-height-h1`, `--font-weight-light` | title | 40 / 60px, 300 | Existing tokens.json · Figma: Light Headings/h1 |
+| `--color-grey-dark` | row captions, description caption | `#5D6E82` | Existing tokens.json · Figma: Grey Dark |
+| `--size-info-row-label` | row caption width | `200px` | Existing tokens.json · Figma: caption column 200 |
+| `--font-size-h5`, `--font-line-height-h5`, `--font-weight-medium` | description caption | 20 / 30px, 500 | Existing tokens.json · Figma: Medium Headings/h5 |
+| `--font-size-standard`, `--font-line-height-standard`, `--font-weight-regular` | description text | 16 / 24px, 400 | Existing tokens.json · Figma: Body/Standart |
+| `--color-primary-blue-dark` | row values, description text | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+
+## Props
+
+<ArgTypes of={ProductDetailCardStories} />
+
+## Code example
+
+```tsx
+import { ProductDetailCard, Button } from 'rifbar-ds';
+
+<ProductDetailCard
+  title="Cheerleader costume"
+  image="/images/costume.png"
+  imageAlt="Cheerleader costume"
+  details={[
+    { label: 'File type', value: 'PNG' },
+    { label: 'Created by', value: 'Paul Rudd' },
+  ]}
+  description="Lorem ipsum dolor sit amet…"
+  actions={<Button variant="dark" iconLeft="download-cloud">Download</Button>}
+/>
+```
+
+## Accessibility
+
+- An `article` with an `h2` title; the description has an `h3`. The picture is decorative by default (`alt=""`): pass `imageAlt` when it carries information the title does not.
+- The rows are plain text pairs; the action is a native `button`.
+- Contrast (calculated, on white): title `#08496E` 9.60:1; row values `#1D2542` 15.05:1; captions `#5D6E82` 5.23:1; white on the dark button 15.05:1.
+- ⚠️ Kept as designed: the Stroke Light V2 lines between rows and around the picture are 1.31:1 against white; the 37px button is below the 44px touch target.
