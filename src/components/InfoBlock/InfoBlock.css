@@ -71,7 +71,12 @@
    the line under the title row keeps the CardHeader color (Secondary Light). */
 .ds-info-block--form > .ds-card-header { border-bottom-color: var(--color-secondary-light); }
 
-.ds-info-block--form .ds-info-block__body { flex-wrap: wrap; }
+/* Figma Create Invoice: the first row has 32px above, every row 32px below — also when the columns wrap
+   (Size=Small), so there are 32px (not 64px) between stacked columns. */
+.ds-info-block--form .ds-info-block__body {
+  flex-wrap: wrap;
+  padding-top: var(--spacing-32);
+}
 
 .ds-info-block--form .ds-info-block__body > .ds-info-block__column {
   display: flex;
@@ -79,5 +84,10 @@
   flex-direction: column;
   gap: var(--spacing-16);
   box-sizing: border-box;
-  padding: var(--spacing-32) var(--spacing-16);
+  padding: 0 var(--spacing-16) var(--spacing-32);
+}
+
+/* Two columns wide, e.g. the `Additionally` text area (Figma: 1016px). */
+.ds-info-block--form .ds-info-block__body > .ds-info-block__column--wide {
+  flex-basis: calc(2 * var(--size-form-column));
 }

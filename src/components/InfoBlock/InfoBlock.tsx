@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import { isValidElement, type HTMLAttributes, type ReactNode } from 'react';
 import { CardHeader, type CardHeaderProps } from '../CardHeader';
 import { DepartmentSection, type DepartmentSectionProps } from '../DepartmentSection';
 import { RowInfoBlock } from '../RowInfoBlock';
@@ -20,6 +20,17 @@ export interface InfoBlockRow {
   value: ReactNode;
 }
 
+/** A `form` column given as an object, to make it as wide as two ordinary columns (Figma `Create Invoice` → `Additionally` row). */
+export interface InfoBlockColumn {
+  content: ReactNode;
+  /** Two columns wide (2 × `--size-form-column`); wraps under the others in a narrow card. */
+  wide?: boolean;
+}
+
+function isColumnObject(column: ReactNode | InfoBlockColumn): column is InfoBlockColumn {
+  return typeof column === 'object' && column !== null && !isValidElement(column) && 'content' in column;
+}
+
 export interface InfoBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Card look. Default `info`. */
   variant?: InfoBlockVariant;
@@ -27,8 +38,8 @@ export interface InfoBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ti
   size?: 'default' | 'mobile';
   /** `ticket` only: sections of the body (title + “Change” pill + hint). Ignored when `children` is set. */
   sections?: (DepartmentSectionProps & { id?: string })[];
-  /** `form` only: columns of fields (e.g. `LabeledField`s). Ignored when `children` is set. */
-  columns?: ReactNode[];
+  /** `form` only: columns of fields (e.g. `LabeledField`s); pass `{ content, wide: true }` for a double-width column. Ignored when `children` is set. */
+  columns?: (ReactNode | InfoBlockColumn)[];
   /** `details` only: caption / value rows (`RowInfoBlock variant="compact"`). Ignored when `children` is set. */
   rows?: InfoBlockRow[];
   /** Card title, e.g. “Client info”. */
@@ -66,11 +77,14 @@ export function InfoBlock({
   const detailsBody = rows?.map((row, i) => (
     <RowInfoBlock key={row.id ?? i} variant="compact" label={row.label} value={row.value} />
   ));
-  const formBody = columns?.map((column, i) => (
-    <div key={i} className="ds-info-block__column">
-      {column}
-    </div>
-  ));
+  const formBody = columns?.map((column, i) => {
+    const { content, wide } = isColumnObject(column) ? column : { content: column, wide: false };
+    return (
+      <div key={i} className={['ds-info-block__column', wide && 'ds-info-block__column--wide'].filter(Boolean).join(' ')}>
+        {content}
+      </div>
+    );
+  });
   const ticketBody = sections?.map((section, i) => <DepartmentSection key={section.id ?? i} {...section} />);
   return (
     <section className={classes} {...rest}>

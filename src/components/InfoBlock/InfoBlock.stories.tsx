@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
 import { ChevronDropDown } from '../ChevronDropDown';
 import { ClientDetails } from '../ClientDetails';
-import { FilterField } from '../InputField';
+import { FilterField, TextField } from '../InputField';
 import { LabeledField } from '../LabeledField';
 import { InfoBlock } from './InfoBlock';
 
@@ -126,6 +126,59 @@ export const FormNarrow: Story = {
   name: 'Form, narrow container',
   decorators: [(Story) => <div style={{ maxWidth: 360, paddingBottom: 40 }}><Story /></div>],
   args: Form.args,
+};
+
+const INVOICE_TEXT =
+  'Rorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.';
+
+export const FormWithWideRow: Story = {
+  name: 'Form with a wide row (Create Invoice, Size=Big)',
+  decorators: [(Story) => <div style={{ maxWidth: 1524, paddingBottom: 40 }}><Story /></div>],
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=1691-280240' },
+    docs: { description: { story: 'Figma `Create Invoice` Size=Big: two 508px columns, then a double-width column with a `TextField`.' } },
+  },
+  args: {
+    variant: 'form',
+    title: 'Select order and terms',
+    columns: [
+      <LabeledField key="order" title="Order name" required><FilterField placeholder="Select the order" aria-required /></LabeledField>,
+      <LabeledField key="terms" title="Terms"><FilterField value="16 Mar 2023" /></LabeledField>,
+      {
+        content: (
+          <LabeledField title="Additionally">
+            <TextField placeholder="Enter additional information for the order" />
+          </LabeledField>
+        ),
+        wide: true,
+      },
+    ],
+  },
+};
+
+export const FormWithWideRowFilled: Story = {
+  name: 'Form with a wide row, filled (Create Invoice, Size=Small)',
+  decorators: [(Story) => <div style={{ maxWidth: 416, paddingBottom: 40 }}><Story /></div>],
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=1696-464784' },
+    docs: { description: { story: 'Figma `Create Invoice` Size=Small (416px): the columns stack, 32px apart; all fields are filled (Input field border). Figma clips the text of the text area to one line; a real `TextField` wraps and scrolls.' } },
+  },
+  args: {
+    variant: 'form',
+    title: 'Select order and terms',
+    columns: [
+      <LabeledField key="order" title="Order name" required><FilterField value="Order #4" aria-required /></LabeledField>,
+      <LabeledField key="terms" title="Terms"><FilterField value="16 Mar 2023" /></LabeledField>,
+      {
+        content: (
+          <LabeledField title="Additionally">
+            <TextField defaultValue={INVOICE_TEXT} />
+          </LabeledField>
+        ),
+        wide: true,
+      },
+    ],
+  },
 };
 
 export const TicketWithValues: Story = {
