@@ -107,11 +107,11 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   ProductCard, RowInfoBlock, StatCard, StepCard
 - **Molecules** (forms / dialogs): AccessModeRow, BarcodeSettings, ConfirmModal, Dropdown, FilterActions, LabeledField, MessageBox, Modal
   (+ ModalSection, ModalField, ModalRow; sizes desktop / mobile / wide), RadioGroupCard
-- **Molecules** (chat / feedback): ChatHeader, ChatMessage, Notification, NotificationLine
+- **Molecules** (chat / feedback): AlertRow, ChatHeader, ChatMessage, Notification, NotificationLine
 - **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle
 - **Molecules** (tables): TableActionsRow, TableHeader (presets incl. `productsAnalytics`, `paymentsAnalytics`), TableProductsHeader,
   TableProductsRow, TableRowAnalytics, TableRowClient, TableRowExpandable, TableRowMobile, TableRowQuantity, TotalRow
-- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient), Navbar (LogoBar + NavbarMenu + UserDropdown), TimeTracker (TimeTrackerBar + stats + TimeScale),
+- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient), Navbar (LogoBar + NavbarMenu + UserDropdown), TimeTracker (TimeTrackerBar + stats + TimeScale), WelcomeCard (AlertRow rows + dark header),
   DatePicker (Button + TimePicker; date / date-time / today / range)
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
 

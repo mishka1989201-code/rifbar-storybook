@@ -1,0 +1,112 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as WelcomeCardStories from './WelcomeCard.stories';
+
+<Meta of={WelcomeCardStories} />
+
+# WelcomeCard
+
+The dashboard greeting: a dark header with the greeting, a subtitle, two key numbers and a picture on the right, and under it a stack of rows with things that need
+attention. Implements the Figma component
+[`Welcome Card`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3738-298541). It is an **organism**: the rows are [AlertRow](?path=/docs/molecules-alertrow--docs); the header is the only new markup.
+
+<Canvas of={WelcomeCardStories.Default} />
+<Controls of={WelcomeCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Header` fill #0C092E | `.ds-welcome-card__header` (`--color-welcome-card-bg`) |
+| `Welcome title` (h3, Hover Blue) | `title` |
+| Subtitle (Body/Button Big, White) | `subtitle` |
+| `Visits and Sale numbers` (caption + h4 value) | `stats={[{ label, value }]}` |
+| Picture on the right (63.7% wide, 146.88% tall) | `image` (URL) |
+| `Bottom` → `Option 1 / 4 / 5` | `rows` → `AlertRow` props |
+| Card: border 1 Stroke Light V2, radius 14, Cards Shadow, width 810 | `.ds-welcome-card` (fills its container; the stories use 810px) |
+
+## When to use
+
+- ✅ The top block of a dashboard: who is signed in, the headline numbers and the next actions.
+
+## When NOT to use
+
+- ❌ A plain number with a caption — use [StatCard](?path=/docs/molecules-statcard--docs).
+- ❌ Messages that stay on screen for a short time — use [Notification](?path=/docs/molecules-notification--docs).
+
+## Variants and edge cases
+
+<Canvas of={WelcomeCardStories.NoImage} />
+<Canvas of={WelcomeCardStories.NoRows} />
+<Canvas of={WelcomeCardStories.NoStats} />
+<Canvas of={WelcomeCardStories.OneRow} />
+<Canvas of={WelcomeCardStories.LongText} />
+<Canvas of={WelcomeCardStories.NarrowContainer} />
+<Canvas of={WelcomeCardStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: one filled card — *Good Afternoon, Arnold!*, the subtitle, *New orders 14,209*, *Paid invoices $32,456.00*, a picture of vape devices on a stage, and three rows.
+
+**The picture was not downloaded** (the Figma asset URL answers 403 through the proxy). The component takes it as `image`; the stories use a generated blue glow in its place.
+Without `image` the header is the plain #0C092E fill.
+
+Not drawn, defined by analogy (AI-defined):
+
+- **No image, no rows, no numbers, one row, long text, narrow container** — the header content wraps; the picture stays behind it.
+- **Dark theme** — not designed: the light values are used (the header is dark in both).
+
+Normalised or assumed:
+
+- The title and the subtitle are `h2` and `p`; the numbers are a description list. Figma only has text layers.
+- The picture box (right 63.7%, 146.88% tall, shifted up 17.75%) is copied from Figma and clipped by the header. It is cropped with `cover`.
+- The shadow is the Cards Shadow style (`--shadow-card`, spread -20); Figma's code draws it without the spread — the named style wins.
+- Subtitle and numbers use `--theme-nav-text-active` (White / White (Light)) and the captions `--theme-nav-text` (Not Active): the same variables Figma binds on the Navbar.
+- Caption / value blocks are 98px wide in Figma (`--size-welcome-stat-min`); a wider value grows its block.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-welcome-card-bg` | header fill | `#0C092E` | **New** · Figma: Welcome Card → Header raw fill |
+| `--color-hover-blue` | title | `#6368DF` | Existing tokens.json · Figma: Hover Blue |
+| `--theme-nav-text-active`, `--theme-nav-text` | subtitle, values / captions | `#FFFFFF`, `#D2D3D9` | Existing tokens.json · Figma: White (Light), Not Active |
+| `--font-size-h3`, `--font-line-height-h3` | title | 28 / 42px | Existing tokens.json · Figma: Medium Headings/h3 |
+| `--font-size-button-big`, `--font-line-height-button-big` | subtitle | 18 / 27px | Existing tokens.json · Figma: Body/Button Big |
+| `--font-size-h4`, `--font-line-height-h4` | values | 24 / 36px | Existing tokens.json · Figma: Medium Headings/h4 |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | captions | 14 / 21px, 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--spacing-24`, `--spacing-16`, `--spacing-8`, `--spacing-4`, `--spacing-30` | paddings and gaps | 24 / 16 / 8 / 4 / 30px | Existing tokens.json · Figma: Header padding 24 × 16, gaps 16 / 8 / 4 / 30 |
+| `--size-welcome-stat-min` | caption / value width | `98px` | **New** · Figma: Welcome Card → Visits and Sale numbers, width 98 |
+| `--radius-xl` | card radius | `14px` | Existing tokens.json · Figma: radius 14 |
+| `--color-stroke-light-v2`, `--border-width-sm` | card border | `#D8E2EE`, `1px` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--shadow-card` | card shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Cards Shadow |
+| Tokens of `AlertRow` | rows | — | see the MDX of `AlertRow` |
+
+## Props
+
+<ArgTypes of={WelcomeCardStories} />
+
+## Code example
+
+```tsx
+import { WelcomeCard } from 'rifbar-ds';
+
+<WelcomeCard
+  title="Good Afternoon, Arnold!"
+  subtitle="Here’s what happening with our company today"
+  image="/images/welcome.png"
+  stats={[
+    { label: 'New orders', value: '14,209' },
+    { label: 'Paid invoices', value: '$32,456.00' },
+  ]}
+  rows={[
+    { tone: 'warning', lead: '5 types of products', children: 'will soon be out of stock', actionLabel: 'View products' },
+    { tone: 'info', lead: '7 orders', children: 'are still waiting for payment', actionLabel: 'View payments' },
+  ]}
+/>
+```
+
+## Accessibility
+
+- A `section` with a heading; the numbers are a description list; the picture is decorative (`aria-hidden`) and the text never sits on it alone.
+- Contrast (calculated): white on the header 19.19:1; Not Active captions 12.85:1; the Hover Blue title `#6368DF` on `#0C092E` **4.18:1** (28px text, passes 3:1 for large text). Row contrasts: see `AlertRow`.
+- ⚠️ Kept as designed: the card border (Stroke Light V2) is 1.31:1 against white; with a picture, text on the right part of the header could lose contrast — keep the picture dark on the left.

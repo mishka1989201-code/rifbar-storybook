@@ -1,0 +1,100 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as AlertRowStories from './AlertRow.stories';
+
+<Meta of={AlertRowStories} />
+
+# AlertRow
+
+A tinted row that points at something needing attention: a colored dot, one sentence (Medium lead + Regular rest) and a `Text & Arrow` action at the right.
+Implements the rows `Option 1`, `Option 4` and `Option 5` of the Figma
+[`Welcome Card`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3738-298541). They differ only in color and text, so they are **one molecule** with a `tone`.
+The action is the existing [Button](?path=/docs/atoms-button--docs) `variant="text-arrow"`.
+
+<Canvas of={AlertRowStories.Default} />
+<Controls of={AlertRowStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Option 1` (Warning BG, orange) | `tone="warning"` |
+| `Option 4` / `Option 5` (Success BG, Hover Blue) | `tone="info"` (default) |
+| Bold part of the text (Medium) | `lead` |
+| Regular part of the text | `children` |
+| `button_action` (Text & Arrow) | `actionLabel`, `onAction`, `actionProps` |
+| Dot 8×8 | drawn by the component, color follows `tone` |
+| Bottom line 1px Stroke Light V2 (not on the last row) | automatic between stacked rows |
+
+## When to use
+
+- ✅ A short list of things to look at on a dashboard: low stock, unpaid orders, items to approve.
+
+## When NOT to use
+
+- ❌ A system message with a title and a close button — use [Notification](?path=/docs/molecules-notification--docs).
+- ❌ A row of the notifications list with a date — use [NotificationLine](?path=/docs/molecules-notificationline--docs).
+
+## Variants, states and edge cases
+
+<Canvas of={AlertRowStories.Warning} />
+<Canvas of={AlertRowStories.NoAction} />
+<Canvas of={AlertRowStories.LeadOnly} />
+<Canvas of={AlertRowStories.LongText} />
+<Canvas of={AlertRowStories.NarrowContainer} />
+<Canvas of={AlertRowStories.DisabledAction} />
+<Canvas of={AlertRowStories.Interactive} />
+<Canvas of={AlertRowStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: three rows, 810px wide, 45px high (12px vertical padding, 21px content), with the actions *View products*, *View payments*, *View orders*.
+The numbering (1, 4, 5) suggests Options 2 and 3 exist in Figma but are not in this frame; only two colors are known, so `tone` has two values.
+
+Not drawn, defined by analogy (AI-defined):
+
+- **Hover / focus / disabled** of the action — from `Button` `text-arrow`; on hover the action takes the row's text color.
+- **Row without an action, lead only, long text, narrow container** — the sentence wraps and the action never shrinks.
+- **Dark theme** — not designed: the light values are used.
+
+Normalised or assumed:
+
+- The text is 13px in Figma without a text style; a new token `--font-size-notice` is added. The line-height is the Small one (21px) so the row is 45px high.
+- The dot color is not readable from the code (SVG asset not downloaded); it is read from the render: the row action color (Warning / Hover Blue) — **needs confirmation**.
+- Warning rows use Warning (Dark) `#A7572C` for the text, as in the Figma variable; the token is named “dark theme” in `tokens.json`.
+- Figma assets were not used; the dot is CSS and the chevron is the `Icon` set.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-success-bg` | info row fill | `#F3FFFA` | Existing tokens.json · Figma: Success BG |
+| `--color-warning-bg` | warning row fill | `#FFF5F0` | Existing tokens.json · Figma: Warning BG |
+| `--color-hover-blue` | info text, dot, action | `#6368DF` | Existing tokens.json · Figma: Hover Blue |
+| `--color-warning-dark` | warning text | `#A7572C` | Existing tokens.json · Figma: Warning (Dark) |
+| `--color-warning` | warning dot, action | `#F68F57` | Existing tokens.json · Figma: Warning (Light) |
+| `--color-stroke-light-v2`, `--border-width-sm` | line between rows | `#D8E2EE`, `1px` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--spacing-12`, `--spacing-16`, `--spacing-4` | padding, gaps | 12 / 16 / 4px | Existing tokens.json · Figma: padding 12 × 16, gap 4 |
+| `--size-status-dot` | dot | `8px` | **New** · Figma: Welcome Card → Option row dot 8×8 |
+| `--radius-round` | dot | `50%` | Existing tokens.json · circle rule |
+| `--font-size-notice` | sentence | `13px` | **New** · Figma: Welcome Card → Option rows text 13 |
+| `--font-line-height-small`, `--font-weight-medium`, `--font-weight-regular` | sentence | 21px, 500, 400 | Existing tokens.json · Figma: Poppins Medium / Regular |
+
+## Props
+
+<ArgTypes of={AlertRowStories} />
+
+## Code example
+
+```tsx
+import { AlertRow } from 'rifbar-ds';
+
+<AlertRow tone="warning" lead="5 types of products" actionLabel="View products" onAction={openProducts}>
+  will soon be out of stock
+</AlertRow>
+```
+
+## Accessibility
+
+- The action is a native `button`; the dot is decorative (`aria-hidden`) — the color is never the only carrier of meaning, the sentence says it.
+- Contrast (calculated): warning text `#A7572C` on `#FFF5F0` 4.84:1; info text `#6368DF` on `#F3FFFA` **4.48:1** (13px text, just below 4.5:1); warning action `#F68F57` on `#FFF5F0` **2.18:1**.
+- ⚠️ Kept as designed: the warning action is below 3:1; the 21px action is below the 44px touch target.

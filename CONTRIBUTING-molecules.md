@@ -39,6 +39,7 @@
 | TimeTrackerTitle | Play-кнопка + «My Time» (Figma TimeTracker/Play Buttons and Title); `title`, `playProps` |
 | TimeTrackerDate | іконка + дата + три кнопки prev/reset/next (Figma TimeTracker/Date) |
 | TimeTrackerBar | верхня панель трекера = Title + Date (Figma TimeTracker/Play Actions Menu) |
+| AlertRow | рядок-підказка (Figma Welcome Card → Option 1/4/5): крапка + речення (`lead` Medium + решта) + `Button text-arrow`; `tone` warning / info |
 | TimeScale | шкала дня з відпрацьованими періодами (Figma TimeTracker/Time Scale and Numbers); `segments` у годинах, `startHour`, `hours` |
 | AccessModeRow | карта «Default / Custom» (Figma Edit User Access): два radio (`Checkbox`) + кнопка «Edit» (активна лише для Custom); `value`, `onChange`, `onEdit`, `disabled` |
 | DocumentCard | карта документа (Figma Edit User Access New): іконка + заголовок + значення, вертикальні кнопки в `actions` |
@@ -71,6 +72,7 @@
 | TableClients | таблиця клієнтів (Figma Table/Row & Header): `TableHeader` (`DEFAULT_CLIENTS_COLUMNS`) + `TableRowClient` з `rows`; `onSort`, `status`, `emptyText`; у вузькому контейнері скролиться |
 | Navbar | бічне меню (Figma Navbar/Full): `LogoBar` + `NavbarMenu` + `UserDropdown`; `size` 1920/1440/1280/1024/768/480/360, `collapsed`, `items` (групи з `children`), `user`; темна тема — через `data-theme` |
 | TimeTracker | картка робочого часу (Figma TimeTracker): `TimeTrackerBar` + статистика `stats` + `TimeScale`; `state` static/active/disabled, `segments`, `onToggle` |
+| WelcomeCard | вітальна картка (Figma Welcome Card): темний заголовок із `title`, `subtitle`, `stats`, `image` + `rows` (`AlertRow`); картинку з Figma не завантажено (403) |
 | DatePicker | календар (Figma date-range-apply: date / date-time / OneButtonApply / Full): `mode` `single` / `range`, `withTime` (`TimePicker`), `footer` `actions` / `today` / `none`, `months`; `value` — чернетка, `onApply` / `onCancel`; клавіатура, `locale` |
 
 ## Процес для кожної молекули
