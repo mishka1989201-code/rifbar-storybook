@@ -18,6 +18,10 @@
   max-width: var(--size-modal-mobile);
 }
 
+.ds-modal--wide {
+  max-width: var(--size-modal-confirm);
+}
+
 /* ─── Header ────────────────────────────────────────────────────────── */
 .ds-modal__header {
   display: flex;
@@ -62,6 +66,16 @@
   gap: var(--spacing-16);
   padding: var(--spacing-16);
   border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}
+
+.ds-modal__section--plain {
+  border-bottom: none;
+}
+
+.ds-modal__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--size-info-row-label), 1fr));
+  gap: var(--spacing-16);
 }
 
 .ds-modal__field {

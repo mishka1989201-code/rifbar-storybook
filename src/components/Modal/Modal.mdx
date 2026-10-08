@@ -18,6 +18,7 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 | Figma | Code | Notes |
 |---|---|---|
 | `Property 1=Desktop` (450px) | `size="desktop"` (default) | title Semi-Bold h4 (24px) |
+| `Add Product Modal` (630px) | `size="wide"` | two-column rows (`ModalRow`), `ModalSection divider={false}`, `FileDropzone size="large"` |
 | `Property 1=Mobile` (340px) | `size="mobile"` | title Semi-Bold h5 (20px), 10px side padding, buttons stacked |
 | `modal__header` | `.ds-modal__header` | padding 24 16 16, bottom line Stroke Light V1 |
 | `Title` icon (Plus 24px) + text | `icon` (default `plus-box`) + `title` | |
@@ -43,6 +44,8 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 <Canvas of={ModalStories.LongTitle} />
 <Canvas of={ModalStories.LongTitleMobile} />
 <Canvas of={ModalStories.AddEmployee} />
+<Canvas of={ModalStories.AddProduct} />
+<Canvas of={ModalStories.AddProductNarrow} />
 <Canvas of={ModalStories.InvalidField} />
 <Canvas of={ModalStories.NarrowContainer} />
 <Canvas of={ModalStories.AllVariants} />
@@ -50,6 +53,9 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 ## Figma notes
 
 - Figma `Add Product Modal` ([node 682:287127](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=682-287127)) is this same dialog (450px, `Plus` icon, h4 title, one `Filter` field, Close / Save) — no new component; see the `AddEmployee` story. The frame name says “Product” but the content is about adding an employee to a warehouse.
+- Figma `Add Product Modal` ([node 73:42643](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=73-42643)) is the same dialog at 630px with a two-column form. It adds `size="wide"`, `ModalRow` (grid of equal columns, 16px gap), `ModalSection divider={false}` (this frame has no line under the body) and `FileDropzone size="large"`. Its icon, title and close button are the same.
+- In that frame only the `Name` field has the Stroke Input border; the other five fields have Stroke Light V2. The atoms' own border (Stroke Input, as the Figma `InputField` notes say) is used for all of them — needs designer confirmation. The same Stroke Light V2 shows up in other frames (see `TableRowQuantity`).
+- `ModalRow` stacks its fields when the dialog is narrower than two 200px columns (not designed — AI-defined).
 - Figma shows only the surface, no overlay, no shadow and no open / close animation; none were added.
 - Figma has a bottom line on the last body section **and** a top line on the footer (two 1px lines in a row); kept as drawn.
 - The mobile footer buttons are 12px high-padded (`12 16`), which does not match any `Button` size (small / medium 8, big 16); `Modal` overrides the padding for buttons inside the mobile footer.
@@ -66,6 +72,8 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 | `--color-white` | dialog background | `#FFFFFF` | Existing tokens.json · Figma: White |
 | `--radius-modal` | dialog radius | `16px` | **New** · Figma: modal corner radius 16 |
 | `--size-modal-desktop` / `--size-modal-mobile` | max width | `450px` / `340px` | **New** · Figma: Property 1 Desktop / Mobile |
+| `--size-modal-confirm` | max width, `size="wide"` | `630px` | Existing tokens.json (same value, added for `ConfirmModal`) · Figma: Add Product Modal width 630 |
+| `--size-info-row-label` | minimal column of a `ModalRow` before it stacks | `200px` | AI-defined use: reused value, not in Figma |
 | `--color-stroke-light-v1` / `--border-width-sm` | lines between header, sections, footer | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
 | `--color-primary-blue-dark` | title, icon | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
 | `--font-size-h4` / `--font-line-height-h4` | desktop title | `24px` / `36px` | Existing tokens.json · Figma: Semi-Bold Headings/h4 |

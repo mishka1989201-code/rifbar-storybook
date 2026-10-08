@@ -13,6 +13,8 @@ export interface FileDropzoneProps extends Omit<HTMLAttributes<HTMLLabelElement>
   label?: ReactNode;
   /** Link-like text after “or,”. */
   browseLabel?: ReactNode;
+  /** `default` = 95px high (Figma BarcodeSettings), `large` = 160px high (Figma Add Product Modal → Upload Image). */
+  size?: 'default' | 'large';
   /** Preview only: draws the drag-over state. Real drag-over comes from the browser events. */
   forceDragOver?: boolean;
 }
@@ -28,6 +30,7 @@ export function FileDropzone({
   disabled = false,
   label = 'Drag your files here',
   browseLabel = 'Browse',
+  size = 'default',
   forceDragOver = false,
   className,
   ...rest
@@ -36,6 +39,7 @@ export function FileDropzone({
   const [over, setOver] = useState(false);
   const classes = [
     'ds-file-dropzone',
+    size === 'large' && 'ds-file-dropzone--large',
     (over || forceDragOver) && 'is-drag-over',
     disabled && 'is-disabled',
     className,

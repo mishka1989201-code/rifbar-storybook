@@ -3,8 +3,8 @@ import { Icon, type IconName } from '../Icon';
 import { IconButton } from '../IconButton';
 import './Modal.css';
 
-/** Figma `Property 1`: Desktop = 450px wide, Mobile = 340px wide. */
-export type ModalSize = 'desktop' | 'mobile';
+/** Figma `Property 1`: Desktop = 450px wide, Mobile = 340px wide. `wide` = 630px (Figma `Add Product Modal`, two-column form). */
+export type ModalSize = 'desktop' | 'mobile' | 'wide';
 
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Header title, e.g. “Create warehouse”. */
@@ -64,11 +64,13 @@ export function Modal({
 
 export interface ModalSectionProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
+  /** The 1px bottom line. Figma `Add Product Modal` has none under its single body block. Default `true`. */
+  divider?: boolean;
 }
 
 /** Figma `modal__body`: a block of the body with a 1px bottom line; fields inside are 16px apart. */
-export function ModalSection({ className, children, ...rest }: ModalSectionProps) {
-  const classes = ['ds-modal__section', className].filter(Boolean).join(' ');
+export function ModalSection({ divider = true, className, children, ...rest }: ModalSectionProps) {
+  const classes = ['ds-modal__section', !divider && 'ds-modal__section--plain', className].filter(Boolean).join(' ');
   return (
     <div className={classes} {...rest}>
       {children}
@@ -91,6 +93,24 @@ export function ModalField({ label, children, className, ...rest }: ModalFieldPr
       <label className="ds-modal__label" {...rest}>
         {label}
       </label>
+      {children}
+    </div>
+  );
+}
+
+export interface ModalRowProps extends HTMLAttributes<HTMLDivElement> {
+  /** `ModalField`s side by side. */
+  children?: ReactNode;
+}
+
+/**
+ * Figma: two `Input Field`s in one line, 16px apart, equal width. In a narrow dialog the fields stack
+ * (AI-defined: Figma draws only the wide dialog).
+ */
+export function ModalRow({ className, children, ...rest }: ModalRowProps) {
+  const classes = ['ds-modal__row', className].filter(Boolean).join(' ');
+  return (
+    <div className={classes} {...rest}>
       {children}
     </div>
   );

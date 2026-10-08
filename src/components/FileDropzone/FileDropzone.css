@@ -32,6 +32,10 @@
 .ds-file-dropzone__icon { color: var(--color-headlines); flex: none; }
 .ds-file-dropzone__browse { color: var(--color-headlines); }
 
+.ds-file-dropzone--large {
+  min-height: var(--size-dropzone-large);
+}
+
 /* AI-defined (not in Figma): hover, drag-over, focus, disabled */
 .ds-file-dropzone:hover,
 .ds-file-dropzone.is-drag-over {

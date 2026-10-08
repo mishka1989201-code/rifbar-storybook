@@ -16,6 +16,7 @@ A real `<input type="file">` is inside, so click, keyboard (Tab, Enter / Space) 
 | Figma | Code | Notes |
 |---|---|---|
 | `Drag Files` (dashed 2px, radius 6, h 95) | `.ds-file-dropzone` | stroke Headlines @ 40% |
+| `Drag Files` in `Add Product Modal` (h 160) | `size="large"` | same area, taller |
 | `Icons 24px` cloud | `Icon name="upload"` (24px) | cloud with arrow, matched by look |
 | “Drag your files here” | `label` | Body/Standart, Grey Dark |
 | “or, Browse” | `browseLabel` | “Browse” in Headlines |
@@ -30,6 +31,7 @@ A real `<input type="file">` is inside, so click, keyboard (Tab, Enter / Space) 
 
 ## Variants, states and edge cases
 
+<Canvas of={FileDropzoneStories.Large} />
 <Canvas of={FileDropzoneStories.DragOver} />
 <Canvas of={FileDropzoneStories.Disabled} />
 <Canvas of={FileDropzoneStories.ImagesOnly} />
@@ -51,6 +53,7 @@ A real `<input type="file">` is inside, so click, keyboard (Tab, Enter / Space) 
 | `--color-headlines-alpha-40` / `--border-width-lg` | dashed border | `rgba(69,73,161,.4)` / `2px` | **New** · Figma: Drag Files stroke (raw Headlines @ 40%) |
 | `--radius-md` | corner radius | `6px` | Existing tokens.json · Figma: corner radius 6 |
 | `--size-barcode-field` | min height | `95px` | **New** · Figma: Drag Files height 95 |
+| `--size-dropzone-large` | min height, `size="large"` | `160px` | **New** · Figma: Add Product Modal → Drag Files height 160 |
 | `--color-grey-dark` | text | `#5D6E82` | Existing tokens.json · Figma: Grey Dark |
 | `--color-headlines` | “Browse”, icon | `#4549A1` | Existing tokens.json · Figma: Headlines |
 | `--font-size-standard` / `--font-line-height-standard` / `--font-weight-regular` | text | `16px` / `24px` / `400` | Existing tokens.json · Figma: Body/Standart |

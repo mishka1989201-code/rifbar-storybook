@@ -2,7 +2,8 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
 import { FilterField, InputField } from '../InputField';
-import { Modal, ModalField, ModalSection } from './Modal';
+import { FileDropzone } from '../FileDropzone';
+import { Modal, ModalField, ModalRow, ModalSection } from './Modal';
 
 const FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7058-30262';
 
@@ -13,7 +14,7 @@ const meta = {
   args: { title: 'Create warehouse', size: 'desktop', onClose: () => {} },
   argTypes: {
     title: { control: 'text' },
-    size: { control: 'inline-radio', options: ['desktop', 'mobile'] },
+    size: { control: 'inline-radio', options: ['desktop', 'mobile', 'wide'] },
     icon: { control: 'text' },
     children: { control: false },
     actions: { control: false },
@@ -143,6 +144,69 @@ export const AddEmployee: Story = {
         <ModalField label="Employee name" htmlFor="add-employee-name">
           <FilterField id="add-employee-name" placeholder="Choose an employee" />
         </ModalField>
+      </ModalSection>
+    </Modal>
+  ),
+};
+
+export const AddProduct: Story = {
+  name: 'Add product (wide, two columns)',
+  args: { title: 'Add product', size: 'wide' },
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=73-42643' },
+    docs: { description: { story: 'Figma `Add Product Modal` (630px): `size="wide"`, `ModalRow`s with two fields, an image `FileDropzone size="large"`, no line under the body. Buttons are “Cancel” / “Accept”.' } },
+  },
+  render: (args) => (
+    <Modal {...args} actions={<><Button variant="light" iconLeft="xmark">Cancel</Button><Button variant="dark" iconLeft="tick">Accept</Button></>}>
+      <ModalSection divider={false}>
+        <ModalRow>
+          <ModalField label="Category" htmlFor="product-category">
+            <FilterField id="product-category" placeholder="Choose category" />
+          </ModalField>
+          <ModalField label="Name" htmlFor="product-name">
+            <InputField id="product-name" placeholder="Enter the product name" />
+          </ModalField>
+        </ModalRow>
+        <ModalRow>
+          <ModalField label="Color" htmlFor="product-color">
+            <FilterField id="product-color" placeholder="Choose color" />
+          </ModalField>
+          <ModalField label="Flavor" htmlFor="product-flavor">
+            <FilterField id="product-flavor" placeholder="Choose flavor" />
+          </ModalField>
+        </ModalRow>
+        <ModalRow>
+          <ModalField label="Price" htmlFor="product-price">
+            <InputField id="product-price" inputMode="decimal" placeholder="Write the amount here" />
+          </ModalField>
+          <ModalField label="Base currency" htmlFor="product-currency">
+            <FilterField id="product-currency" value="US dollar" />
+          </ModalField>
+        </ModalRow>
+        <ModalField label="Image">
+          <FileDropzone size="large" accept="image/*" />
+        </ModalField>
+      </ModalSection>
+    </Modal>
+  ),
+};
+
+export const AddProductNarrow: Story = {
+  name: 'Add product in a narrow container',
+  args: { title: 'Add product', size: 'wide' },
+  decorators: [(Story) => <div style={{ width: 380 }}><Story /></div>],
+  parameters: { docs: { description: { story: 'Fields of a `ModalRow` stack when the dialog is narrower than two 200px fields (AI-defined).' } } },
+  render: (args) => (
+    <Modal {...args}>
+      <ModalSection divider={false}>
+        <ModalRow>
+          <ModalField label="Category" htmlFor="narrow-category">
+            <FilterField id="narrow-category" placeholder="Choose category" />
+          </ModalField>
+          <ModalField label="Name" htmlFor="narrow-name">
+            <InputField id="narrow-name" placeholder="Enter the product name" />
+          </ModalField>
+        </ModalRow>
       </ModalSection>
     </Modal>
   ),

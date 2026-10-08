@@ -26,6 +26,14 @@ type Story = StoryObj<typeof meta>;
 // ─── DEFAULT (Figma: Drag Files) ─────────────────────────────────────────────
 export const Default: Story = {};
 
+export const Large: Story = {
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=73-42643' },
+    docs: { description: { story: 'Figma `Add Product Modal` → `Upload Image`: the same area, 160px high.' } },
+  },
+  args: { size: 'large' },
+};
+
 // ─── STATES (not in Figma) ───────────────────────────────────────────────────
 export const DragOver: Story = { name: 'Drag over', args: { forceDragOver: true } };
 export const Disabled: Story = { args: { disabled: true } };
@@ -44,6 +52,7 @@ export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)', maxWidth: 476 }}>
       <FileDropzone />
+      <FileDropzone size="large" />
       <FileDropzone forceDragOver />
       <FileDropzone disabled />
     </div>
