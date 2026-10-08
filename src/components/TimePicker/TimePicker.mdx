@@ -1,0 +1,87 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TimePickerStories from './TimePicker.stories';
+
+<Meta of={TimePickerStories} />
+
+# TimePicker
+
+Compact time picker: the chosen time (“01:20 PM”) and two sliders — hours on top, minutes below.
+Implements the Figma frame [`Time picker`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=3923-227845). It is composed of two [Slider](?path=/docs/atoms-slider--docs) atoms.
+
+<Canvas of={TimePickerStories.Default} />
+<Controls of={TimePickerStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Value` “01:20” | `.ds-time-picker__time` | Medium Headings/h5, Color Text |
+| `Value` “PM” | `.ds-time-picker__period` | Medium Headings/h7, Secondary Grey; AM / PM from `hours` |
+| `Choose time` (gap 8) | `.ds-time-picker__sliders` | |
+| top `Slider Light` | `Slider` min 0, max 23 | hours; Figma handle at ~56% = 13 of 23 |
+| bottom `Slider Light` | `Slider` min 0, max 59 | minutes; Figma handle at ~34% = 20 of 59 |
+| frame 262px, padding 0 16, gap 16 | `.ds-time-picker` | width 100% of the container |
+
+## When to use
+
+- ✅ Quick, approximate time selection in a small panel (time tracker, filters, forms with a narrow column).
+
+## When NOT to use
+
+- ❌ Exact time entry or keyboard typing of a time — use an input field.
+
+## States and edge cases
+
+<Canvas of={TimePickerStories.Morning} />
+<Canvas of={TimePickerStories.Midnight} />
+<Canvas of={TimePickerStories.Noon} />
+<Canvas of={TimePickerStories.FiveMinuteStep} />
+<Canvas of={TimePickerStories.Controlled} />
+<Canvas of={TimePickerStories.Disabled} />
+<Canvas of={TimePickerStories.Narrow} />
+<Canvas of={TimePickerStories.AllVariants} />
+
+## Figma notes
+
+- Figma shows one frame and does not name what the two sliders control. They are read from the picture as hours (top) and minutes (bottom): the handle positions fit 13/23 and 20/59 for “01:20 PM”. **To be confirmed by a designer.**
+- Figma draws the sliders as 18px rows with the handle overflowing the track; the `Slider` atom has a 48px touch area, so inside this molecule its height is cut to 18px (2px track + 8px padding ×2). Touch area is therefore smaller than in the atom.
+- Hours are 0–23, shown in the 12-hour format with AM / PM (12:xx PM at noon, 12:xx AM at midnight). No 24-hour mode is designed.
+- Figma colour `M3/sys/light/surface` (#FFFBFE) exists only as the unused frame fill — the component is transparent.
+- Not designed, AI-defined: digits are tabular (`font-variant-numeric`) so the value does not jitter; `minuteStep`; `disabled` (atom's 20% opacity); focus ring comes from the `Slider` atom. Dark theme not designed — light values are used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-text` | time | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--color-secondary-grey` | AM / PM | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey |
+| `--font-size-h5` / `--font-line-height-h5` | time | `20px` / `30px` | Existing tokens.json · Figma: Medium Headings/h5 |
+| `--font-size-h7` / `--font-line-height-h7` | AM / PM | `14px` / `21px` | Existing tokens.json · Figma: Medium Headings/h7 |
+| `--font-weight-medium` | all text | `500` | Existing tokens.json · Figma: Medium Headings |
+| `--spacing-16` | side padding, gap value ↔ sliders | `16px` | Existing tokens.json · Figma: padding 16, gap 16 |
+| `--spacing-8` | gap between sliders, slider row padding | `8px` | Existing tokens.json · Figma: gap 8, padding 8 |
+| `--spacing-4` | gap time ↔ AM / PM | `4px` | Existing tokens.json · Figma: gap 4 |
+| `--size-slider-track` | slider row height | `2px` | Existing tokens.json · Figma: Inactive track height 2 |
+| `--color-not-active` | track and handle stroke (Slider atom) | `#D2D3D9` | Existing tokens.json · Figma: Not Active |
+| `--opacity-disabled` | disabled (Slider atom) | `0.2` | AI-defined use: Figma has no disabled; same as the other atoms |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={TimePickerStories} />
+
+## Code example
+
+```tsx
+import { TimePicker } from 'rifbar-ds';
+
+<TimePicker defaultHours={13} defaultMinutes={20} onChange={(hours, minutes) => save(hours, minutes)} />
+```
+
+## Accessibility
+
+- Each slider is a native `<input type="range">` with an `aria-label` (“Hours”, “Minutes”); keyboard arrows / Home / End work. The displayed time is `aria-live="polite"`.
+- Slider rows are 18px high — below the 44px touch target, kept as designed.
+- Secondary Grey `#A7A4B7` (AM / PM) on white is below 3:1 contrast; Not Active `#D2D3D9` track is 1.5:1 — kept as designed.
+- Disabled at 20% opacity is below 3:1.
