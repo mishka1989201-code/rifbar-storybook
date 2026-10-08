@@ -1,0 +1,102 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableClientsStories from './TableClients.stories';
+
+<Meta of={TableClientsStories} />
+
+# TableClients
+
+The clients table: sortable header and card rows. Implements the Figma frame
+[`Table/Row & Header`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=93-34229) and is an **Organism** composed only of
+[TableHeader](?path=/docs/molecules-tableheader--docs) and
+[TableRowClient](?path=/docs/molecules-tablerowclient--docs).
+
+<Canvas of={TableClientsStories.Default} />
+<Controls of={TableClientsStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Table Header 4` | `TableHeader` with `DEFAULT_CLIENTS_COLUMNS` (override with `columns`) |
+| `Table Row 14` | `TableRowClient`, one per item of `rows` |
+| `Table Row Hover Name` | hover / focus of the name (see [TableRowClient](?path=/docs/molecules-tablerowclient--docs)) |
+| Frame: column, gap 8, width 1524 | `.ds-table-clients__table` (fills its container; the stories use 1524px) |
+
+## When to use
+
+- ✅ A list of clients with sorting by column.
+
+## When NOT to use
+
+- ❌ Products — use [TableProducts](?path=/docs/organisms-tableproducts--docs).
+- ❌ Narrow screens (below ~1100px) — use [TableRowMobile](?path=/docs/molecules-tablerowmobile--docs) or `CardRow`.
+
+## Variants, states and edge cases
+
+<Canvas of={TableClientsStories.ManyRows} />
+<Canvas of={TableClientsStories.HoverName} />
+<Canvas of={TableClientsStories.Empty} />
+<Canvas of={TableClientsStories.Loading} />
+<Canvas of={TableClientsStories.ErrorState} />
+<Canvas of={TableClientsStories.LongText} />
+<Canvas of={TableClientsStories.NarrowContainer} />
+<Canvas of={TableClientsStories.Sortable} />
+<Canvas of={TableClientsStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the header and one row, 1524px wide, 8px apart; no empty / loading / error states, no second row.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Empty, Loading and Error: the header stays, a centred message replaces the rows.
+- Several rows are 8px apart (the header–row gap).
+- Narrow container: the table scrolls horizontally; the bottom padding keeps the shadow of the last row visible.
+- Dark theme: not designed — the light values are used.
+
+Assumed / normalised:
+
+- **Needs confirmation:** the row has seven cells (name, company, phone, email, `Joined`, `Date 3`, `More`) but Figma's `Table Header 4` labels only six
+  (`Name`, `Company`, `Phone`, `Email`, `Joined`, `Actions`). With `justify-between` the Figma header labels do not sit over the row cells (`Joined` is between the two dates).
+  The default columns add a seventh one named `Updated` (AI-defined) so every label sits over its cell; `Actions` is 119px to match the button cell.
+  The existing `clients` preset of `TableHeader` (Figma `Table Header 5`, `Actions` 166px) is not used.
+- Sorting is drawn as the sort icon only; `onSort` gets the column id and the story sorts by name — the table does not sort by itself.
+- The Figma frame has no background (the grey is the page).
+
+## Design tokens used
+
+No new tokens. Header and row tokens are listed in their own MDX.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-8` | gap between header and rows | `8px` | Existing tokens.json · Figma: gap 8 |
+| `--spacing-8` | bottom padding of the scroll area | `8px` | AI-defined use: keeps the row shadow from being clipped |
+| `--spacing-24` / `--spacing-16` | status message padding | 24 / 16px | AI-defined use: state not drawn in Figma |
+| `--color-grey-dark` | empty / loading text | `#5D6E82` | AI-defined use: secondary text colour of the DS |
+| `--color-danger-strong` | error text | `#DF2E15` | AI-defined use: Danger hue with 4.6:1 on white |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | status message | 14 / 21px, 500 | AI-defined use: Body/Small Medium, as the rows |
+
+## Props
+
+<ArgTypes of={TableClientsStories} />
+
+## Code example
+
+```tsx
+import { TableClients } from 'rifbar-ds';
+
+<TableClients
+  rows={[
+    { id: 1, name: 'Mickey Herman', nameHref: '/clients/1', company: "Sam's Club", phone: '+44 32 567 8473',
+      email: 'mickeyherman23@gmail.com', joined: '07.23.2023', updated: '07.23.2023' },
+  ]}
+  onSort={(column) => setSort(column)}
+/>
+```
+
+## Accessibility
+
+- `role="table"` named by `label`; `row` / `columnheader` / `cell` come from the header and row molecules; sortable headers are buttons. `aria-busy` while loading; the status is `role="status"`, the error `role="alert"`.
+- The header does not expose the current sort order (`aria-sort` is not set): the table does not know it. Set it on your own column header if you sort.
+- Contrast, computed: header `#4549A1` on the `#F6F8FC` page 7.26:1; row text 14.68:1; error `#DF2E15` on white 4.63:1.
+- ⚠️ Kept as designed: the name on hover (`#888CF6`) is 2.95:1; the cards are separated from the page by the shadow only (1.06:1); the `More` button is 37px high.
