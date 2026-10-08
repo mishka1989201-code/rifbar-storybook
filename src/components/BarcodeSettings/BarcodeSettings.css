@@ -1,0 +1,59 @@
+/* BarcodeSettings — every value references a token from src/tokens/tokens.json.
+   Field, dropzone and buttons are the existing atoms. */
+
+.ds-barcode-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-32) var(--spacing-16);
+  border-right: var(--border-width-sm) solid var(--color-secondary-light);
+  font-family: var(--font-family-base);
+}
+
+.ds-barcode-settings__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  width: 100%;
+}
+
+.ds-barcode-settings__title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-barcode-settings .ds-barcode-settings__field { min-height: var(--size-barcode-field); }
+
+.ds-barcode-settings__buttons {
+  display: flex;
+  gap: var(--spacing-16);
+  padding: var(--spacing-16) 0;
+}
+
+.ds-barcode-settings__buttons > .ds-button { flex: 1 1 0; min-width: 0; }
+
+/* ─── preview ───────────────────────────────────────────────────────── */
+.ds-barcode-settings__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--size-barcode-preview-width);
+  max-width: 100%;
+  height: var(--size-barcode-preview-height);
+  border-radius: var(--radius-image-card);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.ds-barcode-settings__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

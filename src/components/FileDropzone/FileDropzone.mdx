@@ -1,0 +1,77 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as FileDropzoneStories from './FileDropzone.stories';
+
+<Meta of={FileDropzoneStories} />
+
+# FileDropzone
+
+A dashed area to drop files on or click to browse. Implements the Figma `Drag Files` frame of [`BarcodeSettings`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7064-74791) (Information2).
+A real `<input type="file">` is inside, so click, keyboard (Tab, Enter / Space) and drag-and-drop all work.
+
+<Canvas of={FileDropzoneStories.Default} />
+<Controls of={FileDropzoneStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Drag Files` (dashed 2px, radius 6, h 95) | `.ds-file-dropzone` | stroke Headlines @ 40% |
+| `Icons 24px` cloud | `Icon name="upload"` (24px) | cloud with arrow, matched by look |
+| “Drag your files here” | `label` | Body/Standart, Grey Dark |
+| “or, Browse” | `browseLabel` | “Browse” in Headlines |
+
+## When to use
+
+- ✅ Uploading one or several files where dropping is convenient (barcodes, documents, images).
+
+## When NOT to use
+
+- ❌ A single button that just opens a picker — use `Button`.
+
+## Variants, states and edge cases
+
+<Canvas of={FileDropzoneStories.DragOver} />
+<Canvas of={FileDropzoneStories.Disabled} />
+<Canvas of={FileDropzoneStories.ImagesOnly} />
+<Canvas of={FileDropzoneStories.LongLabel} />
+<Canvas of={FileDropzoneStories.Narrow} />
+<Canvas of={FileDropzoneStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws one state. **AI-defined:** hover and drag-over (solid Headlines border + BG Color fill), keyboard focus (`--shadow-focus`), disabled (20%).
+- The upload icon is an unnamed raster/cloud asset; matched to the existing 24px `upload`, coloured Headlines. To be confirmed.
+- File validation and upload are the parent's job: the component only reports files via `onFiles`.
+- Dark theme not designed.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines-alpha-40` / `--border-width-lg` | dashed border | `rgba(69,73,161,.4)` / `2px` | **New** · Figma: Drag Files stroke (raw Headlines @ 40%) |
+| `--radius-md` | corner radius | `6px` | Existing tokens.json · Figma: corner radius 6 |
+| `--size-barcode-field` | min height | `95px` | **New** · Figma: Drag Files height 95 |
+| `--color-grey-dark` | text | `#5D6E82` | Existing tokens.json · Figma: Grey Dark |
+| `--color-headlines` | “Browse”, icon | `#4549A1` | Existing tokens.json · Figma: Headlines |
+| `--font-size-standard` / `--font-line-height-standard` / `--font-weight-regular` | text | `16px` / `24px` / `400` | Existing tokens.json · Figma: Body/Standart |
+| `--spacing-8` / `--spacing-16` | padding, icon gap | `8` / `16px` | Existing tokens.json · Figma: icon gap 9 → 8 |
+| `--color-bg` / `--shadow-focus` / `--opacity-disabled` | hover / drag-over fill, focus, disabled | — | AI-defined use: not drawn in Figma |
+
+## Props
+
+<ArgTypes of={FileDropzoneStories} />
+
+## Code example
+
+```tsx
+import { FileDropzone } from 'rifbar-ds';
+
+<FileDropzone accept="image/*" onFiles={(files) => upload(files[0])} />
+```
+
+## Accessibility
+
+- The visible area is a `<label>` for the hidden file input, which stays focusable; focus draws the ring on the area.
+- Dropping is a pointer-only convenience; Browse covers keyboard users.
+- “Drag your files here” in Grey Dark on white passes 4.5:1; the dashed border (Headlines @ 40%) is below 3:1 — kept as designed.
+- The 95px area is above the 44px touch target.
