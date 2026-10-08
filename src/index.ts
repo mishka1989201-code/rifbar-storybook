@@ -65,3 +65,4 @@ export * from './components/TimeTrackerBar';
 export * from './components/TimeScale';
 export * from './components/NotificationLine';
 export * from './components/TableRowExpandable';
+export * from './components/FilterActions';
