@@ -63,6 +63,7 @@ export * from './components/ChatHeader';
 export * from './components/MessageBox';
 export * from './components/TableRowQuantity';
 export * from './components/NoteCard';
+export * from './components/TableRowAnalytics';
 export * from './components/AccessModeRow';
 export * from './components/DocumentCard';
 export * from './components/TimeTrackerTitle';
