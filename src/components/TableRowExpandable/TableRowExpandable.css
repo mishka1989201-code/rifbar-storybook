@@ -1,0 +1,102 @@
+/* TableRowExpandable — every value references a token from src/tokens/tokens.json.
+   Figma strokes are "inside": drawn with an inset box-shadow next to the row shadow. */
+
+.ds-table-row-expandable {
+  --ds-table-row-bg: var(--color-white);
+  --ds-table-row-stroke: var(--color-stroke-light-v1);
+  --ds-table-row-shadow: var(--shadow-table-row);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  border-radius: var(--radius-lg);
+  background: var(--ds-table-row-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--ds-table-row-stroke), var(--ds-table-row-shadow);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.ds-table-row-expandable:hover,
+.ds-table-row-expandable.is-hover {
+  --ds-table-row-bg: var(--color-row-hover);
+  --ds-table-row-shadow: var(--shadow-table-row-hover);
+}
+
+/* Active (opened) wins over hover: Figma draws it white with the Headlines stroke. */
+.ds-table-row-expandable.is-active {
+  --ds-table-row-bg: var(--color-white);
+  --ds-table-row-stroke: var(--theme-card-hover-border);
+  --ds-table-row-shadow: var(--shadow-table-row);
+}
+
+.ds-table-row-expandable.is-disabled {
+  opacity: var(--opacity-disabled);
+  pointer-events: none;
+}
+
+.ds-table-row-expandable__lead {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-32);
+  flex: none;
+  width: 318px;
+}
+
+.ds-table-row-expandable__cell {
+  flex: none;
+  box-sizing: border-box;
+}
+
+.ds-table-row-expandable__id,
+.ds-table-row-expandable__name {
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-table-row-expandable__id { width: 30px; text-align: center; }
+.ds-table-row-expandable__name { flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.ds-table-row-expandable__size { width: 125px; text-align: right; white-space: nowrap; }
+.ds-table-row-expandable__type { width: 203px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ds-table-row-expandable__nicotine { width: 75px; text-align: right; white-space: nowrap; }
+.ds-table-row-expandable__price { width: 52px; white-space: nowrap; }
+
+.ds-table-row-expandable__action {
+  display: flex;
+  justify-content: flex-end;
+  width: 54px;
+}
+
+/* Figma `button_action`: 16px icon + 10.5px padding (10px here: no 10.5 token, button is 36px instead of 37px) on Secondary Light, radius 5 */
+.ds-table-row-expandable__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: var(--spacing-10);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-secondary-light);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+.ds-table-row-expandable:hover .ds-table-row-expandable__toggle,
+.ds-table-row-expandable.is-hover .ds-table-row-expandable__toggle {
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1);
+}
+
+.ds-table-row-expandable__toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-table-row-expandable,
+  .ds-table-row-expandable__toggle { transition: none; }
+}
