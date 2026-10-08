@@ -1,0 +1,175 @@
+/* AudioPlayer — every value references a token from src/tokens/tokens.json.
+   Figma assets (visualizer, timelines) could not be downloaded, so the bars and ranges are drawn in CSS. */
+
+.ds-audio-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-10);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-16);
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+  color: var(--color-primary-blue-dark);
+  font-family: var(--font-family-base);
+}
+
+/* ─── Visualizer ────────────────────────────────────────────────────── */
+.ds-audio-player__visualizer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: none;
+  width: var(--size-player-visualizer-width);
+  height: var(--size-player-visualizer-height);
+}
+
+.ds-audio-player__bar {
+  flex: none;
+  width: var(--size-player-bar);
+  height: max(var(--size-player-bar), calc(var(--size-player-visualizer-height) * var(--ds-player-level)));
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-blue-dark);
+}
+
+/* ─── Time + timeline ───────────────────────────────────────────────── */
+.ds-audio-player__progress {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-10);
+  width: 100%;
+}
+
+.ds-audio-player__time {
+  display: flex;
+  flex: none;
+  gap: var(--spacing-4);
+  color: var(--color-headlines);
+  font-size: var(--font-size-h7);
+  line-height: var(--font-line-height-h7);
+  font-weight: var(--font-weight-light);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Range (timeline / volume): filled part + 8px handle ───────────── */
+.ds-audio-player__range {
+  --ds-range-accent: var(--color-headlines);
+  --ds-range-fill-end: calc(var(--size-player-handle) / 2 + (100% - var(--size-player-handle)) * var(--ds-range-fill, 0));
+  box-sizing: border-box;
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  height: var(--size-player-handle);
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.ds-audio-player__range--volume {
+  --ds-range-accent: var(--color-primary-blue-dark);
+  flex: none;
+  width: var(--size-player-volume-width);
+}
+
+.ds-audio-player__range:focus {
+  outline: none;
+}
+
+.ds-audio-player__range::-webkit-slider-runnable-track {
+  height: var(--spacing-4);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--ds-range-accent) var(--ds-range-fill-end),
+    var(--color-headlines-alpha-22) var(--ds-range-fill-end)
+  );
+}
+.ds-audio-player__range::-moz-range-track {
+  height: var(--spacing-4);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--ds-range-accent) var(--ds-range-fill-end),
+    var(--color-headlines-alpha-22) var(--ds-range-fill-end)
+  );
+}
+
+.ds-audio-player__range::-webkit-slider-thumb {
+  box-sizing: border-box;
+  width: var(--size-player-handle);
+  height: var(--size-player-handle);
+  margin-top: calc((var(--spacing-4) - var(--size-player-handle)) / 2);
+  border: 0;
+  border-radius: var(--radius-round);
+  background: var(--ds-range-accent);
+  appearance: none;
+  -webkit-appearance: none;
+  transition: box-shadow 150ms ease;
+}
+.ds-audio-player__range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: var(--size-player-handle);
+  height: var(--size-player-handle);
+  border: 0;
+  border-radius: var(--radius-round);
+  background: var(--ds-range-accent);
+  transition: box-shadow 150ms ease;
+}
+
+/* Focus is not designed in Figma: the Focus shadow, as on Slider / InputField. */
+.ds-audio-player__range:focus-visible::-webkit-slider-thumb { box-shadow: var(--shadow-focus); }
+.ds-audio-player__range:focus-visible::-moz-range-thumb { box-shadow: var(--shadow-focus); }
+
+/* ─── Controls row ──────────────────────────────────────────────────── */
+.ds-audio-player__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ds-audio-player__volume {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.ds-audio-player .ds-icon {
+  --ds-icon-size: var(--size-player-control);
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-audio-player__button {
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-audio-player__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-player-control);
+  height: var(--size-player-control);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+}
+
+.ds-audio-player__button:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-audio-player__range::-webkit-slider-thumb,
+  .ds-audio-player__range::-moz-range-thumb { transition: none; }
+}

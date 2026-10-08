@@ -68,3 +68,4 @@ export * from './components/TableRowExpandable';
 export * from './components/FilterActions';
 export * from './components/TimePicker';
 export * from './components/RadioGroupCard';
+export * from './components/AudioPlayer';
