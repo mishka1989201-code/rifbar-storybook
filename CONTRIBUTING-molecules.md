@@ -41,6 +41,21 @@
 | TimeScale | шкала дня з відпрацьованими періодами (Figma TimeTracker/Time Scale and Numbers); `segments` у годинах, `startHour`, `hours` |
 | AccessModeRow | карта «Default / Custom» (Figma Edit User Access): два radio (`Checkbox`) + кнопка «Edit» (активна лише для Custom); `value`, `onChange`, `onEdit`, `disabled` |
 | DocumentCard | карта документа (Figma Edit User Access New): іконка + заголовок + значення, вертикальні кнопки в `actions` |
+| NavbarMenu | вертикальне меню сторінок (Figma Navbar Menu Tabs): `size` desktop/768/480/360, `collapsed` (= Style=Icons), `items`, `value`, `onChange` |
+| ChatMessage | повідомлення чату (Figma Message): `direction` received/sent, `author` (аватар), `time`, `checked` |
+| ChatHeader | шапка чату (Figma chat header): іконка + h5 `title` + `quote` |
+| MessageBox | поле повідомлення (Figma message box): справжня форма з `input` і кнопкою send, `onSend`, `disabled`, `forceFocus` / `forceHover` |
+| TableRowQuantity | рядок вибору кількості (Figma TableRows / Choice of quantity): `name`, `prices`, `InputField` 200px; порожнє поле з рамкою Stroke Light V2 |
+| NoteCard | картка нотатки (Figma Notes: Static / Hover): текст у сірому блоці, `onMore` («more»), `date`; hover = рамка Headlines + `--shadow-hover-card-lg` |
+| TableRowAnalytics | строка аналітичної таблиці (Figma Table Row Analytics 1–3): `cells` (`value`, `label`, `width`, `align`, `strong`, `truncate`, `group`); заголовки — пресети `productsAnalytics` / `paymentsAnalytics` у `TableHeader` |
+| NotificationLine | рядок списку сповіщень (Figma NotificationLine): `message` + іконка з `date`; `type` `old`/`new`, `disabled`, `forceHover` |
+| TableRowExpandable | картковий рядок таблиці продуктів (Figma Table Row Static/Hover/Active/Disabled): `ImageCard` + колонки + кнопка-перемикач; `expanded`, `onToggle` |
+| FilterActions | мобільна панель (Figma Actions): `Button` «Filter» з `counter` + `SearchField` mobile; `filterCount`, `searchProps` |
+| TimePicker | «01:20 PM» + два `Slider` (години 0–23, хвилини 0–59); `hours`/`minutes` або `defaultHours`/`defaultMinutes`, `onChange` |
+| RadioGroupCard | підпис + сіра картка з рядом радіо (Figma Integrations for invoices): `title`, `options`, `value`/`defaultValue`, `onChange` |
+| AudioPlayer | плеєр (Figma Player - Time Tracker): візуалізатор `levels`, таймлайн, play/pause, гучність; контрольований (`currentTime`, `duration`, `playing`, `volume`) |
+| Modal | діалог (Figma Pop-up warehouse Desktop/Mobile): `Modal` + `ModalSection` + `ModalField`, `size`, `actions`; лише поверхня, без оверлею |
+| Dropdown | панель меню (Figma Dropdown, 8 стилів): `variant` `list`/`notifications`/`user`, `control` `none`/`radio`/`checkbox`, `searchable` |
 
 Усі експортуються з `src/index.ts`.
 
@@ -81,3 +96,16 @@
 
 - Перед пушем робити `git pull origin claude/peaceful-franklin-tnrmh4`: у `src/index.ts` легко отримати конфлікт на рядках експорту — залишити всі експорти.
 - Контейнер ефемерний: на початку сесії виконати `npm ci`, інакше `tsc` не працюватиме.
+- Figma-ассети з `get_design_context` у цьому середовищі віддають 403 (проксі). Форми малювати в CSS за розмірами; кольори й розміри
+  знімати зі скріншота (Pillow: `python3 -I`, читати піксельні значення) і позначати в MDX як «потребує підтвердження».
+  Так зроблено для `AudioPlayer` (стовпчики візуалізатора, неактивний трек `--color-headlines-alpha-22`).
+- Візуальна перевірка справжнього компонента: `esbuild` бандлить entry з `renderToStaticMarkup`
+  (`NODE_PATH=$PWD/node_modules npx esbuild entry.tsx --bundle --platform=node --jsx=automatic --loader:.css=empty`),
+  потім HTML + `src/tokens/build/tokens.css` + `dist/style.css` (після `vite build`) → headless Chromium.
+  Висоту `--window-size` ставити більшою за потрібну (~+100px), інакше знімок обрізається.
+- Власні пропи не повинні збігатися з HTML-атрибутами: `onVolumeChange`, `title`, `onChange`, `defaultValue` — `Omit`-ити (tsc це ловить).
+- Радіо в кількох інстансах на одній сторінці мусять мати унікальний `name` (`useId`), інакше браузер дозволяє лише одну вибрану.
+- Атом, який задає свій `color` на `.ds-checkbox` / `.ds-icon`, перебиває успадкування: у молекулі ставити `color: inherit` або
+  підвищувати специфічність (`.ds-molecule .ds-icon`). Це вже траплялось із `Checkbox` і `Icon` (розмір через `--ds-icon-size`).
+- Перевизначення атомів робити лише всередині молекули (наприклад, gap `Checkbox` 4px у `RadioGroupCard`) і писати це в Figma notes.
+- Іконка без назви у Figma: порівняти кандидатів окремим рендером (так `filter-light` виявилась повзунками, а потрібна `filter-dark`).

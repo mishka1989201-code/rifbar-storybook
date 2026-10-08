@@ -1,0 +1,134 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as DropdownStories from './Dropdown.stories';
+
+<Meta of={DropdownStories} />
+
+# Dropdown
+
+The menu panel that opens from a trigger: a list of options (plain, with radio or checkbox, with or without search), a notifications panel and the user menu.
+Implements the Figma component set [`Dropdown`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=32-55784) — 8 `Style` values that differ only in their rows, so **one component** with `variant`, `control` and `searchable`.
+
+It draws **only the panel**. Opening, positioning, outside-click and `Esc` belong to the trigger ([FilterField](?path=/docs/atoms-inputfield--docs), [UserDropdown](?path=/docs/molecules-userdropdown--docs)…).
+
+<Canvas of={DropdownStories.Default} />
+<Controls of={DropdownStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Style` | Code | Notes |
+|---|---|---|
+| `Standart` | `variant="list"` `control="none"` | selected row = Primary Blue Dark fill, white text |
+| `Radio Button` | `control="radio"` | radio on the right; selected row white, Headlines text |
+| `Checkbox` | `control="checkbox"` | multi-select; `value` is an array |
+| `Standart & Search` | `searchable` | `SearchField` on top filters the rows |
+| `Radio Button & Search` | `control="radio"` + `searchable` | |
+| `Checkbox & Search` | `control="checkbox"` + `searchable` | |
+| `Notification` | `variant="notifications"` | rows with a Warning icon, “See all ›” |
+| `User Dropdown` | `variant="user"` | name, e-mail, divider, actions |
+| `Dropdown` node `7061:44267` → `Property 1=SortBy` | `maxRows={4}` | list scrolls under the `Scrollbar` (`dropdown`); 4 rows = 154px |
+| `Property 1=Default` (FilterField open + radio list) | story `WithFilterTrigger` | trigger = `FilterField open`, panel = `control="radio"` |
+| `Property 1=User` (panel + user trigger) | story `WithUserTrigger` | trigger = `UserDropdown open` |
+| row hover (BG Color row) | `:hover` / `option.forceHover` | preview-only `forceHover` |
+
+Panel widths: 180px (list), 204px (with search), 300px (notifications, user) — `max-width: 100%`.
+
+## When to use
+
+- ✅ Choosing from a short list (status, filter, person), notifications under the bell, the user menu under the avatar.
+
+## When NOT to use
+
+- ❌ A rows-per-page selector — [ShowSelect](?path=/docs/molecules-showselect--docs). A list taller than ~8 rows without search — add `searchable`.
+
+## Variants, states and edge cases
+
+<Canvas of={DropdownStories.RadioButton} />
+<Canvas of={DropdownStories.Checkbox} />
+<Canvas of={DropdownStories.StandartAndSearch} />
+<Canvas of={DropdownStories.RadioButtonAndSearch} />
+<Canvas of={DropdownStories.CheckboxAndSearch} />
+<Canvas of={DropdownStories.Notification} />
+<Canvas of={DropdownStories.UserDropdown} />
+<Canvas of={DropdownStories.NothingSelected} />
+<Canvas of={DropdownStories.DisabledOption} />
+<Canvas of={DropdownStories.InteractiveCheckbox} />
+<Canvas of={DropdownStories.LongLabels} />
+<Canvas of={DropdownStories.EmptySearch} />
+<Canvas of={DropdownStories.LongNotifications} />
+<Canvas of={DropdownStories.NoNotifications} />
+<Canvas of={DropdownStories.SortBy} />
+<Canvas of={DropdownStories.FewerRowsThanMax} />
+<Canvas of={DropdownStories.WithFilterTrigger} />
+<Canvas of={DropdownStories.WithSortTrigger} />
+<Canvas of={DropdownStories.WithUserTrigger} />
+<Canvas of={DropdownStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws the hover row with `BG Color` (`Standart`) or `rgba(245,246,248,.8)` (`Radio Button` / `Checkbox`); in code both use `--color-bg` (`#F6F8FC`), the difference is not visible.
+- In `Notification` the first row has the `BG Color` fill — read as **unread** (`unread`); Figma does not say what it means. **To be confirmed by a designer.**
+- The divider in `User Dropdown` is an SVG line whose colour could not be read (asset download returns 403); `--color-stroke-light-v2` is assumed.
+- The e-mail in `User Dropdown` is Hover Blue `#6368DF` (as in Figma), which is below 4.5:1 on white.
+- Not designed, AI-defined: the empty state of a search (“Nothing found”), disabled option (20 %), keyboard focus ring (`--shadow-focus`), pressing rows in `Notification` (shown as buttons only when `onNotificationClick` is passed), the empty `Notification` panel (only “See all”). Dark theme not designed — light values are used.
+- Notification icon: the same unnamed warning glyph as in `NotificationLine`, matched to `warning-v2` and coloured Warning.
+- Figma draws the panel with a `drop-shadow` filter; the code uses `box-shadow: var(--shadow-tooltip)` (same six layers).
+
+- Node `7061:44267` is a second Figma set of the same dropdowns **with their triggers**; only the panels are the `Dropdown`. The scrolling list is new: `maxRows` wraps the rows in `Scrollbar variant="dropdown"` (3px track `Stroke Light V1`, thumb `Text`). In Figma the scrollbar overlays the rows at the panel edge; in code it takes 3px of the row width.
+- The sort trigger is the 37×37 outline `Button` with the `sort` icon (Figma: fill `#F1F2F9`, stroke `#CBC8DB`; the icon is an unnamed raster asset, matched by look — to be confirmed). Figma shows its default state only; `aria-expanded` is the AI-defined open state.
+- Figma draws the User panel above its trigger (the menu opens upwards in the header); positioning is left to the parent.
+- Not designed, AI-defined: keyboard focus on the scrolling list (`tabIndex=0` from `Scrollbar`, `--shadow-focus` on rows).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | panel background, selected row (radio / checkbox) | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-stroke-light-v1` / `--border-width-sm` | panel border, notification row lines | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 (colorBorders) |
+| `--radius-sm` / `--radius-xs` | panel / row radius | `5px` / `3px` | Existing tokens.json · Figma: corner radius 5 / 3 |
+| `--shadow-tooltip` | panel shadow | six-layer shadow | Existing tokens.json · Figma: Tooltip Shadow |
+| `--color-bg` | hover row, unread notification | `#F6F8FC` | Existing tokens.json · Figma: BG Color |
+| `--color-primary-blue-dark` | selected row (Standart), hover text, notification text | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--color-grey-dark` | default row text | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--color-headlines` | selected row text (radio / checkbox), “See all” | `#4549A1` | Existing tokens.json · Figma: Headlines |
+| `--color-hover-blue` | e-mail | `#6368DF` | Existing tokens.json · Figma: Hover Blue |
+| `--color-warning` | notification icon | `#F68F57` | Existing tokens.json · Figma: Warning |
+| `--color-secondary-grey` | search placeholder (SearchField atom), empty text | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey; empty text AI-defined |
+| `--color-stroke-light-v2` | User Dropdown divider | `#D8E2EE` | AI-defined use: line colour not readable (asset 403) |
+| `--font-size-small` / `--font-line-height-small` | rows, “See all” | `14px` / `21px` | Existing tokens.json · Figma: Body/Small Regular / Medium |
+| `--font-size-mini` / `--font-line-height-mini` | notification text | `12px` / `18px` | Existing tokens.json · Figma: Body/Mini Medium |
+| `--font-weight-regular` / `--font-weight-medium` | rows / notification text, “See all” | `400` / `500` | Existing tokens.json · Figma: Body/Small Regular, Medium |
+| `--spacing-2` / `--spacing-4` / `--spacing-8` | gap between rows / panel padding, icon gap / row padding | `2` / `4` / `8px` | Existing tokens.json · Figma: gap 2, padding 4, padding 8 |
+| `--size-dropdown` / `--size-dropdown-search` / `--size-dropdown-wide` | panel width | `180px` / `204px` / `300px` | **New** · Figma: Dropdown widths |
+| `--size-scrollbar-thin` / `--color-text` / `--color-stroke-light-v1` | scrolling list scrollbar | `3px` / thumb / track | Existing tokens.json · Figma: Scrollbar.DropdownAndPopUp (via `Scrollbar`) |
+| `--shadow-focus` / `--opacity-disabled` | focus ring / disabled option | — | AI-defined use: not drawn in Figma, as in the other atoms |
+
+## Props
+
+<ArgTypes of={DropdownStories} />
+
+## Code example
+
+```tsx
+import { Dropdown } from 'rifbar-ds';
+
+<Dropdown
+  control="checkbox"
+  searchable
+  options={[
+    { value: 'david', label: 'David Schwimmer' },
+    { value: 'matthew', label: 'Matthew Perry' },
+  ]}
+  value={selected}
+  onChange={(v) => setSelected(v as string[])}
+/>
+
+<Dropdown variant="notifications" notifications={items} onSeeAll={openAll} />
+<Dropdown variant="user" name="David Schwimmer" email="david@example.com" onAction={handleAction} />
+```
+
+## Accessibility
+
+- `control="none"`: `role="listbox"` with `role="option"` rows (`aria-selected`, Enter / Space). `radio` / `checkbox`: native inputs from the `Checkbox` atom in a `radiogroup` / `group`; radios of one panel share a generated `name`.
+- `variant="user"`: `role="menu"` with `menuitem` buttons. The trigger should set `aria-haspopup` / `aria-expanded` and handle `Esc`.
+- Rows are 37px high and the 16px radio / checkbox are small targets — below the 44px touch target, kept as designed.
+- Grey Dark `#5D6E82` rows pass 4.5:1; Secondary Grey `#A7A4B7` (search placeholder, empty text) and Hover Blue `#6368DF` (e-mail, about 4:1) are below the text contrast target — kept as designed. Disabled at 20 % is below 3:1.

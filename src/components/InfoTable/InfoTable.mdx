@@ -1,0 +1,86 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as InfoTableStories from './InfoTable.stories';
+
+<Meta of={InfoTableStories} />
+
+# InfoTable
+
+A white panel with columns of caption / value rows — shipment details, order data. Implements the Figma component [`InfoTable/V2`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=112-32328) (two columns, “Information 1” and “Information 2”).
+The rows are the existing [`RowInfoBlock variant="line"`](?path=/docs/molecules-rowinfoblock--docs) (Figma `Info Line`), nothing is redrawn.
+
+<Canvas of={InfoTableStories.Default} />
+<Controls of={InfoTableStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `InfoTable/V2` | `<InfoTable columns={[…]}>` | white panel, padding 32 / 16 |
+| `Information 1`, `Information 2` | `columns[0]`, `columns[1]` | arrays of `{ label, value }` |
+| `Info Line 1…8`, `RowInfoBlock` | `RowInfoBlock variant="line"` | caption Headings/h6 Medium Secondary Grey, value Body/Standard Primary Blue Dark |
+| pr 28 + pl 28 between columns | `gap: --spacing-56` | one gap instead of two paddings |
+| `Information 2` width 560px | `--size-info-table-column` | flex-basis; columns share the width and wrap under each other when narrow |
+
+## When to use
+
+- ✅ Read-only details of one entity in 1–3 columns of caption / value pairs.
+
+## When NOT to use
+
+- ❌ Editable data — use `LabeledField`. ❌ Tabular data with many columns — use the table molecules.
+- ❌ Short pairs at the two edges of a card — use `InfoClient` or `RowInfoBlock variant="pair"`.
+
+## Variants, states and edge cases
+
+<Canvas of={InfoTableStories.SingleColumn} />
+<Canvas of={InfoTableStories.ThreeColumns} />
+<Canvas of={InfoTableStories.Empty} />
+<Canvas of={InfoTableStories.LongValues} />
+<Canvas of={InfoTableStories.Narrow} />
+<Canvas of={InfoTableStories.AllVariants} />
+
+## Figma notes
+
+- Figma has two columns only; one and three columns are **AI-defined** (same column width).
+- In Figma the last row of each column has no line; rows 7 and 8 of “Information 1” and row 7 of “Information 2” are drawn without it too — read as a design slip: the code draws the line under every row except the last one of a column.
+- “Information 2” has an 8px gap between rows, “Information 1” none. The code uses none (the shared `RowInfoBlock` rhythm).
+- “Information 1” duplicates the row “Delivery services — $160” (rows 7 and 8): placeholder data, kept in the story.
+- A long value wraps (Figma “Address from”); `RowInfoBlock` alone would cut it with an ellipsis, `InfoTable` overrides that.
+- The Figma node has a light bottom line under the whole panel — a frame edge, not drawn. Dark theme not designed.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | panel background | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--spacing-32` / `--spacing-16` | panel padding (vertical / horizontal) | `32` / `16px` | Existing tokens.json · Figma: py 32, px 16 |
+| `--spacing-56` | gap between columns | `56px` | Existing tokens.json · Figma: pr 28 + pl 28 |
+| `--size-info-table-column` | column basis | `560px` | **New** · Figma: InfoTable/V2 → Information 2 width. Added 2026-10-09 |
+| `--color-stroke-light-v2` / `--border-width-sm` | line under a row | `#D8E2EE` / `1px` | Existing tokens.json · Figma: Stroke Light V2 (via `RowInfoBlock`) |
+| `--color-secondary-grey` | caption | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey (via `RowInfoBlock`) |
+| `--color-primary-blue-dark` | value | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark (via `RowInfoBlock`) |
+| `--font-size-h6` / `--font-line-height-h6` / `--font-weight-medium` | caption | `16px` / `24px` / `500` | Existing tokens.json · Figma: Headings/h6 Medium (via `RowInfoBlock`) |
+| `--font-size-standard` / `--font-line-height-standard` / `--font-weight-regular` | value | `16px` / `24px` / `400` | Existing tokens.json · Figma: Body/Standart (via `RowInfoBlock`) |
+| `--spacing-8` / `--spacing-16` | row padding / caption–value gap | `8` / `16px` | Existing tokens.json · Figma: py 8, gap 16 (via `RowInfoBlock`) |
+
+## Props
+
+<ArgTypes of={InfoTableStories} />
+
+## Code example
+
+```tsx
+import { InfoTable } from 'rifbar-ds';
+
+<InfoTable
+  columns={[
+    [{ label: 'Warehouse from', value: 'Chongqing #3' }, { label: 'Status', value: 'In delivery' }],
+    [{ label: 'Start date', value: '24.08.2023' }],
+  ]}
+/>
+```
+
+## Accessibility
+
+- The rows are plain `div`/`span`; for screen readers a description list (`dl`) would be better — not done to stay 1:1 with `RowInfoBlock`.
+- Secondary Grey `#A7A4B7` captions on white are below 3:1 contrast — kept as designed.

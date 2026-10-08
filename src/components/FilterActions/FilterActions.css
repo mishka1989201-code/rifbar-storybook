@@ -1,0 +1,20 @@
+/* FilterActions — every value references a token from src/tokens/tokens.json.
+   Filter button = Button atom, search = SearchField atom (mobile, 40px). */
+
+.ds-filter-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-24);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Figma: label and icon are Headlines (Button outline is Primary Blue Dark) and the badge is Headlines. */
+.ds-filter-actions .ds-filter-actions__filter {
+  color: var(--color-headlines);
+}
+
+.ds-filter-actions .ds-filter-actions__filter .ds-button__counter {
+  background-color: var(--color-headlines);
+}

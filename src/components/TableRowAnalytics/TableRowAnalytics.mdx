@@ -1,0 +1,112 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableRowAnalyticsStories from './TableRowAnalytics.stories';
+
+<Meta of={TableRowAnalyticsStories} />
+
+# TableRowAnalytics
+
+A row of an analytics table: a white 10px card whose cells are spread across the width. One flexible component for the three Figma rows:
+[`Table Row Analytics 1`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3697-291903) (image + name + numbers, under a header row),
+[`Table Row Analytics 2`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=4632-532267) and [`3`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=4632-585231)
+(a 384px card where every cell has a small caption; 2 and 3 are the same card). The rows differ only in cells, so the cells are data.
+The matching header rows are the new presets `productsAnalytics` ([`Table Header 6`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3697-291914))
+and `paymentsAnalytics` ([`Table Header 7`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=4631-289272)) of [TableHeader](?path=/docs/molecules-tableheader--docs).
+
+<Canvas of={TableRowAnalyticsStories.Default} />
+<Controls of={TableRowAnalyticsStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| Row card (White, 1px Stroke Light V1, radius 10, Table Row shadow, padding 12 / 16, `justify-between`) | `.ds-table-row-analytics` |
+| `Table Row Analytics 1`: `imageCards` 32px (cell 47) + name Semi-Bold (cell 157), group with gap 32 | cells with `group`: an `ImageCard size="sm"` and a `strong` text |
+| `18` (97), `12` (53), `$1311` (78), Body/Small Medium, right-aligned | cells with `width` and `align: 'end'` |
+| `Table Row Analytics 2 / 3`: caption (Body/Micro Medium, Secondary Grey) over the value | cells with `label`; the first value is `strong` |
+| Analytics 3 wraps (gap-y 10) | `flex-wrap` with a 10px row gap — always on |
+
+## When to use
+
+- ✅ Rows of an analytics / report table: a header row (`TableHeader`) and rows with the same column widths.
+- ✅ A compact card of a few labelled values for narrow screens.
+
+## When NOT to use
+
+- ❌ Products table with the dark header — use [TableProductsRow](?path=/docs/molecules-tableproductsrow--docs).
+- ❌ A row that expands or has a toggle — use [TableRowExpandable](?path=/docs/molecules-tablerowexpandable--docs).
+
+## Variants and edge cases
+
+<Canvas of={TableRowAnalyticsStories.WithCaptions} />
+<Canvas of={TableRowAnalyticsStories.Payments} />
+<Canvas of={TableRowAnalyticsStories.LongName} />
+<Canvas of={TableRowAnalyticsStories.WithoutPhoto} />
+<Canvas of={TableRowAnalyticsStories.NarrowContainer} />
+<Canvas of={TableRowAnalyticsStories.Table} />
+<Canvas of={TableRowAnalyticsStories.PaymentsTable} />
+<Canvas of={TableRowAnalyticsStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the three rows and two header rows, no hover or selected state.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Hover / selected / focus: none (the row is not interactive).
+- Long names: a cell with `truncate` is cut with an ellipsis; without it the text is not cut (a date a few pixels wider than its 77px column simply overflows into the gap).
+- Image without photo (placeholder from `ImageCard`), narrow container (cells wrap), dark theme (not designed — light values are used).
+
+Assumed / normalised:
+
+- Column widths (47 / 157 / 97 / 53 / 78 and 77 / 97 / 78) are the Figma widths, passed as `width` per cell. Keep them the same as in the header row (the `TableHeader` presets carry them) so the columns line up. Figma sets them on frames that are narrower than the text of some values; they are kept as drawn.
+- In Figma the numbers under `New orders` are right-aligned while the header label is left-aligned — kept as drawn (`align: 'end'`); needs designer confirmation.
+- `Table Row Analytics 2` is a wrapper frame around the same card as `3` — one variant.
+- The payments row without captions (under `Table Header 7`) is not drawn in Figma; it is the same three cells with the Header 7 widths (AI-defined).
+- The Figma image is a product photo: use `ImageCard` with a real `src`; the stories draw a small bottle inline.
+- Figma line height of the Semi-Bold name and the caption row is `normal` / 15px; the tokens 21px / 15px are used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | row background | `#FFFFFF` | Existing tokens.json · Figma: white |
+| `--color-stroke-light-v1` / `--border-width-sm` | row stroke | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--shadow-table-row` | row shadow | `0 4px 4px rgba(0,0,0,.05)` | Existing tokens.json · Figma: Table Row |
+| `--radius-lg` | row radius | `10px` | Existing tokens.json · Figma: radius 10 |
+| `--spacing-12` / `--spacing-16` | padding | 12 / 16px | Existing tokens.json · Figma: py 12, px 16 |
+| `--spacing-32` | gap inside a group | `32px` | Existing tokens.json · Figma: gap 32 |
+| `--spacing-10` | gap between wrapped lines | `10px` | Existing tokens.json · Figma: gap-y 10 |
+| `--color-text` | values | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | values | 14 / 21 / 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--font-weight-semibold` | `strong` values | `600` | Existing tokens.json · Figma: Semi-Bold Headings/h7 |
+| `--color-secondary-grey` | captions | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey |
+| `--font-size-micro`, `--font-line-height-micro` | captions | 10 / 15px | Existing tokens.json · Figma: Body/Micro Medium |
+
+No new tokens. The image is the `ImageCard` atom (32px, `sm`).
+
+## Props
+
+<ArgTypes of={TableRowAnalyticsStories} />
+
+## Code example
+
+```tsx
+import { ImageCard, TableHeader, TableRowAnalytics } from 'rifbar-ds';
+
+<TableHeader preset="productsAnalytics" onSort={setSort} />
+<TableRowAnalytics
+  cells={[
+    { id: 'image', value: <ImageCard size="sm" alt="" src={photo} />, width: 47, group: 'lead' },
+    { id: 'name', value: 'Orion (de-08) - 2ml', width: 157, strong: true, truncate: true, group: 'lead' },
+    { id: 'newOrders', value: '18', width: 97, align: 'end' },
+    { id: 'done', value: '12', width: 53, align: 'end' },
+    { id: 'revenue', value: '$1311', width: 78, align: 'end' },
+  ]}
+/>
+```
+
+## Accessibility
+
+- The row has `role="row"` and each cell `role="cell"`, as the other table rows; put them in an element with `role="table"` together with the header row.
+- ⚠️ Kept as designed: the captions (Secondary Grey `#A7A4B7` on white, 10px) are 2.4:1 — below 3:1 and small.
+- Values are Color Text on white, 14.7:1.

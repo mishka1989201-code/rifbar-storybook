@@ -8,8 +8,9 @@ const meta = {
   component: RowInfoBlock,
   parameters: { layout: 'padded', design: { type: 'figma', url: FIGMA_URL } },
   argTypes: {
-    variant: { control: 'inline-radio', options: ['pair', 'line', 'cells'] },
+    variant: { control: 'inline-radio', options: ['pair', 'line', 'compact', 'stacked', 'cells'] },
     label: { control: 'text' },
+    description: { control: 'text' },
     value: { control: 'text' },
     cells: { control: 'object' },
   },
@@ -27,6 +28,21 @@ export const InfoLine: Story = {
   name: 'Info Line',
   args: { variant: 'line', label: 'Warehouse from', value: 'Chongqing #3' },
   decorators: [(Story) => <div style={{ maxWidth: 516 }}><Story /></div>],
+};
+
+/** Figma `Info Line` of `TicketInfo/V2` (node 400:199822). */
+export const Compact: Story = { args: { variant: 'compact', label: 'Requester:', value: 'David Schwimmer' } };
+
+/** Figma mobile `order-list__item` (node 1160:256434, 320px). */
+export const Stacked: Story = {
+  args: { variant: 'stacked', label: 'Astro', description: 'Banana Ice', value: '120' },
+  decorators: [(Story) => <div style={{ maxWidth: 320 }}><Story /></div>],
+};
+
+export const StackedLong: Story = {
+  name: 'Stacked / long text',
+  args: { variant: 'stacked', label: 'Astro Premium Edition Limited Series', description: 'Banana Ice with extra long flavour name', value: '12000' },
+  decorators: [(Story) => <div style={{ maxWidth: 240 }}><Story /></div>],
 };
 
 export const Cells: Story = {

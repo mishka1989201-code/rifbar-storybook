@@ -1,0 +1,105 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as AudioPlayerStories from './AudioPlayer.stories';
+
+<Meta of={AudioPlayerStories} />
+
+# AudioPlayer
+
+A card with an audio visualizer, elapsed / total time with a timeline, a play / pause button and a volume control.
+Implements the Figma frame [`Player - Time Tracker`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=5346-1491949).
+
+<Canvas of={AudioPlayerStories.Default} />
+<Controls of={AudioPlayerStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Player - Time Tracker` (radius 10, Cards Shadow) | `.ds-audio-player` | |
+| `Play Actions Menu` (white, bottom stroke Stroke Light V1, padding 16, gap 10) | same element | |
+| `Visualizer` 203×89 | `.ds-audio-player__visualizer` + `levels` | bars drawn in CSS |
+| “00:01 / 02:30” (Light Headings/h7, Headlines) | `currentTime`, `duration` | `mm:ss` |
+| `timeline` (211px, Headlines) | `input[type=range]` `--timeline` | `onSeek` |
+| `solid/pause` 32px | play / pause button | `playing`, `onPlayPause` |
+| `timeline` 41px + `solid/volume_up` 32px | `input[type=range]` `--volume` + `Icon volume-up` | `volume`, `onVolumeChange` |
+
+## When to use
+
+- ✅ Playing back a short audio recording (call, voice note) in a card or a side panel.
+
+## When NOT to use
+
+- ❌ Time tracking controls (Play / Stop, date, scale) — see [TimeTrackerBar](?path=/docs/molecules-timetrackerbar--docs). Long media with playlists — a full media player.
+
+## States and edge cases
+
+<Canvas of={AudioPlayerStories.Paused} />
+<Canvas of={AudioPlayerStories.Midway} />
+<Canvas of={AudioPlayerStories.Finished} />
+<Canvas of={AudioPlayerStories.FullVolume} />
+<Canvas of={AudioPlayerStories.Muted} />
+<Canvas of={AudioPlayerStories.Interactive} />
+<Canvas of={AudioPlayerStories.LongRecording} />
+<Canvas of={AudioPlayerStories.ZeroDuration} />
+<Canvas of={AudioPlayerStories.FewBars} />
+<Canvas of={AudioPlayerStories.NoVisualizer} />
+<Canvas of={AudioPlayerStories.Narrow} />
+<Canvas of={AudioPlayerStories.AllVariants} />
+
+## Figma notes
+
+- **Assets:** the Figma asset URLs (visualizer, timelines, icons) returned 403 through the proxy, so the shapes are drawn in CSS from the render. The bar heights (`DEFAULT_PLAYER_LEVELS`, 32 bars) and the 8px handle were measured on the Figma screenshot; the icons are the existing `pause` / `play` / `volume-up` at 32px.
+- Figma draws only the **playing** state (pause icon) with the handle at the start. Not designed, AI-defined: the `play` icon when paused; focus ring (`--shadow-focus`) on the button and handles; volume “muted” look (only the handle at the left); all bars stay dark (the visualizer does not show progress); dark theme — light values are used.
+- The inactive track colour has no Figma variable; it is `#D6D7EA`, read from the render and equal to Headlines at 22 %. **Needs confirmation.**
+- Figma width of the card is 338px; the code is 100% of the container, the visualizer (203px) stays centred and the timeline stretches.
+- The filter “Cards Shadow” is a `drop-shadow` in Figma; code uses `box-shadow: var(--shadow-card)`.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | card background | `#FFFFFF` | Existing tokens.json · Figma: White (fill) |
+| `--color-stroke-light-v1` / `--border-width-sm` | bottom stroke | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--radius-lg` | card radius | `10px` | Existing tokens.json · Figma: corner radius 10 |
+| `--shadow-card` | card shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Cards Shadow |
+| `--color-primary-blue-dark` | bars, icons, volume fill + handle | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark (Light) |
+| `--color-headlines` | time text, timeline fill + handle | `#4549A1` | Existing tokens.json · Figma: Headlines |
+| `--color-headlines-alpha-22` | inactive track | `rgba(69,73,161,.22)` | **New** · Figma: timeline inactive track (colour read from the render) |
+| `--font-size-h7` / `--font-line-height-h7` / `--font-weight-light` | time | `14px` / `21px` / `300` | Existing tokens.json · Figma: Light Headings/h7 |
+| `--spacing-16` / `--spacing-10` | card padding / gap | `16px` / `10px` | Existing tokens.json · Figma: padding 16, gap 10 |
+| `--spacing-4` | gap time parts, icon gap, track height | `4px` | Existing tokens.json · Figma: gap 4, timeline height 4 |
+| `--size-player-visualizer-width` / `-height` | visualizer | `203px` / `89px` | **New** · Figma: Visualizer 203×89 |
+| `--size-player-bar` | bar width, min bar height | `4px` | **New** · Figma: Visualizer bar (measured) |
+| `--size-player-handle` | range handle | `8px` | **New** · Figma: timeline handle (measured) |
+| `--size-player-volume-width` | volume range | `41px` | **New** · Figma: volume timeline 41px |
+| `--size-player-control` | pause / volume icon frame | `32px` | **New** · Figma: icon frame 32×32 |
+| `--radius-pill` / `--radius-round` / `--radius-sm` | bars, track / handle / button focus | — | Existing tokens.json · AI-defined use: fully rounded shapes |
+| `--shadow-focus` | focus ring | `0 0 4px 0 rgba(98,104,223,.7)` | AI-defined use: Figma has no focus; same as IconButton / Slider |
+
+## Props
+
+<ArgTypes of={AudioPlayerStories} />
+
+## Code example
+
+```tsx
+import { AudioPlayer } from 'rifbar-ds';
+
+<AudioPlayer
+  playing={playing}
+  currentTime={time}
+  duration={150}
+  volume={volume}
+  onPlayPause={() => setPlaying(!playing)}
+  onSeek={setTime}
+  onVolumeChange={setVolume}
+/>
+```
+
+The component is controlled: it does not play audio itself — drive `currentTime` / `playing` from your `<audio>` element.
+
+## Accessibility
+
+- Both ranges are native `<input type="range">` with `aria-label` (“Seek”, “Volume”); the button has `aria-label` “Play” / “Pause”. The visualizer is decorative (`aria-hidden`).
+- Controls are 32px (button) and 8px-high ranges — below the 44px touch target, kept as designed.
+- The inactive track (`#D6D7EA` on white) is about 1.4:1 contrast — kept as designed. Headlines `#4549A1` time text passes 4.5:1 but the Light (300) weight is thin.

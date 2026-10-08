@@ -1,0 +1,46 @@
+/* ChatHeader — every value references a token from src/tokens/tokens.json. */
+
+.ds-chat-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-16);
+  overflow: clip;
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  background: var(--color-white);
+  box-shadow: var(--shadow-header);
+  font-family: var(--font-family-base);
+}
+
+.ds-chat-header__title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 0;
+  color: var(--color-headlines);
+}
+
+.ds-chat-header__icon {
+  flex: none;
+}
+
+.ds-chat-header__text {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+  font-weight: var(--font-weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.ds-chat-header__quote {
+  margin: 0;
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}

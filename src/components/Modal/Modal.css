@@ -1,0 +1,135 @@
+/* Modal — every value references a token from src/tokens/tokens.json.
+   Close = IconButton atom, icon = Icon atom; footer buttons are passed in as Button atoms. */
+
+.ds-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--size-modal-desktop);
+  border-radius: var(--radius-modal);
+  background: var(--color-white);
+  color: var(--color-primary-blue-dark);
+  font-family: var(--font-family-base);
+}
+
+.ds-modal--mobile {
+  max-width: var(--size-modal-mobile);
+}
+
+.ds-modal--wide {
+  max-width: var(--size-modal-confirm);
+}
+
+/* ─── Header ────────────────────────────────────────────────────────── */
+.ds-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  padding: var(--spacing-24) var(--spacing-16) var(--spacing-16);
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}
+
+.ds-modal__title-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+  min-width: 0;
+}
+
+/* Figma: the icon is aligned to the first line of the title (padding-top 4), also when the title wraps. */
+.ds-modal__icon {
+  display: inline-flex;
+  flex: none;
+  padding-top: var(--spacing-4);
+}
+
+.ds-modal__title {
+  margin: 0;
+  font-size: var(--font-size-h4);
+  line-height: var(--font-line-height-h4);
+  font-weight: var(--font-weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.ds-modal__header .ds-icon-button {
+  flex: none;
+}
+
+/* ─── Body ──────────────────────────────────────────────────────────── */
+.ds-modal__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-16);
+  padding: var(--spacing-16);
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}
+
+.ds-modal__section--plain {
+  border-bottom: none;
+}
+
+.ds-modal__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--size-info-row-label), 1fr));
+  gap: var(--spacing-16);
+}
+
+.ds-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.ds-modal__label {
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ─── Footer ────────────────────────────────────────────────────────── */
+.ds-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-16);
+  padding: var(--spacing-16) var(--spacing-16) var(--spacing-24);
+  border-top: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}
+
+.ds-modal__footer > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* ─── Mobile: 20px title, 10px side padding, stacked full-width buttons of 12px padding ── */
+.ds-modal--mobile .ds-modal__header,
+.ds-modal--mobile .ds-modal__section,
+.ds-modal--mobile .ds-modal__footer {
+  padding-left: var(--spacing-10);
+  padding-right: var(--spacing-10);
+}
+
+.ds-modal--mobile .ds-modal__title-wrap {
+  flex: 1 1 0;
+}
+
+.ds-modal--mobile .ds-modal__title {
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+}
+
+.ds-modal--mobile .ds-modal__footer {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.ds-modal--mobile .ds-modal__footer > .ds-button {
+  flex: none;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+}

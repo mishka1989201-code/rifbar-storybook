@@ -1,0 +1,110 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ChatMessageStories from './ChatMessage.stories';
+
+<Meta of={ChatMessageStories} />
+
+# ChatMessage
+
+One message card of the chat: the text, the time under it, and — for received messages — the sender's avatar; sent messages have a tinted card
+and a double check after the time. Implements the Figma component set
+[`Message`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=7067-76889)
+(2 variants), composed from [Avatar](?path=/docs/atoms-avatar--docs) (`variant="chat"`) and [Icon](?path=/docs/atoms-icon--docs).
+
+<Canvas of={ChatMessageStories.Default} />
+<Controls of={ChatMessageStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Property 1=Recieved +Avatar +Time` | `direction="received"` (default) with `author` and `time` |
+| `Property 1=sent + Time & Check` | `direction="sent"` with `time` and `checked` |
+| `Chat Avatar` (28px, Hover Blue, initials) | `Avatar variant="chat"`, from `author` (or `avatarSrc`) |
+| `Recieved message` (white bubble, radius 4) | `.ds-chat-message__bubble` |
+| `Time` / `Time & Check` | `time`, `dateTime`, `checked` |
+| `Icons 16px` double check | `Icon check-double`, Hover Blue |
+| Frame: padding 16, radius 10, border 1, Cards Shadow, width 600 | `.ds-chat-message` (fills its container; the stories use 600px) |
+
+## When to use
+
+- ✅ One message in a conversation thread (order chat, ticket comments).
+
+## When NOT to use
+
+- ❌ System messages and alerts — use [Notification](?path=/docs/molecules-notification--docs).
+- ❌ The input for a new message — not designed yet.
+
+## Variants, states and edge cases
+
+<Canvas of={ChatMessageStories.Sent} />
+<Canvas of={ChatMessageStories.ReceivedWithPhoto} />
+<Canvas of={ChatMessageStories.ReceivedWithoutAvatar} />
+<Canvas of={ChatMessageStories.WithoutTime} />
+<Canvas of={ChatMessageStories.SentWithoutCheck} />
+<Canvas of={ChatMessageStories.ShortText} />
+<Canvas of={ChatMessageStories.LongText} />
+<Canvas of={ChatMessageStories.LongWordSent} />
+<Canvas of={ChatMessageStories.NarrowContainer} />
+<Canvas of={ChatMessageStories.Conversation} />
+<Canvas of={ChatMessageStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: one received and one sent message, both with time, 600px wide, with the text on two lines.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Received without avatar, without time, sent without check; photo avatar (the `Avatar` atom already supports it).
+- Long text (the card grows), long unbroken words (wrap with `overflow-wrap: anywhere`), narrow container.
+- Dark theme: not designed — the light values are used (`--color-white`, `--color-stroke-light-v1` do not change in dark).
+
+Assumed / normalised:
+
+- The double check colour has no variable (SVG asset); read from the render ≈ Hover Blue `#6368DF`. Needs confirmation.
+- The sent text has a 4px drop shadow (`0 4 2 rgba(0,0,0,.05)`) in Figma; it only shades the glyphs, is not visible in the render and was **not** reproduced.
+- The sent card is drawn with a `BG Color` border over a `Stroke Light V1` fill; kept as is.
+- Message text is raw black (`#000`) in Figma, not Color Text — kept as designed with a new token.
+- The time is a `<time>` element; `dateTime` is optional.
+- Figma asset downloads were not used; the check is the existing `check-double` icon (the Figma mask asset matches by look).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | received card and bubble | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-stroke-light-v1` | received border, sent fill | `#F1F2F9` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--color-bg` | sent border | `#F6F8FC` | Existing tokens.json · Figma: BG Color |
+| `--shadow-card` | card shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Cards Shadow |
+| `--radius-lg` | card radius | `10px` | Existing tokens.json · Figma: radius 10 |
+| `--radius-message` | bubble radius | `4px` | **New** · Figma: Recieved message corner radius |
+| `--color-black` | message text | `#000000` | **New** · Figma: raw black text, no variable |
+| `--color-grey-dark` | time | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--color-hover-blue` | check icon | `#6368DF` | AI-defined use: colour read from the render |
+| `--border-width-sm` | card border | `1px` | Existing tokens.json · Figma: border 1 |
+| `--spacing-16` / `--spacing-8` / `--spacing-4` | padding / avatar gap / time–check gap | 16 / 8 / 4px | Existing tokens.json · Figma: padding 16, gap 8, gap 4 |
+| `--font-size-small`, `--font-line-height-small` | message text | 14 / 21px | Existing tokens.json · Figma: Body/Small Regular |
+| `--font-size-mini`, `--font-line-height-mini` | time | 12 / 18px | Existing tokens.json · Figma: Body/Mini Regular |
+
+## Props
+
+<ArgTypes of={ChatMessageStories} />
+
+## Code example
+
+```tsx
+import { ChatMessage } from 'rifbar-ds';
+
+<ChatMessage author="David Schwimmer" time="11.54 am">
+  Hello! Is the order ready for shipping?
+</ChatMessage>
+
+<ChatMessage direction="sent" time="11.55 am" checked>
+  Yes, it ships today.
+</ChatMessage>
+```
+
+## Accessibility
+
+- The avatar has `role="img"` with the sender's name; the check icon has the accessible name "Read". Wrap a list of messages in an element with
+  `role="log"` and an `aria-label` so new messages are announced.
+- ⚠️ Kept as designed: the time (Grey Dark `#5D6E82`, 12px) is 4.7:1 on the sent card and 5.2:1 on white — passes AA; the double check in Hover Blue on `#F1F2F9` is 4.1:1 (non-text, passes 3:1).

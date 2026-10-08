@@ -1,0 +1,86 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ChatHeaderStories from './ChatHeader.stories';
+
+<Meta of={ChatHeaderStories} />
+
+# ChatHeader
+
+The bar on top of a chat: an icon and the subject of the conversation, with a quote of the first message under it. Implements the Figma component
+[`chat header`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=139-41695). Pairs with [ChatMessage](?path=/docs/molecules-chatmessage--docs) and [MessageBox](?path=/docs/molecules-messagebox--docs).
+
+<Canvas of={ChatHeaderStories.Default} />
+<Controls of={ChatHeaderStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Icons 24px` (chat bubble) | `icon` (24px set), default `chat`, Headlines |
+| Title — Semi-Bold Headings/h5, Headlines | `title` |
+| Quote — Body/Mini Medium, Grey Dark | `quote` (the curly quotes are added by the component) |
+| Frame: padding 16, gap 8, border-bottom 1 Stroke Light V2, Header Shadow, width 893 | `.ds-chat-header` (fills its container; the stories use 893px) |
+
+## When to use
+
+- ✅ The top of a chat or ticket conversation: subject + the message it started from.
+
+## When NOT to use
+
+- ❌ A page title — use [PageHeader](?path=/docs/molecules-pageheader--docs).
+- ❌ A card title — use [CardHeader](?path=/docs/molecules-cardheader--docs).
+
+## Variants and edge cases
+
+<Canvas of={ChatHeaderStories.WithoutQuote} />
+<Canvas of={ChatHeaderStories.LongTitle} />
+<Canvas of={ChatHeaderStories.LongQuote} />
+<Canvas of={ChatHeaderStories.LongWord} />
+<Canvas of={ChatHeaderStories.NarrowContainer} />
+<Canvas of={ChatHeaderStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: one header with a one-line title and a one-line quote.
+
+Not drawn, defined by analogy (AI-defined): header without a quote, long title / quote / unbroken word (wrap, `overflow-wrap: anywhere`), narrow container,
+dark theme (not designed — light values are used).
+
+Assumed / normalised:
+
+- The icon is the existing 24px `chat` icon, matched by look (Figma gives a raw SVG asset). Needs designer confirmation.
+- The shadow points up (`0 -3px 25px`, **Header Shadow**) although the bar has its line below; kept as designed.
+- The title is an `<h2>`; the Figma frame does not say which heading level is right.
+- Figma asset downloads were not used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-stroke-light-v2` | bottom line | `#D8E2EE` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--border-width-sm` | bottom line width | `1px` | Existing tokens.json · Figma: border 1 |
+| `--shadow-header` | shadow | `0 -3px 25px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Header Shadow |
+| `--spacing-16` / `--spacing-8` | padding / gaps | 16 / 8px | Existing tokens.json · Figma: padding 16, gap 8 |
+| `--color-headlines` | icon, title | `#4549A1` | Existing tokens.json · Figma: Headlines |
+| `--font-size-h5`, `--font-line-height-h5`, `--font-weight-semibold` | title | 20 / 30 / 600 | Existing tokens.json · Figma: Semi-Bold Headings/h5 |
+| `--color-grey-dark` | quote | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--font-size-mini`, `--font-line-height-mini`, `--font-weight-medium` | quote | 12 / 18 / 500 | Existing tokens.json · Figma: Body/Mini Medium |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={ChatHeaderStories} />
+
+## Code example
+
+```tsx
+import { ChatHeader } from 'rifbar-ds';
+
+<ChatHeader title="Help please with Contract." quote="Korem ipsum dolor sit amet…" />
+```
+
+## Accessibility
+
+- A `<header>` with an `<h2>`; the icon is decorative (`aria-hidden`).
+- Contrast: Headlines on white 7.7:1, Grey Dark on white 5.2:1.

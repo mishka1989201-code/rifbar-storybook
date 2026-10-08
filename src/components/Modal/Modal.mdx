@@ -1,0 +1,128 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ModalStories from './Modal.stories';
+
+<Meta of={ModalStories} />
+
+# Modal
+
+The dialog surface of a form pop-up: header with an icon, title and close button, body sections separated by lines, footer with actions.
+Implements the Figma frame [`Pop-up warehouse`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7058-30262) (`Property 1` Desktop / Mobile). It is composed of [IconButton](?path=/docs/atoms-iconbutton--docs) (close), [Icon](?path=/docs/atoms-icon--docs), [InputField](?path=/docs/atoms-inputfield--docs) and [Button](?path=/docs/atoms-button--docs).
+
+It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centring, scroll lock, focus trap and `Esc` handling are up to the page.
+
+<Canvas of={ModalStories.Default} />
+<Controls of={ModalStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Property 1=Desktop` (450px) | `size="desktop"` (default) | title Semi-Bold h4 (24px) |
+| `Add Product Modal` (630px) | `size="wide"` | two-column rows (`ModalRow`), `ModalSection divider={false}`, `FileDropzone size="large"` |
+| `Property 1=Mobile` (340px) | `size="mobile"` | title Semi-Bold h5 (20px), 10px side padding, buttons stacked |
+| `modal__header` | `.ds-modal__header` | padding 24 16 16, bottom line Stroke Light V1 |
+| `Title` icon (Plus 24px) + text | `icon` (default `plus-box`) + `title` | |
+| `Icon Button` (40px, Secondary Grey stroke, xmark 24) | `IconButton kind="close"` | `onClose` |
+| `modal__body` | `ModalSection` | padding 16, gap 16, bottom line |
+| `Name / Title` + `InputField` | `ModalField` + `InputField` / `FilterField` | caption Body/Small Medium, gap 4 |
+| `Buttons` | `actions` | `Button variant="light"` “Close” + `variant="dark"` “Accept” / “Save” |
+
+## When to use
+
+- ✅ Short forms and confirmations that interrupt the flow: create / edit a warehouse, a category, a user.
+
+## When NOT to use
+
+- ❌ Long forms with many steps — use a page. Passive messages — use [Notification](?path=/docs/molecules-notification--docs).
+
+## Variants and edge cases
+
+<Canvas of={ModalStories.Mobile} />
+<Canvas of={ModalStories.WithoutIcon} />
+<Canvas of={ModalStories.WithoutFooter} />
+<Canvas of={ModalStories.Interactive} />
+<Canvas of={ModalStories.LongTitle} />
+<Canvas of={ModalStories.LongTitleMobile} />
+<Canvas of={ModalStories.AddEmployee} />
+<Canvas of={ModalStories.AddProduct} />
+<Canvas of={ModalStories.AddProductNarrow} />
+<Canvas of={ModalStories.InvalidField} />
+<Canvas of={ModalStories.NarrowContainer} />
+<Canvas of={ModalStories.AllVariants} />
+
+## Figma notes
+
+- Figma `Add Product Modal` ([node 682:287127](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=682-287127)) is this same dialog (450px, `Plus` icon, h4 title, one `Filter` field, Close / Save) — no new component; see the `AddEmployee` story. The frame name says “Product” but the content is about adding an employee to a warehouse.
+- Figma `Add Product Modal` ([node 73:42643](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=73-42643)) is the same dialog at 630px with a two-column form. It adds `size="wide"`, `ModalRow` (grid of equal columns, 16px gap), `ModalSection divider={false}` (this frame has no line under the body) and `FileDropzone size="large"`. Its icon, title and close button are the same.
+- In that frame only the `Name` field has the Stroke Input border; the other five fields have Stroke Light V2. The atoms' own border (Stroke Input, as the Figma `InputField` notes say) is used for all of them — needs designer confirmation. The same Stroke Light V2 shows up in other frames (see `TableRowQuantity`).
+- `ModalRow` stacks its fields when the dialog is narrower than two 200px columns (not designed — AI-defined).
+- Figma shows only the surface, no overlay, no shadow and no open / close animation; none were added.
+- Figma has a bottom line on the last body section **and** a top line on the footer (two 1px lines in a row); kept as drawn.
+- The mobile footer buttons are 12px high-padded (`12 16`), which does not match any `Button` size (small / medium 8, big 16); `Modal` overrides the padding for buttons inside the mobile footer.
+- The desktop title is `nowrap` in Figma; in code it wraps (`overflow-wrap: anywhere`), the close button keeps its 40px.
+- The title icon is aligned to the first line of the title with a 4px top padding (as in Figma `Add Product Modal`, where the title wraps); before this it was centered against the whole title.
+- Icon: the Figma `Plus` (dark rounded square) matches the existing `plus-box` 24px.
+- Not designed, AI-defined: a modal without icon or without footer, the invalid field state (from `InputField`), focus ring on the close button (from `IconButton`), the modal at narrow widths (`width: 100%` with the Figma widths as `max-width`). Dark theme not designed — light values are used.
+- Figma notes on the `InputField`: Static = Stroke Input border, Grey Dark placeholder — the atom already does this.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | dialog background | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--radius-modal` | dialog radius | `16px` | **New** · Figma: modal corner radius 16 |
+| `--size-modal-desktop` / `--size-modal-mobile` | max width | `450px` / `340px` | **New** · Figma: Property 1 Desktop / Mobile |
+| `--size-modal-confirm` | max width, `size="wide"` | `630px` | Existing tokens.json (same value, added for `ConfirmModal`) · Figma: Add Product Modal width 630 |
+| `--size-info-row-label` | minimal column of a `ModalRow` before it stacks | `200px` | AI-defined use: reused value, not in Figma |
+| `--color-stroke-light-v1` / `--border-width-sm` | lines between header, sections, footer | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--color-primary-blue-dark` | title, icon | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--font-size-h4` / `--font-line-height-h4` | desktop title | `24px` / `36px` | Existing tokens.json · Figma: Semi-Bold Headings/h4 |
+| `--font-size-h5` / `--font-line-height-h5` | mobile title | `20px` / `30px` | Existing tokens.json · Figma: Semi-Bold Headings/h5 |
+| `--font-weight-semibold` / `--font-weight-medium` | title / field caption | `600` / `500` | Existing tokens.json · Figma: Semi-Bold Headings, Body/Small Medium |
+| `--color-text` | field caption | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--font-size-small` / `--font-line-height-small` | field caption | `14px` / `21px` | Existing tokens.json · Figma: Body/Small Medium |
+| `--spacing-24` / `--spacing-16` | header top / footer bottom, other paddings and gaps | `24px` / `16px` | Existing tokens.json · Figma: pt 24, pb 24, padding 16, gap 16 |
+| `--spacing-10` | mobile side padding | `10px` | Existing tokens.json · Figma: px 10 |
+| `--spacing-12` | mobile footer button padding | `12px` | Existing tokens.json · Figma: py 12 |
+| `--spacing-8` | gap between title and close button | `8px` | Existing tokens.json · Figma: header gap 8 |
+| `--spacing-4` | field caption gap, mobile icon offset | `4px` | Existing tokens.json · Figma: gap 4, pt 4 |
+| Close button, fields, buttons | — | — | Existing atoms: `IconButton` (Secondary Grey stroke), `InputField` (Stroke Input `#8A87A0`, Grey Dark placeholder), `Button` (Secondary Light / Primary Blue Dark) |
+
+## Props
+
+<ArgTypes of={ModalStories} />
+
+## Code example
+
+```tsx
+import { Button, FilterField, InputField, Modal, ModalField, ModalSection } from 'rifbar-ds';
+
+<Modal
+  title="Create warehouse"
+  onClose={close}
+  actions={
+    <>
+      <Button variant="light" iconLeft="xmark" onClick={close}>Close</Button>
+      <Button variant="dark" iconLeft="tick" onClick={save}>Accept</Button>
+    </>
+  }
+>
+  <ModalSection>
+    <ModalField label="Warehouse name" htmlFor="name">
+      <InputField id="name" placeholder="Enter the name of the warehouse" />
+    </ModalField>
+  </ModalSection>
+  <ModalSection>
+    <ModalField label="Manager" htmlFor="manager">
+      <FilterField id="manager" placeholder="Choose a warehouse manager" />
+    </ModalField>
+  </ModalSection>
+</Modal>
+```
+
+## Accessibility
+
+- `role="dialog"` labelled by the title (`aria-labelledby`). Add `aria-modal="true"`, a focus trap, focus return and `Esc` to close in the page that opens it.
+- `ModalField` renders a real `<label>`; pass `htmlFor` with the control `id`.
+- The close button is a 40px native button with `aria-label` “Close” — below the 44px touch target, kept as designed; fields are 32px high.
+- Secondary Grey `#A7A4B7` stroke of the close button on white is below 3:1 contrast — kept as designed.

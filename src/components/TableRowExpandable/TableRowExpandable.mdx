@@ -1,0 +1,101 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableRowExpandableStories from './TableRowExpandable.stories';
+
+<Meta of={TableRowExpandableStories} />
+
+# TableRowExpandable
+
+A card-like row of the products table: number, photo, name, size, type, nicotine, price and a toggle button that opens the row.
+Implements the Figma [`Table Row`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1364-429592) set (`Style` Static / Hover / Active / Disabled).
+
+<Canvas of={TableRowExpandableStories.Default} />
+<Controls of={TableRowExpandableStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Style=Static` | default | White, Stroke Light V1, Table Row shadow |
+| `Style=Hover` | `:hover` / `forceHover` | Row Hover fill, violet-tinted shadow, stroke on the button |
+| `Style=Active` | `expanded` | White, Headlines stroke, toggle shows the **down** chevron |
+| `Style=Disabled` | `disabled` | `--opacity-disabled` (20%), toggle disabled |
+| `imageCards` 64px | `ImageCard size="md"` | composed, `image` prop |
+| `button_action` | `.ds-table-row-expandable__toggle` | native `<button>`, `aria-expanded` |
+
+## When to use
+
+- ✅ Expandable product lines in a table drawn as separate cards.
+
+## When NOT to use
+
+- ❌ Flat rows with a bottom line — use [TableProductsRow](?path=/docs/molecules-tableproductsrow--docs). Narrow screens — use [TableRowMobile](?path=/docs/molecules-tablerowmobile--docs).
+
+## States and edge cases
+
+<Canvas of={TableRowExpandableStories.Hover} />
+<Canvas of={TableRowExpandableStories.Active} />
+<Canvas of={TableRowExpandableStories.Disabled} />
+<Canvas of={TableRowExpandableStories.Interactive} />
+<Canvas of={TableRowExpandableStories.LongText} />
+<Canvas of={TableRowExpandableStories.Narrow} />
+<Canvas of={TableRowExpandableStories.InList} />
+<Canvas of={TableRowExpandableStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws the row at 1492px with fixed columns (318 / 125 / 203 / 75 / 52 / 54); in code the row is 100% wide and the columns keep these widths. It does not reflow below ~900px — use `TableRowMobile` there.
+- Figma draws the **down** chevron on `Active` and **up** on the others. Kept as designed (`expanded` → `chevron-down`); the meaning (up = collapse?) should be confirmed by a designer.
+- The photo in Figma is a product picture; in code it is the `image` prop (without it `ImageCard` shows its placeholder).
+- The button is 36px (10px padding) instead of Figma's 37px (10.5px padding): there is no 10.5 token.
+- The Hover stroke on `Style=Hover` is `#F1F2F9`, same as Static, so it is not visible against the row; kept as drawn.
+- Not designed, AI-defined: Focus ring of the toggle (`--shadow-focus`), ellipsis for long `name` / `type`, transitions with `prefers-reduced-motion`, `pointer-events: none` on disabled. Dark theme not designed — light values are used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | background (Static, Active, Disabled) | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-row-hover` | Hover background | `#EBEBF4` | Existing tokens.json · Figma: Row Hover (`#EBEBF4`) |
+| `--color-stroke-light-v1` | row stroke, Hover button stroke | `#F1F2F9` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--theme-card-hover-border` | Active stroke | `#4549A1` | Existing tokens.json · Figma: Headlines |
+| `--border-width-sm` | stroke width | `1px` | Existing tokens.json · Figma: stroke 1 |
+| `--radius-lg` / `--radius-sm` | row / button radius | `10px` / `5px` | Existing tokens.json · Figma: corner radius 10 / 5 |
+| `--shadow-table-row` | row shadow | `0 4px 4px 0 rgba(0,0,0,.05)` | Existing tokens.json · Figma: Table Row |
+| `--shadow-table-row-hover` | Hover shadow | `0 4px 2px 0 rgba(98,104,223,.15)` | **New** · Figma: Table Row Style=Hover → drop shadow |
+| `--opacity-disabled` | Disabled | `0.2` | Existing tokens.json · Figma: layer opacity on Disabled |
+| `--color-secondary-light` | toggle background | `#ECEEFB` | Existing tokens.json · Figma: Secondary Light |
+| `--shadow-focus` | toggle focus ring | `0 0 4px 0 rgba(98,104,223,.7)` | AI-defined use: Figma has no focus; same as IconButton |
+| `--spacing-12` / `--spacing-16` | row padding y / x | `12px` / `16px` | Existing tokens.json · Figma: padding 12 16 |
+| `--spacing-32` | gap in the lead cell | `32px` | Existing tokens.json · Figma: gap 32 |
+| `--spacing-10` | toggle padding | `10px` | Existing tokens.json · Figma: padding 10.5 (rounded) |
+| `--color-text` | text | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--font-size-small` / `--font-line-height-small` | text | `14px` / `21px` | Existing tokens.json · Figma: Body/Small Medium |
+| `--font-weight-medium` / `--font-weight-semibold` | body / index + name | 500 / 600 | Existing tokens.json · Figma: Body/Small Medium, Semi-Bold Headings/h7 |
+
+## Props
+
+<ArgTypes of={TableRowExpandableStories} />
+
+## Code example
+
+```tsx
+import { TableRowExpandable } from 'rifbar-ds';
+
+<TableRowExpandable
+  index={1}
+  image="/astro.png"
+  name="Astro"
+  size="15 ml"
+  type="RECHARGEABLE / DISPOSABLE"
+  nicotine="5%"
+  price="$15"
+  expanded={open}
+  onToggle={() => setOpen(!open)}
+/>
+```
+
+## Accessibility
+
+- The toggle is a real `<button>` with `aria-expanded` and `aria-label`; the row has `role="row"` (wrap rows in `role="table"`).
+- Toggle button is 36px — below the 44px touch target, kept as designed.
+- Disabled at 20% opacity is below 3:1 contrast — kept as designed.

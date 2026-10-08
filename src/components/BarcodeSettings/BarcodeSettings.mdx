@@ -1,0 +1,86 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as BarcodeSettingsStories from './BarcodeSettings.stories';
+
+<Meta of={BarcodeSettingsStories} />
+
+# BarcodeSettings
+
+One panel of the barcode card: type the text to generate a barcode from, upload a file with one, or look at the result. Implements the Figma component set [`BarcodeSettings`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7064-74791) (`Property 1` Information1 / 2 / 3) — the three panels share the frame, so **one component** with `mode`.
+Composed of `TextField`, [`FileDropzone`](?path=/docs/atoms-filedropzone--docs) and two `Button`s.
+
+<Canvas of={BarcodeSettingsStories.Default} />
+<Controls of={BarcodeSettingsStories.Default} />
+
+## Figma → code mapping
+
+| Figma `Property 1` | Code | Notes |
+|---|---|---|
+| `Information1` “Generate barcode” | `mode="generate"` | title + `TextField` (95px) + “Clean up” / “Generate” |
+| `Information2` “Upload barcode” | `mode="upload"` | title + `FileDropzone` + “Clean up” / “Accept” |
+| `Information3` | `mode="preview"` | barcode picture 244×193 on white, radius 4 |
+| `Name / Title` | `title` | Body/Small Medium, Color Text |
+| `button_action` Light Fill + ✕ | `Button variant="light" iconLeft="xmark"` | clear (`onClear`, also empties the text) |
+| `button_action` Dark BG + ✓ at 20 % | `Button variant="dark" iconLeft="tick"` | disabled until `canSubmit` |
+| panel (508px, py 32, px 16, right line Secondary Light) | `.ds-barcode-settings` | width 100% of the column; the line is always drawn |
+
+## When to use
+
+- ✅ Setting the barcode of a product: type or upload, confirm, see the result.
+
+## When NOT to use
+
+- ❌ A plain text form — use `LabeledField` + `InputField`.
+
+## Variants, states and edge cases
+
+<Canvas of={BarcodeSettingsStories.Upload} />
+<Canvas of={BarcodeSettingsStories.Preview} />
+<Canvas of={BarcodeSettingsStories.GenerateFilled} />
+<Canvas of={BarcodeSettingsStories.UploadReady} />
+<Canvas of={BarcodeSettingsStories.PreviewEmpty} />
+<Canvas of={BarcodeSettingsStories.LongText} />
+<Canvas of={BarcodeSettingsStories.Narrow} />
+<Canvas of={BarcodeSettingsStories.Interactive} />
+<Canvas of={BarcodeSettingsStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws the confirm button at 20 % (disabled) in both forms. **AI-defined:** `generate` enables it when the text is not empty; `upload` waits for `canSubmit`. The filled field and the chosen file are not drawn.
+- The Figma barcode is a raster image (`7 50015 00000 6`); the stories use a drawn stand-in. The real picture is passed as `image`.
+- The right line of the panel (Secondary Light) separates it from the next column; three panels side by side form the card. A panel at the end of a row keeps the line — hide it with a wrapper or `className` if needed.
+- The 9px gap between the dropzone icon and text is 8 in code (no 9px token). The Figma panel height (257 for Information3) is not fixed: the preview is 193px high (257 − 2 × 32).
+- Dark theme not designed.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-32` / `--spacing-16` | panel padding | `32` / `16px` | Existing tokens.json · Figma: py 32, px 16 |
+| `--color-secondary-light` / `--border-width-sm` | right line | `#ECEEFB` / `1px` | Existing tokens.json · Figma: Secondary Light |
+| `--spacing-4` / `--spacing-16` | title–field gap / button gap and padding | `4` / `16px` | Existing tokens.json · Figma: gap 4, gap 16, py 16 |
+| `--color-text` / `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | title | `#292639`, 14 / 21 / 500 | Existing tokens.json · Figma: Color Text, Body/Small Medium |
+| `--size-barcode-field` | text area and dropzone height | `95px` | **New** · Figma: InputField / Drag Files height 95 |
+| `--size-barcode-preview-width` / `--size-barcode-preview-height` | preview box | `244px` / `193px` | **New** · Figma: Information3 image |
+| `--radius-image-card` / `--color-white` | preview radius / fill | `4px` / `#FFFFFF` | Existing tokens.json · Figma: img radius 4, White |
+
+The field, dropzone (`--color-headlines-alpha-40` **New**) and buttons bring their own tokens — see `InputField`, `FileDropzone`, `Button`.
+
+## Props
+
+<ArgTypes of={BarcodeSettingsStories} />
+
+## Code example
+
+```tsx
+import { BarcodeSettings } from 'rifbar-ds';
+
+<BarcodeSettings mode="generate" value={text} onChange={setText} onSubmit={generate} />
+<BarcodeSettings mode="upload" dropzoneProps={{ accept: 'image/*', onFiles }} canSubmit={!!file} onSubmit={accept} />
+<BarcodeSettings mode="preview" image={url} imageAlt="Barcode 7 50015 00000 6" />
+```
+
+## Accessibility
+
+- Each form panel is a `role="group"` named by its title; the text field is labelled by the same title.
+- The disabled confirm button is 20 % opacity — below 3:1, kept as designed. Buttons are 37px high, below the 44px touch target.
+- The preview needs a meaningful `imageAlt` (the barcode number); the default “Barcode” is only a fallback.

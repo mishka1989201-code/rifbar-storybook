@@ -14,7 +14,7 @@ const meta = {
   argTypes: {
     preset: {
       control: 'inline-radio',
-      options: ['warehouses', 'categories', 'clients'],
+      options: ['warehouses', 'categories', 'clients', 'productsAnalytics', 'paymentsAnalytics'],
       description: 'Column set drawn in Figma. Ignored when `columns` is set.',
     },
     columns: {
@@ -49,6 +49,22 @@ export const Clients: Story = {
   args: { preset: 'clients' },
   parameters: {
     design: { type: 'figma', url: FIGMA_URL.replace('587-173767', '1226-374723') },
+  },
+};
+
+export const ProductsAnalytics: Story = {
+  name: 'Products analytics',
+  args: { preset: 'productsAnalytics' },
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3697-291914' },
+  },
+};
+
+export const PaymentsAnalytics: Story = {
+  name: 'Payments analytics',
+  args: { preset: 'paymentsAnalytics' },
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=4631-289272' },
   },
 };
 

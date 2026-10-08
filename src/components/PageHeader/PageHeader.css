@@ -1,0 +1,43 @@
+/* PageHeader — every value references a token from src/tokens/tokens.json.
+   Breadcrumbs, tabs and menu icons are the existing atoms / molecules. */
+
+.ds-page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-8) var(--spacing-16);
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-family-base);
+}
+
+/* With tabs the bar has no bottom padding: the tab underline sits on the bar edge. */
+.ds-page-header--tabs { padding-bottom: 0; }
+
+.ds-page-header__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+/* Title + breadcrumbs sit closer when tabs follow (Figma: gap 4 vs 16) */
+.ds-page-header--tabs .ds-page-header__intro { gap: var(--spacing-4); }
+
+.ds-page-header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+}
+
+.ds-page-header__title {
+  min-width: 0;
+  margin: 0;
+  color: var(--color-headlines);
+  font-size: var(--font-size-h2);
+  line-height: var(--font-line-height-h2);
+  font-weight: var(--font-weight-light);
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,69 @@
+/* FileDropzone — every value references a token from src/tokens/tokens.json.
+   The dashed border cannot be an inset shadow, so it is a real 2px border. */
+
+.ds-file-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--size-barcode-field);
+  padding: var(--spacing-8) var(--spacing-16);
+  border: var(--border-width-lg) dashed var(--color-headlines-alpha-40);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-grey-dark);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-standard);
+  line-height: var(--font-line-height-standard);
+  font-weight: var(--font-weight-regular);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ds-file-dropzone__line {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.ds-file-dropzone__icon { color: var(--color-headlines); flex: none; }
+.ds-file-dropzone__browse { color: var(--color-headlines); }
+
+.ds-file-dropzone--large {
+  min-height: var(--size-dropzone-large);
+}
+
+/* AI-defined (not in Figma): hover, drag-over, focus, disabled */
+.ds-file-dropzone:hover,
+.ds-file-dropzone.is-drag-over {
+  border-color: var(--color-headlines);
+  background: var(--color-bg);
+}
+
+.ds-file-dropzone:focus-within { box-shadow: var(--shadow-focus); }
+
+.ds-file-dropzone.is-disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Visually hidden, still focusable and announced */
+.ds-file-dropzone__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-file-dropzone { transition: none; }
+}

@@ -1,0 +1,47 @@
+/* TimePicker — every value references a token from src/tokens/tokens.json.
+   Sliders = Slider atom; here their 48px touch area is cut to the 18px row of the Figma frame
+   (2px track + 8px padding), the handle (16px) overflows the track as in Figma. */
+
+.ds-time-picker {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 var(--spacing-16);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-time-picker__value {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-4);
+  flex: none;
+  white-space: nowrap;
+}
+
+.ds-time-picker__time {
+  color: var(--color-text);
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-time-picker__period {
+  color: var(--color-secondary-grey);
+  font-size: var(--font-size-h7);
+  line-height: var(--font-line-height-h7);
+}
+
+.ds-time-picker__sliders {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.ds-time-picker .ds-time-picker__slider {
+  height: calc(var(--size-slider-track) + var(--spacing-8) * 2);
+}

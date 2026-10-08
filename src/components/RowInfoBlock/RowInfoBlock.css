@@ -51,6 +51,53 @@
   font-weight: var(--font-weight-regular);
 }
 
+/* ─── compact — Figma `Info Line` of TicketInfo/V2: 140px caption + flexible value ─ */
+.ds-row-info-block--compact {
+  align-items: flex-start;
+  gap: var(--spacing-16);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-row-info-block--compact .ds-row-info-block__label {
+  flex: none;
+  width: var(--size-info-row-label-compact);
+  color: var(--color-grey-dark);
+}
+
+.ds-row-info-block--compact .ds-row-info-block__value {
+  flex: 1 1 0;
+  color: var(--color-primary-blue-dark);
+  overflow-wrap: anywhere;
+}
+
+/* A value that is a control (e.g. ChevronDropDown) must not be cut by the ellipsis rule */
+.ds-row-info-block--compact .ds-row-info-block__value { overflow: visible; text-overflow: clip; }
+
+/* ─── stacked — mobile `order-list__item`: two lines on the left, value on the right ─ */
+.ds-row-info-block--stacked {
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  border-bottom-color: var(--color-stroke-light-v1);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.ds-row-info-block__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+.ds-row-info-block--stacked .ds-row-info-block__label { color: var(--color-text); }
+.ds-row-info-block--stacked .ds-row-info-block__description,
+.ds-row-info-block--stacked .ds-row-info-block__value { color: var(--color-grey-dark); }
+.ds-row-info-block--stacked .ds-row-info-block__value { flex: none; text-align: right; }
+
 /* ─── cells — Figma `order-list_item2`: first / centered middle / right-aligned last ─ */
 .ds-row-info-block--cells {
   gap: var(--spacing-8);

@@ -1,0 +1,56 @@
+/* TableRowQuantity — every value references a token from src/tokens/tokens.json.
+   Figma strokes are "inside": drawn with an inset box-shadow next to the row shadow. */
+
+.ds-table-row-quantity {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--spacing-8) var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1), var(--shadow-table-row);
+  font-family: var(--font-family-base);
+}
+
+.ds-table-row-quantity__item {
+  display: flex;
+  align-items: center;
+  flex: 1 1 var(--size-info-row-label);
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.ds-table-row-quantity__name {
+  min-width: 0;
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-h6);
+  line-height: var(--font-line-height-h6);
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+.ds-table-row-quantity__values {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--spacing-16);
+}
+
+.ds-table-row-quantity__price {
+  color: var(--color-primary-blue-dark);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+/* Figma: the empty field in a row has a Stroke Light V2 border, not the form's Stroke Input.
+   Filled / hover / focus / error keep the InputField colors (they are more specific). */
+.ds-table-row-quantity .ds-table-row-quantity__input {
+  --ds-field-border: var(--color-stroke-light-v2);
+  width: var(--size-info-row-label);
+}

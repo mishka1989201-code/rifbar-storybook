@@ -25,10 +25,10 @@ export interface TableHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   onSort?: (id: string) => void;
 }
 
-export type TableHeaderPreset = 'warehouses' | 'categories' | 'clients';
+export type TableHeaderPreset = 'warehouses' | 'categories' | 'clients' | 'productsAnalytics' | 'paymentsAnalytics';
 
 /**
- * Column sets drawn in Figma. All three frames share one look (transparent row, padding 8/16,
+ * Column sets drawn in Figma. All frames share one look (transparent row, padding 8/16,
  * `justify-between`, sort icon on `Header with Sort` cells) and differ only in columns.
  */
 export const TABLE_HEADER_PRESETS: Record<TableHeaderPreset, TableHeaderColumn[]> = {
@@ -59,6 +59,20 @@ export const TABLE_HEADER_PRESETS: Record<TableHeaderPreset, TableHeaderColumn[]
     { id: 'email', label: 'Email', width: 220, sortable: true },
     { id: 'joined', label: 'Joined', width: 80, align: 'end', sortable: true },
     { id: 'actions', label: 'Actions', width: 166, align: 'end' },
+  ],
+  /** Figma `Table Header 6` (3697:291914) — header of `TableRowAnalytics` with an image. */
+  productsAnalytics: [
+    { id: 'image', label: 'Image', width: 47, group: 'lead' },
+    { id: 'name', label: 'Name', width: 157, sortable: true, group: 'lead' },
+    { id: 'newOrders', label: 'New orders', width: 97, sortable: true },
+    { id: 'done', label: 'Done', width: 53, align: 'end', sortable: true },
+    { id: 'revenue', label: 'Revenue', width: 78, align: 'end', sortable: true },
+  ],
+  /** Figma `Table Header 7` (4631:289272) — header of the three-cell `TableRowAnalytics`. */
+  paymentsAnalytics: [
+    { id: 'date', label: 'Date', width: 77, sortable: true },
+    { id: 'type', label: 'Type', width: 97, sortable: true },
+    { id: 'amount', label: 'Amount', width: 78, align: 'end', sortable: true },
   ],
 };
 

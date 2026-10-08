@@ -1,0 +1,79 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as FilterActionsStories from './FilterActions.stories';
+
+<Meta of={FilterActionsStories} />
+
+# FilterActions
+
+Mobile toolbar above a list: a “Filter” button with a badge of applied filters and a full-width search field below it.
+Implements the Figma frame [`Actions`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1114-420275). It is composed of existing atoms: [Button](?path=/docs/atoms-button--docs) and [SearchField](?path=/docs/atoms-searchfield--docs).
+
+<Canvas of={FilterActionsStories.Default} />
+<Controls of={FilterActionsStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Actions` (column, gap 24, 672px) | `.ds-filter-actions` | 100% of the container |
+| `button_action` “Filter” + number `4` | `Button variant="outline" iconLeft="filter-dark" counter` | `filterLabel`, `filterCount`, `onFilter` |
+| `SearchField` (40px) | `SearchField size="mobile"` | `searchProps` |
+
+## When to use
+
+- ✅ Mobile / narrow list screens where filters open in a panel and search sits under them.
+
+## When NOT to use
+
+- ❌ Desktop table toolbar with Export / Clear — use [TableActionsRow](?path=/docs/molecules-tableactionsrow--docs).
+
+## Variants and edge cases
+
+<Canvas of={FilterActionsStories.NoFilters} />
+<Canvas of={FilterActionsStories.WithSearchText} />
+<Canvas of={FilterActionsStories.SearchDisabled} />
+<Canvas of={FilterActionsStories.ManyFilters} />
+<Canvas of={FilterActionsStories.Narrow} />
+<Canvas of={FilterActionsStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws only one state (“Filter [4]” + empty search). Hover / focus / disabled come from the `Button` and `SearchField` atoms; not designed here, taken by analogy with them.
+- In Figma the button label, icon and the badge are Headlines `#4549A1`; the `Button` outline atom uses Primary Blue Dark text and badge, so they are overridden inside this molecule only.
+- The filter icon in Figma is an unnamed glyph (funnel); matched to the existing `filter-dark` by appearance (`filter-light` is a sliders icon, not the same) — to be confirmed by a designer.
+- The badge is hidden when `filterCount` is `0` / `undefined` (AI-defined).
+- Dark theme not designed — light values are used.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-headlines` | button label / icon, badge background | `#4549A1` | Existing tokens.json · Figma: Headlines |
+| `--spacing-24` | gap between button and search | `24px` | Existing tokens.json · Figma: gap 24 |
+| `--color-stroke-light-v1` / `--color-stroke-button` | button fill / stroke (Button atom) | `#F1F2F9` / `#CBC8DB` | Existing tokens.json · Figma: Stroke Light V1, Stroke  Button |
+| `--font-size-micro` / `--font-line-height-micro` | badge number (Button atom) | `10px` / `15px` | Existing tokens.json · Figma: Body/Micro Medium |
+| `--color-stroke-light-v2`, `--color-secondary-light`, `--color-secondary-grey` | search field stroke, button, placeholder (SearchField atom) | `#D8E2EE`, `#ECEEFB`, `#A7A4B7` | Existing tokens.json · Figma: Stroke Light V2, Secondary Light, Secondary Grey |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={FilterActionsStories} />
+
+## Code example
+
+```tsx
+import { FilterActions } from 'rifbar-ds';
+
+<FilterActions
+  filterCount={4}
+  onFilter={openFilterPanel}
+  searchProps={{ onSearch: (value) => setQuery(value) }}
+/>
+```
+
+## Accessibility
+
+- Container is `role="toolbar"`; the filter button has a visible label, the search field has `aria-label="Search"`.
+- Secondary Grey `#A7A4B7` placeholder on white is below 3:1 contrast — kept as designed.
+- Desktop-size controls: the filter button is 37px high (below 44px touch target) — kept as designed; the search field is 40px.
