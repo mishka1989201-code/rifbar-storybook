@@ -72,4 +72,5 @@ export * from './components/AudioPlayer';
 export * from './components/Modal';
 export * from './components/LabeledField';
 export * from './components/Accordion';
+export * from './components/InfoTable';
 export * from './components/Dropdown';

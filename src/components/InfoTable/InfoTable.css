@@ -1,0 +1,30 @@
+/* InfoTable — every value references a token from src/tokens/tokens.json.
+   The rows are RowInfoBlock variant="line"; here only the panel and the columns are drawn. */
+
+.ds-info-table {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--spacing-56);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-32) var(--spacing-16);
+  background: var(--color-white);
+  font-family: var(--font-family-base);
+}
+
+.ds-info-table__column {
+  display: flex;
+  flex: 1 1 var(--size-info-table-column);
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Figma: the last row of a column has no line */
+.ds-info-table__column > .ds-row-info-block:last-child { border-bottom-color: transparent; }
+
+/* A long value wraps (Figma “Address from”) instead of being cut by the row's ellipsis */
+.ds-info-table .ds-row-info-block > * {
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+}
