@@ -57,6 +57,7 @@ export * from './components/LogoBar';
 export * from './components/ViewSwitch';
 export * from './components/ShowSelect';
 export * from './components/SwitchGroup';
+export * from './components/NavbarMenu';
 export * from './components/AccessModeRow';
 export * from './components/DocumentCard';
 export * from './components/TimeTrackerTitle';

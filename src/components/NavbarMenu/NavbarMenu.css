@@ -1,0 +1,99 @@
+/* NavbarMenu — every value references a token from src/tokens/tokens.json. */
+
+.ds-navbar-menu {
+  box-sizing: border-box;
+  width: var(--layout-sidebar-desktop-lg);
+  max-width: 100%;
+  font-family: var(--font-family-base);
+}
+
+.ds-navbar-menu--768,
+.ds-navbar-menu--480,
+.ds-navbar-menu--360 {
+  width: var(--layout-sidebar-overlay);
+}
+
+.ds-navbar-menu--collapsed {
+  width: var(--layout-sidebar-desktop-lg-collapsed);
+}
+
+.ds-navbar-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Figma: the narrow sizes have 16px between tabs instead of 8px. */
+:is(.ds-navbar-menu--768, .ds-navbar-menu--480, .ds-navbar-menu--360) .ds-navbar-menu__list {
+  gap: var(--spacing-16);
+}
+
+.ds-navbar-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--size-nav-tab);
+  margin: 0;
+  padding: 0 var(--spacing-16) 0 var(--spacing-32);
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: var(--theme-nav-text);
+  font: inherit;
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-regular);
+  text-align: left;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.ds-navbar-menu--360 .ds-navbar-menu__item:not(.ds-navbar-menu__item--secondary) {
+  padding-left: var(--spacing-26);
+}
+
+.ds-navbar-menu__item > .ds-icon {
+  flex: none;
+}
+
+.ds-navbar-menu__label {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ─── Active (Figma Tab 1: Hover Blue fill, white Medium label) ─────── */
+.ds-navbar-menu__item.is-active {
+  background: var(--theme-nav-tab-active-bg);
+  color: var(--theme-nav-text-active);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ─── Hover (not designed — same color as the active sub-tab / burger) ─ */
+.ds-navbar-menu__item:hover:not(:disabled, .is-active) {
+  color: var(--theme-nav-subtab-active);
+}
+
+/* ─── Focus (not designed — inside the tab so the clipped menu keeps it) ─ */
+.ds-navbar-menu__item:focus-visible {
+  outline: var(--border-width-lg) solid var(--theme-nav-subtab-active);
+  outline-offset: calc(-1 * var(--border-width-lg));
+}
+
+/* ─── Disabled (not designed — same 20% opacity as other atoms) ─────── */
+.ds-navbar-menu__item:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-navbar-menu__item {
+    transition: none;
+  }
+}

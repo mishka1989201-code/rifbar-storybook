@@ -1,0 +1,125 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as NavbarMenuStories from './NavbarMenu.stories';
+
+<Meta of={NavbarMenuStories} />
+
+# NavbarMenu
+
+The vertical list of pages in the side menu. One tab is active (a filled bar), the others are plain text on the dark Navbar background.
+Implements the Figma component set
+[`Navbar Menu Tabs`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=48-12836)
+— 5 variants: Desktop, Icons and 360 / 480 / 768 px. They differ only in width, spacing and whether labels are shown,
+so they are **one component** with `size` and `collapsed`.
+
+<Canvas of={NavbarMenuStories.Default} />
+<Controls of={NavbarMenuStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Style=On`, `Size=Desktop` | `size="desktop"` (default), width `--layout-sidebar-desktop-lg` (300px), gap 8 |
+| `Style=Icons` | `collapsed`, width `--layout-sidebar-desktop-lg-collapsed` (108px), labels hidden |
+| `Style=On`, `Size=768px` / `480px` | `size="768"` / `size="480"`, width `--layout-sidebar-overlay` (253px), gap 16 |
+| `Style=On`, `Size=360px` | `size="360"`: as 480 + tabs above Tickets are indented 26px (`secondary` tabs keep 32px) |
+| `Tab 1` (Hover Blue fill, white Medium) | tab with `value === id` (`is-active`) |
+| `Tab 2…10` (Not Active, Regular) | other tabs |
+| `Tab 5 Title`, `Product Settings` + chevron | `expandable: true` |
+| `Icons 16px` | `icon` (16px set) |
+
+## When to use
+
+- ✅ The main page list of the side menu (desktop, collapsed and the slide-over menu on narrow screens).
+
+## When NOT to use
+
+- ❌ Switching content inside a page — use [TabsHeader](?path=/docs/molecules-tabsheader--docs).
+- ❌ Icons in the page header — use `HeaderMenu`.
+
+## Sizes, states and edge cases
+
+<Canvas of={NavbarMenuStories.Collapsed} />
+<Canvas of={NavbarMenuStories.Size768} />
+<Canvas of={NavbarMenuStories.Size480} />
+<Canvas of={NavbarMenuStories.Size360} />
+<Canvas of={NavbarMenuStories.MiddleTabActive} />
+<Canvas of={NavbarMenuStories.ExpandedItem} />
+<Canvas of={NavbarMenuStories.WithDisabledTab} />
+<Canvas of={NavbarMenuStories.FewItems} />
+<Canvas of={NavbarMenuStories.Empty} />
+<Canvas of={NavbarMenuStories.LongLabel} />
+<Canvas of={NavbarMenuStories.NarrowContainer} />
+<Canvas of={NavbarMenuStories.Interactive} />
+<Canvas of={NavbarMenuStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the active tab, the closed chevrons, the five sizes above.
+
+Not drawn, defined by analogy (AI-defined):
+
+- **Hover** — label and icon turn `--theme-nav-subtab-active` (Hover Blue Light), as the Switcher and the burger in `LogoBar`.
+- **Focus** — 2px `--theme-nav-subtab-active` outline drawn inside the tab (the menu is clipped by its parent).
+- **Disabled** — 20% opacity (`--opacity-disabled`).
+- **Expanded** — chevron up (`chevron-up`); Figma only shows chevron down.
+- **Long labels** — ellipsis; **empty list** — renders nothing.
+- **Dark theme** — colors come from the existing `--theme-nav-*` tokens (dark values already defined there).
+
+Normalised or assumed:
+
+- Figma tab frames are 300 / 253 / 108px wide but their parent frames are narrower (268 / 221 / 76px) and clip the tabs. The tab widths (the `--layout-sidebar-*` tokens) are used.
+- The chevron of an expandable tab follows its label after the 8px gap. Figma puts it 8px after the label for *Reports & Analytics*, 28px after for *Product Settings* (Desktop, 480, 768) and at the right edge for *Product Settings* in 360 — these were three different values for one thing.
+- The tab height is fixed at 32px (`--size-nav-tab`); Figma's 8px vertical padding plus a 21px line would be 37px.
+- 360px: the first six tabs have 26px left padding, the last four 32px — kept as designed through `secondary` (looks like a Figma slip, needs confirmation).
+- Icons are unnamed vectors in Figma and are matched by look: `user`, `cart`, `call`, `order`, `graph`, `product-box`, `ticket`, `notes`, `email`, `groups`, `chevron-down`. Needs designer confirmation.
+- Figma asset downloads were not used; icons are the existing `Icon` set.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--layout-sidebar-desktop-lg` | width, Desktop | `300px` | Existing tokens.json · Figma: Navbar Menu Tabs Size=Desktop → Tab width |
+| `--layout-sidebar-desktop-lg-collapsed` | width, Icons | `108px` | Existing tokens.json · Figma: Style=Icons → Tab width |
+| `--layout-sidebar-overlay` | width, 360 / 480 / 768 | `253px` | Existing tokens.json · Figma: Size=360px / 480px / 768px → Tab width |
+| `--size-nav-tab` | tab height | `32px` | Existing tokens.json · Figma: Tab height |
+| `--spacing-8` | tab gap (desktop), icon–label gap | `8px` | Existing tokens.json · Figma: auto layout gap 8 |
+| `--spacing-16` | tab gap (narrow), right padding | `16px` | Existing tokens.json · Figma: gap 16, padding-right 16 |
+| `--spacing-32` | left padding | `32px` | Existing tokens.json · Figma: padding-left 32 |
+| `--spacing-26` | left padding, 360 | `26px` | **New** · Figma: Size=360px → Tab padding-left |
+| `--theme-nav-text` | inactive tab color | `#D2D3D9` | Existing tokens.json · Figma: Not Active |
+| `--theme-nav-text-active` | active tab color | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--theme-nav-tab-active-bg` | active tab fill | `#6368DF` | Existing tokens.json · Figma: Hover Blue |
+| `--theme-nav-subtab-active` | hover color, focus ring | `#888CF6` | AI-defined use: same hover color as Switcher / LogoBar |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-regular`, `--font-weight-medium` | label | 14 / 21 / 400 / 500 | Existing tokens.json · Figma: Body/Small Regular, Body/Small Medium |
+| `--border-width-lg` | focus outline | `2px` | AI-defined use: focus ring width as in other atoms |
+| `--opacity-disabled` | disabled tab | `0.2` | AI-defined use: not designed, as other atoms |
+
+## Props
+
+<ArgTypes of={NavbarMenuStories} />
+
+## Code example
+
+```tsx
+import { NavbarMenu } from 'rifbar-ds';
+
+<NavbarMenu
+  aria-label="Main menu"
+  value={page}
+  onChange={setPage}
+  items={[
+    { id: 'clients', label: 'Clients', icon: 'user' },
+    { id: 'orders', label: 'Orders', icon: 'order' },
+    { id: 'reports', label: 'Reports & Analytics', icon: 'graph', expandable: true },
+  ]}
+/>
+```
+
+Put it on the Navbar background (`--theme-app-bg`): the colors are made for it.
+
+## Accessibility
+
+- A `<nav>` landmark with `aria-label`, a list of buttons; the active one has `aria-current="page"`, expandable ones `aria-expanded`.
+- Collapsed: labels are not drawn but stay as `aria-label` and `title` of each button.
+- ⚠️ Kept as designed: Not Active `#D2D3D9` on the dark Navbar is readable, but the 32px tab height is below the 44px touch target.
+- ⚠️ Disabled at 20% opacity is below 3:1 contrast.
