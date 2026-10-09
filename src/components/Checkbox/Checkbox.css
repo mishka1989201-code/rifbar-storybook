@@ -3,7 +3,7 @@
    the same way the Icon atom does it. */
 
 .ds-checkbox {
-  --ds-checkbox-color: var(--color-headlines);
+  --ds-checkbox-color: var(--checkbox-color);
   --ds-checkbox-stroke: var(--color-grey-dark);
   display: inline-flex;
   align-items: center;
@@ -13,7 +13,7 @@
   font-weight: var(--font-weight-regular);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
-  color: var(--color-primary-blue-dark);
+  color: var(--control-label);
 }
 
 .ds-checkbox__control {
@@ -48,7 +48,7 @@
 
 /* ─── Shapes ────────────────────────────────────────────────────────── */
 .ds-checkbox__off {
-  fill: var(--color-white);
+  fill: var(--checkbox-off-fill);
   stroke: var(--ds-checkbox-stroke);
 }
 
@@ -57,13 +57,13 @@
 }
 
 .ds-checkbox__mark {
-  stroke: var(--color-white);
+  stroke: var(--checkbox-mark);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .ds-checkbox__dot {
-  fill: var(--color-white);
+  fill: var(--checkbox-mark);
 }
 
 /* Unchosen → only the outline; Chosen → only the filled shape. */
@@ -74,8 +74,8 @@
 
 /* ─── Hover (Figma Status=Chosen Hover / Unchosen Hover → Hover Blue) ── */
 .ds-checkbox:is(:hover, .is-hover):not(.is-disabled) {
-  --ds-checkbox-color: var(--color-hover-blue);
-  --ds-checkbox-stroke: var(--color-hover-blue);
+  --ds-checkbox-color: var(--checkbox-color-hover);
+  --ds-checkbox-stroke: var(--checkbox-color-hover);
 }
 
 /* ─── Focus (not designed in Figma — same ring as Button) ───────────── */

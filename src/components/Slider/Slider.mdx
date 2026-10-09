@@ -57,7 +57,14 @@ A thin track with a round handle for picking a value from a range. From the Figm
 - The handle fill is the Figma variable `White (Dark)`, which is `#FFFFFF` in the light theme. It is not wired to the dark theme yet — here it is `--color-white`. The component name says "Light": a dark version is not designed.
 - The handle SVG could not be downloaded; the handle is drawn in CSS from its values (14px circle, white fill, 1px Not Active stroke).
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Slider Dark`**: the track is unchanged (Not Active `#D2D3D9`, as in the light frame); the handle fill becomes `#000000` (White (Dark)) with the same `#D2D3D9` ring. See **DarkTheme**.
+Focus and Disabled are not drawn in either theme: Focus Shadow and 20% opacity are kept.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -72,6 +79,7 @@ A thin track with a round handle for picking a value from a range. From the Figm
 | `--border-width-sm` | handle stroke | `1px` | Existing tokens.json · Figma: stroke 1 |
 | `--shadow-focus` | Focus | `0 0 4px 0 rgba(98, 104, 223, 0.7)` | Existing tokens.json · AI-defined use: not drawn, same as InputField |
 | `--opacity-disabled` | Disabled | `0.2` | Existing tokens.json · AI-defined use: not drawn, same as other atoms |
+| `--slider-handle` | handle fill | light `#FFFFFF` / dark `#000000` | **New** · Figma: Dark Atoms → White (Dark) |
 
 ## Props
 
@@ -93,3 +101,4 @@ import { Slider } from 'rifbar-ds';
 - The handle area is 48px high (above the 44px touch target).
 - ⚠️ Track and handle stroke `#D2D3D9` on white is 1.5:1, below the 3:1 for UI elements. Kept as designed.
 - ⚠️ Disabled at 20% opacity is below 3:1 contrast (same as other components).
+- Dark theme contrast (calculated): track `#D2D3D9` on black 14.06:1 (the light theme track is 1.5:1 — a known issue).

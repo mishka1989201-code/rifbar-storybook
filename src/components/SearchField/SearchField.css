@@ -3,7 +3,7 @@
    search button sits on top of it and covers the right edge, as in Figma. */
 
 .ds-search {
-  --ds-search-border: var(--color-stroke-light-v2);
+  --ds-search-border: var(--search-border);
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -34,12 +34,12 @@
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
-  color: var(--color-text);
+  color: var(--search-text);
   appearance: none;
 }
 
 .ds-search__input::placeholder {
-  color: var(--color-secondary-grey);
+  color: var(--search-placeholder);
   opacity: 1;
 }
 

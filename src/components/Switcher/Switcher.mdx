@@ -50,7 +50,15 @@ The `theme` prop only picks the icon — pass the theme the app is in.
 
 <Canvas of={SwitcherStories.ThemeExample} />
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Switcher`**: the sun / moon colour is `--switcher-icon` (`#BBC7D6`, White (Light)); the pill border (22% white) and the shadow (`--theme-avatar-shadow`, Dark Mode Shadow 2) were already themed. See **LightAndDarkDark**.
+
+**Open question for design:** in this frame the Dark variant pill is `#050411` (Primary Blue Dark (Dark)) and the Light variant `#141D3F`, while the Navbar dark frame uses `#1D2542` for the pill (`--theme-switcher-bg`). The token was **not changed**, so the Navbar still matches its own frame.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -67,6 +75,7 @@ The `theme` prop only picks the icon — pass the theme the app is in.
 | `--border-width-lg` / `--spacing-2` | focus ring width / offset | `2px` / `2px` | AI-defined, same as Button |
 
 Icon position follows Figma: sun 2px from the right edge, moon 1px from the left edge, both 2px from the top.
+| `--switcher-icon` | sun / moon | light `#FFFFFF` / dark `#BBC7D6` | **New** · Figma: Dark Atoms → White (Light) |
 
 ## Props
 
@@ -88,3 +97,4 @@ useEffect(() => { document.documentElement.dataset.theme = theme; }, [theme]);
 - `<button role="switch">`, `aria-checked="true"` in the dark theme, default `aria-label` “Dark theme” — override with Ukrainian copy if needed.
 - Enter / Space switch the theme.
 - ⚠️ Touch target: 48×24 px (height below 44px). Kept as designed — desktop ERP.
+- Dark theme contrast (calculated): icon `#BBC7D6` on `#141D3F` 9.59:1, on `#1D2542` 8.78:1.

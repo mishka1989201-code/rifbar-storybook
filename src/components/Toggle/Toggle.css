@@ -3,7 +3,7 @@
    to keep the pill 48×24 in every status. */
 
 .ds-toggle {
-  --ds-toggle-bg: var(--color-grey-dark);
+  --ds-toggle-bg: var(--toggle-off-bg);
   --ds-toggle-stroke: transparent;
   --ds-toggle-handle-inset: calc((var(--size-switch-height) - var(--size-switch-handle)) / 2);
   display: inline-flex;
@@ -14,7 +14,7 @@
   font-weight: var(--font-weight-regular);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
-  color: var(--color-primary-blue-dark);
+  color: var(--control-label);
 }
 
 .ds-toggle__control {
@@ -54,13 +54,13 @@
   width: var(--size-switch-handle);
   height: var(--size-switch-handle);
   border-radius: var(--radius-round);
-  background-color: var(--color-white);
+  background-color: var(--toggle-handle);
   transition: transform 150ms ease;
 }
 
 /* ─── State=On State: Headlines pill, handle on the right ───────────── */
 .ds-toggle:has(.ds-toggle__input:checked) {
-  --ds-toggle-bg: var(--color-headlines);
+  --ds-toggle-bg: var(--toggle-on-bg);
 }
 
 .ds-toggle__input:checked + .ds-toggle__pill .ds-toggle__handle {
@@ -69,17 +69,17 @@
 
 /* ─── Hover: Off → Input field, On → Hover Blue ──────────────────────── */
 .ds-toggle:is(:hover, .is-hover):not(.is-disabled) {
-  --ds-toggle-bg: var(--color-input-field);
+  --ds-toggle-bg: var(--toggle-off-hover);
 }
 
 .ds-toggle:is(:hover, .is-hover):not(.is-disabled):has(.ds-toggle__input:checked) {
-  --ds-toggle-bg: var(--color-hover-blue);
+  --ds-toggle-bg: var(--toggle-on-hover);
 }
 
 /* ─── Focus Enabled: Headlines stroke + Focus shadow; On → Hover Blue ─ */
 .ds-toggle__input:focus-visible + .ds-toggle__pill,
 .ds-toggle.is-focus .ds-toggle__pill {
-  --ds-toggle-stroke: var(--color-headlines);
+  --ds-toggle-stroke: var(--toggle-focus-stroke);
   box-shadow:
     inset 0 0 0 var(--border-width-sm) var(--ds-toggle-stroke),
     var(--shadow-focus);
@@ -87,7 +87,7 @@
 
 .ds-toggle__input:checked:focus-visible + .ds-toggle__pill,
 .ds-toggle.is-focus .ds-toggle__input:checked + .ds-toggle__pill {
-  --ds-toggle-bg: var(--color-hover-blue);
+  --ds-toggle-bg: var(--toggle-on-hover);
 }
 
 /* ─── Disabled (Figma Status=Disabled → 20% layer opacity) ──────────── */

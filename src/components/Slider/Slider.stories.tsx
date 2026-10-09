@@ -89,3 +89,23 @@ export const Example: Story = {
     docs: { description: { story: 'Interactive. The value text is demo-only; the Figma atom has no label or value.' } },
   },
 };
+
+/** Figma "Dark Atoms Components" → Slider Dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DarkTheme: Story = {
+  name: 'Default, focus, disabled (dark theme)',
+  parameters: { layout: 'padded' },
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16 }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 139 }}>
+      <Slider defaultValue={50} aria-label="Default" />
+      <Slider defaultValue={50} forceFocus aria-label="Focus" />
+      <Slider defaultValue={50} disabled aria-label="Disabled" />
+    </div>
+  ),
+};

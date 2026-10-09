@@ -3,7 +3,7 @@
    changes it, in the order Static → Activated → Hover → Focus → Error. */
 
 .ds-field {
-  --ds-field-border: var(--color-stroke-input);
+  --ds-field-border: var(--field-border);
   box-sizing: border-box;
   height: var(--size-control-xs);
   margin: 0;
@@ -15,14 +15,14 @@
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
-  color: var(--color-text);
+  color: var(--field-text);
   outline: none;
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .ds-field::placeholder,
 .ds-field__placeholder {
-  color: var(--color-grey-dark);
+  color: var(--field-placeholder);
   opacity: 1;
 }
 
@@ -56,7 +56,7 @@
 
 .ds-field__chevron {
   flex-shrink: 0;
-  color: var(--icon-primary);
+  color: var(--field-chevron);
 }
 
 .ds-field--color {
@@ -89,7 +89,7 @@
 .ds-field__action {
   font-size: var(--font-size-micro);
   line-height: var(--font-line-height-micro);
-  color: var(--color-headlines);
+  color: var(--field-action);
 }
 
 /* ─── Status=Activated: has a value → Input field border ────────────── */
@@ -100,7 +100,7 @@
 
 /* ─── Status=Hover: Headlines border ────────────────────────────────── */
 .ds-field:is(:hover, .is-hover):not(.is-disabled) {
-  --ds-field-border: var(--color-headlines);
+  --ds-field-border: var(--field-border-hover);
 }
 
 /* ─── Status=Focus: Input field border + Focus shadow (Filter: list is open) */

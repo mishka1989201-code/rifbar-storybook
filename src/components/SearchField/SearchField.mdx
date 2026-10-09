@@ -66,7 +66,15 @@ One-line search field with an attached search button. From the Figma component
 - ⚠️ This frame still uses the **old** colors: border Stroke Light V2 (1.3:1) and placeholder Secondary Grey (2.4:1). On 2026-10-02 InputField got Stroke Input `#8A87A0` and Grey Dark `#5D6E82` for contrast. SearchField follows Figma as drawn; if it should match InputField, update the Figma frame (or tell me) and the two tokens change in one place.
 - The text “Search by keyword” and the sample value are placeholders from Figma, not fixed text.
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `search Field`** (Desktop / Mobile × Static / Active / Disabled): themed `--search-*` tokens; the button is `IconButton` and takes its dark colours from `--icon-button-*`. See **AllVariantsDark**.
+
+Static stroke `#242424`, placeholder `#646464`, value `#C9C6D9`; Active stroke `#65578B` (unchanged) with the button on `#050411`; Disabled 20% opacity.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -86,6 +94,9 @@ One-line search field with an attached search button. From the Figma component
 | `--opacity-disabled` | Disabled | `0.2` | Existing tokens.json · Figma: layer opacity |
 
 No new tokens were needed.
+| `--search-border` | stroke (Static) | light `#D8E2EE` / dark `#242424` | **New** · Figma: Dark Atoms → Stroke Light (V1) |
+| `--search-text` | value text | light `#292639` / dark `#C9C6D9` | **New** · Figma: Dark Atoms → Color Text |
+| `--search-placeholder` | placeholder | light `#A7A4B7` / dark `#646464` | **New** · Figma: Dark Atoms → Secondary Grey |
 
 ## Props
 
@@ -115,3 +126,4 @@ import { SearchField } from 'rifbar-ds';
 - ⚠️ Static border 1.3:1 and placeholder 2.4:1 are below WCAG (see Figma notes). Value text on White is 14.7:1.
 - ⚠️ Desktop height 32px is below the 44px touch target — kept as designed; Mobile (40px) is closer.
 - ⚠️ Disabled at 20% opacity is below 3:1 contrast (same as Button and InputField).
+- Dark theme contrast (calculated): value 12.56:1, placeholder 3.55:1, Active stroke 3.29:1; ⚠️ Static stroke `#242424` on black **1.35:1** — as designed, flag to design.

@@ -92,7 +92,24 @@ The option list is **not** part of this atom. Open your own list from `onClick` 
 - The error message text is not part of the atom — it is the `error` prop of `LabeledField` / `ModalField` (Figma `Error/Importantly/Info`: Regular 12px, Danger, 4px under the field). *Important* and *Info* texts belong to the dialog header (`Modal` `important` / `description`).
 - Fields have no fill (transparent), as in Figma.
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Field Dark`** (Filter, Inputfield, Color, Textfield × Static / Hover / Focus / Disabled / Activated). Only colours change, via themed `--field-*` tokens (light values unchanged). See **AllVariantsDark**.
+
+| Status | Dark |
+|---|---|
+| Static | stroke `#242424`, placeholder `#646464` |
+| Activated / Focus | stroke `#65578B` (unchanged), value `#C9C6D9`; Focus adds `--shadow-focus` |
+| Hover | stroke `#888CF6` |
+| Disabled | 20% opacity |
+| Color "Change" | `#888CF6`; Filter chevron `#C9C6D9` |
+
+**Figma notes:** the Figma static stroke is Stroke Light (V2) = `#242424` in dark (`#D8E2EE` in light), while the code's light static stroke is Stroke Input `#8A87A0` — the same open "one border rule" question; `--field-border` keeps the code's light value.
+Hover is `#888CF6` in the dark frame (Headlines `#4549A1` in light). Error is not designed in dark; `--color-danger` is kept.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -116,6 +133,12 @@ The option list is **not** part of this atom. Open your own list from `onClick` 
 | `--radius-xs` | swatch radius | `3px` | **New.** Figma: Type=Color swatch radius 3 |
 | `--border-width-sm` | border | `1px` | Figma: stroke 1 |
 | `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=Disabled |
+| `--field-border` | stroke (Static) | light `#8A87A0` / dark `#242424` | **New** · Figma: Dark Atoms → Stroke Light (V2) |
+| `--field-border-hover` | stroke (Hover) | light `#4549A1` / dark `#888CF6` | **New** · Figma: Dark Atoms (read from the render) |
+| `--field-text` | value text | light `#292639` / dark `#C9C6D9` | **New** · Figma: Dark Atoms → Color Text |
+| `--field-placeholder` | placeholder, empty Filter | light `#5D6E82` / dark `#646464` | **New** · Figma: Dark Atoms → Secondary Grey |
+| `--field-action` | Color "Change" | light `#4549A1` / dark `#888CF6` | **New** · Figma: Dark Atoms (read from the render) |
+| `--field-chevron` | Filter chevron | light `#1D2542` / dark `#C9C6D9` | **New** · Figma: Dark Atoms (read from the render) |
 
 ## Props
 
@@ -148,3 +171,5 @@ import { InputField, TextField, FilterField, ColorField } from 'rifbar-ds';
   so the error is not conveyed by color only.
 - ⚠️ Height 32px is below the 44px touch target — kept as designed (desktop ERP).
 - ⚠️ Disabled at 20% opacity is below 3:1 contrast (same as Button).
+- Dark theme contrast (calculated): value text 12.56:1; placeholder `#646464` 3.55:1; Activated / Focus stroke `#65578B` 3.29:1; Hover stroke 7.13:1;
+  ⚠️ Static stroke `#242424` on black is **1.35:1** (below 3:1) — as designed, flag to design.
