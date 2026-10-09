@@ -104,3 +104,16 @@ export const ToFieldExample: Story = {
     },
   },
 };
+
+/** Figma "Dark Molecules Components" → Sent emails dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DefaultDark: Story = {
+  ...Default,
+  name: 'Default (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

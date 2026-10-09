@@ -65,6 +65,10 @@ Assumed / normalised:
 - The Figma image is a product photo: use `ImageCard` with a real `src`; the stories draw a small bottle inline.
 - Figma line height of the Semi-Bold name and the caption row is `normal` / 15px; the tokens 21px / 15px are used.
 
+## Dark theme
+
+No dark frame exists for the analytics rows; AI-defined: the `--table-row-*` tokens and captions `#646464`. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -81,6 +85,10 @@ Assumed / normalised:
 | `--font-weight-semibold` | `strong` values | `600` | Existing tokens.json · Figma: Semi-Bold Headings/h7 |
 | `--color-secondary-grey` | captions | `#A7A4B7` | Existing tokens.json · Figma: Secondary Grey |
 | `--font-size-micro`, `--font-line-height-micro` | captions | 10 / 15px | Existing tokens.json · Figma: Body/Micro Medium |
+| `--table-row-bg` / `--table-row-border` / `--table-row-text` / `--table-row-shadow` | row surface, stroke, text, shadow | dark `#000000`, `#242424`, `#C9C6D9`, `--shadow-dark-1` | Existing tokens.json · Figma: Table Row Dark (reused) |
+| `--table-row-analytics-muted` | captions | `#A7A4B7` / dark `#646464` | **New** · AI-defined |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens. The image is the `ImageCard` atom (32px, `sm`).
 
@@ -110,3 +118,4 @@ import { ImageCard, TableHeader, TableRowAnalytics } from 'rifbar-ds';
 - The row has `role="row"` and each cell `role="cell"`, as the other table rows; put them in an element with `role="table"` together with the header row.
 - ⚠️ Kept as designed: the captions (Secondary Grey `#A7A4B7` on white, 10px) are 2.4:1 — below 3:1 and small.
 - Values are Color Text on white, 14.7:1.
+- Dark theme contrast: captions `#646464` on `#000000` 3.55:1 (⚠️ below 4.5:1, AI-defined).

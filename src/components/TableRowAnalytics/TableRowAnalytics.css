@@ -11,9 +11,9 @@
   width: 100%;
   padding: var(--spacing-12) var(--spacing-16);
   border-radius: var(--radius-lg);
-  background: var(--color-white);
-  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1), var(--shadow-table-row);
-  color: var(--color-text);
+  background: var(--table-row-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--table-row-border), var(--table-row-shadow);
+  color: var(--table-row-text);
   font-family: var(--font-family-base);
 }
 
@@ -39,7 +39,7 @@
 .ds-table-row-analytics__cell--end { align-items: flex-end; text-align: right; }
 
 .ds-table-row-analytics__label {
-  color: var(--color-secondary-grey);
+  color: var(--table-row-analytics-muted);
   font-size: var(--font-size-micro);
   line-height: var(--font-line-height-micro);
   font-weight: var(--font-weight-medium);

@@ -64,6 +64,10 @@ Assumed / normalised:
 - 200px (name and field) reuses `--size-info-row-label` (same value); it was added for another row.
 - The field is a text input with `inputMode="numeric"`, not `type="number"` (no spinner, no scroll changes).
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Products 1 Dark` (Choice of quantity): row `#000000` with a `#242424` stroke (`--table-row-*`), name `#5D6E82` (unchanged), prices `#BDC5E2`, amount field stroke `#242424`, Focus stroke from `InputField`. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -80,6 +84,10 @@ Assumed / normalised:
 | `--font-size-small`, `--font-line-height-small` | prices | 14 / 21px | Existing tokens.json · Figma: Body/Small Medium |
 | `--color-stroke-light-v2` | empty field border | `#D8E2EE` | Existing tokens.json · Figma: Stroke Light V2 |
 | `--size-info-row-label` | name column basis, field width | `200px` | Existing tokens.json (same value) · Figma: name width 200, InputField width 200 |
+| `--table-row-bg` / `--table-row-border` / `--table-row-text` / `--table-row-shadow` | row surface, stroke, text, shadow | dark `#000000`, `#242424`, `#C9C6D9`, `--shadow-dark-1` | Existing tokens.json · Figma: Table Row Dark (reused) |
+| `--table-row-quantity-price` / `--table-row-quantity-field-border` | prices, amount field stroke | `#1D2542`, `#D8E2EE` / dark `#BDC5E2`, `#242424` | **New** · Figma: Products 1 Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens. The field's own colors, height (32px) and states come from `InputField`.
 
@@ -105,3 +113,4 @@ import { TableRowQuantity } from 'rifbar-ds';
 - The item name labels the field (`aria-labelledby`); keyboard and form behavior come from the native `<input>`.
 - ⚠️ Kept as designed: the empty field's Stroke Light V2 border on white is 1.3:1 (below 3:1 for a control boundary); the placeholder (Grey Dark) is 5.2:1.
 - ⚠️ Disabled at 20% opacity is below 3:1; the 32px field is below the 44px touch target.
+- Dark theme contrast: prices 12.25:1, name `#5D6E82` on `#000000` 4.02:1 (⚠️ below 4.5:1, kept as designed).

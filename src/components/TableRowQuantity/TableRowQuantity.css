@@ -11,8 +11,8 @@
   width: 100%;
   padding: var(--spacing-12) var(--spacing-16);
   border-radius: var(--radius-lg);
-  background: var(--color-white);
-  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1), var(--shadow-table-row);
+  background: var(--table-row-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--table-row-border), var(--table-row-shadow);
   font-family: var(--font-family-base);
 }
 
@@ -41,7 +41,7 @@
 }
 
 .ds-table-row-quantity__price {
-  color: var(--color-primary-blue-dark);
+  color: var(--table-row-quantity-price);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);
@@ -51,6 +51,6 @@
 /* Figma: the empty field in a row has a Stroke Light V2 border, not the form's Stroke Input.
    Filled / hover / focus / error keep the InputField colors (they are more specific). */
 .ds-table-row-quantity .ds-table-row-quantity__input {
-  --ds-field-border: var(--color-stroke-light-v2);
+  --ds-field-border: var(--table-row-quantity-field-border);
   width: var(--size-info-row-label);
 }

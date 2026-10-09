@@ -48,6 +48,10 @@ Implements the Figma frame [`Integrations for invoices`](https://www.figma.com/d
 - Figma names the two radios `Custom` / `Default` (copies of the Edit User Access card); here the options are data (`options`), the names are not kept.
 - Not designed, AI-defined: options wrap to the next line when the card is narrow (8px row gap); disabled = whole group at `--opacity-disabled`, single `disabled` option uses the atom's own disabled look; hover and focus come from the `Checkbox` atom. Dark theme not designed — light values are used.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Integrations for invoices`: card `#101010` with a `#242424` stroke, chosen option `#888CF6`, other options `#5D6E82` (unchanged), title `#C9C6D9`; radios come from `Checkbox`. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -64,6 +68,9 @@ Implements the Figma frame [`Integrations for invoices`](https://www.figma.com/d
 | `--spacing-16` | card padding, gap between radios | `16px` | Existing tokens.json · Figma: padding 16, gap 16 |
 | `--spacing-8` | row gap when options wrap | `8px` | AI-defined use: keep wrapped rows apart |
 | `--opacity-disabled` | disabled group | `0.2` | AI-defined use: Figma Access row Disabled is 20% |
+| `--radio-group-card-bg` / `--radio-group-card-border` / `--radio-group-card-title` / `--radio-group-card-selected` | card, stroke, title, chosen | `#F6F8FC`, `#D8E2EE`, `#292639`, `#4549A1` / dark `#101010`, `#242424`, `#C9C6D9`, `#888CF6` | **New** · Figma: Integrations for invoices |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -92,3 +99,4 @@ import { RadioGroupCard } from 'rifbar-ds';
 - Native radio inputs in one group (`name`), `role="radiogroup"` labelled by the title; arrow keys move the selection.
 - Radio 16px with a text label — click target is the whole label, still below 44px; kept as designed.
 - Disabled at 20% opacity is below 3:1 contrast — kept as designed. Grey Dark `#5D6E82` and Headlines `#4549A1` on `#F6F8FC` pass 4.5:1.
+- Dark theme contrast (on `#101010`): chosen 6.46:1, other options `#5D6E82` 3.64:1 (⚠️ below 4.5:1, kept as designed).
