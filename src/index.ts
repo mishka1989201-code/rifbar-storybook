@@ -81,6 +81,7 @@ export * from './components/CheckListModal';
 export * from './components/FilterMenu';
 export * from './components/ProductDetailCard';
 export * from './components/ProductFormModal';
+export * from './components/ScheduledCallCard';
 export * from './components/WelcomeCard';
 export * from './components/NotificationLine';
 export * from './components/TableRowExpandable';

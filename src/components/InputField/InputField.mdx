@@ -140,7 +140,7 @@ import { InputField, TextField, FilterField, ColorField } from 'rifbar-ds';
 - Native elements: keyboard, forms, autofill and screen readers work as usual.
 - There is no visible label in the atom — always pass `aria-label` or link a `<label htmlFor>`.
   A placeholder is not a label.
-- `FilterField` has `aria-haspopup="listbox"` and `aria-expanded={open}`.
+- `FilterField` has `aria-haspopup="listbox"` and `aria-expanded={open}`. The `icon` prop (for example `date`) replaces the chevron for a trigger that opens a calendar; set `aria-haspopup="dialog"` then (Figma `scheduled-call-menu`).
 - Contrast on White / BG Color: value text 14.7:1 / 13.8:1, placeholder 5.2:1 / 4.9:1,
   Static border 3.5:1 / 3.3:1, Activated / Focus border 6.4:1 / 6.0:1, Error border 3.5:1 / 3.3:1.
 - Focus is shown by the border **and** the Focus shadow, not by color alone.

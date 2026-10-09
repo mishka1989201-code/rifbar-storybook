@@ -7,7 +7,7 @@ import {
   type ReactNode,
   type TextareaHTMLAttributes,
 } from 'react';
-import { Icon } from '../Icon';
+import { Icon, type IconName } from '../Icon';
 import './InputField.css';
 
 /** Preview / state props shared by every `Type` of the Figma `InputField` set. */
@@ -105,6 +105,8 @@ export interface FilterFieldProps extends Omit<ButtonHTMLAttributes<HTMLButtonEl
   placeholder?: ReactNode;
   /** The list is open: chevron points up, border Input field (Figma `Status=Focus`). */
   open?: boolean;
+  /** Replaces the chevron with another 16px icon, e.g. `date` for a date picker trigger (Figma scheduled-call-menu). */
+  icon?: IconName;
 }
 
 /**
@@ -112,7 +114,7 @@ export interface FilterFieldProps extends Omit<ButtonHTMLAttributes<HTMLButtonEl
  * The option list itself is not part of this atom — open it from `onClick` and pass `open`.
  */
 export const FilterField = forwardRef<HTMLButtonElement, FilterFieldProps>(function FilterField(
-  { value, placeholder, open = false, invalid, forceHover, forceFocus, className, type = 'button', ...rest },
+  { value, placeholder, open = false, icon, invalid, forceHover, forceFocus, className, type = 'button', ...rest },
   ref,
 ) {
   const filled = value !== undefined && value !== null && value !== '';
@@ -134,7 +136,12 @@ export const FilterField = forwardRef<HTMLButtonElement, FilterFieldProps>(funct
       {...rest}
     >
       <span className={filled ? 'ds-field__value' : 'ds-field__placeholder'}>{filled ? value : placeholder}</span>
-      <Icon name={open ? 'chevron-up' : 'chevron-down'} size={16} color="current" className="ds-field__chevron" />
+      <Icon
+        name={icon ?? (open ? 'chevron-up' : 'chevron-down')}
+        size={16}
+        color="current"
+        className="ds-field__chevron"
+      />
     </button>
   );
 });

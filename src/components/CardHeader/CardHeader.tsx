@@ -7,8 +7,11 @@ export interface CardHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 't
   title: ReactNode;
   /** 16px icon inside the round badge. Default `user` (Figma `person`). */
   icon?: IconName;
-  /** Badge colour: `blue` (Figma Row.HeaderCard) or `violet` (Figma TicketInfo/v1: violet tint, Violet Icons icon). */
-  tone?: 'blue' | 'violet';
+  /**
+   * Badge colour: `blue` (Figma Row.HeaderCard), `violet` (Figma TicketInfo/v1: violet tint, Violet Icons icon),
+   * `warning` / `success` (Figma scheduled-call-menu: Warning / Green Light at 22% with a matching icon).
+   */
+  tone?: 'blue' | 'violet' | 'warning' | 'success';
   /** Optional content pushed to the right edge (toggle, buttons…). Not in the Figma frame. */
   actions?: ReactNode;
 }

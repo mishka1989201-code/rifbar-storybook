@@ -38,6 +38,16 @@
   color: var(--color-violet-icons);
 }
 
+.ds-card-header__badge--warning {
+  background: var(--color-warning-tint);
+  color: var(--color-warning);
+}
+
+.ds-card-header__badge--success {
+  background: var(--color-green-light-tint);
+  color: var(--color-green-light);
+}
+
 .ds-card-header__text {
   margin: 0;
   overflow: hidden;
