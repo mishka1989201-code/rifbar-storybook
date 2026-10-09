@@ -98,7 +98,7 @@ accessibility warnings; what was and was not verified (typecheck, visual render,
 Components in `src/components` (all exported from `src/index.ts`). Per-molecule notes (props, Figma nodes) are in `CONTRIBUTING-molecules.md`.
 
 - **Atoms:** Avatar, Button, Checkbox, ChevronDropDown, ChevronStatus, EmailChevron, FileDropzone, FilterChevron, HeaderMenu, Icon,
-  IconButton (`size` sm), ImageCard, InputField (Input / Filter / Text / Color), Logo, PlayButton, Scrollbar (content + dropdown), SearchField,
+  IconButton (`size` sm), ImageCard, InputField (Input / Filter / Text / Color), Logo, NoRowsTable, PlayButton, Scrollbar (content + dropdown), SearchField,
   Slider, SwitchButton, Switcher, Tabs, Toggle, TooltipBordered
 - **Molecules** (navigation / layout): BreadCrumbs, CardGrid, LogoBar, NavbarMenu, PageHeader (`size` compact), Pagination (`size` sm, `siblingCount` v1 / v2), PaginationBar (`stacked`, `flat`), TabsHeader, UserDropdown,
   ViewSwitch, ShowSelect, SwitchGroup

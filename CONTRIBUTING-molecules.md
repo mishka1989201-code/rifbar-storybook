@@ -38,6 +38,7 @@
 | SwitchGroup | дріжка з `SwitchButton` (Figma Switch: Light / Dark + hover): `options`, `value`, `onChange`, `tone` |
 | TimeTrackerTitle | Play-кнопка + «My Time» (Figma TimeTracker/Play Buttons and Title); `title`, `playProps` |
 | TimeTrackerDate | іконка + дата + три кнопки prev/reset/next (Figma TimeTracker/Date) |
+| NoRowsTable | заглушка порожньої таблиці (Figma No Rows table, desktop / phone-large / phone-small × light / dark): SVG-діаграма + водяний знак `Logo` + «Table has no rows»; `size`, `label`; сітка й осі — кольори зчитані з рендеру, потребують підтвердження |
 | TimeTrackerBar | верхня панель трекера = Title + Date (Figma TimeTracker/Play Actions Menu) |
 | AlertRow | рядок-підказка (Figma Welcome Card → Option 1/4/5): крапка + речення (`lead` Medium + решта) + `Button text-arrow`; `tone` warning / info |
 | CheckListModal | діалог зі списком чекбоксів (Figma Info Modal): `Modal size="list" elevated` + `Button` у шапці + рядки `Checkbox`; `options`, `value`, `onChange`, `allLabel`, `searchable`, `description` |

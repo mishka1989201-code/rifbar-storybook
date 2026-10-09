@@ -68,6 +68,7 @@ export * from './components/TableClients';
 export * from './components/CardGrid';
 export * from './components/TableOrders';
 export * from './components/TableRowQuantity';
+export * from './components/NoRowsTable';
 export * from './components/NoteCard';
 export * from './components/TableRowAnalytics';
 export * from './components/TableRowClient';

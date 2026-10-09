@@ -1,0 +1,101 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as NoRowsTableStories from './NoRowsTable.stories';
+
+<Meta of={NoRowsTableStories} />
+
+# NoRowsTable
+
+The placeholder of a table that has no rows: a pale chart (grid, axis numbers) with the Rifbar sign as a watermark and the text
+“Table has no rows” over it. Implements the Figma component set
+[`No Rows table`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=4319-33338)
+(3 sizes × light / dark). The sign comes from [Logo](?path=/docs/atoms-logo--docs).
+
+<Canvas of={NoRowsTableStories.Default} />
+<Controls of={NoRowsTableStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Property 1=desktop` 495×328 | `size="desktop"` (default), `--size-no-rows-desktop` |
+| `Property 1=phone-large` 384×254 | `size="phone-large"`, `--size-no-rows-phone-large` |
+| `Property 1=phone-small,` 300×198 | `size="phone-small"`, `--size-no-rows-phone-small` |
+| `theme=light` / `theme=dark` | follows `data-theme` (tokens `--no-rows-*`, themed) |
+| “Table has no rows” (outlined vector in Figma) | `label`, real text in the SVG |
+| Chart grid, axis, numbers 60…0 and 3…0 | inline SVG, geometry of the 495×328 frame |
+| Big white / black sign | `LOGO_SIGN` path of `Logo`, 302px tall in the 328px frame |
+
+## When to use
+
+- ✅ The body of a table (clients, orders, products) when the filtered or loaded list is empty.
+
+## When NOT to use
+
+- ❌ A table that is loading or failed — show a loading or an error message instead (see [TableClients](?path=/docs/organisms-tableclients--docs) `status`).
+- ❌ Lists that are not tables — use their own empty message.
+
+## Sizes and theme
+
+<Canvas of={NoRowsTableStories.PhoneLarge} />
+<Canvas of={NoRowsTableStories.PhoneSmall} />
+<Canvas of={NoRowsTableStories.Dark} />
+
+## Edge cases
+
+<Canvas of={NoRowsTableStories.CustomLabel} />
+<Canvas of={NoRowsTableStories.NarrowContainer} />
+
+## All variants
+
+<Canvas of={NoRowsTableStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the three sizes in both themes. All sizes are one drawing scaled (aspect 495 : 328, text and numbers scale with it).
+Nothing else is drawn: no hover, no focus, no action. The component is a static picture.
+
+- The drawing is vectors that could not be downloaded (asset proxy 403), so it is redrawn as inline SVG from measurements of the Figma render
+  (grid 21 columns × 5 rows, step 20.6 / 45.4px, axis at y=264.5, numbers 12px, title 39.4px Poppins Medium). Compared with the render by eye: no pixel diff.
+- Grid and axis colours have no variable in Figma; they were read from the render and need confirmation (grid = Secondary Grey @ 15% light / 25% dark,
+  axis and numbers = @ 75% / 50%).
+- The watermark is White in the light theme and White (Dark) in the dark one, drawn under the grid lines (as in Figma).
+- Corner radius: `--radius-lg` (10px) in every size; Figma looks the same, not measured per size.
+- `label`: Figma has only “Table has no rows”. A custom text is AI-defined; the title keeps its size relative to the card, so a long label overflows the grid.
+- Not tied to a table yet: `TableClients` / `TableOrders` still show their text message for an empty list. Use `NoRowsTable` in place of it where the Figma screen asks for it.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--no-rows-bg` | card fill | `#F6F8FC` / dark `#101010` | **New** (themed) · Figma: BG Color |
+| `--no-rows-border`, `--border-width-sm` | card stroke (inset) | `#F1F2F9` / dark `#242424`, 1px | **New** (themed) · Figma: Stroke Light (V1) |
+| `--no-rows-title` | “Table has no rows” | `#A7A4B7` / dark `#646464` | **New** (themed) · Figma: Secondary Grey |
+| `--no-rows-watermark` | logo sign | `#FFFFFF` / dark `#000000` | **New** (themed) · Figma: White / White (Dark) |
+| `--no-rows-grid` | grid lines | `rgba(167,164,183,.15)` / dark `rgba(100,100,100,.25)` | **New** (themed) · Figma: no variable, read from the render |
+| `--no-rows-axis` | axis line and numbers | `rgba(167,164,183,.75)` / dark `rgba(100,100,100,.5)` | **New** (themed) · Figma: no variable, read from the render |
+| `--size-no-rows-desktop` / `-phone-large` / `-phone-small` | card width | `495px` / `384px` / `300px` | **New** · Figma: Property 1 sizes |
+| `--radius-lg` | card radius | `10px` | Existing tokens.json · AI-defined use: matches the other cards |
+| `--font-family-base`, `--font-weight-medium`, `--font-weight-regular` | title, numbers | Poppins, 500, 400 | Existing tokens.json · Figma: Poppins Medium / Regular |
+
+Not tokens (geometry of the illustration, in viewBox units): title 39.4px, numbers 12px, grid steps, axis width 1.5px.
+
+## Props
+
+<ArgTypes of={NoRowsTableStories} />
+
+## Code example
+
+```tsx
+import { NoRowsTable } from 'rifbar-ds';
+
+{rows.length === 0 && <NoRowsTable />}
+<NoRowsTable size="phone-large" label="No orders yet" />
+```
+
+## Accessibility
+
+- The card is `role="status"`; the drawing is `aria-hidden`, and the label is announced once from a visually hidden copy.
+- Contrast, computed: title `#A7A4B7` on `#F6F8FC` 2.29:1, dark `#646464` on `#101010` 3.22:1.
+- ⚠️ Kept as designed: the title is below 4.5:1 (and below 3:1 in the light theme), and the axis numbers (1.81:1, dark 1.67:1) are decorative and hidden from
+  screen readers; the card against the `#F5F5F5` page is 1.03:1 (separated by the thin stroke only).
+- No interactive element, so no touch-target issue.
