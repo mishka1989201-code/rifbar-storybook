@@ -49,6 +49,10 @@ The look follows `TableRowExpandable` (same card, hover fill, violet stroke when
 - Figma strokes are inside: drawn as an inset shadow. Shadow `0 4 2 / 5%` in Figma is read as the `Table Row` shadow (`0 4 4 / 5%`) — the style name matches.
 - The toggle is 36px instead of 37px (no 10.5px token), as in `TableRowExpandable`. Dark theme not designed.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Accordion Dark` (Static / Hover / Focus / Disabled): row `#000000` with a `#242424` stroke, title `#BDC5E2`, hover fill `#242424`, open (Focus) stroke `#888CF6`, toggle `#27282E`. **Open question:** the open title is drawn grey `#5D6E82` in dark (Headlines in light), which looks unadapted; copied as drawn. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -64,6 +68,11 @@ The look follows `TableRowExpandable` (same card, hover fill, violet stroke when
 | `--opacity-disabled` | disabled | `20%` | Existing tokens.json · Figma: Disabled opacity |
 | `--shadow-focus` | keyboard focus | — | AI-defined use: not drawn in Figma |
 | `--color-grey-dark` / `--font-size-small` | panel text | `#5D6E82` / `14px` | AI-defined use: panel not drawn |
+| `--accordion-bg` / `--accordion-stroke-static` / `--accordion-shadow` | row, static stroke, shadow | white, transparent, table-row shadow / dark `#000000`, `#242424`, `--shadow-dark-1` | **New** · Figma: Accordion Dark |
+| `--accordion-hover-bg` / `--accordion-hover-shadow` | hover fill, hover shadow | `#EBEBF4`, table-row-hover / dark `#242424`, `--shadow-dark-1` | **New** · Figma: Accordion Dark (shadow: AI-defined) |
+| `--accordion-title` / `--accordion-active-stroke` / `--accordion-active-title` / `--accordion-toggle-bg` | title, open stroke, open title, toggle | `#1D2542`, `#4549A1`, `#4549A1`, `#ECEEFB` / dark `#BDC5E2`, `#888CF6`, `#5D6E82`, `#27282E` | **New** · Figma: Accordion Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -84,3 +93,4 @@ import { Accordion } from 'rifbar-ds';
 - The header is a native `<button aria-expanded aria-controls>`; Enter / Space toggle it.
 - Disabled at 20% opacity is below 3:1 — kept as designed.
 - The chevron square is 36px — below the 44px touch target, but the whole 62px-high header is clickable.
+- Dark theme contrast: title 12.25:1; open title `#5D6E82` on `#000000` 4.02:1 (⚠️ below 4.5:1, as drawn).

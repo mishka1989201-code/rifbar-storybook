@@ -2,10 +2,10 @@
    Figma strokes are "inside": drawn with an inset box-shadow next to the row shadow. */
 
 .ds-accordion {
-  --ds-accordion-bg: var(--color-white);
-  --ds-accordion-stroke: transparent;
-  --ds-accordion-shadow: var(--shadow-table-row);
-  --ds-accordion-title: var(--color-primary-blue-dark);
+  --ds-accordion-bg: var(--accordion-bg);
+  --ds-accordion-stroke: var(--accordion-stroke-static);
+  --ds-accordion-shadow: var(--accordion-shadow);
+  --ds-accordion-title: var(--accordion-title);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -19,15 +19,15 @@
 
 .ds-accordion:hover,
 .ds-accordion.is-hover {
-  --ds-accordion-bg: var(--color-row-hover);
-  --ds-accordion-shadow: var(--shadow-table-row-hover);
+  --ds-accordion-bg: var(--accordion-hover-bg);
+  --ds-accordion-shadow: var(--accordion-hover-shadow);
 }
 
 .ds-accordion.is-open {
-  --ds-accordion-bg: var(--color-white);
-  --ds-accordion-stroke: var(--color-headlines);
-  --ds-accordion-shadow: var(--shadow-table-row);
-  --ds-accordion-title: var(--color-headlines);
+  --ds-accordion-bg: var(--accordion-bg);
+  --ds-accordion-stroke: var(--accordion-active-stroke);
+  --ds-accordion-shadow: var(--accordion-shadow);
+  --ds-accordion-title: var(--accordion-active-title);
 }
 
 .ds-accordion.is-disabled {
@@ -72,7 +72,7 @@
   box-sizing: border-box;
   padding: var(--spacing-10);
   border-radius: var(--radius-sm);
-  background: var(--color-secondary-light);
+  background: var(--accordion-toggle-bg);
 }
 
 .ds-accordion__panel {

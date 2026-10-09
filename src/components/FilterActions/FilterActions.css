@@ -12,9 +12,9 @@
 
 /* Figma: label and icon are Headlines (Button outline is Primary Blue Dark) and the badge is Headlines. */
 .ds-filter-actions .ds-filter-actions__filter {
-  color: var(--color-headlines);
+  color: var(--filter-menu-accent);
 }
 
 .ds-filter-actions .ds-filter-actions__filter .ds-button__counter {
-  background-color: var(--color-headlines);
+  background-color: var(--filter-menu-accent);
 }

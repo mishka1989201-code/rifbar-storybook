@@ -40,6 +40,10 @@ Composes [Checkbox](?path=/docs/atoms-checkbox--docs) (`type="radio"`) and [Butt
 <Canvas of={AccessModeRowStories.CustomLabels} />
 <Canvas of={AccessModeRowStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Edit User Access Dark`: card `#101010` with a `#242424` stroke, options grey `#5D6E82` (unchanged), selected option `#888CF6`; radios and the “Edit” button come from the atoms. Stories: `DefaultDark`, `DefaultChosenDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -52,6 +56,9 @@ Composes [Checkbox](?path=/docs/atoms-checkbox--docs) (`type="radio"`) and [Butt
 | `--color-headlines` | chosen label | `#4549A1` | Figma: Headlines |
 | `--font-weight-regular` / `--font-weight-medium` | not chosen / chosen label | `400` / `500` | Figma: Body/Small Regular / Medium |
 | `--font-size-small` / `--font-line-height-small` | label | `14px` / `21px` | Figma |
+| `--access-mode-row-bg` / `--access-mode-row-border` / `--access-mode-row-selected` | card, stroke, selected option | `#F6F8FC`, `#D8E2EE`, `#4549A1` / dark `#101010`, `#242424`, `#888CF6` | **New** · Figma: Edit User Access Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 The radios and the button bring their own tokens (including the 20% disabled opacity). No new tokens.
 
@@ -76,3 +83,4 @@ import { AccessModeRow } from 'rifbar-ds';
 
 - The radios form a `radiogroup` of native `input type="radio"`; arrow keys move between them.
 - Edit is a native `button`; in `default` mode it is `disabled`.
+- Dark theme contrast (on `#101010`): grey options 3.64:1 (⚠️ below 4.5:1, kept as designed), selected 6.46:1.
