@@ -17,6 +17,7 @@ A square **product photo thumbnail** with a light frame. Implements the Figma co
 |---|---|---|
 | `Property 1=Middle` | `size="md"` (default) | 64×64, radius 4px |
 | `Property 1=Small` | `size="sm"` | 32×32, radius 3px |
+| `imageCards` in Modal EditProduct | `size="lg"` | 160×160, radius 4px (Figma `Modal` → Edit Image) |
 | `img` layer (image fill, Fill/crop) | `src`, `fit="cover"` | White behind the photo |
 | Stroke | — | 1px inside, Stroke Light V2 |
 
@@ -65,6 +66,7 @@ Figma crops the photo to fill the square (`cover`). For photos that must be show
 |---|---|---|---|
 | `--size-image-card` | width / height, Middle | `64px` | Figma: Property 1=Middle |
 | `--size-image-card-sm` | width / height, Small | `32px` | Figma: Property 1=Small |
+| `--size-image-card-lg` | width / height, `lg` | `160px` | **New** · Figma: Modal EditProduct → imageCards 160×160 |
 | `--radius-image-card` | corner radius, Middle | `4px` | Figma: radius 4 |
 | `--radius-xs` | corner radius, Small | `3px` | Existing (Figma: radius 3) |
 | `--image-card-bg` | background behind photo | `#FFFFFF` (White) | Figma: img fill White |

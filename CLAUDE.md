@@ -106,12 +106,12 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   DepartmentSection, DocumentCard, InfoBlock (info / ticket / details / form), InfoClient, InfoRowCard, InfoTable, NoteCard, OrderCard,
   ProductCard, RowInfoBlock, StatCard, StepCard
 - **Molecules** (forms / dialogs): AccessModeRow, BarcodeSettings, CheckListModal, ConfirmModal, Dropdown, FilterActions, LabeledField, MessageBox, Modal
-  (+ ModalSection, ModalField, ModalRow; sizes desktop / mobile / wide), RadioGroupCard
+  (+ ModalSection, ModalField, ModalRow; sizes desktop / mobile / wide / list / 480 / 360), RadioGroupCard
 - **Molecules** (chat / feedback): AlertRow, ChatHeader, ChatMessage, Notification, NotificationLine
 - **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle
 - **Molecules** (tables): TableActionsRow, TableHeader (presets incl. `productsAnalytics`, `paymentsAnalytics`), TableProductsHeader,
   TableProductsRow, TableRowAnalytics, TableRowClient, TableRowExpandable, TableRowMobile, TableRowQuantity, TotalRow
-- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient), Navbar (LogoBar + NavbarMenu + UserDropdown), TimeTracker (TimeTrackerBar + stats + TimeScale), WelcomeCard (AlertRow rows + dark header), FilterMenu (FilterChevron chips + CheckListModal / Modal + DatePicker sections), ProductDetailCard (picture + RowInfoBlock rows + description + actions),
+- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient), Navbar (LogoBar + NavbarMenu + UserDropdown), TimeTracker (TimeTrackerBar + stats + TimeScale), WelcomeCard (AlertRow rows + dark header), FilterMenu (FilterChevron chips + CheckListModal / Modal + DatePicker sections), ProductDetailCard (picture + RowInfoBlock rows + description + actions), ProductFormModal (Modal 480 / 360 + fields + image block),
   DatePicker (Button + TimePicker; date / date-time / today / range)
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
 

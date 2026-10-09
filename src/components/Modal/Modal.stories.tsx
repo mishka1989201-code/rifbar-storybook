@@ -14,7 +14,7 @@ const meta = {
   args: { title: 'Create warehouse', size: 'desktop', onClose: () => {} },
   argTypes: {
     title: { control: 'text' },
-    size: { control: 'inline-radio', options: ['desktop', 'mobile', 'wide', 'list'] },
+    size: { control: 'inline-radio', options: ['desktop', 'mobile', 'wide', 'list', '480', '360'] },
     icon: { control: 'text' },
     children: { control: false },
     actions: { control: false },

@@ -76,6 +76,7 @@
 | WelcomeCard | вітальна картка (Figma Welcome Card): темний заголовок із `title`, `subtitle`, `stats`, `image` + `rows` (`AlertRow`); картинку з Figma не завантажено (403) |
 | FilterMenu | екран фільтрів 768px (Figma Filter Responsive Menu): шапка з `title`, `count`, закриттям + чіпи `FilterChevron` (`filters`) + секції в `children` (`CheckListModal`, `Modal` з `DatePicker`) |
 | ProductDetailCard | детальна картка товару (Figma Product Card 1524px): картинка 640 + `title`, `details` (`RowInfoBlock line`), `description`, `actions`; не плутати з плиткою `ProductCard`; фото з Figma не завантажено (403) |
+| ProductFormModal | форма товару (Figma Modal Add / Edit product, 480 / 360): `Modal size="480"/"360"` + 7 полів + блок зображення (add: бібліотека + `FileDropzone`; edit: `ImageCard lg` + кнопки); `mode`, `size`, `values`, `onFieldClick` |
 | DatePicker | календар (Figma date-range-apply: date / date-time / OneButtonApply / Full): `mode` `single` / `range`, `withTime` (`TimePicker`), `footer` `actions` / `today` / `none`, `months`; `value` — чернетка, `onApply` / `onCancel`; клавіатура, `locale` |
 
 ## Процес для кожної молекули

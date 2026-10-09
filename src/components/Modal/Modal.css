@@ -22,6 +22,14 @@
   max-width: var(--size-modal-confirm);
 }
 
+.ds-modal--480 {
+  max-width: var(--size-modal-form);
+}
+
+.ds-modal--360 {
+  max-width: var(--size-modal-form-narrow);
+}
+
 .ds-modal--list {
   max-width: var(--size-modal-list);
 }
@@ -117,26 +125,30 @@
 /* ─── Mobile: 20px title, 10px side padding, stacked full-width buttons of 12px padding ── */
 .ds-modal--mobile .ds-modal__header,
 .ds-modal--mobile .ds-modal__section,
-.ds-modal--mobile .ds-modal__footer {
+.ds-modal--mobile .ds-modal__footer,
+.ds-modal--360 .ds-modal__header,
+.ds-modal--360 .ds-modal__section,
+.ds-modal--360 .ds-modal__footer {
   padding-left: var(--spacing-10);
   padding-right: var(--spacing-10);
 }
 
-.ds-modal--mobile .ds-modal__title-wrap {
+.ds-modal--mobile .ds-modal__title-wrap,
+:is(.ds-modal--480, .ds-modal--360) .ds-modal__title-wrap {
   flex: 1 1 0;
 }
 
-.ds-modal--mobile .ds-modal__title {
+:is(.ds-modal--mobile, .ds-modal--480, .ds-modal--360) .ds-modal__title {
   font-size: var(--font-size-h5);
   line-height: var(--font-line-height-h5);
 }
 
-.ds-modal--mobile .ds-modal__footer {
+:is(.ds-modal--mobile, .ds-modal--480, .ds-modal--360) .ds-modal__footer {
   flex-direction: column;
   align-items: stretch;
 }
 
-.ds-modal--mobile .ds-modal__footer > .ds-button {
+:is(.ds-modal--mobile, .ds-modal--480, .ds-modal--360) .ds-modal__footer > .ds-button {
   flex: none;
   width: 100%;
   padding: var(--spacing-12) var(--spacing-16);

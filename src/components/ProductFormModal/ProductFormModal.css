@@ -1,0 +1,49 @@
+/* ProductFormModal — every value references a token from src/tokens/tokens.json.
+   Surface = Modal (sizes 480 / 360), fields = ModalField + FilterField / InputField, image = FileDropzone / ImageCard / Button. */
+
+.ds-product-form-modal__image {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* Same caption as `ModalField` (Body/Small Medium, Color Text). */
+.ds-product-form-modal__caption {
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Figma `Library Image`: a Mini Medium hint over a full-width button, 16px below. */
+.ds-product-form-modal__library {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding-bottom: var(--spacing-16);
+}
+
+.ds-product-form-modal__library > .ds-button {
+  width: 100%;
+}
+
+.ds-product-form-modal__hint {
+  color: var(--color-text);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Figma `Edit Image`: the 160px photo and two 37px buttons, 8px apart, 16px between the buttons. */
+.ds-product-form-modal__edit {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+}
+
+.ds-product-form-modal__edit-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-16);
+}
