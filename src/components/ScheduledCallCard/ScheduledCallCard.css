@@ -8,20 +8,20 @@
   width: 100%;
   overflow: clip;
   border-radius: var(--radius-lg);
-  background: var(--color-white);
-  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1), var(--shadow-card);
+  background: var(--scheduled-call-card-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--scheduled-call-card-stroke), var(--scheduled-call-card-shadow);
   font-family: var(--font-family-base);
 }
 
 /* Figma `Time to call`: the whole card is Warning BG with a Warning border at 30%. */
 .ds-scheduled-call-card.is-due {
-  background: var(--color-warning-bg);
-  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-warning-border), var(--shadow-card);
+  background: var(--scheduled-call-card-due-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-warning-border), var(--scheduled-call-card-shadow);
 }
 
 /* Figma: the header sits on the card fill and has a Stroke Light V2 line (CardHeader's own is Secondary Light, white). */
 .ds-scheduled-call-card > .ds-card-header {
-  border-bottom-color: var(--color-stroke-light-v2);
+  border-bottom-color: var(--scheduled-call-card-line);
   background: transparent;
 }
 
@@ -47,4 +47,10 @@
   font-size: var(--font-size-mini);
   line-height: var(--font-line-height-mini);
   font-weight: var(--font-weight-medium);
+}
+
+/* Figma draws the Static badge orange in light and green in dark (scheduled-call-menu-dark); the tokens keep the light result. */
+.ds-scheduled-call-card .ds-card-header__badge--warning {
+  background: var(--scheduled-call-card-badge-bg);
+  color: var(--scheduled-call-card-badge-fg);
 }

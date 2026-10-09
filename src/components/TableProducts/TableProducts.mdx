@@ -61,9 +61,16 @@ Assumed / normalised:
 - Sorting is not drawn (the nested layers are named `Header with Sort`, but there are no arrows), so none is added.
 - `-` in `type` / `nicotine` is plain text, as in Figma.
 
+## Dark theme
+
+Figma `Dark Organisms Components` → `Table - Products` (3765:359130). Container fill `#000000` (`--table-products-bg`), outer 1px stroke `#242424` (`--table-products-stroke`);
+header and row colours come from `TableProductsHeader` / `TableProductsRow` (`--table-products-*`). Story `All variants (dark theme)`.
+
+The `--color-*` rows of the table below are light values.
+
 ## Design tokens used
 
-The frame adds no new tokens. Header and row tokens are listed in their own MDX.
+Dark theme adds four tokens (last four rows). Header and row tokens are listed in their own MDX.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -75,6 +82,10 @@ The frame adds no new tokens. Header and row tokens are listed in their own MDX.
 | `--color-grey-dark` | empty / loading text | `#5D6E82` | AI-defined use: secondary text colour of the DS |
 | `--color-danger-strong` | error text | `#DF2E15` | AI-defined use: Danger hue with 4.6:1 on white |
 | `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | status message | 14 / 21px, 500 | AI-defined use: Body/Small Medium, as the rows |
+| `--table-products-bg` | frame background | light `#FFFFFF` / dark `#000000` | **New** · Figma: Dark Organisms → Table - Products fill |
+| `--table-products-stroke` | frame stroke | light `#1D2542` / dark `#242424` | **New** · Figma: Dark Organisms → Table - Products stroke |
+| `--table-status-text` | empty / loading text | light `#5D6E82` / dark `#646464` | **New** · AI-defined use: not drawn in dark Figma |
+| `--table-status-error` | error text | light `#DF2E15` / dark `#ED5742` | **New** · AI-defined use: Danger as in Chevron.Status dark |
 
 ## Props
 
@@ -100,3 +111,4 @@ import { TableProducts } from 'rifbar-ds';
 - Contrast, computed: header text white on `#1D2542` 15.05:1; row text `#292639` on white 14.68:1; empty text `#5D6E82` 5.23:1; error text `#DF2E15` 4.63:1 — all pass AA.
 - ⚠️ Kept as designed: the row separators (`#D8E2EE` on white, 1.31:1) are below 3:1, and rows are not interactive, so no touch-target size applies.
 - Sorting and selection are not designed; add them with their own keyboard support if needed.
+- Dark theme contrast, computed: empty text `#646464` on `#000000` 3.55:1 (passes 3:1, below AA 4.5:1 for small text); error text `#ED5742` 6.04:1; the 1px stroke / row separators `#242424` on black are 1.35:1 (kept as designed).

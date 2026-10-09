@@ -53,7 +53,7 @@ Without `image` the header is the plain #0C092E fill.
 Not drawn, defined by analogy (AI-defined):
 
 - **No image, no rows, no numbers, one row, long text, narrow container** — the header content wraps; the picture stays behind it.
-- **Dark theme** — not designed: the light values are used (the header is dark in both).
+- **Dark theme** — designed in `Welcome Card Dark`; see the Dark theme section (the header is dark in both themes).
 
 Normalised or assumed:
 
@@ -62,6 +62,12 @@ Normalised or assumed:
 - The shadow is the Cards Shadow style (`--shadow-card`, spread -20); Figma's code draws it without the spread — the named style wins.
 - Subtitle and numbers use `--theme-nav-text-active` (White / White (Light)) and the captions `--theme-nav-text` (Not Active): the same variables Figma binds on the Navbar.
 - Caption / value blocks are 98px wide in Figma (`--size-welcome-stat-min`); a wider value grows its block.
+
+## Dark theme
+
+Figma `Dark Organisms Components` → `Welcome Card Dark` (3786:470379). Card fill `#000000`, stroke `#242424`; the header stays the dark `#0C092E` of the light theme, the greeting becomes `#888CF6`. Info rows: fill `#00161D` (new colour `success-bg-dark`), text / dot / link `#888CF6`, divider `#242424`; warning row: fill `#1B0A00`, text / dot / link `#F68F57`, line below `#5D321A`. Story `All variants (dark theme)`. The product photo is the demo image (the Figma raster was not exported); the card drops no shadow in dark (AI-defined: `--shadow-dark-1`, invisible on black).
+
+The `--color-*` rows of the table below are light values; the last rows are the themed tokens.
 
 ## Design tokens used
 
@@ -80,6 +86,14 @@ Normalised or assumed:
 | `--color-stroke-light-v2`, `--border-width-sm` | card border | `#D8E2EE`, `1px` | Existing tokens.json · Figma: Stroke Light V2 |
 | `--shadow-card` | card shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Cards Shadow |
 | Tokens of `AlertRow` | rows | — | see the MDX of `AlertRow` |
+| `--welcome-card-bg` / `--welcome-card-stroke` | card fill / stroke | light `#FFFFFF` / `#D8E2EE`, dark `#000000` / `#242424` | **New** · Figma: Welcome Card Dark |
+| `--welcome-card-shadow` | card shadow | light Card / dark `--shadow-dark-1` | **New** · AI-defined use: no shadow drawn in dark |
+| `--welcome-card-title` | greeting | light `#6368DF` / dark `#888CF6` | **New** · Figma: Welcome Card Dark title |
+| `--alert-row-info-color`, `--alert-row-info-text` | info row dot, link, text | light `#6368DF` / dark `#888CF6` | **New** · Figma: Welcome Card Dark |
+| `--alert-row-info-bg` | info row fill | light `#F3FFFA` / dark `#00161D` | **New** · Figma: Welcome Card Dark (colour `success-bg-dark`) |
+| `--alert-row-warning-color`, `--alert-row-warning-text` | warning row dot, link, text | light `#F68F57`, `#A7572C` / dark `#F68F57` | **New** · Figma: Welcome Card Dark |
+| `--alert-row-warning-bg` | warning row fill | light `#FFF5F0` / dark `#1B0A00` | **New** · Figma: Welcome Card Dark |
+| `--alert-row-divider`, `--alert-row-warning-divider` | line under a row | light `#D8E2EE` / dark `#242424`, `#5D321A` | **New** · Figma: Welcome Card Dark |
 
 ## Props
 
@@ -110,3 +124,4 @@ import { WelcomeCard } from 'rifbar-ds';
 - A `section` with a heading; the numbers are a description list; the picture is decorative (`aria-hidden`) and the text never sits on it alone.
 - Contrast (calculated): white on the header 19.19:1; Not Active captions 12.85:1; the Hover Blue title `#6368DF` on `#0C092E` **4.18:1** (28px text, passes 3:1 for large text). Row contrasts: see `AlertRow`.
 - ⚠️ Kept as designed: the card border (Stroke Light V2) is 1.31:1 against white; with a picture, text on the right part of the header could lose contrast — keep the picture dark on the left.
+- Dark theme contrast, computed: greeting `#888CF6` on the header `#0C092E` 6.52:1; info row text `#888CF6` on `#00161D` 6.29:1; warning row `#F68F57` on `#1B0A00` 8.24:1; the dividers `#242424` on `#00161D` (1.19:1) and `#5D321A` on `#1B0A00` (1.78:1) are below 3:1 (kept as designed).

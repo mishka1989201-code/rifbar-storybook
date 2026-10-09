@@ -26,7 +26,7 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-24) var(--spacing-16);
-  color: var(--color-grey-dark);
+  color: var(--table-status-text);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);
@@ -34,5 +34,5 @@
 }
 
 .ds-table-clients__status.is-error {
-  color: var(--color-danger-strong);
+  color: var(--table-status-error);
 }

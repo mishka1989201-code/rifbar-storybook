@@ -28,7 +28,8 @@ const browser = await chromium.launch({ executablePath: CHROME, args: ['--no-san
 const page = await browser.newPage({ viewport: { width: 1600, height: 300 } });
 for (const id of ids) {
   await page.goto(`http://127.0.0.1:6107/iframe.html?id=${id}&viewMode=story`);
-  // The ?globals=theme:dark URL param is not picked up, so set the theme by hand.
+  // The ?globals=theme:dark URL param is not picked up, so set the theme by hand — after the preview decorator has set 'light'.
+  await page.waitForTimeout(1200);
   await page.evaluate(() => {
     document.documentElement.dataset.theme = 'dark';
     document.body.style.background = 'var(--color-white-dark)';

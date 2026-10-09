@@ -64,7 +64,7 @@ Not drawn, defined by analogy (AI-defined):
 - **No picture, no rows, no description, no actions** — each block disappears; the others close the gap.
 - **Long title / long values** wrap (`overflow-wrap: anywhere`); a long caption wraps in its 200px column.
 - **Narrow container** — the info column drops under the picture (`flex-wrap`); the picture never exceeds the container.
-- **Dark theme** — not designed: the light values are used.
+- **Dark theme** — designed; see the Dark theme section.
 
 Normalised or assumed:
 
@@ -74,6 +74,14 @@ Normalised or assumed:
 - The 28px free space at the right of the rows is kept (`--spacing-28`, new).
 - The shadow is the Cards Shadow style (`--shadow-card`); Figma's code draws it as a drop shadow with half the blur.
 - Figma assets were not used; the download icon is the existing `Icon` set.
+
+## Dark theme
+
+Figma `Dark Organisms Components` → `Product Card` big (3806:565638). Card fill `#000000` with a 1px `#242424` stroke (light has none), title `#4549A1` (Headlines), row labels and the *Description* heading `#5D6E82` (Grey Dark, same as light), values and description `#BDC5E2`, row lines `#242424` (`RowInfoBlock`), picture frame `#242424`; **the picture itself stays on white** with the white bottom fade (Figma draws it white in dark, so `--color-white` is kept there on purpose). *Download* is drawn solid `#BDC5E2`, so the card overrides the `dark` medium button (as `Modal` does). Story `All variants (dark theme)`.
+
+Open question for the designer: the title `#4549A1` on black is only 2.72:1 (the light title `#08496E` is deep blue); the code copies the frame.
+
+The `--color-*` rows of the table below are light values; the last rows are the themed tokens.
 
 ## Design tokens used
 
@@ -95,6 +103,12 @@ Normalised or assumed:
 | `--font-size-h5`, `--font-line-height-h5`, `--font-weight-medium` | description caption | 20 / 30px, 500 | Existing tokens.json · Figma: Medium Headings/h5 |
 | `--font-size-standard`, `--font-line-height-standard`, `--font-weight-regular` | description text | 16 / 24px, 400 | Existing tokens.json · Figma: Body/Standart |
 | `--color-primary-blue-dark` | row values, description text | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
+| `--product-detail-card-bg` | card fill | light `#FFFFFF` / dark `#000000` | **New** · Figma: Product Card big |
+| `--product-detail-card-stroke` | card stroke | light none / dark `#242424` | **New** · Figma: Product Card big |
+| `--product-detail-card-shadow` | card shadow | light Card / dark `--shadow-dark-1` | **New** · AI-defined use: no shadow drawn in dark |
+| `--product-detail-card-text` | card text, description | light `#1D2542` / dark `#BDC5E2` | **New** · Figma: Product Card big |
+| `--product-detail-card-title` | title | light `#08496E` / dark `#4549A1` | **New** · Figma: Product Card big |
+| `--product-detail-card-image-stroke` | picture frame | light `#D8E2EE` / dark `#242424` | **New** · Figma: Product Card big |
 
 ## Props
 
@@ -124,3 +138,4 @@ import { ProductDetailCard, Button } from 'rifbar-ds';
 - The rows are plain text pairs; the action is a native `button`.
 - Contrast (calculated, on white): title `#08496E` 9.60:1; row values `#1D2542` 15.05:1; captions `#5D6E82` 5.23:1; white on the dark button 15.05:1.
 - ⚠️ Kept as designed: the Stroke Light V2 lines between rows and around the picture are 1.31:1 against white; the 37px button is below the 44px touch target.
+- Dark theme contrast, computed: values and description `#BDC5E2` on `#000000` 12.25:1; row labels / heading `#5D6E82` 4.02:1 (below 4.5:1 for small text); title `#4549A1` 2.72:1 (large text, below 3:1 — kept as designed); *Download* black on `#BDC5E2` 12.25:1; row lines and card stroke `#242424` 1.35:1.

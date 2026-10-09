@@ -54,7 +54,7 @@ Not drawn, defined by analogy (AI-defined):
 
 - **Hover / focus / disabled** of the action — from `Button` `text-arrow`; on hover the action takes the row's text color.
 - **Row without an action, lead only, long text, narrow container** — the sentence wraps and the action never shrinks.
-- **Dark theme** — not designed: the light values are used.
+- **Dark theme** — designed in `Welcome Card Dark`; see the Dark theme section.
 
 Normalised or assumed:
 
@@ -62,6 +62,12 @@ Normalised or assumed:
 - The dot color is not readable from the code (SVG asset not downloaded); it is read from the render: the row action color (Warning / Hover Blue) — **needs confirmation**.
 - Warning rows use Warning (Dark) `#A7572C` for the text, as in the Figma variable; the token is named “dark theme” in `tokens.json`.
 - Figma assets were not used; the dot is CSS and the chevron is the `Icon` set.
+
+## Dark theme
+
+Figma `Dark Organisms Components` → `Welcome Card Dark` rows (3786:470379). The row colours are now themed `--alert-row-*` tokens: info rows `#00161D` with `#888CF6`, warning row `#1B0A00` with `#F68F57`, dividers `#242424` / `#5D321A`. The light theme is unchanged. Story `All variants (dark theme)`.
+
+The `--color-*` rows of the table below are light values; the last rows are the themed tokens.
 
 ## Design tokens used
 
@@ -78,6 +84,9 @@ Normalised or assumed:
 | `--radius-round` | dot | `50%` | Existing tokens.json · circle rule |
 | `--font-size-notice` | sentence | `13px` | **New** · Figma: Welcome Card → Option rows text 13 |
 | `--font-line-height-small`, `--font-weight-medium`, `--font-weight-regular` | sentence | 21px, 500, 400 | Existing tokens.json · Figma: Poppins Medium / Regular |
+| `--alert-row-info-color`, `--alert-row-info-text`, `--alert-row-info-bg` | info row | light `#6368DF`, `#F3FFFA` / dark `#888CF6`, `#00161D` | **New** · Figma: Welcome Card Dark |
+| `--alert-row-warning-color`, `--alert-row-warning-text`, `--alert-row-warning-bg` | warning row | light `#F68F57`, `#A7572C`, `#FFF5F0` / dark `#F68F57`, `#F68F57`, `#1B0A00` | **New** · Figma: Welcome Card Dark |
+| `--alert-row-divider`, `--alert-row-warning-divider` | line under a row | light `#D8E2EE` / dark `#242424`, `#5D321A` | **New** · Figma: Welcome Card Dark |
 
 ## Props
 
@@ -98,3 +107,4 @@ import { AlertRow } from 'rifbar-ds';
 - The action is a native `button`; the dot is decorative (`aria-hidden`) — the color is never the only carrier of meaning, the sentence says it.
 - Contrast (calculated): warning text `#A7572C` on `#FFF5F0` 4.84:1; info text `#6368DF` on `#F3FFFA` **4.48:1** (13px text, just below 4.5:1); warning action `#F68F57` on `#FFF5F0` **2.18:1**.
 - ⚠️ Kept as designed: the warning action is below 3:1; the 21px action is below the 44px touch target.
+- Dark theme contrast, computed: info text `#888CF6` on `#00161D` 6.29:1; warning text `#F68F57` on `#1B0A00` 8.24:1; dividers 1.19:1 / 1.78:1 (below 3:1, kept as designed).

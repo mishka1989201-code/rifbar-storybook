@@ -59,6 +59,13 @@ Assumed / normalised:
 - At 1280 / 1024px Figma keeps the same columns while the content narrows; the cells spread with `justify-between` (as in `TableClients`), so the columns need at least 754px (170 + 120 + 150 + 80 + 130 + 72 + 32 padding) and the table scrolls horizontally below that.
 - The Figma card grid is two columns at 704px and one at 448px; the threshold is the token `--size-card-grid-min` (300px, AI-defined).
 
+## Dark theme
+
+Figma `Dark Organisms Components` → `Table Row Hover Name Dark` (3765:359922) and the rows drawn in `Dark Molecules Components`. The rows, header and status chips take their dark colours from the molecules (`--table-row-*`, `--table-header-text`);
+the organism adds only the Empty / Loading / Error text colours (`--table-status-*`, AI-defined: Figma dark does not draw these states). Story `All variants (dark theme)`.
+
+The `--color-*` rows of the table below are light values.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -69,6 +76,8 @@ Assumed / normalised:
 | `--spacing-24` / `--spacing-16` | status message padding | 24 / 16px | AI-defined use: state not drawn in Figma |
 | `--color-grey-dark`, `--color-danger-strong` | empty / loading text, error text | `#5D6E82`, `#DF2E15` | AI-defined use: as `TableClients` |
 | `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | status message | 14 / 21px, 500 | AI-defined use: Body/Small Medium, as the rows |
+| `--table-status-text` | empty / loading text | light `#5D6E82` / dark `#646464` | **New** · AI-defined use: not drawn in dark Figma |
+| `--table-status-error` | error text | light `#DF2E15` / dark `#ED5742` | **New** · AI-defined use: Danger as in Chevron.Status dark |
 
 Header and row tokens are listed in [TableHeader](?path=/docs/molecules-tableheader--docs) and [TableRowOrder](?path=/docs/molecules-tableroworder--docs).
 
@@ -94,3 +103,4 @@ import { TableOrders, OrderStatus } from 'rifbar-ds';
 - The header does not expose the current sort order (`aria-sort` is not set): the table does not know it.
 - Contrast, computed: header `#4549A1` on the `#F6F8FC` page 7.26:1; row text 14.68:1; error `#DF2E15` on white 4.63:1; empty / loading `#5D6E82` on `#F6F8FC` 4.92:1.
 - ⚠️ Kept as designed: the cards are separated from the page by the shadow only (1.06:1); the `More` button is 37px high.
+- Dark theme contrast, computed: empty text `#646464` on `#000000` 3.55:1 (passes 3:1, below AA 4.5:1 for small text); error text `#ED5742` 6.04:1; the 1px stroke / row separators `#242424` on black are 1.35:1 (kept as designed).

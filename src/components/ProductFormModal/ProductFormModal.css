@@ -9,7 +9,7 @@
 
 /* Same caption as `ModalField` (Body/Small Medium, Color Text). */
 .ds-product-form-modal__caption {
-  color: var(--color-text);
+  color: var(--product-form-modal-text);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);
@@ -28,7 +28,7 @@
 }
 
 .ds-product-form-modal__hint {
-  color: var(--color-text);
+  color: var(--product-form-modal-text);
   font-size: var(--font-size-mini);
   line-height: var(--font-line-height-mini);
   font-weight: var(--font-weight-medium);

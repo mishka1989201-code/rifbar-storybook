@@ -24,7 +24,7 @@
   box-sizing: border-box;
   padding-bottom: var(--spacing-24);
   border-radius: var(--radius-modal);
-  background: var(--color-bg);
+  background: var(--theme-page-bg);
   overflow: clip;
 }
 
