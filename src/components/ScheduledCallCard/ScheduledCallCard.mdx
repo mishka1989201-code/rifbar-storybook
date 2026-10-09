@@ -50,7 +50,7 @@ What Figma draws: two cards with identical content; they differ in the card fill
 Not drawn, defined by analogy (AI-defined):
 
 - **Empty date** — the placeholder of `FilterField`; **no button, long title, narrow container** — the button drops under the field; the title is cut with an ellipsis.
-- **Hover / focus** of the field and the button — from `FilterField` and `Button`. **Dark theme** — not designed: the light values are used.
+- **Hover / focus** of the field and the button — from `FilterField` and `Button`. **Dark theme** — designed in `scheduled-call-menu-dark`; see the Dark theme section.
 - **When a call becomes “due”** — the component only shows the state; the page decides (a timer, the server).
 
 Normalised or assumed:
@@ -60,6 +60,12 @@ Normalised or assumed:
 - The badge fills are read from the render (the SVG asset was not downloaded): Warning and Green Light at 22%, like the other badge tints (`--color-warning-tint` is new; `--color-green-light-tint` existed) — **needs confirmation**.
 - Figma's header line is Stroke Light V2 on the card fill; `CardHeader` draws a Secondary Light line on white, so the card overrides both.
 - The refresh icon is matched by look (`reboot`) — **needs designer confirmation**.
+
+## Dark theme
+
+Figma `Dark Organisms Components` → `scheduled-call-menu-dark` (3911:231908): `Static` and `Time to call`. Card fill `#000000`, stroke and header line `#242424`; `Time to call` fill `#1B0A00` (`warning-bg-dark`) with the same Warning 30% border as light (renders `#5D321A`); label `#A7A4B7` (the light value is kept), date field and `Refresh` come from `FilterField` / `Button` dark. Story `All variants (dark theme)`. Open questions for the designer: the `Static` badge is **green** in the dark frame (orange in light) — the code follows the frame through `--scheduled-call-card-badge-*`; the date field is drawn with a `#242424` border and `#646464` text, while the code shows the filled `FilterField` (bright text, active border). No shadow is drawn in dark: `--shadow-dark-1` is used (AI-defined).
+
+The `--color-*` rows of the table below are light values; the last rows are the themed tokens.
 
 ## Design tokens used
 
@@ -74,6 +80,12 @@ Normalised or assumed:
 | `--color-secondary-grey`, `--font-size-mini`, `--font-line-height-mini`, `--font-weight-medium` | “Date - Time” caption | `#A7A4B7`, 12 / 18px, 500 | Existing tokens.json · Figma: colorPlaceholder, Body/Mini Medium |
 | `--spacing-16`, `--spacing-24`, `--spacing-2` | body padding, gaps, caption gap | 16 / 24 / 2px | Existing tokens.json · Figma: padding 16, gap 16 × 24, caption gap 2 |
 | Tokens of `CardHeader`, `FilterField`, `Button` | header, date field, button | — | see the MDX of each |
+| `--scheduled-call-card-bg` | card fill | light `#FFFFFF` / dark `#000000` | **New** · Figma: scheduled-call-menu-dark Static |
+| `--scheduled-call-card-stroke` | card stroke | light `#F1F2F9` / dark `#242424` | **New** · Figma: scheduled-call-menu-dark |
+| `--scheduled-call-card-line` | line under the header | light `#D8E2EE` / dark `#242424` | **New** · Figma: scheduled-call-menu-dark |
+| `--scheduled-call-card-due-bg` | `Time to call` fill | light `#FFF5F0` / dark `#1B0A00` | **New** · Figma: scheduled-call-menu-dark Time to call |
+| `--scheduled-call-card-badge-bg`, `--scheduled-call-card-badge-fg` | `Static` badge and phone icon | light Warning @ 22% / `#F68F57`, dark Green Light @ 22% / `#1FD246` | **New** · Figma: scheduled-call-menu-dark Static |
+| `--scheduled-call-card-shadow` | card shadow | light Card / dark `--shadow-dark-1` | **New** · AI-defined use: no shadow drawn in dark |
 
 ## Props
 
@@ -98,3 +110,4 @@ import { ScheduledCallCard } from 'rifbar-ds';
 - The two states differ in color only; the page should also say that the call is due in text (for example in the title).
 - Contrast (calculated): title Headlines `#4549A1` 7.72:1 on white, 7.19:1 on Warning BG; field text `#5D6E82` 5.23:1 (Color Text 13.68:1 on Warning BG); Stroke Input border 3.47:1 / 3.23:1; button text on Secondary Light 13.03:1.
 - ⚠️ Kept as designed: the caption (Secondary Grey) is **2.43:1** on white and 2.27:1 on Warning BG; the phone icon in its badge is **1.95:1** (warning) and **1.60:1** (success); the card border (Stroke Light V1) is 1.12:1; the 37px button and the 32px field are below the 44px touch target.
+- Dark theme contrast, computed: label `#A7A4B7` on `#000000` 8.64:1; date placeholder `#646464` on black 3.55:1 and on `#1B0A00` 3.26:1 (below 4.5:1); card stroke / line `#242424` on black 1.35:1 (kept as designed).

@@ -1,9 +1,10 @@
 /* AlertRow — every value references a token from src/tokens/tokens.json. */
 
 .ds-alert-row {
-  --ds-alert-row-color: var(--color-hover-blue);
-  --ds-alert-row-text: var(--color-hover-blue);
-  --ds-alert-row-bg: var(--color-success-bg);
+  --ds-alert-row-color: var(--alert-row-info-color);
+  --ds-alert-row-text: var(--alert-row-info-text);
+  --ds-alert-row-bg: var(--alert-row-info-bg);
+  --ds-alert-row-divider: var(--alert-row-divider);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,14 +17,15 @@
 }
 
 .ds-alert-row--warning {
-  --ds-alert-row-color: var(--color-warning);
-  --ds-alert-row-text: var(--color-warning-dark);
-  --ds-alert-row-bg: var(--color-warning-bg);
+  --ds-alert-row-color: var(--alert-row-warning-color);
+  --ds-alert-row-text: var(--alert-row-warning-text);
+  --ds-alert-row-bg: var(--alert-row-warning-bg);
+  --ds-alert-row-divider: var(--alert-row-warning-divider);
 }
 
 /* Figma: stacked rows are separated by a 1px Stroke Light V2 line; the last one has none. */
 .ds-alert-row:not(:last-child) {
-  box-shadow: inset 0 calc(-1 * var(--border-width-sm)) 0 var(--color-stroke-light-v2);
+  box-shadow: inset 0 calc(-1 * var(--border-width-sm)) 0 var(--ds-alert-row-divider);
 }
 
 .ds-alert-row__text {
