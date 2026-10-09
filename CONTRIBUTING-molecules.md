@@ -147,7 +147,8 @@
 
 ## Передача в новий чат
 
-- Гілка `claude/peaceful-franklin-tnrmh4`, відкритий PR #12 у `main` (опис PR повністю оновлено 2026-10-09, разом із темною темою атомів; оновлювати лише на прохання). Якщо його злито — почати гілку наново
+- **Темна тема молекул зроблена (2026-10-09, 7 комітів після злиття PR #12; блок Figma `Dark Molecules Components`, вузол `3429:17984`).** PR #12 злито; нову гілку почато від `origin/main`, новий PR відкривати лише на прохання. Нижче текст про PR #12 — історичний.
+- (історично) Гілка `claude/peaceful-franklin-tnrmh4`, відкритий PR #12 у `main` (опис PR повністю оновлено 2026-10-09, разом із темною темою атомів; оновлювати лише на прохання). Якщо його злито — почати гілку наново
   від `origin/main` (`git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`, пуш `--force-with-lease`) і відкривати **новий** PR лише на прохання.
 - На старті: `npm ci`, `npm run build:tokens`, `git fetch origin`, `git pull origin claude/peaceful-franklin-tnrmh4`.
 - Figma MCP інколи відключається посеред чату: `ToolSearch` із запитом `figma get_design_context` повертає інструменти після перепідключення.
