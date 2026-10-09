@@ -61,7 +61,7 @@ Not drawn, defined by analogy (AI-defined):
 - **Filled fields, long values, invalid fields, hover / focus** — from `InputField`; the lists behind the filter fields are the page's job (`onFieldClick`).
 - **Edit without a photo** — the `ImageCard` placeholder icon.
 - **Narrow container** — the dialog fills it (`max-width`).
-- **Dark theme** — not designed: the light values are used.
+- **Dark theme** — designed; see the Dark theme section.
 
 Normalised or assumed:
 
@@ -72,6 +72,12 @@ Normalised or assumed:
 - Figma's `360` frame has a 340px header; the whole dialog is 360px with 10px sides.
 - Icons are unnamed vectors in Figma and are matched by look: the *Add* library button `picture`, refresh `reboot`, delete `delete`, save `save-line` — **needs designer confirmation**.
 - The dropzone's dashed 2px border is `rgba(69,73,161,.4)` in Figma; `FileDropzone` already draws it.
+
+## Dark theme
+
+Figma `Dark Organisms Components` → `Add Product Modal-dark` (3806:566602, 3806:566963) and `Edit Product Modal Dark` (3817:31068). The surface, fields, dropzone and footer buttons are the dark `Modal`, `ModalField`, `FilterField` and `FileDropzone` (see their Dark theme sections); the organism adds only the caption colour of the image block (`#C9C6D9`, same as `ModalField`). Story `All variants (dark theme)`.
+
+The `--color-*` rows of the table below are light values; the last rows are the themed tokens.
 
 ## Design tokens used
 
@@ -87,6 +93,7 @@ Normalised or assumed:
 | `--font-size-mini`, `--font-line-height-mini` | library hint | 12 / 18px | Existing tokens.json · Figma: Body/Mini Medium |
 | `--font-size-h5`, `--font-line-height-h5`, `--font-weight-semibold` | title | 20 / 30px, 600 | Existing tokens.json · Figma: Semi-Bold Headings/h5 |
 | Tokens of `Modal`, `InputField`, `FileDropzone`, `Button` | surface, fields, dropzone, buttons | — | see the MDX of each |
+| `--product-form-modal-text` | image caption and library hint | light `#292639` / dark `#C9C6D9` | **New** · Figma: Add Product Modal-dark (same as `ModalField`) |
 
 ## Props
 
@@ -119,3 +126,4 @@ import { ProductFormModal } from 'rifbar-ds';
 - The photo buttons have accessible names (“Replace photo”, “Delete photo”); the dropzone has a native file input.
 - Contrast (calculated, on white): labels `#292639` 14.68:1; placeholders `#5D6E82` 5.23:1; title 15.05:1; *Browse* `#4549A1` 7.72:1; Stroke Input border `#8A87A0` 3.47:1.
 - ⚠️ Kept as designed: the Stroke Light V2 field border is 1.31:1 and the dropzone border (`#4549A1` at 40%) 1.97:1 against white; the white icon on the delete button (Danger at 60%, `#E97768` on white) is **2.88:1**; the Close button border (Secondary Grey) is 2.43:1; the 32px fields and 37–40px buttons are below the 44px touch target.
+- Dark theme contrast, computed: captions `#C9C6D9` on `#000000` 12.56:1; the rest is covered by `Modal`, `FilterField` and `FileDropzone`.
