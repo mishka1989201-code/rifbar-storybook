@@ -67,7 +67,7 @@ export function BreadCrumbs({
         {items.map((item, i) => {
           const last = i === items.length - 1;
           const interactive = !last && (item.href || item.onClick);
-          const cls = `ds-breadcrumbs__item${i === 0 ? ' ds-breadcrumbs__item--root' : ''}`;
+          const cls = `ds-breadcrumbs__item${i === 0 ? ' ds-breadcrumbs__item--root' : ''}${last ? '' : ' ds-breadcrumbs__item--link'}`;
           return (
             <li key={`${item.label}-${i}`} className="ds-breadcrumbs__crumb">
               {i > 0 && <Icon name="rifbar-small" size={16} color="secondary" className="ds-breadcrumbs__sep" />}

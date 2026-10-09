@@ -10,9 +10,9 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-12) var(--spacing-16);
-  background: var(--color-white);
+  background: var(--pagination-bar-bg);
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-table-row);
+  box-shadow: var(--pagination-bar-shadow);
 }
 
 .ds-pagination-bar--flat { box-shadow: none; }

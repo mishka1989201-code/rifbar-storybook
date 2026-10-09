@@ -34,7 +34,7 @@
   border: 0;
   background: none;
   font: inherit;
-  color: var(--color-primary-blue-dark);
+  color: var(--breadcrumbs-current);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -43,13 +43,19 @@
   color: var(--color-grey-dark);
 }
 
+/* Inner crumbs before the current page (Figma dark: Grey Dark; light: Primary Blue Dark). */
+.ds-breadcrumbs__item.ds-breadcrumbs__item--link:not(.ds-breadcrumbs__item--root) {
+  color: var(--breadcrumbs-link);
+}
+
 /* Hover / focus (not designed in Figma — AI-defined): underline; focus ring like Tab. */
 a.ds-breadcrumbs__item,
 button.ds-breadcrumbs__item {
   cursor: pointer;
 }
-a.ds-breadcrumbs__item:hover,
-button.ds-breadcrumbs__item:hover {
+.ds-breadcrumbs a.ds-breadcrumbs__item:hover,
+.ds-breadcrumbs button.ds-breadcrumbs__item:hover {
+  color: var(--breadcrumbs-hover);
   text-decoration: underline;
 }
 a.ds-breadcrumbs__item:focus-visible,

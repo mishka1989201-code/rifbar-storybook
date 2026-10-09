@@ -40,12 +40,19 @@ White bar with a row of [Tabs](?path=/docs/atoms-tabs--docs) at the top of a car
 
 Hover and focus states come from the `Tab` atom (not designed in Figma, AI-defined there).
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Tabs Header Dark` / `Hover Tabs`: bar background `#000000` (White Dark), active tab and underline `#888CF6`, inactive tabs `#5D6E82` (unchanged). The bar background is the only own colour (`--tabs-header-bg`); the tabs inherit the dark theme from the `Tab` atom. Story: `DefaultDark`. Hover Tabs in Figma matches the atom hover (AI-defined there). Nothing to confirm.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
 |---|---|---|---|
 | `--color-white` | bar background | `#FFFFFF` | Figma: Theme Color/White |
 | `--radius-md` | top-left / top-right corners | `6px` | Figma: Tabs Header corner radius 6 (top only) |
+| `--tabs-header-bg` | bar background | `#FFFFFF` / dark `#000000` | **New** · Figma: Tabs Header Dark → fill = White (Dark) |
+
+The `--color-*` rows above are light values; the dark values come from the Dark theme tokens listed in the last rows.
 
 Tab colors, typography, padding and underline: see the [Tabs](?path=/docs/atoms-tabs--docs) atom. No new tokens.
 
@@ -76,3 +83,4 @@ const [tab, setTab] = useState('general');
 
 - `role="tablist"` with `aria-label`; each tab is a `role="tab"` button with `aria-selected` (from the `Tab` atom).
 - Contrast and touch target: same as the Tab atom (7.7:1 active, 5.2:1 inactive, 53px high).
+- Dark theme contrast: active `#888CF6` on `#000000` 7.13:1, inactive `#5D6E82` on `#000000` 4.02:1 (script).

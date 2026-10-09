@@ -50,3 +50,16 @@ export const NarrowContainer: Story = {
   decorators: [(Story) => <div style={{ maxWidth: 520 }}><Story /></div>],
   parameters: { docs: { description: { story: 'Buttons and the 232px search never shrink; the row is meant for tablet width and up.' } } },
 };
+
+/** Figma "Dark Molecules Components" → Actions Dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DefaultDark: Story = {
+  ...Default,
+  name: 'Default (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
