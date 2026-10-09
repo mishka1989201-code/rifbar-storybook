@@ -160,6 +160,16 @@
 - «Гілка Prototypes» у запитах = розділ Storybook `Prototypes/<Name>` (`src/prototypes/<Name>/`, див. розділ вище). Екран із кількома брейкпоінтами:
   один компонент-екран із пропом `breakpoint`, історія на кожен кадр Figma, нові компоненти — у `src/components`, наявні розширювати пропами.
 
+### Зроблено в останніх чатах (2026-10-09)
+
+- `TableRowClient`: hover-рядок із тултіпом (Figma Hover Row in Table, світла й темна), кнопки `onDelete` / `onCall` / `onNotes`, теми через токени `--table-row-*`;
+  `TooltipBordered` `tone="subtle"`. Тултіп показується на hover і фокус, Escape ховає.
+- `NoRowsTable` (Atoms): заглушка порожньої таблиці, 3 розміри × 2 теми, SVG перемальовано (Figma-вектори 403). Ще не підставлена в `TableClients` / `TableOrders`.
+- `Foundations/Favicons`: шаблон іконки + список розмірів; PNG-файлів у репо нема (можна відрендерити з `AppIcon` у `FaviconsDocs.tsx`).
+- Картинки від дизайнера лежать у `src/assets/demo` і використані в історіях `WelcomeCard`, `ProductDetailCard`, `ProductFormModal`, `ProductCard`, `OrderCard`, `BarcodeSettings`.
+- Ще не підтверджено дизайнером: кольори сітки / осі `NoRowsTable` (зчитані з рендеру), іконка телефону `call-v2`, позиція тултіпа рядка (307px / 899px — статичний мок).
+- Не пройдено вручну: `TableClients` у вузькому контейнері (скрол може обрізати тултіп), dark hover кнопок рядка, `ProductFormModal` з новим фото.
+
 ### Як перевіряти (працює в контейнері)
 
 1. `npx tsc --noEmit -p tsconfig.json` і `npx vite build --config vite.lib.config.ts`.

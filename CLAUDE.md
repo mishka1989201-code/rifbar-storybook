@@ -117,6 +117,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   in-memory data, one story per Figma breakpoint. `ClientOrders` (client page, Orders tab, 1920…360px + filter screens at 768 / 480 / 360px), `DepartmentUsers` (Pagination Responsive: 768 / 480 / 360px × pagination v1 / v2).
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens, Favicons
 
+Latest work (not in the PR description yet): TableRowClient hover + tooltip, TooltipBordered `subtle`, NoRowsTable, Foundations/Favicons, demo photos in `src/assets/demo`.
 Open PR: #12 (`claude/peaceful-franklin-tnrmh4` → `main`): Navbar, TimeTracker, WelcomeCard + AlertRow, CheckListModal, FilterMenu, ProductDetailCard,
 ProductFormModal, ScheduledCallCard, and the Error / Important / Info states (`Modal` `description` / `important`, `ModalField` / `LabeledField` `error`, `FileDropzone` `invalid`).
 The PR description was updated on 2026-10-09 to list the later work too (Prototypes `ClientOrders` / `DepartmentUsers`, TableRowOrder / TableOrders / TableToolbar / CardGrid and the extended components).
