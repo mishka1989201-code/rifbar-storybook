@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
 import { ProductDetailCard, type ProductDetailRow } from './ProductDetailCard';
+import PLACEHOLDER_IMAGE from '../../assets/demo/promo-photo.png';
 
 const FIGMA_URL =
   'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=914-320788';
@@ -9,10 +10,6 @@ const FIGMA_URL =
  * Placeholder for the picture. The Figma photo (a cheerleader costume) could not be downloaded
  * (asset proxy 403), so the stories draw a neutral 16:9 shape; pass your own `image` in the app.
  */
-const PLACEHOLDER_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360"><rect width="640" height="360" fill="#ECEEFB"/><circle cx="320" cy="130" r="44" fill="#A7A4B7"/><path d="M220 330c0-70 44-120 100-120s100 50 100 120z" fill="#A7A4B7"/></svg>',
-)}`;
-
 const DETAILS: ProductDetailRow[] = [
   { label: 'File type', value: 'PNG' },
   { label: 'Created by', value: 'Paul Rudd' },

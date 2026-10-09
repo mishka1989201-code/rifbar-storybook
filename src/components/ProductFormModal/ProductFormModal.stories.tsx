@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { ProductFormModal, type ProductFormField, type ProductFormValues } from './ProductFormModal';
+import PLACEHOLDER_IMAGE from '../../assets/demo/product-red.png';
 
 const FIGMA_URL =
   'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=7084-21639';
@@ -9,10 +10,6 @@ const FIGMA_URL =
  * Placeholder for the product photo. The Figma photo could not be downloaded (asset proxy 403),
  * so the stories draw a neutral dark shape; pass your own `image` in the app.
  */
-const PLACEHOLDER_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><rect width="160" height="160" fill="#1D2542"/><rect x="62" y="30" width="36" height="84" rx="10" fill="#F68F57"/><rect x="40" y="118" width="80" height="12" rx="4" fill="#4549A1"/></svg>',
-)}`;
-
 const FILLED: ProductFormValues = {
   group: 'Disposables',
   category: 'Vapes',

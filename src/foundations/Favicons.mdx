@@ -1,0 +1,61 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as FaviconsStories from './Favicons.stories';
+import { TokenList } from './GridDocs';
+
+<Meta of={FaviconsStories} name="Docs" />
+
+# Favicons
+
+The app icon of Rifbar from the Figma board
+[Favicons](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3644-633411):
+one **template** (the white sign on the purple brand gradient) and the list of sizes it is exported to.
+It is a brand asset, not a UI component, so it lives in Foundations; the page redraws it from the `Logo` sign and tokens.
+
+## Template
+
+<Canvas of={FaviconsStories.Template} />
+
+## Resolutions
+
+<Canvas of={FaviconsStories.Resolutions} />
+
+The Figma board has 24 exports named like this (the board repeats `ms-icon-144x144`, `android-icon-72x72` and `android-icon-192x192`).
+Every export is the template scaled to a square; no size has its own drawing.
+
+## How to use
+
+```html
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png" />
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+```
+
+The PNG files are **not** in the repository: the Figma export could not be downloaded (asset proxy 403). They can be rendered from the template
+(`AppIcon` in `FaviconsDocs.tsx`) at every size listed above.
+
+## Figma notes
+
+- The gradient is the Figma colour style **#3 Button & Menu Active Gradient**: −90°, `#371A75` (right) → `#8A53BA` (left). Not used anywhere else yet.
+- The corner radius is 44px on 310px (14.2%), so it is a percentage token and scales with the icon. Figma shows the small sizes with the same proportion.
+- The sign in Figma is a mask over the gradient; here the same sign path as in `Logo` is used (263px tall, centred, 24px from the top). Compared with the Figma render by eye.
+- Not drawn in Figma: a maskable (full-bleed) Android icon, a monochrome Safari pinned-tab icon, a dark-theme variant. Not added.
+- Small sizes (16px, 32px) are the full sign scaled down; the sign becomes hard to read at 16px, kept as designed.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--gradient-button-menu-active` | icon fill | `linear-gradient(270deg, #371A75, #8A53BA)` | **New** · Figma: #3 Button & Menu Active Gradient |
+| `--radius-app-icon` | icon corner radius | `14.2%` | **New** · Figma: v2 corner radius 44 / 310 |
+| `--color-white` | the sign | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--color-secondary-grey`, `--color-text`, `--font-*` | docs captions | — | Existing tokens.json · AI-defined use: documentation page |
+
+<TokenList prefix={['--gradient-', '--radius-app-icon']} />
+
+## Accessibility
+
+- The icon carries no text; give it an accessible name (`aria-label`) when it is shown in the UI.
+- Contrast, computed: white sign on `#8A53BA` 5.21:1, on `#371A75` 13.40:1.
+- No interactive element, no touch-target issue.

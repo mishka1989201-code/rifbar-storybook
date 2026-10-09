@@ -2,16 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
 import { ChevronStatus } from '../ChevronStatus';
 import { OrderCard } from './OrderCard';
+import DOC from '../../assets/demo/invoice.png';
 
 const FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7038-332399';
-
-const DOC =
-  'data:image/svg+xml;utf8,' +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="204" height="204"><rect width="204" height="204" fill="#fff"/>' +
-      Array.from({ length: 12 }, (_, i) => '<rect x="16" y="' + (18 + i * 14) + '" width="' + (172 - (i % 3) * 30) + '" height="5" fill="#D8E2EE"/>').join('') +
-      '</svg>',
-  );
 
 const meta = {
   title: 'Molecules/OrderCard',

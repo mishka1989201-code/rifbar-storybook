@@ -115,7 +115,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   DatePicker (Button + TimePicker; date / date-time / today / range)
 - **Prototypes** (`src/prototypes`, titles `Prototypes/<Name>`, not exported from `src/index.ts`): whole screens assembled from library components with fake
   in-memory data, one story per Figma breakpoint. `ClientOrders` (client page, Orders tab, 1920…360px + filter screens at 768 / 480 / 360px), `DepartmentUsers` (Pagination Responsive: 768 / 480 / 360px × pagination v1 / v2).
-- **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
+- **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens, Favicons
 
 Open PR: #12 (`claude/peaceful-franklin-tnrmh4` → `main`): Navbar, TimeTracker, WelcomeCard + AlertRow, CheckListModal, FilterMenu, ProductDetailCard,
 ProductFormModal, ScheduledCallCard, and the Error / Important / Info states (`Modal` `description` / `important`, `ModalField` / `LabeledField` `error`, `FileDropzone` `invalid`).
@@ -126,7 +126,7 @@ Open design questions (also in the PR #10 description):
 
 - The empty field border: some frames draw Stroke Light V2, the `InputField` atom uses Stroke Input. `TableRowQuantity` overrides it, the
   others use the atom — pick one rule.
-- Figma pictures could not be downloaded (asset proxy 403): `WelcomeCard` and `ProductDetailCard` take `image` as a prop, stories use placeholders.
+- Figma pictures could not be downloaded (asset proxy 403): `WelcomeCard`, `ProductDetailCard`, `ProductFormModal`, `ProductCard`, `OrderCard` and `BarcodeSettings` take the picture as a prop; their stories use the photos the designer sent, kept in `src/assets/demo` (story-only, not part of the library build).
 - Needs designer confirmation: `--color-deep-blue` (`#08496E`, title of `ProductDetailCard`, not in the palette), `AlertRow` dot colors,
   `Navbar` sub-tab weight (Regular in light frames, Medium in the dark one), `TableClients` seventh column name ("Updated").
 - `DatePicker`: Figma draws a mock calendar (March 2023) and Manrope day numbers; the component draws a real calendar in Poppins. In wide

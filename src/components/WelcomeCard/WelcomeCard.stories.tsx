@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { WelcomeCard, type WelcomeCardProps } from './WelcomeCard';
+import PLACEHOLDER_IMAGE from '../../assets/demo/product-orange.png';
 
 const FIGMA_URL =
   'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3738-298541';
@@ -8,10 +9,6 @@ const FIGMA_URL =
  * Placeholder for the header picture. The Figma picture (vape devices on a stage) could not be downloaded
  * (asset proxy 403), so the stories use a generated glow; pass your own `image` in the app.
  */
-const PLACEHOLDER_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="516" height="297" viewBox="0 0 516 297"><defs><radialGradient id="g" cx="70%" cy="55%" r="60%"><stop offset="0" stop-color="#6368DF" stop-opacity=".75"/><stop offset="1" stop-color="#0C092E" stop-opacity="0"/></radialGradient></defs><rect width="516" height="297" fill="url(#g)"/></svg>',
-)}`;
-
 const ROWS: NonNullable<WelcomeCardProps['rows']> = [
   { tone: 'warning', lead: '5 types of products', children: 'will soon be out of stock', actionLabel: 'View products' },
   { tone: 'info', lead: '7 orders', children: 'are still waiting for payment', actionLabel: 'View payments' },
