@@ -115,7 +115,9 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   DatePicker (Button + TimePicker; date / date-time / today / range)
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
 
-Open PR: #12 (`claude/peaceful-franklin-tnrmh4` → `main`): Navbar, TimeTracker, WelcomeCard + AlertRow, CheckListModal, FilterMenu, ProductDetailCard.
+Open PR: #12 (`claude/peaceful-franklin-tnrmh4` → `main`): Navbar, TimeTracker, WelcomeCard + AlertRow, CheckListModal, FilterMenu, ProductDetailCard,
+ProductFormModal, ScheduledCallCard, and the Error / Important / Info states (`Modal` `description` / `important`, `ModalField` / `LabeledField` `error`, `FileDropzone` `invalid`).
+The PR description lists only the first six components — add the rest to it if the user asks for an update.
 If it is merged when the next session starts, restart the branch from `origin/main` (same name, force-with-lease) and open a new PR.
 
 Open design questions (also in the PR #10 description):
@@ -127,6 +129,9 @@ Open design questions (also in the PR #10 description):
   `Navbar` sub-tab weight (Regular in light frames, Medium in the dark one), `TableClients` seventh column name ("Updated").
 - `DatePicker`: Figma draws a mock calendar (March 2023) and Manrope day numbers; the component draws a real calendar in Poppins. In wide
   containers its months keep their own width instead of stretching (Figma `Filter Responsive Menu`).
+- `FilterField` / `InputField` filled state: some frames (`ScheduledCallCard`, `ProductFormModal` Base currency, `Discount Modal`) draw a filled field with the
+  Stroke Input border and Grey Dark text; the atom's `Activated` state (Input field border, Color Text) is used. Part of the same "one border rule" question.
+- Needs confirmation: `--color-warning-tint` (badge of `ScheduledCallCard`, read from the render), `reboot` / `picture` / `save-line` icons.
 - Many icons are matched by look (Figma icons are unnamed vectors) — see the "needs designer confirmation" list in the MDX of each component.
 
 Never verified in a browser: Storybook has not been run yet (everything was checked with `tsc`, the library build and headless Chromium
