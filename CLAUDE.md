@@ -50,7 +50,8 @@ Several Figma components that are one thing in code (e.g. two scrollbars) become
 
 Figma often has only some states. Add the missing ones **by analogy with existing components** and say so in the MDX:
 Focus = `--shadow-focus` (inputs) or the IconButton ring (buttons); Disabled = `--opacity-disabled` (20%).
-Never invent dark-theme values: use the light value and note "dark not designed".
+Dark theme: take the value from the Figma dark frame (see "Dark theme" below). Where a dark state is not drawn, derive it by analogy, mark it "AI-defined" in the MDX
+and never leave a themed colour as a raw `--color-*` in component CSS.
 
 ## Tokens (mandatory)
 
@@ -69,6 +70,27 @@ Every component's MDX ends with a **Design tokens used** table, and the same tab
 |---|---|---|---|
 
 `Source` is one of: `Figma: <variable/name>`, `Existing tokens.json · Figma: …`, `**New** · Figma: …`, `AI-defined use: <reason>`. Never blank.
+
+## Dark theme (Figma `Dark Atoms Components`, node `3389:241327`)
+
+The dark theme works through `data-theme="dark"` on `<html>` (Storybook toolbar sets it; any element with the attribute is dark inside). All Atoms are done (4 groups, see "Current state").
+Molecules and Organisms are next: the designer sends the Figma link of each dark block. Method (do not port component by component — update the existing ones):
+
+1. `get_metadata` of the block (large: it is saved to a file — read it with `python3 -I` + `json`), then `get_screenshot` and `get_design_context` of each child. The variable names in the code are the **light** names
+   (`Prinary Blue Dark (Light)`, `White (Dark)` …) — they do not give the dark value. **Sample the dark colours from the screenshot pixels** (`PIL`, `python3 -W ignore -I`; use the most common non-black colour of a box,
+   not the brightest one; a 1px stroke over a different background needs two rows summed).
+2. In `src/tokens/tokens.json` add a themed group per component (`button`, `field`, `tab` …): `value` = the **previous** colour (so light does not change), `dark` = the sampled one, preferably a reference to an existing
+   `color.*` token (`white-dark`, `primary-blue-dark-light`, `text-dark`, `secondary-grey-dark`, `stroke-button-dark`, `bg-dark`, `hover-blue-light` …), `source` = `Figma: Dark Atoms Components → <frame> → <what>. Added YYYY-MM-DD`.
+   Then `npm run build:tokens`. Do not name a token `value`. Updating the dark value of an existing themed token is fine; say so in the commit.
+3. In the component CSS replace the raw `--color-*` by the themed token. Keep the light result identical. Dark Figma often differs from light (not only by colour): hover is darker than rest, Dark BG becomes light, etc. — copy the Figma frame, list such cases for the designer.
+4. Stories: add one `…Dark` story that spreads the existing matrix (`...AllVariants`, `name: '… (dark theme)'`) with a decorator `<div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>`
+   (`width: max-content` because meta decorators may constrain the width). If `args` is required, add `args`.
+5. MDX: a **Dark theme** section before "Design tokens used" (frame name, dark values, open questions), the new token rows at the end of the table with a note that the `--color-*` rows are light values, calculated contrasts in **Accessibility** (script, never by eye).
+6. `npx tsc --noEmit -p tsconfig.json`, `npx vite build --config vite.lib.config.ts`, `npx storybook build -o /tmp/sb-out`, open the new stories in headless Chromium (ids like `atoms-button--all-variants-dark`), compare with the Figma screenshot.
+   Headless Chromium draws overlay scrollbars — check scrollbars by computed colours only.
+7. One commit per group of components: `Add dark theme to <A>, <B> … atoms (Figma Dark Atoms: <frames>)`, list the new tokens in the body. Report in Ukrainian per group: what changed, new tokens, where dark differs from light, what Figma does not draw, contrasts below 3:1, what was and was not verified.
+
+Dark Figma frames can be unadapted (e.g. Icons Primary `#1D2542` on black, 1.40:1): keep a legible value, record it as an open question, do not copy a broken colour silently.
 
 ## MDX template
 
@@ -117,11 +139,16 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   in-memory data, one story per Figma breakpoint. `ClientOrders` (client page, Orders tab, 1920…360px + filter screens at 768 / 480 / 360px), `DepartmentUsers` (Pagination Responsive: 768 / 480 / 360px × pagination v1 / v2).
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens, Favicons
 
-Latest work (not in the PR description yet): TableRowClient hover + tooltip, TooltipBordered `subtle`, NoRowsTable, Foundations/Favicons, demo photos in `src/assets/demo`.
+Latest work: the dark theme of **all Atoms** (4 groups: Button / IconButton / PlayButton / Pagination; InputField / Checkbox / Toggle / Switcher / SearchField / Slider;
+Tabs / SwitchButton / ChevronStatus / ChevronDropDown / FilterChevron / HeaderMenu; TooltipBordered / Scrollbar / Avatar / Logo / Icon / ImageCard), 83 new themed tokens, `…Dark` stories and a "Dark theme" section in each MDX.
+Earlier: TableRowClient hover + tooltip, TooltipBordered `subtle`, NoRowsTable, Foundations/Favicons, demo photos in `src/assets/demo`.
 Open PR: #12 (`claude/peaceful-franklin-tnrmh4` → `main`): Navbar, TimeTracker, WelcomeCard + AlertRow, CheckListModal, FilterMenu, ProductDetailCard,
-ProductFormModal, ScheduledCallCard, and the Error / Important / Info states (`Modal` `description` / `important`, `ModalField` / `LabeledField` `error`, `FileDropzone` `invalid`).
-The PR description was updated on 2026-10-09 to list the later work too (Prototypes `ClientOrders` / `DepartmentUsers`, TableRowOrder / TableOrders / TableToolbar / CardGrid and the extended components).
+ProductFormModal, ScheduledCallCard, the Error / Important / Info states, Prototypes, the table / pagination components and the dark theme of the Atoms.
+The PR description was fully updated on 2026-10-09 (including the dark theme, the 83 tokens and the open dark-theme questions). Keep it in sync when more is added; only on request.
 If it is merged when the next session starts, restart the branch from `origin/main` (same name, force-with-lease) and open a new PR.
+
+Dark theme of Molecules and Organisms: **not done** — wait for the designer's Figma link of the dark Molecules block, then follow "Dark theme" above. Many molecules inherit the dark theme from their atoms
+(they are built from Button, IconButton, InputField …); check each in dark first and add `--<component>-*` tokens only where the molecule has its own colours (like `table-row`).
 
 Open design questions (also in the PR #10 description):
 
@@ -136,6 +163,10 @@ Open design questions (also in the PR #10 description):
   Stroke Input border and Grey Dark text; the atom's `Activated` state (Input field border, Color Text) is used. Part of the same "one border rule" question.
 - Needs confirmation: `--color-warning-tint` (badge of `ScheduledCallCard`, read from the render), `reboot` / `picture` / `save-line` icons.
 - Many icons are matched by look (Figma icons are unnamed vectors) — see the "needs designer confirmation" list in the MDX of each component.
+- Dark theme of the Atoms, for the designer: `Icon` Primary is `#1D2542` on black in the dark frame (1.40:1, looks not adapted; code keeps `#BDC5E2`); `Switcher` Dark pill is `#050411` in Dark Atoms but `#1D2542` in the Navbar dark frame
+  (`--theme-switcher-bg` unchanged); `IconButton` Close hover (filled `#050411`) vs "Activate" (bright stroke) — code keeps the light logic; `FilterChevron` Outline V2 is "(not approve)"; `SwitchButton` hover and all dark focus rings are not drawn;
+  colours read from the render (no Figma variable): hover / focus strokes, `Change`, checkmark, tooltip stroke, open states of `ChevronStatus` / `ChevronDropDown`.
+  Below 3:1 on black (kept as designed): hover of `Checkbox` / `Toggle` / `HeaderMenu` / `Icon` (2.72:1), static strokes of `InputField` / `SearchField` / `ImageCard` (1.35:1), `Primary` of `ChevronDropDown` / `ChevronStatus`, initials of `chat` / `department` Avatar, `FilterChevron` label (2.97:1) and hover value (1.90:1).
 
 Storybook builds (`npx storybook build`) and the stories of the newest work (both prototypes, `TableRowOrder`, `TableOrders`, `TableToolbar`, `CardGrid`, `CheckListModal` radio / pick / accent,
 `Pagination` / `PaginationBar` / `PageHeader` / `IconButton` new sizes) were opened in headless Chromium without console errors; clicks were tried on the `ClientOrders` Status menu and the `DepartmentUsers` pages / search / delete.

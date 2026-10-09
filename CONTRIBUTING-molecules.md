@@ -147,7 +147,7 @@
 
 ## Передача в новий чат
 
-- Гілка `claude/peaceful-franklin-tnrmh4`, відкритий PR #12 у `main` (опис PR застарів: перелічено не всі компоненти — оновити на прохання). Якщо його злито — почати гілку наново
+- Гілка `claude/peaceful-franklin-tnrmh4`, відкритий PR #12 у `main` (опис PR повністю оновлено 2026-10-09, разом із темною темою атомів; оновлювати лише на прохання). Якщо його злито — почати гілку наново
   від `origin/main` (`git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`, пуш `--force-with-lease`) і відкривати **новий** PR лише на прохання.
 - На старті: `npm ci`, `npm run build:tokens`, `git fetch origin`, `git pull origin claude/peaceful-franklin-tnrmh4`.
 - Figma MCP інколи відключається посеред чату: `ToolSearch` із запитом `figma get_design_context` повертає інструменти після перепідключення.
@@ -162,6 +162,7 @@
 
 ### Зроблено в останніх чатах (2026-10-09)
 
+- **Темна тема всіх атомів** — див. розділ «Темна тема» нижче; опис PR #12 оновлено.
 - `TableRowClient`: hover-рядок із тултіпом (Figma Hover Row in Table, світла й темна), кнопки `onDelete` / `onCall` / `onNotes`, теми через токени `--table-row-*`;
   `TooltipBordered` `tone="subtle"`. Тултіп показується на hover і фокус, Escape ховає.
 - `NoRowsTable` (Atoms): заглушка порожньої таблиці, 3 розміри × 2 теми, SVG перемальовано (Figma-вектори 403). Ще не підставлена в `TableClients` / `TableOrders`.
@@ -169,6 +170,22 @@
 - Картинки від дизайнера лежать у `src/assets/demo` і використані в історіях `WelcomeCard`, `ProductDetailCard`, `ProductFormModal`, `ProductCard`, `OrderCard`, `BarcodeSettings`.
 - Ще не підтверджено дизайнером: кольори сітки / осі `NoRowsTable` (зчитані з рендеру), іконка телефону `call-v2`, позиція тултіпа рядка (307px / 899px — статичний мок).
 - Не пройдено вручну: `TableClients` у вузькому контейнері (скрол може обрізати тултіп), dark hover кнопок рядка, `ProductFormModal` з новим фото.
+
+### Темна тема (Figma `Dark Atoms Components`, 2026-10-09)
+
+Усі **атоми** мають темну тему (4 коміти: `357e578` кнопки / IconButton / Play / Pagination; `1b23ddd` поля, Checkbox, Toggle, Switcher, Search, Slider; `dc64c11` Tabs, SwitchButton, Status, DropDown, FilterChevron, HeaderMenu;
+`672678f` Tooltip, Scrollbar, Avatar, Logo, Icon, ImageCard). Нових компонентів і пропів немає: кольори в CSS беруть **теми-токени** (`--button-*`, `--field-*`, `--tab-accent` …; світле значення = попереднє, темне — з Figma). Усього 83 нових токени.
+Механізм: `data-theme="dark"` на `<html>` (перемикач у Storybook) або на будь-якому елементі; історії `…Dark` (`AllVariantsDark`, `AllStatesDark`, `DarkTheme` …) вмикають темну тему примусово.
+
+Як робити далі (**Молекули, потім Організми** — дизайнер надсилає посилання на темний блок, компоненти не переносимо, а оновлюємо наявні). Повний порядок — у `CLAUDE.md`, розділ «Dark theme». Коротко:
+1. `get_metadata` блока → `get_screenshot` / `get_design_context` кожного дочірнього вузла (великі відповіді зберігаються у файл). Імена змінних у коді — **світлі**, темне значення беремо **з пікселів скріншота** (`PIL`: найчастіший не-чорний колір у боксі; тонку 1px рамку на іншому тлі — сума двох рядків).
+2. Групу токенів у `tokens.json` (`value` = попереднє, `dark` = знайдене, посилання на наявні `color.*`), `npm run build:tokens`; у CSS замінити сирі `--color-*` на тему-токен; історія `…Dark`; розділ **Dark theme** в MDX + рядки в таблиці токенів + контрасти скриптом.
+3. Багато молекул успадкують темну тему від атомів — спершу подивитися їх у темній темі, власні токени додавати лише для власних кольорів (як `table-row`).
+4. Темний кадр Figma не завжди «адаптований» (див. питання нижче) — не копіювати нечитабельне мовчки, а винести питання дизайнеру.
+5. Один коміт на групу, звіт українською по кожній групі (що змінилось, нові токени, де темне ≠ світле, чого Figma не малює, контрасти < 3:1, що перевірено).
+
+Технічні дрібниці: історія `…Dark` береться через `...AllVariants` + decorator із `width: 'max-content'` (decorators meta можуть обмежувати ширину); якщо `args` обов'язкові — додати `args`. `Scrollbar` у headless Chromium малюється як overlay — перевіряти по обчислених кольорах.
+Токен не називати `value`. Id історій: `atoms-button--all-variants-dark`, `atoms-chevrondropdown--all-states-dark`, `atoms-headermenu--dark-theme`.
 
 ### Як перевіряти (працює в контейнері)
 
@@ -181,6 +198,10 @@
 4. Ще не пройдено вручну: `FilterMenu`, `Navbar`, `ProductFormModal`, `DatePicker`, `TableClients` Sortable і вузькі контейнери.
 
 ### Відкриті питання дизайнеру (зібрано з усіх екранів)
+- Темна тема атомів: іконки `Icon` Primary у темному кадрі `#1D2542` на чорному (1.40:1, схоже, кадр не адаптований; у коді `#BDC5E2`); піл `Switcher` Dark `#050411` у Dark Atoms, але `#1D2542` у темному кадрі Navbar (`--theme-switcher-bg` не змінено);
+  `IconButton` Close: hover (залита `#050411`) проти «Activate» (яскрава рамка) — у коді логіка світлої теми; `FilterChevron` Outline V2 «(not approve)»; hover `SwitchButton` і темні фокус-кільця не намальовані;
+  кольори, зчитані з рендера (без змінної): hover / focus рамки, `Change`, галочка, рамка тултіпа, open-стани `ChevronStatus` / `ChevronDropDown`.
+  Нижче 3:1 на чорному (лишено за дизайном): hover `Checkbox` / `Toggle` / `HeaderMenu` / `Icon` (2.72:1), статичні рамки `InputField` / `SearchField` / `ImageCard` (1.35:1), `Primary` у `ChevronDropDown` / `ChevronStatus`, ініціали `chat` / `department` Avatar, підпис (2.97:1) і hover-значення (1.90:1) `FilterChevron`.
 
 - Правило рамки полів (Stroke Light V2 / Stroke Input / Activated), `Roli's Name` на `DepartmentUsers` (рамка).
 - Іконки за виглядом: `reboot`, `picture`, `save-line`, `admin`, `burger-rolled-up` (бургер шапки), `chevron-left` (назад у крихтах), `info` для «Main info».
