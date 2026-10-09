@@ -235,3 +235,16 @@ export const AllIcons24: Story = {
   parameters: { layout: 'padded', design: { type: 'figma', url: `${FILE}?node-id=6-9039` } },
   render: () => <Gallery size={24} icons={ICONS_24} />,
 };
+
+/** Figma "Dark Atoms Components" → Icons 16px / 24px. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const ColorsDark: Story = {
+  ...Colors,
+  name: 'Colors (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

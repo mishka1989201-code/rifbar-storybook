@@ -47,7 +47,13 @@ The SVG paths are exported from Figma; the logo is one color, drawn with `curren
 **Not designed in Figma:** `inverse` tone. AI-defined: the Navbar background is Primary Blue Dark, so the
 Figma color would be invisible there. The logo uses `--theme-nav-text-active` — the same color as the active Navbar text.
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Logo Rifbar Header Big`** (V1 / V2 - Approved / V3): the fill is `#BBC7D6` (White (Light)), set by the themed `--logo-color` for `tone="default"`. `tone="inverse"` already followed `--theme-nav-text-active`, which is `#BBC7D6` in dark. See **DefaultDarkTheme**.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -58,6 +64,7 @@ Figma color would be invisible there. The logo uses `--theme-nav-text-active` �
 | `--size-logo-overlay-width` / `-height` | `sm` box | `149px` / `36px` | **New** · Figma: Navbar/Full Size=1280px…360px → Logo Rifbar Header Big |
 
 No new tokens.
+| `--logo-color` | `default` tone fill | light `#1D2542` / dark `#BBC7D6` | **New** · Figma: Dark Atoms → Logo Rifbar Header Big |
 
 ## Props
 
@@ -82,3 +89,4 @@ import { Logo } from 'rifbar-ds';
 - `role="img"` with `aria-label` “Rifbar” by default.
 - Inside a link, give the link the name (“Rifbar — home”) and pass `title=""` so the name is not read twice.
 - Contrast: Primary Blue Dark on White 15.0:1; White on the Navbar 15.0:1.
+- Dark theme contrast (calculated): `#BBC7D6` on black 12.25:1.

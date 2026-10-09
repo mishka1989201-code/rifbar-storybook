@@ -79,7 +79,21 @@ are not focusable — focus goes to the parent button/link). Empty state: not ap
 - 24px `Burger` Status=Hover adds a `#D8E2EE` circle behind the icon — that's the parent button's hover background, not part of the icon.
 - `delete` (16px solid) and `Trash` (Icons 16px) look almost the same — consider keeping one.
 
+## Dark theme
+
+Figma frames **Dark Atoms Components → `Icons 16px`** and **`Icons 24px`** (Primary / Secondary / Hover): the icons are drawn with the themed `--icon-*` tokens. See **ColorsDark**.
+
+| Colour | Figma dark frame | Code (dark) |
+|---|---|---|
+| Primary | `#1D2542` (not adapted) | `#BDC5E2` (AI-defined, kept) |
+| Secondary | `#5D6E82` | `#5D6E82` |
+| Hover | `#4549A1` | `#4549A1` (was AI-defined `#888CF6`, now from Figma) |
+
+**Open question for design:** the dark Figma frame draws Primary icons in `#1D2542`, which is the light-theme value: on black it is **1.40:1** and almost invisible, so it looks like the dark frame was not adapted. The code keeps the legible `#BDC5E2`.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value (light / dark) | Source |
 |---|---|---|---|
@@ -94,6 +108,7 @@ are not focusable — focus goes to the parent button/link). Empty state: not ap
 
 Dot geometry (14px circle + 2px ring, centred at x 20 / y 1 of the 24px box) is taken from Figma
 and expressed relative to the icon size, so it scales with it.
+| `--icon-hover` | Hover | light `#4549A1` / dark `#4549A1` | Existing tokens.json · Figma: Dark Atoms → Icons Status=Hover (dark value updated from AI-defined) |
 
 ## Props
 
@@ -125,3 +140,4 @@ import { Icon } from 'rifbar-ds';
 - Inline SVG, `focusable="false"` — never a tab stop on its own.
 - Icon-only buttons must get `aria-label` on the button (see Button).
 - ⚠️ Contrast: Primary `#1D2542` on white 15:1, Secondary `#5D6E82` 5.2:1, Hover `#4549A1` 7.7:1 — all above the 3:1 needed for icons.
+- Dark theme contrast (calculated): Primary `#BDC5E2` on black 12.25:1, Secondary `#5D6E82` 4.02:1; ⚠️ Hover `#4549A1` **2.72:1** (below 3:1) — as designed; Figma's own Primary `#1D2542` would be **1.40:1**.

@@ -152,3 +152,16 @@ export const Example: Story = {
     </div>
   ),
 };
+
+/** Figma "Dark Atoms Components" → Tooltip with border + shadow. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllVariantsDark: Story = {
+  ...AllVariants,
+  name: 'All variants (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

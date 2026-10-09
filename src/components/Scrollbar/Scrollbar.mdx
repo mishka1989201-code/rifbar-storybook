@@ -55,7 +55,18 @@ and
 - The Content track has no fill; the Dropdown track is filled with Stroke Light V1.
 - The area is focusable (`tabIndex=0`, `role="region"`) so keyboard users can scroll it. Focus is not drawn in Figma; it uses the IconButton ring.
 
+## Dark theme
+
+Figma frames **Dark Atoms Components → `Scrollbar Frame`** (content) and **`Scrollbar`** (dropdown & pop-up): themed `--scrollbar-*` tokens, light values unchanged. See **AllVariantsDark**.
+
+- Content: thumb `#646464` (Secondary Grey), transparent track, the 15% white inner stroke is unchanged.
+- Dropdown & pop-up: track `#242424` (Stroke Light V1), thumb `#C9C6D9` (Color Text).
+
+Headless Chromium (used for checks) draws overlay scrollbars, so the dark scrollbars were checked by their computed colours, not by a render.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -69,6 +80,9 @@ and
 | `--border-width-sm` | Content thumb stroke and end gap | `1px` | Existing tokens.json · Figma: stroke 1 |
 | `--radius-pill` | thumb radius | `9999px` | Existing tokens.json · Figma: radius 3.5 / 2 (fully rounded) |
 | `--color-headlines` / `--border-width-lg` | focus ring | `#4549A1` / `2px` | Existing tokens.json · AI-defined use: same as IconButton |
+| `--scrollbar-content-thumb` | Content thumb | light `#A7A4B7` / dark `#646464` | **New** · Figma: Dark Atoms → Scrollbar Frame |
+| `--scrollbar-dropdown-thumb` | Dropdown thumb | light `#292639` / dark `#C9C6D9` | **New** · Figma: Dark Atoms → Scrollbar |
+| `--scrollbar-dropdown-track` | Dropdown track | light `#F1F2F9` / dark `#242424` | **New** · Figma: Dark Atoms → Scrollbar |
 
 ## Props
 
@@ -93,3 +107,4 @@ import { Scrollbar } from 'rifbar-ds';
 - Always pass `aria-label` (or `aria-labelledby`): the area is a `region` landmark.
 - ⚠️ Content thumb on a white background: `#A7A4B7` is 2.4:1, below the 3:1 for UI elements (the same Secondary Grey issue as in SearchField). Kept as designed.
 - ⚠️ The Dropdown scrollbar is 3px wide: hard to grab with a mouse and below the 44px touch target. Kept as designed; touch devices scroll by swipe.
+- Dark theme contrast (calculated): Content thumb `#646464` on black 3.55:1; Dropdown thumb on its track 9.29:1.

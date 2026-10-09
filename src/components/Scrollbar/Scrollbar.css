@@ -14,7 +14,7 @@
 
 /* ─── Content: 11px track (transparent), 7px thumb, 2px gap each side ── */
 .ds-scrollbar--content {
-  --ds-scrollbar-thumb: var(--color-secondary-grey);
+  --ds-scrollbar-thumb: var(--scrollbar-content-thumb);
   --ds-scrollbar-track: transparent;
 }
 .ds-scrollbar--content::-webkit-scrollbar {
@@ -37,8 +37,8 @@
 
 /* ─── Dropdown & pop-up: 3px track filled, 3px thumb ────────────────── */
 .ds-scrollbar--dropdown {
-  --ds-scrollbar-thumb: var(--color-text);
-  --ds-scrollbar-track: var(--color-stroke-light-v1);
+  --ds-scrollbar-thumb: var(--scrollbar-dropdown-thumb);
+  --ds-scrollbar-track: var(--scrollbar-dropdown-track);
 }
 .ds-scrollbar--dropdown::-webkit-scrollbar {
   width: var(--size-scrollbar-thin);

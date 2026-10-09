@@ -170,3 +170,16 @@ export const ChatListExample: Story = {
     docs: { description: { story: 'The name is written next to the avatar, so the avatar is `decorative`. List styles are demo-only (AI-defined).' } },
   },
 };
+
+/** Figma "Dark Atoms Components" → ava - Dark / Chat Avatar / Department Avatar - Dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllVariantsDark: Story = {
+  ...AllVariants,
+  name: 'All Variants (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

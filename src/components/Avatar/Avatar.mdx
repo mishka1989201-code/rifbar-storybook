@@ -75,7 +75,16 @@ Not interactive: if it should open a profile, wrap it in a link or a button.
   In code this is `variant="chat" size="xs"` (a recipient is a person).
 - Initials text is Regular in `ava` / Chat / Department but Medium at 20px. Kept as in Figma.
 
+## Dark theme
+
+Figma frames **Dark Atoms Components → `ava - Dark`**, **`Chat Avatar`**, **`Department Avatar - Dark`**: themed `--avatar-*` tokens, light values unchanged. See **AllVariantsDark**.
+
+- `user` (ava): fill `#050411`, initials `#BBC7D6`, shadow Dark Mode Shadow 2 (`--theme-avatar-shadow`, already themed; the avatar now reads it instead of `--shadow-avatar`, same value in light).
+- `chat` / `department`: fill `#4549A1` (Headlines), initials `#000000`.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -94,6 +103,9 @@ Not interactive: if it should open a profile, wrap it in a link or a button.
 | `--font-size-mini` / `--font-line-height-mini` | initials (`chat`, `department`) | `12px` / `18px` | Figma: Body/Mini Regular |
 | `--font-size-micro` / `--font-line-height-micro` | initials (`xs`) | `10px` / `15px` | Figma: Body/Micro Medium |
 | `--font-weight-regular` / `--font-weight-medium` | initials | `400` / `500` | Figma: Regular / Medium |
+| `--avatar-user-bg`, `--avatar-user-text` | `user` fill, initials | light `#141D3F`, `#FFFFFF` / dark `#050411`, `#BBC7D6` | **New** · Figma: Dark Atoms → ava - Dark |
+| `--avatar-bg`, `--avatar-text` | `chat` / `department` fill, initials | light `#6368DF`, `#FFFFFF` / dark `#4549A1`, `#000000` | **New** · Figma: Dark Atoms → Chat Avatar, Department Avatar |
+| `--theme-avatar-shadow` | `user` shadow | light `1px 2px 2px rgba(98,104,223,0.15)` / dark `1px 2px 2px rgba(88,88,88,0.35)` | Existing tokens.json · Figma: ava drop shadow / Dark Mode Shadow 2 |
 
 ## Props
 
@@ -121,3 +133,4 @@ import { Avatar } from 'rifbar-ds';
 |---|---|---|
 | `user` — White on `#141D3F` | 16.4:1 | ✅ |
 | `chat` / `department` / `xs` — White on Hover Blue | 4.6:1 | ✅ (12px and 10px need 4.5:1) |
+- Dark theme contrast (calculated): `user` initials 11.87:1; ⚠️ `chat` / `department` black initials on `#4549A1` **2.72:1** (below 3:1) — as designed, flag to design.
