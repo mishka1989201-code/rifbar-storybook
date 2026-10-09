@@ -23,14 +23,14 @@
 
 /* ─── Tab #=Active: Body/Small Medium, Headlines text + 2px underline ─── */
 .ds-tab--active {
-  color: var(--color-headlines);
+  color: var(--tab-accent);
   font-weight: var(--font-weight-medium);
-  box-shadow: inset 0 calc(-1 * var(--border-width-lg)) 0 0 var(--color-headlines);
+  box-shadow: inset 0 calc(-1 * var(--border-width-lg)) 0 0 var(--tab-accent);
 }
 
 /* ─── Hover (not designed in Figma — AI-defined): Headlines text, no underline ─ */
 .ds-tab:is(:hover:not(:disabled), .is-hover):not(.ds-tab--active) {
-  color: var(--color-headlines);
+  color: var(--tab-accent);
 }
 
 /* ─── Focus (not designed in Figma — same ring as Button) ──────────────── */

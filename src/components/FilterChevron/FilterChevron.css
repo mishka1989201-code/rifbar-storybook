@@ -3,10 +3,10 @@
    height stays 22px = 18px line height + 2 × 2px padding in every style. */
 
 .ds-filter-chevron {
-  --ds-filter-chevron-bg: var(--color-stroke-light-v1);
-  --ds-filter-chevron-stroke: var(--color-secondary-grey);
+  --ds-filter-chevron-bg: var(--filter-chevron-bg);
+  --ds-filter-chevron-stroke: var(--filter-chevron-stroke);
   --ds-filter-chevron-label: var(--color-grey-dark);
-  --ds-filter-chevron-value: var(--color-headlines);
+  --ds-filter-chevron-value: var(--filter-chevron-value);
   display: inline-flex;
   align-items: center;
   max-width: 100%;
@@ -89,6 +89,7 @@
 
 /* ─── Style=Outline Hover (designed for Outline only) ─────────────── */
 .ds-filter-chevron--outline:is(:hover, .is-hover) {
-  --ds-filter-chevron-bg: var(--color-secondary-light);
-  --ds-filter-chevron-stroke: var(--color-grey-dark);
+  --ds-filter-chevron-bg: var(--filter-chevron-hover-bg);
+  --ds-filter-chevron-stroke: var(--filter-chevron-hover-stroke);
+  --ds-filter-chevron-value: var(--filter-chevron-hover-value);
 }

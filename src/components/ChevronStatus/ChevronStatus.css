@@ -2,8 +2,8 @@
    Height 26px = 18px line height + 2 × 4px padding (Figma: hug, padding 4 / 8). */
 
 .ds-chevron-status {
-  --ds-chevron-status-bg: var(--color-hover-blue);
-  --ds-chevron-status-text: var(--color-white);
+  --ds-chevron-status-bg: var(--chevron-status-primary-bg);
+  --ds-chevron-status-text: var(--chevron-status-text);
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-4);
@@ -34,26 +34,26 @@
 }
 
 .ds-chevron-status--success {
-  --ds-chevron-status-bg: var(--color-green-dark);
+  --ds-chevron-status-bg: var(--chevron-status-success-bg);
 }
 
 .ds-chevron-status--info {
-  --ds-chevron-status-bg: var(--color-headlines);
+  --ds-chevron-status-bg: var(--chevron-status-info-bg);
 }
 
 .ds-chevron-status--warning {
-  --ds-chevron-status-bg: var(--color-warning-strong);
+  --ds-chevron-status-bg: var(--chevron-status-warning-bg);
 }
 
 .ds-chevron-status--danger {
-  --ds-chevron-status-bg: var(--color-danger-strong);
+  --ds-chevron-status-bg: var(--chevron-status-danger-bg);
 }
 
 .ds-chevron-status--light {
-  --ds-chevron-status-bg: var(--color-bg);
+  --ds-chevron-status-bg: var(--chevron-status-light-bg);
   --ds-chevron-status-text: var(--color-grey-dark);
 }
 
 .ds-chevron-status--dark {
-  --ds-chevron-status-bg: var(--color-primary-blue-dark);
+  --ds-chevron-status-bg: var(--chevron-status-dark-bg);
 }

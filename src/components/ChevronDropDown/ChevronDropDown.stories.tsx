@@ -190,3 +190,16 @@ export const WithMenuExample: Story = {
     },
   },
 };
+
+/** Figma "Dark Atoms Components" → Drop Down. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllStatesDark: Story = {
+  ...AllStates,
+  name: 'All colors × states (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

@@ -102,3 +102,28 @@ export const GroupLightExample: Story = {
   render: () => <GroupDemo variant="light" />,
   parameters: { docs: { description: { story: 'Interactive. Gap 8px is AI-defined.' } } },
 };
+
+/** Figma "Dark Atoms Components" → Frame 300 (Switch buttons). Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DarkTheme: Story = {
+  args: { children: 'All clients' },
+  name: 'Dark and Light × Active, Not Active, Hover (dark theme)',
+  parameters: { layout: 'padded' },
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'auto auto', gap: 16 }}>
+      {(['dark', 'light'] as const).map((variant) => (
+        <div key={variant} style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
+          <SwitchButton active variant={variant}>All clients</SwitchButton>
+          <SwitchButton variant={variant}>Pending (8)</SwitchButton>
+          <SwitchButton variant={variant} forceHover>Pending (8)</SwitchButton>
+        </div>
+      ))}
+    </div>
+  ),
+};

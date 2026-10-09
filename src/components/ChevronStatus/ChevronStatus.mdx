@@ -75,7 +75,16 @@ component set
   a `Color` of the component yet.
 - Empty, loading and error states are not applicable (static label).
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Status`**: themed `--chevron-status-*` tokens, light values unchanged. See **AllVariantsDark**.
+
+Text is `#000000` (White (Dark)) on every colour except Light (`#5D6E82`). Fills: Primary `#4549A1`, Secondary `#5D6E82`, Success `#1FD246`, Info `#0AABDE`, Warning `#F68F57`, Danger `#ED5742`, Light `#101010`, Dark `#BDC5E2`.
+The light theme keeps its darker, contrast-checked fills (Green Dark, Headlines for Info, Warning Strong, Danger Strong); the dark Figma frame uses the plain brand colours.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -93,6 +102,10 @@ component set
 | `--spacing-4` | gap icon ↔ text | `4px` | Figma: gap 4 |
 | `--size-icon` | icon | `16px` | Figma: Icons 16px |
 | `--radius-pill` | corner radius | `9999px` | Figma: radius 20px on 26px height |
+| `--chevron-status-primary-bg` | Primary fill | light `#6368DF` / dark `#4549A1` | **New** · Figma: Dark Atoms → Status |
+| `--chevron-status-success-bg`, `-info-bg`, `-warning-bg`, `-danger-bg` | Success, Info, Warning, Danger fill | light `#00864E`, `#4549A1`, `#C84D0B`, `#DF2E15` / dark `#1FD246`, `#0AABDE`, `#F68F57`, `#ED5742` | **New** · Figma: Dark Atoms → Status |
+| `--chevron-status-light-bg`, `-dark-bg` | Light, Dark fill | light `#F6F8FC`, `#1D2542` / dark `#101010`, `#BDC5E2` | **New** · Figma: Dark Atoms → Status |
+| `--chevron-status-text` | text (all but Light) | light `#FFFFFF` / dark `#000000` | **New** · Figma: Dark Atoms → White (Dark) |
 
 ## Props
 
@@ -124,3 +137,5 @@ import { ChevronStatus } from 'rifbar-ds';
 | Danger | 4.6:1 | ✅ |
 | Light | 4.9:1 | ✅ |
 | Dark | 15.1:1 | ✅ |
+- Dark theme contrast (calculated, black text on the fill): Success 10.37:1, Warning 8.99:1, Info 7.89:1, Danger 6.04:1, Dark 12.25:1, Secondary 4.02:1, Light (`#5D6E82` on `#101010`) 3.64:1;
+  ⚠️ Primary `#4549A1` with black text **2.72:1** (below 3:1) — as designed, flag to design.

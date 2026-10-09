@@ -9,8 +9,8 @@
      Static @ 20%        → :disabled */
 
 .ds-chevron-dropdown {
-  --ds-cdd-color: var(--color-hover-blue);
-  --ds-cdd-open: var(--color-hover-blue-shade);
+  --ds-cdd-color: var(--chevron-dropdown-primary);
+  --ds-cdd-open: var(--chevron-dropdown-primary-open);
   --ds-cdd-glow: var(--shadow-focus);
   --ds-cdd-stroke: var(--ds-cdd-color);
   --ds-cdd-bg: transparent;
@@ -42,7 +42,7 @@
 /* ─── Colors ────────────────────────────────────────────────────────── */
 .ds-chevron-dropdown--secondary {
   --ds-cdd-color: var(--color-grey-dark);
-  --ds-cdd-open: var(--color-grey-dark-shade);
+  --ds-cdd-open: var(--chevron-dropdown-secondary-open);
   --ds-cdd-glow: var(--shadow-focus-secondary);
 }
 
@@ -53,14 +53,14 @@
 }
 
 .ds-chevron-dropdown--info {
-  --ds-cdd-color: var(--color-headlines);
+  --ds-cdd-color: var(--chevron-dropdown-info);
   --ds-cdd-open: var(--color-blue-light-shade);
   --ds-cdd-glow: var(--shadow-focus-info);
 }
 
 .ds-chevron-dropdown--warning {
   --ds-cdd-color: var(--color-warning);
-  --ds-cdd-open: var(--color-warning-shade);
+  --ds-cdd-open: var(--chevron-dropdown-warning-open);
   --ds-cdd-glow: var(--shadow-focus-warning);
 }
 
@@ -75,12 +75,12 @@
   --ds-cdd-open: var(--color-grey-dark);
   --ds-cdd-glow: var(--shadow-focus-light);
   --ds-cdd-stroke: transparent;
-  --ds-cdd-bg: var(--color-bg);
+  --ds-cdd-bg: var(--chevron-dropdown-light-bg);
 }
 
 .ds-chevron-dropdown--dark {
-  --ds-cdd-color: var(--color-primary-blue-dark);
-  --ds-cdd-open: var(--color-primary-blue-dark-tint);
+  --ds-cdd-color: var(--chevron-dropdown-dark);
+  --ds-cdd-open: var(--chevron-dropdown-dark-open);
   --ds-cdd-glow: var(--shadow-focus-dark);
 }
 
