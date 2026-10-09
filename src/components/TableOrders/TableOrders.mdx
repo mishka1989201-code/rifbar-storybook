@@ -20,7 +20,7 @@ and the `Cards Line` frames. An **Organism** composed only of
 |---|---|
 | `Table Header 4` (Order name · Price · Type · Date · Status · Actions) | `TableHeader` with the `orders` preset (override with `columns`) |
 | `Table Row 14` … `Table Row 23`, 8px apart | `TableRowOrder layout="row"`, one per item of `rows` |
-| `Cards Line 8` … (two cards per line, 768px) / `Card Row 4` (one per line, 480 / 360px) | `layout="cards"`: a grid, `repeat(auto-fill, minmax(--size-order-card-min, 1fr))`, gap 8 |
+| `Cards Line 8` … (two cards per line, 768px) / `Card Row 4` (one per line, 480 / 360px) | `layout="cards"`: a [CardGrid](?path=/docs/molecules-cardgrid--docs) (`repeat(auto-fill, minmax(--size-card-grid-min, 1fr))`, gap 8) |
 
 ## When to use
 
@@ -57,14 +57,14 @@ Not drawn, defined by analogy (AI-defined):
 Assumed / normalised:
 
 - At 1280 / 1024px Figma keeps the same columns while the content narrows; the cells spread with `justify-between` (as in `TableClients`), so the columns need at least 754px (170 + 120 + 150 + 80 + 130 + 72 + 32 padding) and the table scrolls horizontally below that.
-- The Figma card grid is two columns at 704px and one at 448px; the threshold is the token `--size-order-card-min` (340px, AI-defined).
+- The Figma card grid is two columns at 704px and one at 448px; the threshold is the token `--size-card-grid-min` (300px, AI-defined).
 
 ## Design tokens used
 
 | Token | Property | Value | Source |
 |---|---|---|---|
 | `--spacing-8` | gap between header and rows, between cards | `8px` | Existing tokens.json · Figma: gap 8 |
-| `--size-order-card-min` | minimum card width in the grid | `340px` | **New** · Figma: Cards Line (card 348px at 768, 448px at 480); the minimum is AI-defined. Added 2026-10-09 |
+| `--size-card-grid-min` | minimum card width in the grid ([CardGrid](?path=/docs/molecules-cardgrid--docs)) | `300px` | **New** · Figma: Cards Line / Pagination Responsive (cards 332–348px at 768, 384–448px at 480); the minimum is AI-defined. Added 2026-10-09 |
 | `--spacing-8` | bottom padding of the scroll area | `8px` | AI-defined use: keeps the row shadow from being clipped |
 | `--spacing-24` / `--spacing-16` | status message padding | 24 / 16px | AI-defined use: state not drawn in Figma |
 | `--color-grey-dark`, `--color-danger-strong` | empty / loading text, error text | `#5D6E82`, `#DF2E15` | AI-defined use: as `TableClients` |

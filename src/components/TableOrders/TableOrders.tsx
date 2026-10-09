@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
+import { CardGrid } from '../CardGrid';
 import { TableHeader, type TableHeaderColumn, TABLE_HEADER_PRESETS } from '../TableHeader';
 import { TableRowOrder, type TableRowOrderProps } from '../TableRowOrder';
 import './TableOrders.css';
@@ -52,11 +53,16 @@ export function TableOrders({
   return (
     <div className={classes} {...rest}>
       <div className="ds-table-orders__scroll">
-        <div className="ds-table-orders__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
-          {layout === 'table' && <TableHeader columns={columns} onSort={onSort} />}
-          {status === 'ready' &&
-            rows.map(({ id, ...cells }) => <TableRowOrder key={id} layout={layout === 'cards' ? 'card' : 'row'} {...cells} />)}
-        </div>
+        {layout === 'cards' ? (
+          <CardGrid className="ds-table-orders__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
+            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowOrder key={id} layout="card" {...cells} />)}
+          </CardGrid>
+        ) : (
+          <div className="ds-table-orders__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
+            <TableHeader columns={columns} onSort={onSort} />
+            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowOrder key={id} layout="row" {...cells} />)}
+          </div>
+        )}
         {message && (
           <div
             className={`ds-table-orders__status${status === 'error' ? ' is-error' : ''}`}

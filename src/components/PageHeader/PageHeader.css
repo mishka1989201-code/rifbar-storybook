@@ -69,3 +69,9 @@
   outline: var(--border-width-lg) solid var(--color-headlines);
   outline-offset: var(--border-width-lg);
 }
+
+/* Compact (Figma 480 / 360px): the title is Light Headings/h5. */
+.ds-page-header--compact .ds-page-header__title {
+  font-size: var(--font-size-h5);
+  line-height: var(--font-line-height-h5);
+}

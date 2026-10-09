@@ -20,13 +20,7 @@
   gap: var(--spacing-8);
 }
 
-/* Cards: Figma `Cards Line` — 8px between cards, two per line at 768px, one at 480px. */
-.ds-table-orders--cards .ds-table-orders__table {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--size-order-card-min)), 1fr));
-  align-items: start;
-  gap: var(--spacing-8);
-}
+/* Cards: the grid is the CardGrid molecule (Figma `Cards Line`). */
 
 .ds-table-orders__status {
   position: sticky;

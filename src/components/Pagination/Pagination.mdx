@@ -44,6 +44,15 @@ Up to 7 pages are shown in full. More than that: the first and last page are alw
 <Canvas of={PaginationStories.Long} />
 <Canvas of={PaginationStories.LongMiddle} />
 
+## Responsive: v1, v2 and the small size
+
+Figma `Pagination Responsive` draws two proposals at 768 / 480 / 360px: **v1** keeps `1 2 3 4 5 6 … 14` (`siblingCount={2}`, the default), **v2** is shorter, `1 … 4 5 6 … 14` (`siblingCount={1}`). At 480px and below the buttons are 24px with 10px numbers (`size="sm"`) and spread over the container width.
+
+<Canvas of={PaginationStories.MediumV2} />
+<Canvas of={PaginationStories.SmallV1} />
+<Canvas of={PaginationStories.SmallV2} />
+<Canvas of={PaginationStories.SmallEdge} />
+
 ## Edge cases
 
 <Canvas of={PaginationStories.LongFirstPage} />
@@ -55,11 +64,14 @@ Up to 7 pages are shown in full. More than that: the first and last page are alw
 - The `...` is a 40×40 box with the text at the bottom, no fill (as in Figma). It is hidden from screen readers.
 - Disabled arrows are not drawn in Figma; they use IconButton Disabled (20% opacity).
 - Hover and focus come from IconButton.
+- `size="sm"`: 24px buttons (Body/Micro Medium), `space-between` over the container; the `...` box is 24×24. Which width switches the size is the page's decision (the prototypes use 480px).
+- **Needs designer confirmation:** v1 or v2. Both are implemented (`siblingCount`), the default stays v1.
 
 ## Design tokens used
 
 | Token | Property | Value | Source |
 |---|---|---|---|
+| `--size-icon-lg`, `--spacing-4`, `--font-size-micro`, `--font-line-height-micro` | `size="sm"`: button 24px, padding 4, number 10 / 15px | 24 / 4px, 10 / 15px | Existing tokens.json · Figma: Pagination Responsive → Icon Button 24, p 4, Body/Micro Medium |
 | `--spacing-4` | gap between buttons | `4px` | Existing tokens.json · Figma: gap 4 |
 | `--spacing-8` | `...` horizontal padding | `8px` | Existing tokens.json · Figma: padding 8 |
 | `--size-control-md` | button and `...` size | `40px` | Existing tokens.json · Figma: 40×40 |

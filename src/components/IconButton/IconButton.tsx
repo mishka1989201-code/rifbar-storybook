@@ -13,6 +13,11 @@ export type IconButtonKind =
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   kind?: IconButtonKind;
   /**
+   * `md` — 40px, Body/Small Medium (default). `sm` — 24px, Body/Micro Medium: the pagination of Figma
+   * `Pagination Responsive` at 480px and below. Only for `page`, `prev` and `next`.
+   */
+  size?: 'md' | 'sm';
+  /**
    * Figma `Status=Active`: current page (`page`), opened search (`search`).
    * Sets `aria-current="page"` / `aria-pressed` accordingly.
    */
@@ -35,6 +40,7 @@ const DEFAULT_LABEL: Record<Exclude<IconButtonKind, 'page'>, string> = {
 
 export function IconButton({
   kind = 'search',
+  size = 'md',
   active = false,
   forceHover = false,
   className,
@@ -45,6 +51,7 @@ export function IconButton({
   const classes = [
     'ds-icon-button',
     `ds-icon-button--${kind}`,
+    size === 'sm' && 'ds-icon-button--sm',
     active && 'is-active',
     forceHover && 'is-hover',
     className,

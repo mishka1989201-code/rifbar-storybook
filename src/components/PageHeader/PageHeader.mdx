@@ -21,6 +21,7 @@ It is composed of [`HeaderMenu`](?path=/docs/atoms-headermenu--docs), [`BreadCru
 | `Bread Crumbs & Tabs` | + `breadcrumbs` + `tabs` | title–crumbs gap 4, then tabs |
 | `Title & Menu` “Clients” | `title` + `menu` | Light Headings/h2 32 / 48, Headlines; menu = `HeaderMenu` |
 | Burger before the title at 1280px and below (`Icons 24px`) | `onMenuClick` (`burger-rolled-up`), `menuLabel` |
+| Header at 480 / 360px (title 20 / 30) | `size="compact"` |
 | `Bread Crumbs` at 768px and below (chevron + current page) | `breadcrumbs={{ variant: 'back', items }}` |
 | `Header Menu` (bell, chart, support) | `menu` = `<HeaderMenu><HeaderMenuItem …/></HeaderMenu>` | the three icon flags of Figma are separate `HeaderMenuItem`s |
 
@@ -43,6 +44,7 @@ It is composed of [`HeaderMenu`](?path=/docs/atoms-headermenu--docs), [`BreadCru
 <Canvas of={PageHeaderStories.Narrow} />
 <Canvas of={PageHeaderStories.WithMenuButton} />
 <Canvas of={PageHeaderStories.BackBreadcrumbs} />
+<Canvas of={PageHeaderStories.Compact} />
 <Canvas of={PageHeaderStories.Interactive} />
 <Canvas of={PageHeaderStories.AllVariants} />
 
@@ -63,6 +65,7 @@ It is composed of [`HeaderMenu`](?path=/docs/atoms-headermenu--docs), [`BreadCru
 | `--spacing-8` / `--spacing-16` | bar padding, row gap | `8` / `16px` | Existing tokens.json · Figma: py 8, px 16, gap 16 |
 | `--spacing-4` | title–crumbs gap with tabs | `4px` | Existing tokens.json · Figma: Title & Bread Crumbs gap 4 |
 | `--color-headlines` | title | `#4549A1` | Existing tokens.json · Figma: Headlines |
+| `--font-size-h5`, `--font-line-height-h5` | title with `size="compact"` | 20 / 30px | Existing tokens.json · Figma: Light Headings/h5 (Pagination Responsive, 480 / 360px) |
 | `--color-headlines`, `--color-hover-blue`, `--spacing-8` | burger colour, hover, gap to the title | `#4549A1`, `#6368DF`, 8px | Existing tokens.json · Figma: Title & Menu gap 8; hover AI-defined |
 | `--font-size-h2` / `--font-line-height-h2` / `--font-weight-light` | title | `32px` / `48px` / `300` | Existing tokens.json · Figma: Light Headings/h2 |
 | `--font-family-base` | font | Poppins | Existing tokens.json · Figma: Poppins |

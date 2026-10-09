@@ -9,7 +9,9 @@ export interface TableToolbarProps extends HTMLAttributes<HTMLDivElement> {
   compact?: boolean;
   onExport?: () => void;
   exportLabel?: ReactNode;
-  /** Desktop: called on click of “Clear”. */
+  /** Shows the “Clear” button. Default: desktop yes, `compact` no (Figma `Management` at 768px and below draws it next to “Export”). */
+  showClear?: boolean;
+  /** Called on click of “Clear”. */
   onClear?: () => void;
   clearLabel?: ReactNode;
   /** Desktop: the filter controls between “Clear” and the view switch (Figma: `Date range` and `Status` fields). */
@@ -39,6 +41,7 @@ export function TableToolbar({
   exportLabel = 'Export',
   onClear,
   clearLabel = 'Clear',
+  showClear = !compact,
   filters,
   filterCount,
   onFilterClick,
@@ -57,6 +60,11 @@ export function TableToolbar({
         <Button variant="dark" iconLeft="export" onClick={onExport}>
           {exportLabel}
         </Button>
+        {showClear && (
+          <Button variant="outline" iconLeft="clear" onClick={onClear}>
+            {clearLabel}
+          </Button>
+        )}
         {compact ? (
           <>
             <Button variant="outline" iconLeft="filter-dark" counter={filterCount || undefined} onClick={onFilterClick}>
@@ -65,12 +73,7 @@ export function TableToolbar({
             {sort}
           </>
         ) : (
-          <>
-            <Button variant="outline" iconLeft="clear" onClick={onClear}>
-              {clearLabel}
-            </Button>
-            {filters}
-          </>
+          filters
         )}
         {view !== undefined && <ViewSwitch value={view} onChange={onViewChange} />}
       </div>

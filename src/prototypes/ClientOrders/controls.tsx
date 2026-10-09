@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react';
+import './controls.css';
 
 /**
  * A trigger with a panel under it (the menus of Figma `Sort by` and `Status Filter`). The Dropdown molecule draws

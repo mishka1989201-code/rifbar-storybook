@@ -45,6 +45,22 @@ export const PaginationArrowLeft: Story = { args: { kind: 'prev' } };
 
 export const PaginationArrowRight: Story = { args: { kind: 'next' } };
 
+export const SmallPage: Story = {
+  name: 'Small page (24px)',
+  args: { kind: 'page', children: 4, size: 'sm' },
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3739-305804' } },
+};
+export const SmallActive: Story = { name: 'Small active', args: { kind: 'page', children: 4, size: 'sm', active: true } };
+export const SmallArrows: Story = {
+  name: 'Small arrows',
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 4 }}>
+      <IconButton {...args} kind="prev" size="sm" />
+      <IconButton {...args} kind="next" size="sm" />
+    </div>
+  ),
+};
+
 export const Close: Story = { args: { kind: 'close' } };
 
 // ─── STATES ──────────────────────────────────────────────────────────────────

@@ -71,18 +71,3 @@
   padding: 0;
   background: var(--color-bg);
 }
-
-/* Menus under their triggers (Figma `Sort by`, `Status Filter`). */
-.proto-popover {
-  position: relative;
-  display: inline-flex;
-}
-
-.proto-popover__panel {
-  position: absolute;
-  top: calc(100% + var(--spacing-4));
-  z-index: 5;
-}
-
-.proto-popover__panel--start { left: 0; }
-.proto-popover__panel--end { right: 0; }

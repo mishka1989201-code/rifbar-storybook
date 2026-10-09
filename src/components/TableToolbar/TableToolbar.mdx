@@ -22,6 +22,7 @@ wherever filters or a view switch are needed (`TableActionsRow` stays for the pl
 | `button_action Export` (dark, `export` icon) | `Button variant="dark" iconLeft="export"`, `onExport`, `exportLabel` |
 | `Clear` (outline, desktop) | `Button variant="outline" iconLeft="clear"`, `onClear`, `clearLabel` |
 | `Date range` and `Status` fields (desktop) | `filters` slot — two `FilterField`s (`icon="date"` for the date range) with their own menus |
+| `Clear` next to `Export` at 768px and below (Figma `Management`) | `showClear` (default: desktop yes, `compact` no) |
 | `Filter` + count badge (768px and below) | `compact`: `Button variant="outline" iconLeft="filter-dark" counter={filterCount}`, `onFilterClick`, `filterLabel` |
 | Square sort button (768px and below) | `sort` slot — an icon `Button` (`iconOnly="sort"`) with its menu |
 | `viewing style` “View:” | `view`, `onViewChange` → `ViewSwitch` |
@@ -39,6 +40,7 @@ wherever filters or a view switch are needed (`TableActionsRow` stays for the pl
 
 <Canvas of={TableToolbarStories.Compact} />
 <Canvas of={TableToolbarStories.CompactNoFilters} />
+<Canvas of={TableToolbarStories.CompactWithClear} />
 <Canvas of={TableToolbarStories.WithoutView} />
 <Canvas of={TableToolbarStories.CompactNarrow} />
 <Canvas of={TableToolbarStories.DesktopNarrow} />

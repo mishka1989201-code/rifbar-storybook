@@ -65,11 +65,14 @@
 Нове з екрана «Клієнт → Orders»: `TableRowOrder` (`layout` row / card, `OrderStatus`), `TableToolbar` (Export / Clear / `filters` / View / Search; `compact` для ≤768px),
 `CheckListModal` `variant` check / radio / pick + `accent`, `PageHeader` `onMenuClick`, `BreadCrumbs` `variant="back"`, пресет `orders` у `TableHeader`.
 
+Нове з екрана «Pagination Responsive»: `IconButton` / `Pagination` `size="sm"` (24px, 10px цифри), `PaginationBar` `stacked` / `flat` / `siblingCount` (v1 = 2, v2 = 1),
+`PageHeader` `size="compact"`, `TableToolbar` `showClear`, нова молекула `CardGrid` (адаптивна сітка карток, токен `--size-card-grid-min`).
+
 ## Prototypes
 
 Цілі екрани з бібліотечних компонентів і фейкових даних: `src/prototypes/<Name>/`, заголовок історій `Prototypes/<Name>`, **не** експортуються з `src/index.ts`.
 Одна історія на кожен брейкпоінт Figma (декоратор задає ширину кадру) + окремі історії для екранів фільтрів. Нові компоненти, потрібні екрану, живуть у `src/components`.
-Перший: `ClientOrders` (1920 / 1440 / 1280 / 1024 / 768 / 480 / 360 + Filter menu / All Filters). «Гілка Prototypes» у запиті = цей розділ Storybook.
+Прототипи: `ClientOrders` (1920 / 1440 / 1280 / 1024 / 768 / 480 / 360 + Filter menu / All Filters), `DepartmentUsers` (768 / 480 / 360 × пагінація v1 / v2). «Гілка Prototypes» у запиті = цей розділ Storybook.
 
 ## Organisms
 

@@ -91,6 +91,18 @@ export const BackBreadcrumbs: Story = {
   parameters: { docs: { description: { story: 'Figma header at 768px and below: only the current page after a back chevron; it goes to the previous crumb.' } } },
 };
 
+export const Compact: Story = {
+  name: 'Compact (480 / 360px)',
+  args: {
+    title: 'Management',
+    size: 'compact',
+    breadcrumbs: { variant: 'back', items: [{ label: 'Management', href: '#' }, { label: 'Management' }] },
+    onMenuClick: () => undefined,
+  },
+  decorators: [(Story) => <div style={{ maxWidth: 448 }}><Story /></div>],
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3739-305804' }, docs: { description: { story: 'Figma header at 480px and below: the title is Light Headings/h5 (20 / 30px).' } } },
+};
+
 // ─── ALL VARIANTS ────────────────────────────────────────────────────────────
 export const AllVariants: Story = {
   name: 'All variants',

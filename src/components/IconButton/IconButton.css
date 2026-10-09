@@ -38,6 +38,15 @@
   background-color: transparent;
 }
 
+/* ─── Size sm: 24px, 4px padding, Body/Micro Medium (Figma Pagination Responsive, 480 / 360px) ── */
+.ds-icon-button--sm:is(.ds-icon-button--page, .ds-icon-button--prev, .ds-icon-button--next) {
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
+  padding: var(--spacing-4);
+  font-size: var(--font-size-micro);
+  line-height: var(--font-line-height-micro);
+}
+
 /* ─── Hover (Figma Status=Hover → Primary Blue Dark stroke) ─────────── */
 .ds-icon-button:is(:hover:not(:disabled), .is-hover) {
   --ds-icon-button-stroke: var(--color-primary-blue-dark);

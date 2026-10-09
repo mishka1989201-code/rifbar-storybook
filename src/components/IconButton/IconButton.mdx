@@ -54,6 +54,14 @@ Pressed reuses Active. Loading is not applicable.
 
 Empty state: not applicable — IconButton doesn't display data.
 
+## Size `sm`
+
+`size="sm"` is the 24px button of Figma `Pagination Responsive` (480px and below): 4px padding, 10 / 15px numbers. It applies to `page`, `prev` and `next` only.
+
+<Canvas of={IconButtonStories.SmallPage} />
+<Canvas of={IconButtonStories.SmallActive} />
+<Canvas of={IconButtonStories.SmallArrows} />
+
 ## Example: pagination
 
 <Canvas of={IconButtonStories.PaginationExample} />
@@ -62,6 +70,8 @@ Empty state: not applicable — IconButton doesn't display data.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
+| `--size-icon-lg`, `--spacing-4` | `size="sm"`: width / height, padding | 24 / 4px | Existing tokens.json · Figma: Pagination Responsive → Icon Button 24, p 4 |
+| `--font-size-micro`, `--font-line-height-micro` | `size="sm"`: number | 10 / 15px | Existing tokens.json · Figma: Body/Micro Medium |
 | `--color-secondary-light` | bg (Search, Pagination — Static / Hover / Disabled) | `#ECEEFB` | Figma: Secondary Light |
 | `--color-primary-blue-dark` | text & icon (Static, Hover); hover stroke (all); bg (Active) | `#1D2542` | Figma: Primary Blue Dark |
 | `--color-white` | text & icon (Active) | `#FFFFFF` | Figma: White |
@@ -102,5 +112,5 @@ import { IconButton } from 'rifbar-ds';
 - Default `aria-label`s: “Search”, “Previous page”, “Next page”, “Close”, “Page N” — override with your own `aria-label` (e.g. Ukrainian copy).
 - `kind="page"` + `active` → `aria-current="page"`; `kind="search"` → `aria-pressed`.
 - Wrap pagination in `<nav aria-label="…">`.
-- ⚠️ Touch target: 32×32 / 40×40 px (below 44×44). Kept as designed — desktop ERP.
+- ⚠️ Touch target: 24×24 (`size="sm"`) / 32×32 / 40×40 px (below 44×44). Kept as designed — desktop ERP.
 - ⚠️ Disabled at 20% opacity is below 3:1 contrast — flag to design (same as Button).

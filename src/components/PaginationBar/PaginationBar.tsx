@@ -16,6 +16,15 @@ export interface PaginationBarProps extends Omit<HTMLAttributes<HTMLDivElement>,
   onPageSizeChange?: (size: number) => void;
   /** Label before the select. */
   label?: string;
+  /** Pages shown on each side of the current one (`Pagination`): 2 = Figma “v1” (1 2 3 4 5 6 … 14), 1 = “v2” (1 … 4 5 6 … 14). */
+  siblingCount?: number;
+  /**
+   * Figma `Pagination Responsive` at 480px and below: “Show:” above, the small `Pagination` under it across the whole
+   * width, no side padding.
+   */
+  stacked?: boolean;
+  /** No shadow: the bar sits inside a white card (Figma `Pagination Responsive`). */
+  flat?: boolean;
 }
 
 /**
@@ -30,15 +39,18 @@ export function PaginationBar({
   pageSizeOptions = [8, 16, 32, 64],
   onPageSizeChange,
   label = 'Show:',
+  siblingCount,
+  stacked = false,
+  flat = false,
   className,
   ...rest
 }: PaginationBarProps) {
-  const classes = ['ds-pagination-bar', className].filter(Boolean).join(' ');
+  const classes = ['ds-pagination-bar', stacked && 'ds-pagination-bar--stacked', flat && 'ds-pagination-bar--flat', className].filter(Boolean).join(' ');
 
   return (
     <div className={classes} {...rest}>
       <ShowSelect value={pageSize} options={pageSizeOptions} onChange={onPageSizeChange} label={label} />
-      <Pagination page={page} pageCount={pageCount} onPageChange={onPageChange} />
+      <Pagination page={page} pageCount={pageCount} onPageChange={onPageChange} siblingCount={siblingCount} size={stacked ? 'sm' : 'md'} />
     </div>
   );
 }

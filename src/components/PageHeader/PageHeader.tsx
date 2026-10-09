@@ -13,6 +13,8 @@ export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLElement>, 'titl
   breadcrumbs?: BreadCrumbsProps;
   /** Adds the `TabsHeader` at the bottom (Figma `Tabs`). */
   tabs?: TabsHeaderProps;
+  /** `compact` — the title is Light Headings/h5 (20 / 30px) instead of h2 (32 / 48px): Figma header at 480px and below. */
+  size?: 'default' | 'compact';
   /** Shows the burger before the title (Figma header at 1280px and below, where the side menu is hidden). */
   onMenuClick?: () => void;
   /** Accessible name of the burger. */
@@ -24,8 +26,8 @@ export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLElement>, 'titl
  * the Cards shadow, a title row with the menu and, optionally, breadcrumbs and tabs. The Figma variant
  * is chosen by which of `breadcrumbs` and `tabs` are passed.
  */
-export function PageHeader({ title, menu, breadcrumbs, tabs, onMenuClick, menuLabel = 'Open menu', className, ...rest }: PageHeaderProps) {
-  const classes = ['ds-page-header', tabs && 'ds-page-header--tabs', className].filter(Boolean).join(' ');
+export function PageHeader({ title, menu, breadcrumbs, tabs, onMenuClick, menuLabel = 'Open menu', size = 'default', className, ...rest }: PageHeaderProps) {
+  const classes = ['ds-page-header', tabs && 'ds-page-header--tabs', size === 'compact' && 'ds-page-header--compact', className].filter(Boolean).join(' ');
   return (
     <header className={classes} {...rest}>
       <div className="ds-page-header__intro">

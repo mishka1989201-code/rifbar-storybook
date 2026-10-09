@@ -15,6 +15,11 @@ export interface PaginationProps {
    * collapses into "...". Figma `Version=2` (1 2 3 4 5 6 ... 14) = 2.
    */
   siblingCount?: number;
+  /**
+   * `md` — 40px buttons (Figma 768px and up). `sm` — 24px buttons with 10px numbers that spread over the whole
+   * width of the container (Figma `Pagination Responsive`, 480px and below).
+   */
+  size?: 'md' | 'sm';
   className?: string;
   /** Accessible name of the navigation landmark. */
   'aria-label'?: string;
@@ -46,6 +51,7 @@ export function Pagination({
   pageCount,
   onPageChange,
   siblingCount = 2,
+  size = 'md',
   className,
   'aria-label': ariaLabel = 'Pagination',
 }: PaginationProps) {
@@ -56,9 +62,9 @@ export function Pagination({
 
   return (
     <nav aria-label={ariaLabel} className={className}>
-      <ul className="ds-pagination">
+      <ul className={`ds-pagination${size === 'sm' ? ' ds-pagination--sm' : ''}`}>
         <li className="ds-pagination__item">
-          <IconButton kind="prev" disabled={page <= 1} onClick={() => go(page - 1)} />
+          <IconButton kind="prev" size={size} disabled={page <= 1} onClick={() => go(page - 1)} />
         </li>
         {items.map((item, i) =>
           item === 'gap' ? (
@@ -67,14 +73,14 @@ export function Pagination({
             </li>
           ) : (
             <li key={item} className="ds-pagination__item">
-              <IconButton kind="page" active={item === page} onClick={() => go(item)}>
+              <IconButton kind="page" size={size} active={item === page} onClick={() => go(item)}>
                 {item}
               </IconButton>
             </li>
           ),
         )}
         <li className="ds-pagination__item">
-          <IconButton kind="next" disabled={page >= pageCount} onClick={() => go(page + 1)} />
+          <IconButton kind="next" size={size} disabled={page >= pageCount} onClick={() => go(page + 1)} />
         </li>
       </ul>
     </nav>

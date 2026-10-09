@@ -1,0 +1,13 @@
+/* CardGrid — every value references a token from src/tokens/tokens.json. */
+
+.ds-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--size-card-grid-min)), 1fr));
+  align-items: start;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* A card never grows past its grid cell, long words wrap. */
+.ds-card-grid > * { min-width: 0; }

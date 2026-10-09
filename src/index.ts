@@ -65,6 +65,7 @@ export * from './components/MessageBox';
 export * from './components/ChatLayout';
 export * from './components/TableProducts';
 export * from './components/TableClients';
+export * from './components/CardGrid';
 export * from './components/TableOrders';
 export * from './components/TableRowQuantity';
 export * from './components/NoteCard';

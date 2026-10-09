@@ -60,6 +60,13 @@ export const CompactNoFilters: Story = {
   parameters: { docs: { description: { story: 'Without applied filters the badge is hidden (AI-defined; Figma shows 8).' } } },
 };
 
+export const CompactWithClear: Story = {
+  name: 'Compact with Clear',
+  args: { compact: true, showClear: true, view: undefined },
+  decorators: COMPACT,
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3739-305804' }, docs: { description: { story: 'Figma `Management` at 768px and below: Export, Clear, Filter 8 and the sort button, no view switch.' } } },
+};
+
 export const WithoutView: Story = {
   name: 'Without view switch',
   args: { view: undefined },
