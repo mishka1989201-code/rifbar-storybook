@@ -146,17 +146,36 @@
 
 ## Передача в новий чат
 
-- Гілка `claude/peaceful-franklin-tnrmh4`, відкритий PR #12 у `main`. Якщо його злито — почати гілку наново від `origin/main`
-  (`git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`, пуш `--force-with-lease`) і відкривати **новий** PR лише на прохання.
-- На старті: `npm ci`, `npm run build:tokens`, `git fetch origin`.
+- Гілка `claude/peaceful-franklin-tnrmh4`, відкритий PR #12 у `main` (опис PR застарів: перелічено не всі компоненти — оновити на прохання). Якщо його злито — почати гілку наново
+  від `origin/main` (`git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`, пуш `--force-with-lease`) і відкривати **новий** PR лише на прохання.
+- На старті: `npm ci`, `npm run build:tokens`, `git fetch origin`, `git pull origin claude/peaceful-franklin-tnrmh4`.
 - Figma MCP інколи відключається посеред чату: `ToolSearch` із запитом `figma get_design_context` повертає інструменти після перепідключення.
   Скіл `figma-design-to-code` читати як MCP-ресурс `skill://figma/figma-design-to-code/SKILL.md` (server `Figma`), у `get_design_context`
-  передавати `skillNames: "resource:figma-design-to-code"`. Дуже великі фрейми (календарі) можуть обрізатись — брати дочірні вузли окремо.
+  передавати `skillNames: "resource:figma-design-to-code"`. Дуже великі фрейми (календарі, цілі екрани) обрізаються: спершу `get_metadata`, далі
+  `get_design_context` по дочірніх вузлах; великі відповіді зберігаються у файл — читати їх `python3 -I` + `json`.
+- Скріншоти Figma: завантаження за посиланням дає 403 (проксі) — викликати `get_screenshot` з `enableBase64Response: true`. Картинки з `get_design_context` теж 403.
 - Звіт після кожного компонента — за форматом з `CLAUDE.md` («Report format»): що зроблено, історії, нові токени, припущення, доступність
   (контрасти рахувати скриптом, не на око), що перевірено і що ні.
-- Storybook збирається (`npx storybook build -o /tmp/sb-out`) і відкривається в headless Chromium (Playwright у `/opt/node-tools`, статичний сервер на зібраному
-  `/tmp/sb-out`, `iframe.html?id=<story-id>`): так перевірено прототип `ClientOrders` та нові компоненти. Ще не пройдено вручну: `FilterMenu`, `Navbar`,
-  `ProductFormModal`, `DatePicker`, `TableClients` Sortable і вузькі контейнери.
+- «Гілка Prototypes» у запитах = розділ Storybook `Prototypes/<Name>` (`src/prototypes/<Name>/`, див. розділ вище). Екран із кількома брейкпоінтами:
+  один компонент-екран із пропом `breakpoint`, історія на кожен кадр Figma, нові компоненти — у `src/components`, наявні розширювати пропами.
+
+### Як перевіряти (працює в контейнері)
+
+1. `npx tsc --noEmit -p tsconfig.json` і `npx vite build --config vite.lib.config.ts`.
+2. Візуально: esbuild + `renderToStaticMarkup` → HTML → headless Chromium (`/opt/pw-browsers/chromium-1194/chrome-linux/chrome --headless --no-sandbox --window-size=W,H --screenshot=…`);
+   CSS компонентів збирається esbuild (`--bundle --platform=node --jsx=automatic --outdir=…`, поруч з'являється `entry.css`), токени — `src/tokens/build/tokens.css` і `src/tokens/typography.css`.
+3. Storybook: `npx storybook build -o /tmp/sb-out` (≈30 с), далі статичний сервер на `/tmp/sb-out` і Playwright з `/opt/node-tools/node_modules/playwright`
+   (`chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox'] })`), `iframe.html?id=<story-id>&viewMode=story`,
+   слухати `pageerror` і `console` error. id історії: `prototypes-clientorders--tablet-768`, `molecules-pagination--small-v-1` (назва історії → kebab-case).
+4. Ще не пройдено вручну: `FilterMenu`, `Navbar`, `ProductFormModal`, `DatePicker`, `TableClients` Sortable і вузькі контейнери.
+
+### Відкриті питання дизайнеру (зібрано з усіх екранів)
+
+- Правило рамки полів (Stroke Light V2 / Stroke Input / Activated), `Roli's Name` на `DepartmentUsers` (рамка).
+- Іконки за виглядом: `reboot`, `picture`, `save-line`, `admin`, `burger-rolled-up` (бургер шапки), `chevron-left` (назад у крихтах), `info` для «Main info».
+- `TableClients`: назва 7-ї колонки; `DatePicker`: мок-дати і Manrope; `--color-deep-blue`, кольори крапок `AlertRow`, `--color-warning-tint`, вага підпунктів `Navbar`.
+- Екрани `ClientOrders` / `DepartmentUsers`: перемикач View на ≤768 (завжди картки), v1 чи v2 пагінації, тінь `PaginationBar` у картках, відступи контенту (27px → `--spacing-28`),
+  таби на 360px (обрізаються), `CheckListModal accent` (Warehouse), діапазон дат у фільтрі за замовчуванням, нумерація карток (у Figma мок 1–10).
 
 ## Повідомлення: Info / Important / Error (Figma `Error/Importantly/Info`)
 

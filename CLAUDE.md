@@ -119,7 +119,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
 
 Open PR: #12 (`claude/peaceful-franklin-tnrmh4` → `main`): Navbar, TimeTracker, WelcomeCard + AlertRow, CheckListModal, FilterMenu, ProductDetailCard,
 ProductFormModal, ScheduledCallCard, and the Error / Important / Info states (`Modal` `description` / `important`, `ModalField` / `LabeledField` `error`, `FileDropzone` `invalid`).
-The PR description lists only the first six components — add the rest to it if the user asks for an update.
+The PR description was updated on 2026-10-09 to list the later work too (Prototypes `ClientOrders` / `DepartmentUsers`, TableRowOrder / TableOrders / TableToolbar / CardGrid and the extended components).
 If it is merged when the next session starts, restart the branch from `origin/main` (same name, force-with-lease) and open a new PR.
 
 Open design questions (also in the PR #10 description):
@@ -136,8 +136,9 @@ Open design questions (also in the PR #10 description):
 - Needs confirmation: `--color-warning-tint` (badge of `ScheduledCallCard`, read from the render), `reboot` / `picture` / `save-line` icons.
 - Many icons are matched by look (Figma icons are unnamed vectors) — see the "needs designer confirmation" list in the MDX of each component.
 
-Storybook was built (`npx storybook build`) and a few stories were opened in headless Chromium (the `ClientOrders` prototype, `TableRowOrder`,
-`TableOrders`, `TableToolbar`, `CheckListModal` radio / pick / accent, `PageHeader`, no console errors; the Status menu was opened by a click).
+Storybook builds (`npx storybook build`) and the stories of the newest work (both prototypes, `TableRowOrder`, `TableOrders`, `TableToolbar`, `CardGrid`, `CheckListModal` radio / pick / accent,
+`Pagination` / `PaginationBar` / `PageHeader` / `IconButton` new sizes) were opened in headless Chromium without console errors; clicks were tried on the `ClientOrders` Status menu and the `DepartmentUsers` pages / search / delete.
+How to verify, the handoff checklist and the designer questions are in `CONTRIBUTING-molecules.md` («Передача в новий чат»).
 The other interactive stories (FilterMenu, CheckListModal, Navbar, ProductFormModal, DatePicker, TableClients Sortable) were still not walked through.
 
 Next: more components from the Figma file, one link (or several for one component) at a time. Reuse an existing component when the new
