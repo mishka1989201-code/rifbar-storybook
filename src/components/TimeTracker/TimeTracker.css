@@ -1,6 +1,7 @@
 /* TimeTracker — every value references a token from src/tokens/tokens.json. */
 
 .ds-time-tracker {
+  position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -10,6 +11,17 @@
   background: var(--time-tracker-bg);
   box-shadow: var(--time-tracker-shadow);
   font-family: var(--font-family-base);
+}
+
+/* Figma stroke is "inside": drawn above the bar and the body so their fills do not hide it. */
+.ds-time-tracker::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--time-tracker-border);
+  pointer-events: none;
 }
 
 /* Figma `Statistic`: white, padding 16 / 16 / 32, gap 10. */

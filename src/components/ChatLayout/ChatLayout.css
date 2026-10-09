@@ -40,7 +40,7 @@
 .ds-chat-layout__date,
 .ds-chat-layout__empty {
   margin: 0;
-  color: var(--color-grey-dark);
+  color: var(--chat-layout-date);
   font-size: var(--font-size-mini);
   line-height: var(--font-line-height-mini);
   font-weight: var(--font-weight-regular);

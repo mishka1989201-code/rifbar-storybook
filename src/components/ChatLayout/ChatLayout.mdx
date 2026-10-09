@@ -69,7 +69,7 @@ Assumed / normalised:
 
 ## Dark theme
 
-No dark frame exists for the chat panel (it is an organism built from `ChatHeader`, `ChatMessage`, `MessageBox`). AI-defined: panel `#101010`, stroke `#242424`, Dark Mode Shadow 1. Story: `DefaultDark`.
+Figma `Dark Organisms Components` → `chat layout v2 Dark` (3765:360052): header and composer `#000000`, message list `#27282E` (`--chat-layout-bg`), received bubbles `#000000`, sent bubbles `#242424`, date separators `#AAB1CC` (`--chat-layout-date`), stroke `#242424`. The shadow is AI-defined (Dark Mode Shadow 1, none drawn). Figma shows the composer filled with text and a cyan send icon; the code keeps the `MessageBox` states. Story: `DefaultDark`.
 
 ## Design tokens used
 
@@ -87,7 +87,8 @@ No dark frame exists for the chat panel (it is an organism built from `ChatHeade
 | `--font-size-mini`, `--font-line-height-mini`, `--font-weight-regular` | date | 12 / 18px, 400 | Existing tokens.json · Figma: Body/Mini Regular |
 | `--color-hover-blue-light`, `--border-width-lg` | thread focus ring | `#888CF6`, 2px | AI-defined use: same ring as the `MessageBox` send arrow |
 | Tokens of `ChatHeader`, `ChatMessage`, `MessageBox` | header, cards, input bar | — | see the MDX of each molecule |
-| `--chat-layout-bg` / `--chat-layout-border` / `--chat-layout-shadow` | panel, stroke, shadow | `#ECEEFB`, `#F1F2F9`, card / dark `#101010`, `#242424`, `--shadow-dark-1` | **New** · AI-defined |
+| `--chat-layout-bg` / `--chat-layout-border` / `--chat-layout-shadow` | panel, stroke, shadow | `#ECEEFB`, `#F1F2F9`, card / dark `#27282E`, `#242424`, `--shadow-dark-1` | **New** · Figma: chat layout v2 Dark (list fill; stroke and shadow AI-defined) |
+| `--chat-layout-date` | date separators | light `#5D6E82` / dark `#AAB1CC` | **New** · Figma: chat layout v2 Dark (colour `chat-date-dark`) |
 
 The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
