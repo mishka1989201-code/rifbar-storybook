@@ -1,0 +1,100 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ScheduledCallCardStories from './ScheduledCallCard.stories';
+
+<Meta of={ScheduledCallCardStories} />
+
+# ScheduledCallCard
+
+A card for the next planned call with a client: a header with a phone badge, the date and time of the call as a field with a calendar icon, and a *Refresh* button.
+Implements the Figma component set [`scheduled-call-menu`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3896-260429) — 2 variants (`Property 1` Static / Time to call). It is an **organism** built from
+[CardHeader](?path=/docs/molecules-cardheader--docs), [FilterField](?path=/docs/atoms-inputfield--docs) (new `icon` prop) and [Button](?path=/docs/atoms-button--docs).
+
+<Canvas of={ScheduledCallCardStories.Default} />
+<Controls of={ScheduledCallCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Property 1=Static` (white card, Stroke Light V1 border, orange badge) | `state="static"` (default) → `CardHeader tone="warning"` |
+| `Property 1=Time to call` (Warning BG card, Warning border at 30%, green badge) | `state="time-to-call"` → `CardHeader tone="success"`, `.is-due` |
+| `Row.HeaderCard` (“Scheduled call”, Semi-Bold h5 Headlines, phone in a 26px circle) | `CardHeader` — `title`, `icon="call"` |
+| `Status` caption “Date - Time” (Mini Medium, colorPlaceholder) | `dateLabel` |
+| `InputField` “03/28/2024 10:23 AM” + calendar icon | `FilterField icon="date"` — `value`, `placeholder`, `onDateClick` |
+| `button_action` “Refresh” (Light) | `Button variant="light" iconLeft="reboot"` — `refreshLabel`, `onRefresh` |
+| Card: radius 10, Cards Shadow, width 1524 | `.ds-scheduled-call-card` (fills its container; the stories use 1524px) |
+
+## When to use
+
+- ✅ A client card or a call queue where the next call is planned and shown as due when its time comes.
+
+## When NOT to use
+
+- ❌ Picking a date for a form field — use `FilterField` / `InputField` with a [DatePicker](?path=/docs/organisms-datepicker--docs).
+- ❌ A general status banner — use [AlertRow](?path=/docs/molecules-alertrow--docs) or [Notification](?path=/docs/molecules-notification--docs).
+
+## Variants, states and edge cases
+
+<Canvas of={ScheduledCallCardStories.TimeToCall} />
+<Canvas of={ScheduledCallCardStories.NoDate} />
+<Canvas of={ScheduledCallCardStories.NoRefresh} />
+<Canvas of={ScheduledCallCardStories.LongTitle} />
+<Canvas of={ScheduledCallCardStories.NarrowContainer} />
+<Canvas of={ScheduledCallCardStories.Interactive} />
+<Canvas of={ScheduledCallCardStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: two cards with identical content; they differ in the card fill and border and in the badge color (orange / green).
+
+Not drawn, defined by analogy (AI-defined):
+
+- **Empty date** — the placeholder of `FilterField`; **no button, long title, narrow container** — the button drops under the field; the title is cut with an ellipsis.
+- **Hover / focus** of the field and the button — from `FilterField` and `Button`. **Dark theme** — not designed: the light values are used.
+- **When a call becomes “due”** — the component only shows the state; the page decides (a timer, the server).
+
+Normalised or assumed:
+
+- The date field is a button that opens a calendar (`aria-haspopup="dialog"`); the calendar itself is the page's [DatePicker](?path=/docs/organisms-datepicker--docs).
+- **Field look (open question 1):** Figma draws the field with Stroke Input `#8A87A0` and Grey Dark text although it holds a value; the `FilterField` atom draws a filled field with the Input field border and Color Text (`Activated`). The atom wins.
+- The badge fills are read from the render (the SVG asset was not downloaded): Warning and Green Light at 22%, like the other badge tints (`--color-warning-tint` is new; `--color-green-light-tint` existed) — **needs confirmation**.
+- Figma's header line is Stroke Light V2 on the card fill; `CardHeader` draws a Secondary Light line on white, so the card overrides both.
+- The refresh icon is matched by look (`reboot`) — **needs designer confirmation**.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white`, `--color-stroke-light-v1`, `--border-width-sm` | static card fill and border | `#FFFFFF`, `#F1F2F9`, `1px` | Existing tokens.json · Figma: White, colorBorders |
+| `--color-warning-bg`, `--color-warning-border` | `time-to-call` fill and border | `#FFF5F0`, Warning @ 30% | Existing tokens.json · Figma: Warning BG, raw border Warning @ 30% |
+| `--radius-lg`, `--shadow-card` | card radius and shadow | `10px`, Cards Shadow | Existing tokens.json · Figma: radius 10, Cards Shadow |
+| `--color-stroke-light-v2` | header line | `#D8E2EE` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--color-warning-tint`, `--color-warning` | warning badge and icon | Warning @ 22%, `#F68F57` | **New** · Figma: scheduled-call-menu → badge ellipse (read from the render) |
+| `--color-green-light-tint`, `--color-green-light` | success badge and icon | Green Light @ 22%, `#1FD246` | Existing tokens.json · Figma: Green Light |
+| `--color-secondary-grey`, `--font-size-mini`, `--font-line-height-mini`, `--font-weight-medium` | “Date - Time” caption | `#A7A4B7`, 12 / 18px, 500 | Existing tokens.json · Figma: colorPlaceholder, Body/Mini Medium |
+| `--spacing-16`, `--spacing-24`, `--spacing-2` | body padding, gaps, caption gap | 16 / 24 / 2px | Existing tokens.json · Figma: padding 16, gap 16 × 24, caption gap 2 |
+| Tokens of `CardHeader`, `FilterField`, `Button` | header, date field, button | — | see the MDX of each |
+
+## Props
+
+<ArgTypes of={ScheduledCallCardStories} />
+
+## Code example
+
+```tsx
+import { ScheduledCallCard } from 'rifbar-ds';
+
+<ScheduledCallCard
+  state={isDue ? 'time-to-call' : 'static'}
+  value="03/28/2024 10:23 AM"
+  onDateClick={openCalendar}
+  onRefresh={reload}
+/>
+```
+
+## Accessibility
+
+- A `section` with the title as its heading; the caption and the date field are one `label`, so the field is named “Date - Time”; the field is a native button, the *Refresh* button too.
+- The two states differ in color only; the page should also say that the call is due in text (for example in the title).
+- Contrast (calculated): title Headlines `#4549A1` 7.72:1 on white, 7.19:1 on Warning BG; field text `#5D6E82` 5.23:1 (Color Text 13.68:1 on Warning BG); Stroke Input border 3.47:1 / 3.23:1; button text on Secondary Light 13.03:1.
+- ⚠️ Kept as designed: the caption (Secondary Grey) is **2.43:1** on white and 2.27:1 on Warning BG; the phone icon in its badge is **1.95:1** (warning) and **1.60:1** (success); the card border (Stroke Light V1) is 1.12:1; the 37px button and the 32px field are below the 44px touch target.

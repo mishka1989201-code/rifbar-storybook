@@ -33,6 +33,7 @@ A real `<input type="file">` is inside, so click, keyboard (Tab, Enter / Space) 
 
 <Canvas of={FileDropzoneStories.Large} />
 <Canvas of={FileDropzoneStories.DragOver} />
+<Canvas of={FileDropzoneStories.Invalid} />
 <Canvas of={FileDropzoneStories.Disabled} />
 <Canvas of={FileDropzoneStories.ImagesOnly} />
 <Canvas of={FileDropzoneStories.LongLabel} />
@@ -43,6 +44,7 @@ A real `<input type="file">` is inside, so click, keyboard (Tab, Enter / Space) 
 
 - Figma draws one state. **AI-defined:** hover and drag-over (solid Headlines border + BG Color fill), keyboard focus (`--shadow-focus`), disabled (20%).
 - The upload icon is an unnamed raster/cloud asset; matched to the existing 24px `upload`, coloured Headlines. To be confirmed.
+- **Error ([node 818:308102](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-308102)):** after an unsupported file Figma keeps the dashed border as it was and adds a Danger message “The attached file is not supported!” (Regular 12px) 4px under the area. `invalid` therefore only sets `aria-invalid` on the input; draw the message with `ModalField error` / `LabeledField error`.
 - File validation and upload are the parent's job: the component only reports files via `onFiles`.
 - Dark theme not designed.
 
@@ -74,6 +76,7 @@ import { FileDropzone } from 'rifbar-ds';
 
 ## Accessibility
 
+- With `invalid` the input has `aria-invalid`; the message under the area is a `role="alert"`.
 - The visible area is a `<label>` for the hidden file input, which stays focusable; focus draws the ring on the area.
 - Dropping is a pointer-only convenience; Browse covers keyboard users.
 - “Drag your files here” in Grey Dark on white passes 4.5:1; the dashed border (Headlines @ 40%) is below 3:1 — kept as designed.

@@ -1,0 +1,118 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TimeTrackerStories from './TimeTracker.stories';
+
+<Meta of={TimeTrackerStories} />
+
+# TimeTracker
+
+The working-time card: the top bar with the Play button, the name and the date switcher, the statistic (Total, Break) and the day scale with the worked
+periods. Implements the Figma component set
+[`TimeTracker`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=662-271601)
+— 3 variants (`Property 1` Static / Active / Disabled). It is an **organism**: it only composes existing parts —
+[TimeTrackerBar](?path=/docs/molecules-timetracker-bar--docs) (with `TimeTrackerTitle`, `TimeTrackerDate`, `PlayButton`) and
+[TimeScale](?path=/docs/molecules-timetracker-timescale--docs). The only new markup is the statistic.
+
+<Canvas of={TimeTrackerStories.Default} />
+<Controls of={TimeTrackerStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Property 1=Static` | `state="static"` (default): green Play button |
+| `Property 1=Active` | `state="active"`: red Stop button (the timer runs) |
+| `Property 1=Disabled` | `state="disabled"`: Play at 20% opacity, not clickable |
+| `TimeTracker/Play Actions Menu` | `TimeTrackerBar` — `title`, `dateLabel`, `onToggle`, `onPrev`, `onReset`, `onNext` |
+| `Statistic` → two `total-time` (Total / Break) | `stats={[{ label, value }]}`, any number of pairs |
+| `TimeTracker/Time Scale and Numbers` | `TimeScale` — `segments`, `scaleProps` |
+| Card: white, radius 10, Cards Shadow, width 1524 | `.ds-time-tracker` (fills its container; the stories use 1524px) |
+
+## When to use
+
+- ✅ A day summary of one person's tracked time with start / stop control.
+
+## When NOT to use
+
+- ❌ Only the scale without a card — use [TimeScale](?path=/docs/molecules-timetracker-timescale--docs).
+- ❌ Picking a time of day — use `TimePicker`.
+
+## States and edge cases
+
+<Canvas of={TimeTrackerStories.Active} />
+<Canvas of={TimeTrackerStories.Disabled} />
+<Canvas of={TimeTrackerStories.NothingTracked} />
+<Canvas of={TimeTrackerStories.NoStats} />
+<Canvas of={TimeTrackerStories.ThreeStats} />
+<Canvas of={TimeTrackerStories.LongTitle} />
+<Canvas of={TimeTrackerStories.FullDay} />
+<Canvas of={TimeTrackerStories.NarrowContainer} />
+<Canvas of={TimeTrackerStories.Interactive} />
+<Canvas of={TimeTrackerStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the three variants with identical data — *David Schwimmer*, Total *1 h 59 min*, Break *23 min*, two worked periods (08:00 – 09:36 and 10:00 – 10:09).
+They differ only in the Play button: green, red Stop, and a faded green Play.
+
+Not drawn, defined by analogy (AI-defined):
+
+- **Empty scale, no statistic, three statistics, a full day** — covered by data; the statistic wraps when it does not fit.
+- **Long names** — cut with an ellipsis (`TimeTrackerTitle`); **narrow containers** — the bar wraps (`TimeTrackerBar`).
+- **Hover / focus / pressed** of the buttons — from `PlayButton` and `TimeTrackerDate`.
+- **Dark theme** — not designed: the light values are used.
+
+Normalised or assumed:
+
+- Figma's drop shadow (`0 30 12.5 rgba(0,0,0,.1)`) is the Cards Shadow style; the `--shadow-card` token is used.
+- The statistic values (*1 h 59 min*, *23 min*) are not derived from the periods on the scale — Figma's numbers do not match them — so they are plain props.
+- Statistic text is Color Text `#292639` (Figma code); the style list of the frame also names Primary Blue Dark. Color Text is used.
+- The Semi-Bold h7 caption has line-height *Auto* in Figma; `--font-line-height-h7` (21px) is used.
+- The Play and Stop glyphs and the worked-time gradient come from `PlayButton` / `TimeScale` (the Figma raster fills were sampled earlier).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white` | card and statistic fill | `#FFFFFF` | Existing tokens.json · Figma: White |
+| `--radius-lg` | card radius | `10px` | Existing tokens.json · Figma: radius 10 |
+| `--shadow-card` | card shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Cards Shadow |
+| `--spacing-16`, `--spacing-32`, `--spacing-10` | statistic padding (x / bottom), gap | 16 / 32 / 10px | Existing tokens.json · Figma: Statistic padding 16 / 32, gap 10 |
+| `--color-text` | statistic text | `#292639` | Existing tokens.json · Figma: Color Text |
+| `--font-weight-semibold`, `--font-size-h7`, `--font-line-height-h7` | statistic caption | 600, 14 / 21px | Existing tokens.json · Figma: Semi-Bold Headings/h7 |
+| `--font-size-h1`, `--font-line-height-h1` | statistic value | 40 / 60px | Existing tokens.json · Figma: Semi-Bold Headings/h1 |
+| `--color-stroke-light-v2`, `--border-width-sm` | line between statistics | `#D8E2EE`, `1px` | Existing tokens.json · Figma: Stroke Light V2 |
+| Tokens of `TimeTrackerBar`, `TimeScale`, `PlayButton` | top bar, scale, button | — | see the MDX of each part |
+
+No new tokens.
+
+## Props
+
+<ArgTypes of={TimeTrackerStories} />
+
+## Code example
+
+```tsx
+import { TimeTracker } from 'rifbar-ds';
+
+<TimeTracker
+  state={running ? 'active' : 'static'}
+  title="David Schwimmer"
+  dateLabel="Today"
+  stats={[
+    { label: 'Total', value: '1 h 59 min' },
+    { label: 'Break', value: '23 min' },
+  ]}
+  segments={[{ start: 8, end: 9.6 }, { start: 10, end: 10.15 }]}
+  onToggle={() => setRunning(!running)}
+  onPrev={goPrev}
+  onReset={goToday}
+  onNext={goNext}
+/>
+```
+
+## Accessibility
+
+- The statistic is a description list (`dl`), so a screen reader reads each caption with its value; the scale has a text alternative of the worked periods (`TimeScale`).
+- The Play / Stop button has an accessible name (“Play” / “Stop”); `state="disabled"` sets the native `disabled`.
+- Contrast (calculated, on white): statistic text `#292639` 14.68:1; hour labels Headlines `#4549A1` 7.72:1; name Grey Dark `#5D6E82` 5.23:1.
+- ⚠️ Kept as designed: the empty scale track (Stroke Light V2 `#D8E2EE`) is 1.31:1 against white; the disabled Play button at 20% opacity is below 3:1; the 32–38px buttons are below the 44px touch target.

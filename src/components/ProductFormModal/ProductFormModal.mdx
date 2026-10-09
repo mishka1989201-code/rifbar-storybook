@@ -1,0 +1,121 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ProductFormModalStories from './ProductFormModal.stories';
+
+<Meta of={ProductFormModalStories} />
+
+# ProductFormModal
+
+The dialog for adding or editing a product: seven fields (group, category, name, color, flavor, price, base currency), then the image — a library button and
+a dropzone when adding, the current photo with replace / delete buttons when editing — and two full-width buttons. Implements the Figma component set
+[`Modal`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=7084-21639) — 4 variants (`Property 1` AddProduct / EditProduct × `Property 2` 480 / 360). It is an **organism**: it composes
+[Modal](?path=/docs/molecules-modal--docs) (new sizes `480` / `360`), [InputField](?path=/docs/atoms-inputfield--docs),
+[FileDropzone](?path=/docs/atoms-filedropzone--docs), [ImageCard](?path=/docs/atoms-imagecard--docs) (new size `lg`) and [Button](?path=/docs/atoms-button--docs).
+
+<Canvas of={ProductFormModalStories.Default} />
+<Controls of={ProductFormModalStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Property 1=AddProduct` | `mode="add"` (default): library button + `FileDropzone size="large"`, footer *Cancel* / *Accept* |
+| `Property 1=EditProduct` | `mode="edit"`: `ImageCard size="lg"` + refresh and delete buttons, footer *Close* / *Save* |
+| `Property 2=480` / `360` | `size="480"` / `size="360"` → `Modal` sizes (`--size-modal-form`, `--size-modal-form-narrow`) |
+| `modal__header` (Plus icon + Semi-Bold h5 title, 40px Close) | `Modal` — `title`, `onClose` |
+| `Input Field` × 7 (Group, Category, Color, Flavor, Base currency = list; Name, Price = text) | `values`, `onValueChange` (text), `onFieldClick` (list) |
+| `Library Image` (12px hint + `button_action` Add) | `onLibrary` — `Button variant="outline" iconLeft="picture"` |
+| `Drag Files` | `FileDropzone size="large"` — `onFiles` |
+| `Edit Buttons` (dark refresh, red delete, 37px) | `onReplaceImage`, `onDeleteImage` — `Button iconOnly` `dark` / `danger` |
+| `Buttons` (Light, Dark; stacked, full width) | `onCancel`, `onSubmit` — `Modal` footer |
+
+## When to use
+
+- ✅ Creating or editing a product from a table or card, in a dialog or a slide-over on narrow screens.
+
+## When NOT to use
+
+- ❌ A two-column form on a wide screen — use [Modal](?path=/docs/molecules-modal--docs) `size="wide"` with `ModalRow`.
+- ❌ A choice from a list of options — use [CheckListModal](?path=/docs/molecules-checklistmodal--docs).
+
+## Variants, states and edge cases
+
+<Canvas of={ProductFormModalStories.Add360} />
+<Canvas of={ProductFormModalStories.Edit480} />
+<Canvas of={ProductFormModalStories.Edit360} />
+<Canvas of={ProductFormModalStories.Filled} />
+<Canvas of={ProductFormModalStories.EditFilled} />
+<Canvas of={ProductFormModalStories.EditWithoutImage} />
+<Canvas of={ProductFormModalStories.LongValues} />
+<Canvas of={ProductFormModalStories.NarrowContainer} />
+<Canvas of={ProductFormModalStories.Interactive} />
+<Canvas of={ProductFormModalStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the four variants, all fields empty except *Base currency* = *US dollar*; the edit variants show a photo of a vape device.
+
+**The photo was not downloaded** (the Figma asset URL answers 403 through the proxy). The component takes it as `image`; the stories use a generated dark shape.
+
+Not drawn, defined by analogy (AI-defined):
+
+- **Filled fields, long values, invalid fields, hover / focus** — from `InputField`; the lists behind the filter fields are the page's job (`onFieldClick`).
+- **Edit without a photo** — the `ImageCard` placeholder icon.
+- **Narrow container** — the dialog fills it (`max-width`).
+- **Dark theme** — not designed: the light values are used.
+
+Normalised or assumed:
+
+- The *Edit* frames are titled **“Add product”** in Figma — a copy slip; the default title here is “Edit product” in `edit` mode (`title` overrides it).
+- **Field borders (open question 1):** Figma draws *Name* with Stroke Input `#8A87A0` and the other empty fields with Stroke Light V2 `#D8E2EE`; the `InputField` atom draws every empty field with Stroke Input, so all of them are Stroke Input here.
+- *Base currency* is drawn *filled* in Figma with Grey Dark text and a V2 border; the atom draws a filled value in Color Text with the Input field border (its `Activated` state). The atom wins.
+- Figma's footer buttons are 37px high with 12px padding; `Modal` stacks them full width in the `480` / `360` sizes, as it already does for `mobile`.
+- Figma's `360` frame has a 340px header; the whole dialog is 360px with 10px sides.
+- Icons are unnamed vectors in Figma and are matched by look: the *Add* library button `picture`, refresh `reboot`, delete `delete`, save `save-line` — **needs designer confirmation**.
+- The dropzone's dashed 2px border is `rgba(69,73,161,.4)` in Figma; `FileDropzone` already draws it.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--size-modal-form` | dialog width, `480` | `480px` | **New** · Figma: Modal Property 2=480 → width |
+| `--size-modal-form-narrow` | dialog width, `360` | `360px` | **New** · Figma: Modal Property 2=360 → width |
+| `--size-image-card-lg` | photo | `160px` | **New** · Figma: Modal EditProduct → imageCards 160×160 |
+| `--radius-image-card` | photo corner | `4px` | Existing tokens.json · Figma: imageCards radius 4 |
+| `--spacing-10` | sides of the `360` dialog | `10px` | Existing tokens.json · Figma: Property 2=360 → padding 10 |
+| `--spacing-16`, `--spacing-8`, `--spacing-4` | body padding and gaps, photo–buttons gap, caption gap | 16 / 8 / 4px | Existing tokens.json · Figma: body padding 16, gaps 16 / 8 / 4 |
+| `--color-text`, `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | *Image* caption | `#292639`, 14 / 21px, 500 | Existing tokens.json · Figma: Body/Small Medium |
+| `--font-size-mini`, `--font-line-height-mini` | library hint | 12 / 18px | Existing tokens.json · Figma: Body/Mini Medium |
+| `--font-size-h5`, `--font-line-height-h5`, `--font-weight-semibold` | title | 20 / 30px, 600 | Existing tokens.json · Figma: Semi-Bold Headings/h5 |
+| Tokens of `Modal`, `InputField`, `FileDropzone`, `Button` | surface, fields, dropzone, buttons | — | see the MDX of each |
+
+## Props
+
+<ArgTypes of={ProductFormModalStories} />
+
+## Code example
+
+```tsx
+import { ProductFormModal } from 'rifbar-ds';
+
+<ProductFormModal
+  mode="edit"
+  size="480"
+  values={product}
+  image={product.photoUrl}
+  onValueChange={(field, value) => update(field, value)}
+  onFieldClick={(field) => openList(field)}
+  onReplaceImage={pickPhoto}
+  onDeleteImage={removePhoto}
+  onClose={close}
+  onCancel={close}
+  onSubmit={save}
+/>
+```
+
+## Accessibility
+
+- `role="dialog"` labelled by the title (from `Modal`); add `aria-modal`, a focus trap, focus return and `Esc` in the page that opens it.
+- Every field has a visible label tied to its control (`htmlFor`); the filter fields are buttons with a popup-less trigger — the page owns the list and should set `aria-haspopup` / `aria-expanded` on them.
+- The photo buttons have accessible names (“Replace photo”, “Delete photo”); the dropzone has a native file input.
+- Contrast (calculated, on white): labels `#292639` 14.68:1; placeholders `#5D6E82` 5.23:1; title 15.05:1; *Browse* `#4549A1` 7.72:1; Stroke Input border `#8A87A0` 3.47:1.
+- ⚠️ Kept as designed: the Stroke Light V2 field border is 1.31:1 and the dropzone border (`#4549A1` at 40%) 1.97:1 against white; the white icon on the delete button (Danger at 60%, `#E97768` on white) is **2.88:1**; the Close button border (Secondary Grey) is 2.43:1; the 32px fields and 37–40px buttons are below the 44px touch target.

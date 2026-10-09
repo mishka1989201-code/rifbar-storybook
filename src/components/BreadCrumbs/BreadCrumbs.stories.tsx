@@ -60,3 +60,18 @@ export const LongPath: Story = {
   },
   parameters: { docs: { description: { story: 'Figma frame is `flex-wrap`: crumbs wrap to the next line with a 16px row gap.' } } },
 };
+
+export const Back: Story = {
+  name: 'Back (768px and below)',
+  args: {
+    variant: 'back',
+    items: [{ label: 'Clients', href: '#' }, { label: 'All clients', href: '#' }, { label: 'Mickey Herman' }],
+  },
+  parameters: { docs: { description: { story: 'Figma `Bread Crumbs` at 768px and below: a back chevron and the current page; the link goes to the previous crumb.' } } },
+};
+
+export const BackWithoutParent: Story = {
+  name: 'Back without a parent',
+  args: { variant: 'back', items: [{ label: 'Mickey Herman' }] },
+  parameters: { docs: { description: { story: 'With one crumb there is nowhere to go back: the chevron and the name are plain text (AI-defined).' } } },
+};

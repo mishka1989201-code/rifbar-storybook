@@ -1,0 +1,66 @@
+/* AlertRow — every value references a token from src/tokens/tokens.json. */
+
+.ds-alert-row {
+  --ds-alert-row-color: var(--color-hover-blue);
+  --ds-alert-row-text: var(--color-hover-blue);
+  --ds-alert-row-bg: var(--color-success-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  background: var(--ds-alert-row-bg);
+  font-family: var(--font-family-base);
+}
+
+.ds-alert-row--warning {
+  --ds-alert-row-color: var(--color-warning);
+  --ds-alert-row-text: var(--color-warning-dark);
+  --ds-alert-row-bg: var(--color-warning-bg);
+}
+
+/* Figma: stacked rows are separated by a 1px Stroke Light V2 line; the last one has none. */
+.ds-alert-row:not(:last-child) {
+  box-shadow: inset 0 calc(-1 * var(--border-width-sm)) 0 var(--color-stroke-light-v2);
+}
+
+.ds-alert-row__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--spacing-4);
+  min-width: 0;
+  margin: 0;
+  color: var(--ds-alert-row-text);
+  font-size: var(--font-size-notice);
+  line-height: var(--font-line-height-small);
+}
+
+.ds-alert-row__dot {
+  flex: none;
+  width: var(--size-status-dot);
+  height: var(--size-status-dot);
+  border-radius: var(--radius-round);
+  background: var(--ds-alert-row-color);
+}
+
+.ds-alert-row__lead {
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-alert-row__rest {
+  font-weight: var(--font-weight-regular);
+}
+
+/* The action takes the row color (Figma: Warning / Hover Blue). Hover darkens like the Text & Arrow button. */
+.ds-alert-row__action.ds-button--text-arrow {
+  flex: none;
+  color: var(--ds-alert-row-color);
+}
+
+.ds-alert-row__action.ds-button--text-arrow:is(:hover:not(:disabled), .is-hover) {
+  color: var(--ds-alert-row-text);
+}

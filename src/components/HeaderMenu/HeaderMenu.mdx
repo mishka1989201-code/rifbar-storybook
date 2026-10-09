@@ -65,13 +65,22 @@ No dots = nothing new. The icons stay, so the header does not jump.
 
 ## Dark theme
 
+Figma frame **Dark Atoms Components → `Header Menu Static Dark`** (Static / Hover / Active). Only colours change, via the themed `--header-menu-icon-*` tokens.
+
+| Status | Light | Dark |
+|---|---|---|
+| Static | `#5D6E82` | `#5D6E82` |
+| Hover | `#888CF6` | `#4549A1` |
+| Active | `#4549A1` | `#888CF6` |
+
+In dark, Hover is *darker* than Active (the light theme is the other way round) — as drawn in Figma. The dot ring uses `--icon-dot-ring` (`#000000` in dark).
+
 <Canvas of={HeaderMenuStories.DarkTheme} />
 
 **Figma notes:**
 - The Figma property for the bag is named `Chart Icon` and the support one `Support Icom` (typo) — in code they are just `icon="bag"` / `icon="support"`.
 - The dot is the same as in Icon `… New Notif`: 12px fill with a 2px White ring, centred at (20, 1).
 - Hover here is **Hover Blue Light**, not Headlines like the plain Icon `Hover` — so the header has its own tokens.
-- No dark theme in Figma — Active dark value is AI-defined.
 - Click area = the 24px icon (matches Figma spacing; 24px is the minimum recommended target).
 
 ## Design tokens used
@@ -79,8 +88,8 @@ No dots = nothing new. The icons stay, so the header does not jump.
 | Token | Property | Value | Source |
 |---|---|---|---|
 | `--header-menu-icon` | icon color, Static | `#5D6E82` (Grey Dark) | Figma: Header Menu → Static |
-| `--header-menu-icon-hover` | icon color, Hover | `#888CF6` (Hover Blue Light) | Figma: Header Menu Variants → Hover |
-| `--header-menu-icon-active` | icon color, Active | `#4549A1` (Headlines) · dark `#BDC5E2` | Figma: Header Menu Variants → Active · dark AI-defined |
+| `--header-menu-icon-hover` | icon color, Hover | `#888CF6` (Hover Blue Light) · dark `#4549A1` | Figma: Header Menu Variants → Hover · dark Figma: Dark Atoms → Header Menu Static Dark |
+| `--header-menu-icon-active` | icon color, Active | `#4549A1` (Headlines) · dark `#888CF6` | Figma: Header Menu Variants → Active · dark Figma: Dark Atoms → Header Menu Static Dark (was AI-defined `#BDC5E2`) |
 | `--header-menu-gap` | gap between icons | `16px` (`--spacing-16`) | Figma: auto layout gap 16 |
 | `--icon-dot-success` | Bag / Support dot | `#1FD246` (Green Light) | Existing (Icon) |
 | `--icon-dot-warning` | Bell dot | `#F68F57` (Warning) | Existing (Icon) |
@@ -118,3 +127,7 @@ import { HeaderMenu, HeaderMenuItem } from 'rifbar-ds';
   />
 </HeaderMenu>
 ```
+
+## Accessibility
+
+- Dark theme contrast (calculated): Static `#5D6E82` on black 4.02:1, Active `#888CF6` 7.13:1; ⚠️ Hover `#4549A1` **2.72:1** (below 3:1) — as designed, flag to design.

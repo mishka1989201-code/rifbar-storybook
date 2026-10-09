@@ -52,7 +52,13 @@ One tab of a tab bar: switches between sections of the same page. Implements the
 
 <Canvas of={TabStories.TabBarExample} />
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Tab 1 - Active`**: active text and underline `#888CF6` (themed `--tab-accent`; Headlines `#4549A1` in light), Not Active `#5D6E82` (unchanged), Disabled 20% opacity. Hover is AI-defined as in light (accent text, no underline). See **DarkTheme**.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -67,6 +73,7 @@ One tab of a tab bar: switches between sections of the same page. Implements the
 | `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity 20% on Tab #=Disabled |
 
 No new tokens. Height is 53px (16 + 21 + 16); the underline sits inside it, so tabs do not jump when switched.
+| `--tab-accent` | Active text, underline, hover text | light `#4549A1` / dark `#888CF6` | **New** · Figma: Dark Atoms → Tab 1 - Active (read from the render) |
 
 ## Props
 
@@ -92,3 +99,4 @@ const [tab, setTab] = useState('general');
 - Every tab is reachable with Tab key; Enter / Space opens it.
 - Contrast: Headlines on White 7.7:1, Grey Dark on White 5.2:1.
 - Touch target: 53px high — OK.
+- Dark theme contrast (calculated): Active `#888CF6` on black 7.13:1; Not Active `#5D6E82` 4.02:1.

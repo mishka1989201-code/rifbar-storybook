@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TooltipBordered, type TooltipBorderedPosition, type TooltipBorderedWidth } from './TooltipBordered';
+import { TooltipBordered, type TooltipBorderedPosition, type TooltipBorderedTone, type TooltipBorderedWidth } from './TooltipBordered';
 
 const FIGMA_URL =
   'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=73-57190';
@@ -27,6 +27,12 @@ const meta = {
       options: WIDTHS,
       description: 'Figma `Width mode`: fixed = 300px, text wraps; hug = one line',
       table: { defaultValue: { summary: 'fixed' } },
+    },
+    tone: {
+      control: 'inline-radio',
+      options: ['default', 'subtle'] satisfies TooltipBorderedTone[],
+      description: '`subtle` = BG Color fill, Stroke Light V2 border, Secondary Grey headline (Figma `Hover Row in Table`)',
+      table: { defaultValue: { summary: 'default' } },
     },
     title: { control: 'text', description: 'Headline. Empty = hidden (Figma `Show headline`)' },
     children: { control: 'text', description: 'Body text. Empty = hidden (Figma `Show body text`)' },
@@ -57,6 +63,44 @@ export const Hug: Story = {
 // ─── CONTENT (Figma Show headline / Show body text) ──────────────────────────
 export const BodyOnly: Story = { name: 'Body only', args: { title: undefined } };
 export const TitleOnly: Story = { name: 'Title only', args: { children: undefined } };
+
+// ─── TONE (Figma: Hover Row in Table) ────────────────────────────────────────
+const SUBTLE_URL =
+  'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3352-240745';
+
+export const Subtle: Story = {
+  args: { tone: 'subtle', position: 'bottom', title: 'Detailed information' },
+  parameters: {
+    design: { type: 'figma', url: SUBTLE_URL },
+    docs: { description: { story: 'The tooltip as used in `Hover Row in Table`: arrow on top, centred; the width is set by the caller (899px there).' } },
+  },
+};
+
+export const SubtleDark: Story = {
+  name: 'Subtle (dark)',
+  args: { tone: 'subtle', position: 'bottom', title: 'Detailed information' },
+  parameters: { design: { type: 'figma', url: SUBTLE_URL }, docs: { description: { story: 'Dark theme values of the same tooltip.' } } },
+  render: (args) => (
+    <div data-theme="dark" style={{ padding: 'var(--spacing-16) var(--spacing-16) 64px', background: 'var(--color-primary-blue-dark-dark)' }}>
+      <TooltipBordered {...args} />
+    </div>
+  ),
+};
+
+export const MultiParagraph: Story = {
+  name: 'Several paragraphs',
+  args: {
+    tone: 'subtle',
+    position: 'bottom',
+    title: 'Detailed information',
+    children: (
+      <>
+        <p>First paragraph of the detailed information.</p>
+        <p>Second paragraph, set directly under the first one.</p>
+      </>
+    ),
+  },
+};
 
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
 export const LongWord: Story = {
@@ -107,4 +151,17 @@ export const Example: Story = {
       </span>
     </div>
   ),
+};
+
+/** Figma "Dark Atoms Components" → Tooltip with border + shadow. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllVariantsDark: Story = {
+  ...AllVariants,
+  name: 'All variants (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>
+        <Story />
+      </div>
+    ),
+  ],
 };

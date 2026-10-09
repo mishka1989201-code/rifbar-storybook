@@ -1,23 +1,11 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { BarcodeSettings } from './BarcodeSettings';
+import BARCODE_IMAGE from '../../assets/demo/barcode.png';
 
 const FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7064-74791';
 
 /** A drawn stand-in for the barcode picture (the Figma asset is a raster image). */
-const BARCODE_BARS = [2, 1, 1, 3, 1, 2, 2, 1, 3, 1, 1, 2, 1, 3, 2, 1, 1, 2, 3, 1, 2, 1, 1, 3, 2, 1];
-const BARCODE_IMAGE = (() => {
-  let x = 10;
-  let rects = '';
-  BARCODE_BARS.forEach((w, i) => {
-    if (i % 2 === 0) rects += `<rect x="${x}" y="8" width="${w * 3}" height="70" fill="black"/>`;
-    x += w * 3;
-  });
-  return `data:image/svg+xml;utf8,${encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${x + 10} 96"><rect width="100%" height="100%" fill="white"/>${rects}<text x="10" y="92" font-size="10" font-family="monospace">7 50015 00000 6</text></svg>`,
-  )}`;
-})();
-
 const meta = {
   title: 'Molecules/BarcodeSettings',
   component: BarcodeSettings,

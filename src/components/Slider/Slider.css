@@ -43,7 +43,7 @@
   margin-top: calc((var(--size-slider-track) - var(--size-slider-handle)) / 2);
   border: var(--border-width-sm) solid var(--ds-slider-handle-stroke);
   border-radius: var(--radius-round);
-  background: var(--color-white);
+  background: var(--slider-handle);
   appearance: none;
   -webkit-appearance: none;
   transition: box-shadow 150ms ease;
@@ -54,7 +54,7 @@
   height: var(--size-slider-handle);
   border: var(--border-width-sm) solid var(--ds-slider-handle-stroke);
   border-radius: var(--radius-round);
-  background: var(--color-white);
+  background: var(--slider-handle);
   transition: box-shadow 150ms ease;
 }
 

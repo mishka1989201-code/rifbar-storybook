@@ -56,7 +56,17 @@ Loading, error and empty states are not applicable — PlayButton doesn't displa
 
 <Canvas of={PlayButtonStories.ToggleExample} />
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Play`**: themed `--play-button-*` tokens, light values unchanged. See **AllVariantsDark**.
+
+- Play: 22% green tint fill (unchanged, `#072E0F` on black), glyph and hover ring **Green Light `#1FD246`** (the light theme keeps Green Dark `#00864E` for contrast).
+- Stop: fill `#ED5742`, square `#000000` (White (Dark)), hover ring and square `#ED5742`; the red drop shadow is unchanged.
+- Pressed (not designed): accent fill, glyph `#000000` — AI-defined by analogy with Stop.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -74,6 +84,8 @@ Loading, error and empty states are not applicable — PlayButton doesn't displa
 
 The triangle and square are vectors copied from Figma (not tokens): triangle with a 2.89px rounded stroke,
 square 14×14 with 3px radius, centered in the 38px circle.
+| `--play-button-accent` | glyph and ring of Play | light `#00864E` / dark `#1FD246` | **New** · Figma: Dark Atoms → Play (read from the render) |
+| `--play-button-on-accent` | Stop square; pressed glyph | light `#FFFFFF` / dark `#000000` | **New** · Figma: Dark Atoms → White (Dark) |
 
 ## Props
 
@@ -96,3 +108,4 @@ import { PlayButton } from 'rifbar-ds';
 - ⚠️ Disabled at 20% opacity is below 3:1 contrast — flag to design (same as Button).
 - Play triangle uses Green Dark `#00864E`: 3.9:1 on the light tint, 4.2:1 on the canvas (≥ 3:1 for UI graphics).
   Green Light `#1FD246` was only 1.7:1, so it was replaced.
+- Dark theme contrast (calculated): Play glyph `#1FD246` on its tint 7.37:1; Stop square `#000000` on `#ED5742` 6.04:1.

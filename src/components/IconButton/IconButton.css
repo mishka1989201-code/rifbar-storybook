@@ -14,9 +14,9 @@
   padding: 0;
   border: none;
   border-radius: var(--radius-sm);
-  background-color: var(--color-secondary-light);
+  background-color: var(--icon-button-bg);
   box-shadow: inset 0 0 0 var(--border-width-sm) var(--ds-icon-button-stroke);
-  color: var(--color-primary-blue-dark);
+  color: var(--icon-button-text);
   cursor: pointer;
   white-space: nowrap;
   font-family: var(--font-family-base);
@@ -28,27 +28,36 @@
 
 /* ─── Kinds: Static ─────────────────────────────────────────────────── */
 .ds-icon-button--search {
-  --ds-icon-button-stroke: var(--color-stroke-light-v2);
+  --ds-icon-button-stroke: var(--icon-button-search-stroke);
   width: var(--size-control-xs);
   height: var(--size-control-xs);
 }
 
 .ds-icon-button--close {
-  --ds-icon-button-stroke: var(--color-secondary-grey);
+  --ds-icon-button-stroke: var(--icon-button-close-stroke);
   background-color: transparent;
+}
+
+/* ─── Size sm: 24px, 4px padding, Body/Micro Medium (Figma Pagination Responsive, 480 / 360px) ── */
+.ds-icon-button--sm:is(.ds-icon-button--page, .ds-icon-button--prev, .ds-icon-button--next) {
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
+  padding: var(--spacing-4);
+  font-size: var(--font-size-micro);
+  line-height: var(--font-line-height-micro);
 }
 
 /* ─── Hover (Figma Status=Hover → Primary Blue Dark stroke) ─────────── */
 .ds-icon-button:is(:hover:not(:disabled), .is-hover) {
-  --ds-icon-button-stroke: var(--color-primary-blue-dark);
+  --ds-icon-button-stroke: var(--icon-button-text);
 }
 
 /* ─── Active (Figma Status=Active → dark fill, white content).
        Also shown while the button is pressed. ─────────────────────── */
 .ds-icon-button:is(.is-active, :active:not(:disabled)) {
   --ds-icon-button-stroke: transparent;
-  background-color: var(--color-primary-blue-dark);
-  color: var(--color-white);
+  background-color: var(--icon-button-active-bg);
+  color: var(--icon-button-active-text);
 }
 
 .ds-icon-button--search:is(.is-active, :active:not(:disabled)) {

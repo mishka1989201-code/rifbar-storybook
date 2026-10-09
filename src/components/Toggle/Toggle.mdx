@@ -65,7 +65,23 @@ The label is not part of the Figma atom. Its text style (Body/Small Regular) and
 
 <Canvas of={ToggleStories.SettingsExample} />
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `atom`** (Toggle): themed `--toggle-*` tokens, light values unchanged. See **AllVariantsDark**.
+
+| State / status | Dark pill |
+|---|---|
+| On, Enabled | `#888CF6` |
+| On, Hover / Focus | `#4549A1` (Focus stroke `#888CF6`) |
+| Off, Enabled / Focus | `#646464` (Focus stroke `#888CF6`) |
+| Off, Hover | `#5D6E82` |
+| Disabled | 20% opacity |
+
+The handle is `#000000` (White (Dark)). The Focus glow colour of Figma's drop shadow is not reproduced: `--shadow-focus` is kept. The focus stroke colour was read from the half-covered edge pixels of the render.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -84,6 +100,10 @@ The label is not part of the Figma atom. Its text style (Body/Small Regular) and
 | `--spacing-8` | gap to label | `8px` | AI-defined, same as Checkbox |
 | `--font-size-small` / `--font-line-height-small` / `--font-weight-regular` | label | `14px` / `21px` / `400` | Figma: Body/Small Regular (label AI-defined) |
 | `--color-primary-blue-dark` | label color | `#1D2542` | Figma: Primary Blue Dark (label AI-defined) |
+| `--toggle-on-bg`, `--toggle-on-hover` | On pill, On Hover / Focus | light `#4549A1`, `#6368DF` / dark `#888CF6`, `#4549A1` | **New** · Figma: Dark Atoms (read from the render) |
+| `--toggle-off-bg`, `--toggle-off-hover` | Off pill, Off Hover | light `#5D6E82`, `#65578B` / dark `#646464`, `#5D6E82` | **New** · Figma: Dark Atoms → Secondary Grey, Grey Dark |
+| `--toggle-handle` | handle | light `#FFFFFF` / dark `#000000` | **New** · Figma: Dark Atoms → White (Dark) |
+| `--toggle-focus-stroke` | Focus stroke | light `#4549A1` / dark `#888CF6` | **New** · Figma: Dark Atoms (read from the render) |
 
 ## Props
 
@@ -108,3 +128,5 @@ import { Toggle } from 'rifbar-ds';
 - ⚠️ Touch target: 48×24 px (height below 44px). Kept as designed — desktop ERP.
 - White handle contrast: 5.2:1 on Grey Dark (Off), 6.4:1 on Input field (Off hover), 7.7:1 on Headlines (On).
 - ⚠️ Disabled at 20% opacity is below 3:1 contrast — flag to design (same as Button).
+- Dark theme contrast (calculated): On `#888CF6` on black 7.13:1 (handle on it 7.13:1); Off `#646464` 3.55:1 (handle 3.55:1);
+  ⚠️ On Hover / Focus `#4549A1` on black **2.72:1** (handle on it 2.72:1) — as designed, flag to design.

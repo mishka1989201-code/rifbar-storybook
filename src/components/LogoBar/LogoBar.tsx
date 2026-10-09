@@ -12,6 +12,13 @@ export interface LogoBarProps extends HTMLAttributes<HTMLDivElement> {
   expanded?: boolean;
   /** Hides the burger (side menu not available). */
   hideMenu?: boolean;
+  /** Hides the logo — only the burger is left (Figma Navbar `Style=Off`). */
+  hideLogo?: boolean;
+  /**
+   * Draws the `burger-rolled-up` icon. Defaults to `expanded`. Figma's Navbar uses the plain burger while the menu is
+   * wide and the rolled-up one when it is collapsed, so the Navbar sets it separately from `expanded`.
+   */
+  rolledUp?: boolean;
   /** Logo size. Default `lg` (184×46, as in Figma). */
   logoSize?: LogoSize;
   /** Makes the logo a link, e.g. to the home page. */
@@ -27,6 +34,8 @@ export function LogoBar({
   menuLabel = 'Menu',
   expanded = false,
   hideMenu = false,
+  hideLogo = false,
+  rolledUp,
   logoSize = 'lg',
   href,
   className,
@@ -44,10 +53,10 @@ export function LogoBar({
           aria-expanded={expanded}
           onClick={onMenuClick}
         >
-          <Icon name={expanded ? 'burger-rolled-up' : 'burger'} size={24} color="current" />
+          <Icon name={(rolledUp ?? expanded) ? 'burger-rolled-up' : 'burger'} size={24} color="current" />
         </button>
       )}
-      {href ? (
+      {hideLogo ? null : href ? (
         <a className="ds-logo-bar__logo" href={href}>
           {logo}
         </a>

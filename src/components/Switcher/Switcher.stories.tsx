@@ -95,3 +95,22 @@ export const ThemeExample: Story = {
     docs: { description: { story: 'Interactive. Click to switch the theme of the surface (sets `data-theme`). Gap 12px is AI-defined.' } },
   },
 };
+
+/** Figma "Dark Atoms Components" → Switcher. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const LightAndDarkDark: Story = {
+  name: 'Light and Dark (dark theme)',
+  parameters: { layout: 'padded' },
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16 }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => (
+    <div style={{ display: 'flex', gap: 16 }}>
+      <Switcher theme="light" />
+      <Switcher theme="dark" />
+    </div>
+  ),
+};

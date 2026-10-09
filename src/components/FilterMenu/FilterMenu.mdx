@@ -1,0 +1,115 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as FilterMenuStories from './FilterMenu.stories';
+
+<Meta of={FilterMenuStories} />
+
+# FilterMenu
+
+The filter screen of the 768px layout: a white header with the title, a count badge and a close button, the applied filters as chips, and the filter
+sections stacked below on the BG Color canvas. Implements the Figma frame
+[`Filter Responsive Menu`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=7079-92966). It is an **organism**: it only composes existing parts —
+[FilterChevron](?path=/docs/atoms-filterchevron--docs) chips, [IconButton](?path=/docs/atoms-iconbutton--docs) `close`, and the sections you pass as
+`children`: [CheckListModal](?path=/docs/molecules-checklistmodal--docs) (Figma `Info Modal` “Status”) and a [Modal](?path=/docs/molecules-modal--docs)
+with a [DatePicker](?path=/docs/organisms-datepicker--docs) inside (Figma `Info Modal` “Date range”).
+
+<Canvas of={FilterMenuStories.Default} />
+<Controls of={FilterMenuStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `header` (white, Header Shadow, line Stroke Light V1) | `.ds-filter-menu__header` |
+| `Filters` (Medium h4, Headlines) | `title` |
+| `Icons 24px` → Number (8) | `count` — an 18px Headlines circle with the digit |
+| `Icon Button` (40px, Secondary Grey stroke, xmark) | `IconButton kind="close"` — `onClose`, `closeLabel` |
+| `Filters Chevron Light` → 8 × `Filter Chevron` (outline) | `filters={[{ id, label, value }]}`, `onRemoveFilter` → `FilterChevron` |
+| `Info Modal` “Status” | `CheckListModal` in `children` |
+| `Info Modal` “Date range” + `date-range-apply` | `Modal size="list" elevated` + `DatePicker mode="range"` in `children` |
+| Frame: BG Color fill, 16px gap, 16px padding, width 768 | `.ds-filter-menu` (fills its container; the stories use 768px) |
+
+## When to use
+
+- ✅ Filtering a list on tablet / mobile widths, where the filters take the whole screen.
+
+## When NOT to use
+
+- ❌ Filters next to a table on desktop — use `FilterActions` and `FilterChevron` above the table.
+- ❌ One single choice — use a `Dropdown`.
+
+## Variants, states and edge cases
+
+<Canvas of={FilterMenuStories.NoFilters} />
+<Canvas of={FilterMenuStories.SectionsCollapsed} />
+<Canvas of={FilterMenuStories.NoSections} />
+<Canvas of={FilterMenuStories.ManyFilters} />
+<Canvas of={FilterMenuStories.LongTitle} />
+<Canvas of={FilterMenuStories.NarrowContainer} />
+<Canvas of={FilterMenuStories.Interactive} />
+<Canvas of={FilterMenuStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the header (*Filters* 8, close), eight chips (*Status: Pending … Received*; *Approved* appears twice — the story uses each value once), the open “Status” section with every box ticked
+and the open “Date range” section with a March 2023 mock calendar, 03/16/2023 – 03/25/2023 and *Cancel* / *Apply*.
+
+Not drawn, defined by analogy (AI-defined):
+
+- **No filters, no sections, many chips, long title, narrow container** — chips wrap; the title wraps; the sections fill the width.
+- **Collapsed section** — the chevron in a section header flips down and hides the body (`CheckListModal collapsed`).
+- **Count badge** — hidden when `count` is 0 or missing; digits of two or three figures widen the circle into a pill.
+- **Hover / focus** of the close button and the chips — from `IconButton` and `FilterChevron`.
+- **Dark theme** — not designed: the light values are used.
+
+Normalised or assumed:
+
+- The sections are `children`, not props: the menu does not know what is filtered. Which section a chip belongs to is the page's job.
+- The Figma calendar is a static mock (March 2023 twice, the 16th – 25th selected). `DatePicker` draws a real calendar; the stories open March 2023 with the same range, so the second month is April.
+- In Figma the two calendars stretch over the 736px card; `DatePicker` months keep their own width and are centered. This is a limit of the existing `DatePicker`, not changed here.
+- The count digit in Figma is a separate text over the `Number` icon (the icon itself carries a “2”), so the badge is CSS, not the icon.
+- The header has the Header Shadow above its bottom line (`--shadow-header`, as in `ChatHeader`).
+- Figma assets were not used; the icons are the existing `Icon` set.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-bg` | canvas | `#F6F8FC` | Existing tokens.json · Figma: BG Color |
+| `--color-white`, `--color-stroke-light-v1`, `--border-width-sm` | header fill and line | `#FFFFFF`, `#F1F2F9`, `1px` | Existing tokens.json · Figma: header |
+| `--shadow-header` | header shadow | `0 -3px 25px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Header Shadow |
+| `--color-headlines`, `--font-size-h4`, `--font-line-height-h4`, `--font-weight-medium` | title | `#4549A1`, 24 / 36px, 500 | Existing tokens.json · Figma: Medium Headings/h4 |
+| `--size-count-badge` | badge | `18px` | **New** · Figma: Filter Responsive Menu → header Number badge 18×18 |
+| `--font-size-mini`, `--font-line-height-mini` | badge digit | 12 / 18px | Existing tokens.json · Figma: Body/Mini Medium |
+| `--radius-pill`, `--color-white` | badge shape, digit | — | Existing tokens.json · pill rule |
+| `--spacing-24`, `--spacing-16`, `--spacing-8`, `--spacing-4` | paddings, gaps | 24 / 16 / 8 / 4px | Existing tokens.json · Figma: header padding 24 × 16, gaps |
+| `--spacing-6` | gap between chip lines | `6px` | **New** · Figma: Filters Chevron Light row gap 6 |
+| Tokens of `FilterChevron`, `IconButton`, `CheckListModal`, `Modal`, `DatePicker` | chips, close, sections | — | see the MDX of each |
+
+## Props
+
+<ArgTypes of={FilterMenuStories} />
+
+## Code example
+
+```tsx
+import { FilterMenu, CheckListModal, Modal, DatePicker } from 'rifbar-ds';
+
+<FilterMenu
+  count={filters.length}
+  filters={filters}
+  onRemoveFilter={removeFilter}
+  onClose={closeMenu}
+>
+  <CheckListModal title="Status" allLabel="All" options={statuses} value={selected} onChange={setSelected} />
+  <Modal title="Date range" icon={null} size="list" elevated headerAction={<Button variant="light" iconOnly="chevron-up" aria-label="Collapse" />}>
+    <DatePicker mode="range" value={range} onChange={setRange} style={{ width: '100%' }} />
+  </Modal>
+</FilterMenu>
+```
+
+## Accessibility
+
+- A `section` with an `h2`; the chips are a labelled list and each × is a button with its own name; the badge has an accessible text (“8 applied”).
+- The close button has an accessible name (`closeLabel`). The component does not trap focus or close on `Esc` — the page that shows the menu does.
+- Contrast (calculated): title and white badge digit on Headlines 7.72:1; chip value `#4549A1` on `#F1F2F9` 6.91:1; chip label `#5D6E82` on `#F1F2F9` 4.68:1.
+- ⚠️ Kept as designed: the chip border and the close-button border (Secondary Grey `#A7A4B7`) are 2.29:1 and 2.43:1 against their backgrounds; the 12px × in a chip and the 40px close button are below the 44px touch target.

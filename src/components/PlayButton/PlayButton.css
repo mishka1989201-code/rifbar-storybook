@@ -3,7 +3,7 @@
    to keep the button 38px in every status. */
 
 .ds-play-button {
-  --ds-play-button-accent: var(--color-green-dark);
+  --ds-play-button-accent: var(--play-button-accent);
   --ds-play-button-stroke: transparent;
   display: inline-flex;
   flex-shrink: 0;
@@ -35,7 +35,7 @@
   box-shadow:
     inset 0 0 0 var(--border-width-sm) var(--ds-play-button-stroke),
     var(--shadow-stop);
-  color: var(--color-white);
+  color: var(--play-button-on-accent);
 }
 
 /* ─── Static Hover: fill goes away, 1px ring + glyph in the accent ─── */
@@ -49,7 +49,7 @@
 .ds-play-button:active:not(:disabled) {
   --ds-play-button-stroke: transparent;
   background-color: var(--ds-play-button-accent);
-  color: var(--color-white);
+  color: var(--play-button-on-accent);
 }
 
 /* ─── Focus (not designed in Figma — same ring as Button) ───────────── */

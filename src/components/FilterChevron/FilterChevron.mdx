@@ -68,7 +68,19 @@ Implements the Figma component set
   invisible), so it is easier to hit.
 - The colon after the label is added by the component: pass `label="Status"`, not `"Status:"`.
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Filter Chevron`**: themed `--filter-chevron-*` tokens, light values unchanged. See **AllVariantsDark**.
+
+- Outline: fill `#242424`, stroke `#646464`, label `#5D6E82` (unchanged), value `#888CF6`.
+- Outline Hover: fill `#27282E`, stroke `#888CF6`, value `#4549A1` (darker than the resting value, as drawn).
+- Filled: unchanged (`#4549A1` fill, `#D2D3D9` label, white value).
+- **Outline V2** is labelled "(not approve)" in Figma and is drawn with its light colours in the dark frame; here it takes the themed fill with the Headlines stroke (dark not designed).
+- The × follows the value colour; in the dark frame it looks grey on Outline — not changed.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -89,6 +101,9 @@ Implements the Figma component set
 | `--border-width-lg` | focus ring | `2px` | Existing (same ring as Button) |
 | `--radius-pill` | corner radius | `9999px` | Figma: radius 30px on 22px height |
 | `--radius-round` | × focus ring shape | `50%` | Existing |
+| `--filter-chevron-bg`, `--filter-chevron-stroke` | Outline fill, stroke | light `#F1F2F9`, `#A7A4B7` / dark `#242424`, `#646464` | **New** · Figma: Dark Atoms → Filter Chevron |
+| `--filter-chevron-value` | Outline value | light `#4549A1` / dark `#888CF6` | **New** · Figma: Dark Atoms → Filter Chevron (read from the render) |
+| `--filter-chevron-hover-bg`, `-hover-stroke`, `-hover-value` | Outline Hover | light `#ECEEFB`, `#5D6E82`, `#4549A1` / dark `#27282E`, `#888CF6`, `#4549A1` | **New** · Figma: Dark Atoms → Filter Chevron Outline Hover |
 
 ## Props
 
@@ -122,3 +137,4 @@ import { FilterChevron } from 'rifbar-ds';
 | Filled | 5.2:1 | 7.7:1 | ✅ |
 
 - The Secondary Grey stroke of Outline is 2.2:1 — fine, because the text, not the border, identifies the chip.
+- Dark theme contrast (calculated): value `#888CF6` on `#242424` 5.27:1; ⚠️ label `#5D6E82` on `#242424` **2.97:1**, Hover value `#4549A1` on `#27282E` **1.90:1** — as designed, flag to design. Stroke `#646464` on black 3.55:1.

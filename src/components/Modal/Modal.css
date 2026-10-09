@@ -22,14 +22,58 @@
   max-width: var(--size-modal-confirm);
 }
 
+.ds-modal--480 {
+  max-width: var(--size-modal-form);
+}
+
+.ds-modal--360 {
+  max-width: var(--size-modal-form-narrow);
+}
+
+.ds-modal--list {
+  max-width: var(--size-modal-list);
+}
+
+.ds-modal--elevated {
+  box-shadow: var(--shadow-tooltip);
+}
+
 /* ─── Header ────────────────────────────────────────────────────────── */
 .ds-modal__header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-8);
+  padding: var(--spacing-24) var(--spacing-16) var(--spacing-16);
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}
+
+/* The title row: title at the left, the close button at the right. */
+.ds-modal__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-8);
-  padding: var(--spacing-24) var(--spacing-16) var(--spacing-16);
-  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}
+
+/* Figma `Error/Importantly/Info`: Info — Body/Small Medium in Secondary Grey. */
+.ds-modal__description {
+  margin: 0;
+  color: var(--color-secondary-grey);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+/* Figma `Error/Importantly/Info`: Importantly — Semi-Bold h7 in Warning. */
+.ds-modal__important {
+  margin: 0;
+  color: var(--color-warning);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-semibold);
+  overflow-wrap: anywhere;
 }
 
 .ds-modal__title-wrap {
@@ -54,7 +98,7 @@
   overflow-wrap: anywhere;
 }
 
-.ds-modal__header .ds-icon-button {
+.ds-modal__header :is(.ds-icon-button, .ds-button) {
   flex: none;
 }
 
@@ -109,27 +153,40 @@
 /* ─── Mobile: 20px title, 10px side padding, stacked full-width buttons of 12px padding ── */
 .ds-modal--mobile .ds-modal__header,
 .ds-modal--mobile .ds-modal__section,
-.ds-modal--mobile .ds-modal__footer {
+.ds-modal--mobile .ds-modal__footer,
+.ds-modal--360 .ds-modal__header,
+.ds-modal--360 .ds-modal__section,
+.ds-modal--360 .ds-modal__footer {
   padding-left: var(--spacing-10);
   padding-right: var(--spacing-10);
 }
 
-.ds-modal--mobile .ds-modal__title-wrap {
+.ds-modal--mobile .ds-modal__title-wrap,
+:is(.ds-modal--480, .ds-modal--360) .ds-modal__title-wrap {
   flex: 1 1 0;
 }
 
-.ds-modal--mobile .ds-modal__title {
+:is(.ds-modal--mobile, .ds-modal--480, .ds-modal--360) .ds-modal__title {
   font-size: var(--font-size-h5);
   line-height: var(--font-line-height-h5);
 }
 
-.ds-modal--mobile .ds-modal__footer {
+:is(.ds-modal--mobile, .ds-modal--480, .ds-modal--360) .ds-modal__footer {
   flex-direction: column;
   align-items: stretch;
 }
 
-.ds-modal--mobile .ds-modal__footer > .ds-button {
+:is(.ds-modal--mobile, .ds-modal--480, .ds-modal--360) .ds-modal__footer > .ds-button {
   flex: none;
   width: 100%;
   padding: var(--spacing-12) var(--spacing-16);
+}
+
+/* Figma `Error/Importantly/Info` → Error: Body/Mini Regular in Danger, 4px under the field. */
+.ds-modal__error {
+  color: var(--color-danger);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-regular);
+  overflow-wrap: anywhere;
 }

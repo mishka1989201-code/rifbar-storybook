@@ -1,14 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
 import { ProductCard } from './ProductCard';
+import IMG from '../../assets/demo/product-orange.png';
 
 const FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7038-332399';
-
-const IMG =
-  'data:image/svg+xml;utf8,' +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="284" height="284"><rect width="284" height="284" fill="#1D2542"/><rect x="104" y="50" width="76" height="170" rx="10" fill="#F68F57"/></svg>',
-  );
 
 const meta = {
   title: 'Molecules/ProductCard',

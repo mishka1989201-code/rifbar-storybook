@@ -112,3 +112,16 @@ export const ToggleExample: Story = {
     docs: { description: { story: 'Interactive. Click to switch between Play and Stop. Gap 12px is AI-defined (demo only).' } },
   },
 };
+
+/** Figma "Dark Atoms Components" → Play. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllVariantsDark: Story = {
+  ...AllVariants,
+  name: 'All Types × States (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

@@ -1,0 +1,56 @@
+/* Department users prototype — every value references a token from src/tokens/tokens.json.
+   Frame: the dark app background and a rounded page panel (Figma `Content`, x 16 / 10, y 16). */
+
+.proto-department-users {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  padding: var(--spacing-16);
+  background: var(--theme-app-bg);
+  font-family: var(--font-family-base);
+  /* Side padding of the cards and the list: Figma 16 at 768 / 480, 10 at 360. */
+  --proto-pad: var(--spacing-16);
+}
+
+.proto-department-users[data-bp='360'] {
+  --proto-pad: var(--spacing-10);
+  padding-inline: var(--spacing-10);
+}
+
+.proto-department-users__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  box-sizing: border-box;
+  padding-bottom: var(--spacing-24);
+  border-radius: var(--radius-modal);
+  background: var(--color-bg);
+  overflow: clip;
+}
+
+.proto-department-users__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  padding-inline: var(--proto-pad);
+}
+
+/* Figma `Table & Actions` inside the white card: toolbar, bar, cards, bar — 16px apart. */
+.proto-department-users__users {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 var(--proto-pad) var(--spacing-16);
+}
+
+.proto-department-users__empty {
+  margin: 0;
+  padding: var(--spacing-24) var(--spacing-16);
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}

@@ -23,6 +23,7 @@ A white hint bubble with a **border, an arrow and a soft shadow**, for tooltips 
 | `Position=Bottom` | `position="bottom"` | Arrow on the top edge |
 | `Width mode=Fixed` | `widthMode="fixed"` (default) | 300px bubble (+ 8px arrow slot), text wraps |
 | `Width mode=Hug` | `widthMode="hug"` | One line, as wide as the text |
+| Instance override in `Hover Row in Table` (BG Color fill, Stroke Light V2 border, Secondary Grey headline) | `tone="subtle"` | Not a Figma property; a separate tone, light and dark values from `--tooltip-bordered-subtle-*` |
 | `Show headline` | `title` | Headline, Headings/h6 Medium. Empty = hidden |
 | `Show body text` | `children` | Body, Body/Small Medium. Empty = hidden |
 
@@ -43,6 +44,12 @@ A white hint bubble with a **border, an arrow and a soft shadow**, for tooltips 
 <Canvas of={TooltipBorderedStories.Right} />
 <Canvas of={TooltipBorderedStories.Top} />
 <Canvas of={TooltipBorderedStories.Bottom} />
+
+## Tone
+
+<Canvas of={TooltipBorderedStories.Subtle} />
+<Canvas of={TooltipBorderedStories.SubtleDark} />
+<Canvas of={TooltipBorderedStories.MultiParagraph} />
 
 ## Width
 
@@ -69,10 +76,22 @@ A white hint bubble with a **border, an arrow and a soft shadow**, for tooltips 
 - In Figma `Fixed` is 308px for Left/Right and 297px for Top/Bottom. Same bubble, a 3px inconsistency —
   in code both are a 300px bubble.
 - The `Space adjust` layers (0.01px, only in `Hug`) are spacing helpers and are not rebuilt.
+- `subtle` is drawn in `Hover Row in Table` (light and dark) as an override of the component instance: fill BG Color, stroke
+  Stroke Light V2, headline Secondary Grey, body Color Text; the bubble is 899px wide there, so the caller sets the width
+  (`style`, or the layout around it). Dark values are the ones drawn in that frame. The dark shadow reuses the light Tooltip Shadow (Figma has no dark one).
+- Body text is a `<div>` now, so `children` can be several `<p>` paragraphs (Figma draws two paragraphs).
 - Showing/hiding on hover and the placement next to the target are not part of the atom.
 - Empty, loading and error states are not applicable (static text).
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Tooltip with border + shadow`**: themed `--tooltip-bordered-*` tokens, light values unchanged. See **AllVariantsDark** (the `subtle` tone has its own dark values, see **SubtleDark**).
+
+Body fill `#000000` (White (Dark)), stroke `#888CF6`, title and text `#BDC5E2`. The stroke colour is derived from the anti-aliased 1px edge of the render (Figma shows no variable). The shadow keeps the light-theme tokens: it is nearly invisible on black, and the dark frame does not add one.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -89,7 +108,19 @@ A white hint bubble with a **border, an arrow and a soft shadow**, for tooltips 
 | `--radius-tooltip` | bubble corner radius | `8px` | **New.** Figma: radius 8 |
 | `--shadow-tooltip-filter` | shadow (follows the arrow) | 6 layers | **New.** Figma: Tooltip Shadow, as a CSS filter. Same values as `--shadow-tooltip` with half the blur |
 
+`tone="subtle"` (added 2026-10-09):
+
+| Token | Property | Value (light / dark) | Source |
+|---|---|---|---|
+| `--tooltip-bordered-subtle-bg` | bubble and arrow fill | `#F6F8FC` / `#101010` | **New** · Figma: Tooltip (Hover Row in Table) → BG Color |
+| `--tooltip-bordered-subtle-border` | border | `#D8E2EE` / `#242424` | **New** · Figma: Stroke Light (V2) |
+| `--tooltip-bordered-subtle-title` | headline | `#A7A4B7` / `#646464` | **New** · Figma: Secondary Grey |
+| `--tooltip-bordered-subtle-text` | body | `#292639` / `#C9C6D9` | **New** · Figma: Color Text |
+
 Not tokens (sizes of this atom only): bubble width `300px`, arrow square `11.7px`, arrow slot `8px`.
+| `--tooltip-bordered-bg` | body and arrow fill | light `#FFFFFF` / dark `#000000` | **New** · Figma: Dark Atoms → Tooltip → White (Dark) |
+| `--tooltip-bordered-border` | body and arrow stroke | light `#4549A1` / dark `#888CF6` | **New** · Figma: Dark Atoms → Tooltip (derived from the render) |
+| `--tooltip-bordered-text` | title, text | light `#1D2542` / dark `#BDC5E2` | **New** · Figma: Dark Atoms → Prinary Blue Dark (Light) |
 
 ## Props
 
@@ -113,3 +144,7 @@ import { TooltipBordered } from 'rifbar-ds';
   on both hover **and** keyboard focus; hide it on `Escape`.
 - Text is Primary Blue Dark on White (15:1) and the Headlines border is 7.7:1 against White.
 - It is not focusable and must not contain links or buttons.
+- `subtle`, computed: body `#292639` on `#F6F8FC` 13.81:1 (dark `#C9C6D9` on `#101010` 11.38:1).
+- ⚠️ Kept as designed: the `subtle` headline `#A7A4B7` on `#F6F8FC` is 2.29:1 (dark `#646464` on `#101010` 3.22:1), below 4.5:1; its border
+  is 1.23:1 against the fill in both themes (the shadow separates it).
+- Dark theme contrast (calculated): text `#BDC5E2` on black 12.25:1; stroke `#888CF6` 7.13:1.

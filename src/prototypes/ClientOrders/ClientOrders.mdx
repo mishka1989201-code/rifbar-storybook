@@ -1,0 +1,103 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ClientOrdersStories from './ClientOrders.stories';
+
+<Meta of={ClientOrdersStories} />
+
+# ClientOrders (prototype)
+
+The client page, *Orders* tab, at seven widths, with the filter screens of the small widths. Implements the Figma frame
+[`Filter Chevrons / Filter Menu Responsive`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-310893)
+(`Manager User - Clients - All Clients Tab - Details (Orders Tab) (UI)`).
+
+A **prototype** is a whole screen assembled only from library components, with fake in-memory data. It is not exported from `rifbar-ds`;
+it shows how the components fit together at each breakpoint. Components that were new for this screen live in the library:
+[TableRowOrder](?path=/docs/molecules-tableroworder--docs), [TableOrders](?path=/docs/organisms-tableorders--docs),
+[TableToolbar](?path=/docs/molecules-tabletoolbar--docs); extended: [PageHeader](?path=/docs/molecules-pageheader--docs),
+[BreadCrumbs](?path=/docs/molecules-breadcrumbs--docs), [CheckListModal](?path=/docs/molecules-checklistmodal--docs),
+[TableHeader](?path=/docs/molecules-tableheader--docs), [PaginationBar](?path=/docs/molecules-paginationbar--docs).
+
+<Canvas of={ClientOrdersStories.Default} />
+<Controls of={ClientOrdersStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `1920px` … `360px` frames | the `breakpoint` prop (the story decorator sets the frame width) |
+| `Navbar` (300px at 1920, 237px at 1440) | [Navbar](?path=/docs/organisms-navbar--docs) beside the panel from 1440px; below it a burger in the header opens the same Navbar over the content (`--layout-sidebar-overlay`) |
+| `Header` (title, breadcrumbs, 3 tabs, bell) | `PageHeader` + `BreadCrumbs` (`variant="back"` at 768px and below) + `HeaderMenu`; burger (`onMenuClick`) below 1440px |
+| `Sow Menu Pagination` (above and below) | `PaginationBar` (11 per page, 3 pages) |
+| `TableActionsRow` + `Filters Chevron Light` | `TableToolbar` (Export, Clear, Date range, Status, View, Search) + `FilterChevron` row |
+| `Actions` at 768px and below (Export, Filter 8, sort, View, Search) | `TableToolbar compact` |
+| `Status Filter` menu | `Dropdown control="checkbox" maxRows={4}` under the Status `FilterField` |
+| `Sort by` menu | `Dropdown maxRows={4}` under the sort icon button |
+| `Table 1 - Management` (header + 11 rows) | `TableOrders layout="table"` |
+| `Cards Line` / `Card Row` (768 / 480 / 360px) | `TableOrders layout="cards"` |
+| `(Filter menu)` frames at 768 / 480 / 360px | `FilterMenu` with Status (`CheckListModal`) and Date range (`Modal` + `DatePicker`) — `FilterScreen`, opened by the “Filter” button |
+| `All Filters` frames | the same plus Discounts off (`CheckListModal variant="radio"`), Flavor and Marketer (`variant="pick"`), Warehouse (`accent`, `searchable`) |
+
+## Behaviour (what is interactive)
+
+Search, status filter (menu, chips, the filter screen), date range (calendar under the field), sorting (header and sort menu), page size,
+pages, the view switch, the burger menu and the open / close of the filter screen all work on the fake data (30 orders; the first 11 are the Figma rows).
+The “More” buttons, the bell and the tabs do nothing but switch the active tab.
+
+## Breakpoints and filter screens
+
+<Canvas of={ClientOrdersStories.Desktop1440} />
+<Canvas of={ClientOrdersStories.Desktop1280} />
+<Canvas of={ClientOrdersStories.Tablet1024} />
+<Canvas of={ClientOrdersStories.Tablet768} />
+<Canvas of={ClientOrdersStories.Mobile480} />
+<Canvas of={ClientOrdersStories.Mobile360} />
+<Canvas of={ClientOrdersStories.Filters768} />
+<Canvas of={ClientOrdersStories.Filters480} />
+<Canvas of={ClientOrdersStories.Filters360} />
+<Canvas of={ClientOrdersStories.AllFilters768} />
+<Canvas of={ClientOrdersStories.AllFilters480} />
+<Canvas of={ClientOrdersStories.AllFilters360} />
+<Canvas of={ClientOrdersStories.CardsView} />
+<Canvas of={ClientOrdersStories.NoResults} />
+<Canvas of={ClientOrdersStories.NoResultsMobile} />
+
+## Figma notes
+
+What Figma draws: the screen at 1920 / 1440 / 1280 / 1024 / 768 / 480 / 360px; the Navbar only at 1920 and 1440; the filter menu at 768 / 480 / 360px (Status + Date range) and the *All Filters* version of it; two small menus (`Sort by`, `Status Filter`).
+
+Not drawn, defined by analogy (AI-defined):
+
+- Empty result, loading and error of the list (`TableOrders` states), hover / focus / disabled of every control (from the atoms).
+- The side menu opening over the content below 1440px (only its closed state is drawn); the Navbar `size` follows the frame.
+- The “View” switch on desktop: the cards view reuses the 768px card grid.
+- The open Date range calendar on desktop (the `DatePicker` range, two months).
+- Dark theme: not designed — the light values are used.
+
+Assumed / normalised — **need designer confirmation**:
+
+- The “View” switch is drawn at 768px and below, but the content there is always cards; here both views show cards below 1024px.
+- The page padding changes per frame (32 / 27 / 24 / 16 / 16 / 16 / 10px). 27px is mapped to `--spacing-28`; the right margin of the 1920px frame is 32px, the others 16px.
+- Tabs at 360px: Figma squeezes three tabs into 340px; the `TabsHeader` keeps its 24px padding and scrolls (the last tab is cut).
+- The date range in the filter screen starts empty (Figma shows 16–25 March selected).
+- The card text switches between price / type and client / phone from row to row only to show both Figma variants (`TableRowOrder`).
+- The text under the title of the filter screen (“You have selected one product category…”) is an unused leftover in Figma and is not drawn.
+- Figma pictures: none are used on this screen (no asset download was needed).
+
+## Design tokens used
+
+New token for this screen: `--size-card-grid-min` (see [TableOrders](?path=/docs/organisms-tableorders--docs) and [CardGrid](?path=/docs/molecules-cardgrid--docs)). The rest are existing ones.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--theme-app-bg` | frame background | `#1D2542` | Existing tokens.json · Figma: Responsive templates → screen background |
+| `--color-bg`, `--radius-modal` | page panel fill, radius | `#F6F8FC`, `16px` | Existing tokens.json · Figma: Content (BG Color, radius 16) |
+| `--spacing-16` | frame padding, gap between toolbar and table | `16px` | Existing tokens.json · Figma: Content y 16, Table & Actions gap 16 |
+| `--spacing-24` | gap between sections, panel bottom padding | `24px` | Existing tokens.json · Figma: Content gap 24, pb 24 |
+| `--spacing-32` / `--spacing-28` / `--spacing-24` / `--spacing-16` / `--spacing-10` | page content padding per breakpoint | 32 / 27 / 24 / 16 / 10px | Existing tokens.json · Figma: Content x per frame (27px → 28 token, AI-defined) |
+| `--spacing-4` / `--spacing-8` | chip gaps, menu offset | 4 / 8px | Existing tokens.json · Figma: Filters Chevron Light; menu offset AI-defined |
+
+## Accessibility
+
+- One `main` landmark with one `h1` (`PageHeader`); the side menu is a `nav`; the toolbar is a `toolbar`; tables and cards are `role="table"` with rows; the filter menus are native buttons, checkboxes and radios; the pick lists are `listbox`es.
+- The menus (`Popover`) close on outside click and `Esc`; focus is not moved into them and not trapped — add that in a real screen. The side menu overlay has no focus trap either.
+- Contrast: see the components used (header `#4549A1` on `#F6F8FC` 7.26:1; row text 14.68:1; chips 4.59:1 – 15.05:1).
+- ⚠️ Kept as designed: controls of 32–40px are below the 44px touch target; the cards are separated from the page by a shadow only.

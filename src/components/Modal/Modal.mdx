@@ -22,6 +22,9 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 | `Property 1=Mobile` (340px) | `size="mobile"` | title Semi-Bold h5 (20px), 10px side padding, buttons stacked |
 | `modal__header` | `.ds-modal__header` | padding 24 16 16, bottom line Stroke Light V1 |
 | `Title` icon (Plus 24px) + text | `icon` (default `plus-box`) + `title` | |
+| `Error/Importantly/Info` → Info (Medium 14, Secondary Grey, under the title) | `description` | `aria-describedby` of the dialog |
+| `Error/Importantly/Info` → Importantly (Semi-Bold 14, Warning, under the info) | `important` | `role="note"` |
+| `Error/Importantly/Info` → Error (Regular 12, Danger, 4px under the field) | `ModalField error` | `role="alert"`; mark the control `invalid` |
 | `Icon Button` (40px, Secondary Grey stroke, xmark 24) | `IconButton kind="close"` | `onClose` |
 | `modal__body` | `ModalSection` | padding 16, gap 16, bottom line |
 | `Name / Title` + `InputField` | `ModalField` + `InputField` / `FilterField` | caption Body/Small Medium, gap 4 |
@@ -47,12 +50,20 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 <Canvas of={ModalStories.AddProduct} />
 <Canvas of={ModalStories.AddProductNarrow} />
 <Canvas of={ModalStories.InvalidField} />
+<Canvas of={ModalStories.WithDescriptionAndImportant} />
+<Canvas of={ModalStories.DiscountWithError} />
+<Canvas of={ModalStories.DiscountPercentChosen} />
+<Canvas of={ModalStories.DiscountCurrencyChosen} />
+<Canvas of={ModalStories.FileNotSupported} />
 <Canvas of={ModalStories.NarrowContainer} />
 <Canvas of={ModalStories.AllVariants} />
 
 ## Figma notes
 
 - Figma `Add Product Modal` ([node 682:287127](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=682-287127)) is this same dialog (450px, `Plus` icon, h4 title, one `Filter` field, Close / Save) — no new component; see the `AddEmployee` story. The frame name says “Product” but the content is about adding an employee to a warehouse.
+- Figma `Modal` ([node 7084:21639](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=7084-21639)) is the product form at 480 and 360px. It adds `size="480"` / `size="360"` (`--size-modal-form`, `--size-modal-form-narrow`): 20px title, stacked full-width footer buttons like `mobile`; `360` has 10px sides. The whole form is [ProductFormModal](?path=/docs/organisms-productformmodal--docs).
+- Figma `Info Modal` ([node 769:306160](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=769-306160)) is a 736px dialog with a list of rows. It adds `size="list"` (`--size-modal-list`), `elevated` (Tooltip Shadow) and `headerAction` (replaces the close button with a 37px chevron `Button`). The rows are in [CheckListModal](?path=/docs/molecules-checklistmodal--docs).
+- Figma `Error/Importantly/Info` ([node 818:308102](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-308102)) is a board of examples of three kinds of messages, not new components: **Info** (`description`) and **Importantly** (`important`) in the header of `Discount Modal`, and **Error** (`ModalField error` + `invalid` field) under a field of `Discount Modal` and under the dropzone of `Add Product Modal` (“The attached file is not supported!”). The same frame has `Input/Title` with the orange `*` (`LabeledField required`). The `Discount Modal` itself — two radio groups (percent / currency) separated by “OR”, the inactive group drawn in Grey Dark, the chosen one with Color Text captions — is composed in the `Discount…` stories from `Checkbox type="radio"` and the field atoms; it is not a component.
 - Figma `Add Product Modal` ([node 73:42643](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=73-42643)) is the same dialog at 630px with a two-column form. It adds `size="wide"`, `ModalRow` (grid of equal columns, 16px gap), `ModalSection divider={false}` (this frame has no line under the body) and `FileDropzone size="large"`. Its icon, title and close button are the same.
 - In that frame only the `Name` field has the Stroke Input border; the other five fields have Stroke Light V2. The atoms' own border (Stroke Input, as the Figma `InputField` notes say) is used for all of them — needs designer confirmation. The same Stroke Light V2 shows up in other frames (see `TableRowQuantity`).
 - `ModalRow` stacks its fields when the dialog is narrower than two 200px columns (not designed — AI-defined).
@@ -73,6 +84,12 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 | `--radius-modal` | dialog radius | `16px` | **New** · Figma: modal corner radius 16 |
 | `--size-modal-desktop` / `--size-modal-mobile` | max width | `450px` / `340px` | **New** · Figma: Property 1 Desktop / Mobile |
 | `--size-modal-confirm` | max width, `size="wide"` | `630px` | Existing tokens.json (same value, added for `ConfirmModal`) · Figma: Add Product Modal width 630 |
+| `--color-secondary-grey`, `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | `description` | `#A7A4B7`, 14 / 21px, 500 | Existing tokens.json · Figma: Secondary Grey, Body/Small Medium |
+| `--color-warning`, `--font-weight-semibold` | `important` | `#F68F57`, 600 | Existing tokens.json · Figma: Warning, Semi-Bold Headings/h7 |
+| `--color-danger`, `--font-size-mini`, `--font-line-height-mini`, `--font-weight-regular` | `ModalField error` | `#ED5742`, 12 / 18px, 400 | Existing tokens.json · Figma: Danger, Body/Mini Regular |
+| `--size-modal-list` | max width, `size="list"` | `736px` | **New** · Figma: Info Modal → width 736 |
+| `--size-modal-form` / `--size-modal-form-narrow` | max width, `480` / `360` | `480px` / `360px` | **New** · Figma: Modal Property 2 → width |
+| `--shadow-tooltip` | `elevated` | 6 layers | Existing tokens.json · Figma: Tooltip Shadow |
 | `--size-info-row-label` | minimal column of a `ModalRow` before it stacks | `200px` | AI-defined use: reused value, not in Figma |
 | `--color-stroke-light-v1` / `--border-width-sm` | lines between header, sections, footer | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
 | `--color-primary-blue-dark` | title, icon | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
@@ -126,3 +143,5 @@ import { Button, FilterField, InputField, Modal, ModalField, ModalSection } from
 - `ModalField` renders a real `<label>`; pass `htmlFor` with the control `id`.
 - The close button is a 40px native button with `aria-label` “Close” — below the 44px touch target, kept as designed; fields are 32px high.
 - Secondary Grey `#A7A4B7` stroke of the close button on white is below 3:1 contrast — kept as designed.
+- `description` is linked to the dialog by `aria-describedby`; `important` is a `role="note"`; the field `error` is a `role="alert"` so it is announced when it appears. Set `invalid` on the control as well, so the error is not shown by color alone.
+- Contrast (calculated, on white): `description` `#A7A4B7` **2.43:1**; `important` Warning `#F68F57` **2.34:1**; the error text Danger `#ED5742` **3.48:1** for 12px text (below 4.5:1). ⚠️ All three kept as designed.

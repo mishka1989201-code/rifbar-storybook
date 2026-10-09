@@ -1,0 +1,84 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as CardGridStories from './CardGrid.stories';
+
+<Meta of={CardGridStories} />
+
+# CardGrid
+
+The cards of a list in a responsive grid. Implements the `Cards Line` frames of
+[`Pagination Responsive`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3739-305804)
+(and the cards of the client's Orders tab). A molecule with no look of its own: it only lays out [CardRow](?path=/docs/molecules-cardrow--docs),
+[TableRowOrder](?path=/docs/molecules-tableroworder--docs) (`layout="card"`) or any other card.
+
+<Canvas of={CardGridStories.Default} />
+<Controls of={CardGridStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Table 1 - Management` → `Cards Line 1…5`, two `CardRow`s 332px wide, gap 8 (768px) | `CardGrid` with two columns |
+| `Table 1 - Management` → `CardRow`s 384 / 300px wide stacked, gap 8 (480 / 360px) | `CardGrid` with one column |
+| A user `CardRow` (number, name, e-mail, department, role, date, Delete) | `CardRow direction="column"` with `fields` and a danger `iconOnly="delete"` button (story helper `UserCard`) |
+
+## When to use
+
+- ✅ A list of cards that is two columns on a tablet and one on a phone.
+
+## When NOT to use
+
+- ❌ A table with columns on desktop — [TableOrders](?path=/docs/organisms-tableorders--docs) / [TableClients](?path=/docs/organisms-tableclients--docs). Product tiles with images — `ProductCard` grids have their own sizes.
+
+## Variants, states and edge cases
+
+<Canvas of={CardGridStories.SingleColumn} />
+<Canvas of={CardGridStories.ThreeColumns} />
+<Canvas of={CardGridStories.OddCount} />
+<Canvas of={CardGridStories.OneCard} />
+<Canvas of={CardGridStories.Empty} />
+<Canvas of={CardGridStories.NarrowContainer} />
+<Canvas of={CardGridStories.LongText} />
+<Canvas of={CardGridStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: two columns of 332px at 672px of content (768px frame), one column at 384px (480px) and 300px (360px); 8px gap; the last row of an odd list keeps its half width.
+
+Not drawn, defined by analogy (AI-defined):
+
+- The number of columns is not a prop: it follows the container (`auto-fill`, minimum card width `--size-card-grid-min`, 300px). Three columns from 916px of content.
+- An empty grid is an empty box: show your own message (see `TableOrders`).
+- Dark theme: not designed — the cards bring their own colours.
+
+Normalised or assumed:
+
+- In Figma the cards in a line have equal height (180px); here the cards keep their own height (`align-items: start`), because the cards of the client's Orders tab differ in height.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-8` | gap between cards | `8px` | Existing tokens.json · Figma: Cards Line gap 8 |
+| `--size-card-grid-min` | minimum card width | `300px` | **New** · Figma: card lines 332–348px at 768, 384px at 480, 300px at 360; the minimum is AI-defined. Added 2026-10-09 |
+
+## Props
+
+<ArgTypes of={CardGridStories} />
+
+## Code example
+
+```tsx
+import { CardGrid, CardRow } from 'rifbar-ds';
+
+<CardGrid>
+  {users.map((u) => (
+    <CardRow key={u.id} direction="column" index={u.id} fields={[{ id: 'name', content: u.name, weight: 'semibold', underline: true }]} />
+  ))}
+</CardGrid>
+```
+
+## Accessibility
+
+- A plain `div`: pass `role` / `aria-label` (for example `role="list"` with `role="listitem"` cards, or `role="table"` as `TableOrders` does).
+- The reading order is the DOM order, left to right; there is no focus handling.
+- ⚠️ Kept as designed: the cards are separated from the page by the shadow only (1.06:1).

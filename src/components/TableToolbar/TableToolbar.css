@@ -1,0 +1,38 @@
+/* TableToolbar — every value references a token from src/tokens/tokens.json.
+   Buttons = Button atom, view = ViewSwitch molecule, search = SearchField atom. */
+
+.ds-table-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Figma `Buttons & Filters`: wrap with 24px between lines and 8px between controls. */
+.ds-table-toolbar__controls {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-24) var(--spacing-8);
+  min-width: 0;
+}
+
+/* Figma: the desktop SearchField is fixed 232px wide. */
+.ds-table-toolbar__search {
+  flex: none;
+  width: 232px;
+}
+
+/* Compact: the search takes its own full-width line, 24px under the buttons. */
+.ds-table-toolbar--compact {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-24);
+}
+
+.ds-table-toolbar--compact .ds-table-toolbar__search {
+  width: 100%;
+}

@@ -146,19 +146,26 @@ export const InteractiveExample: Story = {
   },
 };
 
-// ─── DARK THEME ──────────────────────────────────────────────────────────────
+// ─── DARK THEME (Figma Dark Atoms Components → Header Menu Static Dark: Static / Hover / Active) ──
 export const DarkTheme: Story = {
   name: 'Dark theme',
   render: () => (
     <div data-theme="dark" style={{ padding: 24, background: 'var(--color-white-dark)', display: 'grid', gap: 24 }}>
-      {[false, true].map((active) => (
-        <HeaderMenu key={String(active)} aria-label="Header actions">
-          <HeaderMenuItem icon="support" label="Support" dot="success" active={active} />
-          <HeaderMenuItem icon="bag" label="Orders" dot="success" active={active} />
-          <HeaderMenuItem icon="bell" label="Notifications" dot="warning" active={active} />
+      {(['Static', 'Hover', 'Active'] as const).map((state) => (
+        <HeaderMenu key={state} aria-label={`${state} example`}>
+          <HeaderMenuItem icon="support" label="Support" dot="success" forceHover={state === 'Hover'} active={state === 'Active'} />
+          <HeaderMenuItem icon="bag" label="Orders" dot="success" forceHover={state === 'Hover'} active={state === 'Active'} />
+          <HeaderMenuItem icon="bell" label="Notifications" dot="warning" forceHover={state === 'Hover'} active={state === 'Active'} />
         </HeaderMenu>
       ))}
     </div>
   ),
-  parameters: { docs: { description: { story: 'Not in Figma. Static and Hover keep their colors; Active is Primary Blue Dark (Light) (AI-defined).' } } },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Figma "Dark Atoms Components" → Header Menu Static Dark: Static Grey Dark `#5D6E82`, Hover Headlines `#4549A1`, Active Hover Blue Light `#888CF6` (swapped relative to the light theme).',
+      },
+    },
+  },
 };

@@ -76,3 +76,24 @@ export const TabBarExample: Story = {
     docs: { description: { story: 'Interactive. Tabs sit next to each other with no gap (AI-defined: the tab padding already separates them). “Archive” is disabled.' } },
   },
 };
+
+/** Figma "Dark Atoms Components" → Tab 1 - Active. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DarkTheme: Story = {
+  args: { children: 'Tab' },
+  name: 'Active, Not Active, Disabled (dark theme)',
+  parameters: { layout: 'padded' },
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => (
+    <div style={{ display: 'flex' }}>
+      <Tab active>Tab 1</Tab>
+      <Tab>Tab 2</Tab>
+      <Tab disabled>Tab 3</Tab>
+    </div>
+  ),
+};

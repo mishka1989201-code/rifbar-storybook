@@ -1,0 +1,107 @@
+/* TableRowOrder — every value references a token from src/tokens/tokens.json.
+   The Figma stroke is "inside": drawn with an inset box-shadow next to the row shadow. */
+
+.ds-table-row-order {
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1), var(--shadow-table-row);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-table-row-order__cell {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.ds-table-row-order__link {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  cursor: default;
+}
+
+a.ds-table-row-order__link,
+button.ds-table-row-order__link { cursor: pointer; }
+
+a.ds-table-row-order__link:hover,
+button.ds-table-row-order__link:hover {
+  color: var(--color-hover-blue-light);
+  text-decoration: underline;
+}
+
+/* AI-defined: Figma draws no keyboard focus; same ring as the other table controls. */
+.ds-table-row-order__link:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-hover-blue-light);
+  outline-offset: var(--spacing-2);
+  border-radius: var(--radius-sm);
+}
+
+/* ── row: six fixed cells, same widths as the `orders` preset of TableHeader ── */
+.ds-table-row-order--row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-12) var(--spacing-16);
+}
+
+.ds-table-row-order--row .ds-table-row-order__cell {
+  flex: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ds-table-row-order--row .ds-table-row-order__name { width: 170px; }
+.ds-table-row-order--row .ds-table-row-order__price { width: 120px; text-align: right; }
+.ds-table-row-order--row .ds-table-row-order__type { width: 150px; }
+.ds-table-row-order--row .ds-table-row-order__date { width: 80px; text-align: right; }
+
+/* The chip and the button keep their own size; overflow must not clip the chip or the focus ring. */
+.ds-table-row-order--row .ds-table-row-order__status {
+  display: flex;
+  align-items: center;
+  width: 130px;
+  overflow: visible;
+}
+
+.ds-table-row-order--row .ds-table-row-order__actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 72px;
+  overflow: visible;
+}
+
+/* ── card: info line wraps, the button sits at the right of the last line ── */
+.ds-table-row-order--card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-12) var(--spacing-16);
+}
+
+.ds-table-row-order__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16);
+  padding: var(--spacing-8) 0 var(--spacing-16);
+}
+
+.ds-table-row-order--card .ds-table-row-order__cell { overflow-wrap: anywhere; }
+
+.ds-table-row-order__strong { font-weight: var(--font-weight-semibold); }
+
+.ds-table-row-order--card .ds-table-row-order__actions {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -6,7 +6,7 @@ import './TableClients.css';
 /** One row of the table; fields map 1:1 to `TableRowClient`. */
 export interface TableClientsItem extends Pick<
   TableRowClientProps,
-  'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'joined' | 'updated' | 'actionLabel' | 'onAction'
+  'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'joined' | 'updated' | 'actionLabel' | 'onAction' | 'onDelete' | 'onCall' | 'onNotes' | 'tooltip' | 'tooltipTitle'
 > {
   id: string | number;
 }

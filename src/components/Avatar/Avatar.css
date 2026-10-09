@@ -12,8 +12,8 @@
   height: var(--ds-avatar-size);
   overflow: hidden;
   border-radius: var(--radius-round);
-  background-color: var(--color-hover-blue);
-  color: var(--color-white);
+  background-color: var(--avatar-bg);
+  color: var(--avatar-text);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-regular);
   font-size: var(--font-size-mini);
@@ -35,8 +35,9 @@
 .ds-avatar--user {
   --ds-avatar-size: var(--size-avatar);
   overflow: visible;
-  background-color: var(--color-avatar-bg);
-  box-shadow: var(--shadow-avatar);
+  background-color: var(--avatar-user-bg);
+  color: var(--avatar-user-text);
+  box-shadow: var(--theme-avatar-shadow);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
 }

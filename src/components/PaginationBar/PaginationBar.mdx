@@ -39,6 +39,16 @@ Footer of a table or list: how many rows to show on the left, page switcher on t
 <Canvas of={PaginationBarStories.SinglePage} />
 <Canvas of={PaginationBarStories.NarrowContainer} />
 
+## Responsive (Figma `Pagination Responsive`)
+
+`flat` removes the shadow inside a white card; `stacked` puts “Show:” above the small pagination (480px and below, no side padding); `siblingCount` picks v1 (2) or v2 (1).
+
+<Canvas of={PaginationBarStories.FlatV1} />
+<Canvas of={PaginationBarStories.FlatV2} />
+<Canvas of={PaginationBarStories.StackedV1} />
+<Canvas of={PaginationBarStories.StackedV2} />
+<Canvas of={PaginationBarStories.StackedNarrow} />
+
 **Not designed in Figma:** the open list of page sizes. AI-defined: a white card above the field (the bar sits at the bottom of the page) with the Tooltip shadow; options in Body/Small Medium, hover on Secondary Light, selected option in Headlines. Closes on outside click, Escape or choice.
 
 ## Design tokens used
@@ -57,6 +67,8 @@ Footer of a table or list: how many rows to show on the left, page switcher on t
 | `--shadow-tooltip` | list shadow | 6 layers | AI-defined (as Tooltip) |
 
 Field and page buttons use their own tokens, see the atom docs. No new tokens.
+
+`stacked`: column, `--spacing-16` gap between the lines (AI-defined: Figma gap-y 16), `padding-inline: 0` (Figma py 12, px 0). `flat`: `box-shadow: none` (Figma draws no shadow in these frames). **Needs confirmation:** whether the bar keeps its Table Row shadow inside cards.
 
 ## Props
 

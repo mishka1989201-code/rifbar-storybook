@@ -186,3 +186,16 @@ export const GroupExample: Story = {
   render: () => <GroupDemo />,
   parameters: { docs: { description: { story: 'Interactive. Spacing between options is AI-defined.' } } },
 };
+
+/** Figma "Dark Atoms Components" → Checkbox. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllVariantsDark: Story = {
+  ...AllVariants,
+  name: 'All Types × Sizes × States (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

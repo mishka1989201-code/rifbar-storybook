@@ -7,6 +7,11 @@
   font-family: var(--font-family-base);
 }
 
+.ds-navbar-menu--1440 {
+  width: var(--layout-sidebar-desktop);
+}
+
+.ds-navbar-menu--1024,
 .ds-navbar-menu--768,
 .ds-navbar-menu--480,
 .ds-navbar-menu--360 {
@@ -15,6 +20,10 @@
 
 .ds-navbar-menu--collapsed {
   width: var(--layout-sidebar-desktop-lg-collapsed);
+}
+
+.ds-navbar-menu--1440.ds-navbar-menu--collapsed {
+  width: var(--layout-sidebar-desktop-collapsed);
 }
 
 .ds-navbar-menu__list {
@@ -27,7 +36,7 @@
 }
 
 /* Figma: the narrow sizes have 16px between tabs instead of 8px. */
-:is(.ds-navbar-menu--768, .ds-navbar-menu--480, .ds-navbar-menu--360) .ds-navbar-menu__list {
+:is(.ds-navbar-menu--768, .ds-navbar-menu--480, .ds-navbar-menu--360) > .ds-navbar-menu__list {
   gap: var(--spacing-16);
 }
 
@@ -53,6 +62,11 @@
   transition: color 150ms ease;
 }
 
+/* Figma 1440px: tabs are indented 16px; the icons-only menu keeps 32px. */
+.ds-navbar-menu--1440:not(.ds-navbar-menu--collapsed) .ds-navbar-menu__item {
+  padding-left: var(--spacing-16);
+}
+
 .ds-navbar-menu--360 .ds-navbar-menu__item:not(.ds-navbar-menu__item--secondary) {
   padding-left: var(--spacing-26);
 }
@@ -66,6 +80,61 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+/* ─── Sub-tabs (Figma `Subtabs`: text only, 21px line, 8px gap, indented under the label) ── */
+.ds-navbar-menu__subtabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  margin: var(--spacing-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-navbar-menu__subtab {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0 var(--spacing-16) 0 var(--spacing-56);
+  border: none;
+  background: none;
+  color: var(--theme-nav-text);
+  font: inherit;
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-regular);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.ds-navbar-menu--1440 .ds-navbar-menu__subtab {
+  padding-left: var(--spacing-40);
+}
+
+/* AI-defined: the active sub-tab uses the `nav-subtab-active` color (Figma names it, but draws no active sub-tab). */
+.ds-navbar-menu__subtab.is-active {
+  color: var(--theme-nav-subtab-active);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-navbar-menu__subtab:hover:not(:disabled, .is-active) {
+  color: var(--theme-nav-subtab-active);
+}
+
+.ds-navbar-menu__subtab:focus-visible {
+  outline: var(--border-width-lg) solid var(--theme-nav-subtab-active);
+  outline-offset: calc(-1 * var(--border-width-lg));
+}
+
+.ds-navbar-menu__subtab:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
 }
 
 /* ─── Active (Figma Tab 1: Hover Blue fill, white Medium label) ─────── */
@@ -93,7 +162,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ds-navbar-menu__item {
+  .ds-navbar-menu__item,
+  .ds-navbar-menu__subtab {
     transition: none;
   }
 }

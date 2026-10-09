@@ -23,24 +23,24 @@
 
 /* ─── Tab=Active, Style=Dark: Primary Blue Dark fill, White text ──────── */
 .ds-switch-button--dark.ds-switch-button--active {
-  background-color: var(--color-primary-blue-dark);
-  color: var(--color-white);
+  background-color: var(--switch-button-dark-bg);
+  color: var(--switch-button-dark-text);
 }
 
 /* ─── Tab=Active, Style=Light: Secondary Light fill, Primary Blue Dark text ─ */
 .ds-switch-button--light.ds-switch-button--active {
-  background-color: var(--color-secondary-light);
-  color: var(--color-primary-blue-dark);
+  background-color: var(--switch-button-light-bg);
+  color: var(--switch-button-light-text);
 }
 
 /* ─── Hover on a Not Active button (Figma Switch: Light Hover / Hover Dark):
        Style=Light → Stroke Light V2 fill, Style=Dark → BG Color fill. Text stays Grey Dark. ─ */
 .ds-switch-button--light:is(:hover:not(:disabled), .is-hover):not(.ds-switch-button--active) {
-  background-color: var(--color-stroke-light-v2);
+  background-color: var(--switch-button-light-hover);
 }
 
 .ds-switch-button--dark:is(:hover:not(:disabled), .is-hover):not(.ds-switch-button--active) {
-  background-color: var(--color-bg);
+  background-color: var(--switch-button-dark-hover);
 }
 
 /* ─── Focus (not designed in Figma — same ring as Button) ──────────────── */

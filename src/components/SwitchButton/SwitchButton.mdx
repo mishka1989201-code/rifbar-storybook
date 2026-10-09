@@ -61,7 +61,20 @@ Hover is drawn in the [`Switch`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBf
 <Canvas of={SwitchButtonStories.GroupDarkExample} />
 <Canvas of={SwitchButtonStories.GroupLightExample} />
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Frame 300`** (Style Dark / Light × Tab Active / Not Active). See **DarkTheme**.
+
+| Style, active | Dark fill | Dark text |
+|---|---|---|
+| `dark` | `#050411` | `#BBC7D6` |
+| `light` | `#101010` (BG Color; the light theme keeps Secondary Light `#ECEEFB`) | `#BDC5E2` |
+
+Not Active: no fill, Grey Dark `#5D6E82` (unchanged). Hover is not drawn in dark; it is AI-defined by analogy: `light` → `#242424`, `dark` → `#101010`.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -80,6 +93,9 @@ Hover is drawn in the [`Switch`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBf
 | `--radius-md` | corners | `6px` | **New.** Figma: corner radius 6px |
 | `--border-width-lg` / `--spacing-2` | focus ring width / offset | `2px` / `2px` | AI-defined, same as Button |
 | `--opacity-disabled` | disabled | `0.2` | Existing tokens.json (disabled AI-defined) |
+| `--switch-button-dark-bg`, `--switch-button-dark-text` | Style=Dark, active | light `#1D2542`, `#FFFFFF` / dark `#050411`, `#BBC7D6` | **New** · Figma: Dark Atoms → Primary Blue Dark (Dark), White (Light) |
+| `--switch-button-light-bg`, `--switch-button-light-text` | Style=Light, active | light `#ECEEFB`, `#1D2542` / dark `#101010`, `#BDC5E2` | **New** · Figma: Dark Atoms → BG Color, Prinary Blue Dark (Light) |
+| `--switch-button-light-hover`, `--switch-button-dark-hover` | hover fill (Not Active) | light `#D8E2EE`, `#F6F8FC` / dark `#242424`, `#101010` | **New** · AI-defined: hover not drawn in dark |
 
 ## Props
 
@@ -103,3 +119,4 @@ const [filter, setFilter] = useState<'all' | 'pending'>('all');
 - `<button aria-pressed>`; wrap the group in `role="group"` with an `aria-label`.
 - Contrast: White on Primary Blue Dark 15.0:1, Primary Blue Dark on Secondary Light 13.0:1, Grey Dark on White 5.2:1.
 - Touch target: 48px high — OK.
+- Dark theme contrast (calculated): Dark active 11.87:1, Light active 11.10:1; Not Active `#5D6E82` 4.02:1 on black and 3.64:1 on `#101010`.

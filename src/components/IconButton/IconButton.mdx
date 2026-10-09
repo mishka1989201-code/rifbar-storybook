@@ -54,14 +54,41 @@ Pressed reuses Active. Loading is not applicable.
 
 Empty state: not applicable — IconButton doesn't display data.
 
+## Size `sm`
+
+`size="sm"` is the 24px button of Figma `Pagination Responsive` (480px and below): 4px padding, 10 / 15px numbers. It applies to `page`, `prev` and `next` only.
+
+<Canvas of={IconButtonStories.SmallPage} />
+<Canvas of={IconButtonStories.SmallActive} />
+<Canvas of={IconButtonStories.SmallArrows} />
+
 ## Example: pagination
 
 <Canvas of={IconButtonStories.PaginationExample} />
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Icon Button`**: only the colours change, via themed `--icon-button-*` tokens (light values unchanged). See **AllVariantsDark**.
+
+| Kind / status | Dark |
+|---|---|
+| Search / Pagination, static | fill `#27282E`, content `#BDC5E2`, Search stroke `#242424` |
+| Hover | stroke `#BDC5E2` |
+| Active | fill `#050411`, content `#BBC7D6`; Search stroke `#65578B` |
+| Close, static | stroke `#646464`, icon `#BDC5E2` |
+| Disabled | 20% opacity |
+
+**Open question for design:** in the dark frame `Close` is drawn as Static (grey stroke) / **filled `#050411`** / bright stroke / Disabled. The code keeps the light-theme logic (hover = stroke `#BDC5E2`, no fill), because the same status names are used in both themes.
+Focus ring is not designed in dark; `--color-headlines` is kept.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
+| `--size-icon-lg`, `--spacing-4` | `size="sm"`: width / height, padding | 24 / 4px | Existing tokens.json · Figma: Pagination Responsive → Icon Button 24, p 4 |
+| `--font-size-micro`, `--font-line-height-micro` | `size="sm"`: number | 10 / 15px | Existing tokens.json · Figma: Body/Micro Medium |
 | `--color-secondary-light` | bg (Search, Pagination — Static / Hover / Disabled) | `#ECEEFB` | Figma: Secondary Light |
 | `--color-primary-blue-dark` | text & icon (Static, Hover); hover stroke (all); bg (Active) | `#1D2542` | Figma: Primary Blue Dark |
 | `--color-white` | text & icon (Active) | `#FFFFFF` | Figma: White |
@@ -79,6 +106,11 @@ Empty state: not applicable — IconButton doesn't display data.
 | `--border-width-sm` | stroke | `1px` | Figma: stroke |
 | `--border-width-lg` / `--spacing-2` | focus ring width / offset | `2px` / `2px` | AI-defined, same as Button |
 | `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=Disabled |
+| `--icon-button-bg` | Search / Pagination fill | light `#ECEEFB` / dark `#27282E` | **New** · Figma: Dark Atoms → Secondary Light |
+| `--icon-button-text` | content; hover stroke; Pagination "..." | light `#1D2542` / dark `#BDC5E2` | **New** · Figma: Dark Atoms → Prinary Blue Dark (Light) |
+| `--icon-button-search-stroke` | Search static stroke | light `#D8E2EE` / dark `#242424` | **New** · Figma: Dark Atoms → Stroke Light (V1) |
+| `--icon-button-close-stroke` | Close static stroke | light `#A7A4B7` / dark `#646464` | **New** · Figma: Dark Atoms → Secondary Grey |
+| `--icon-button-active-bg`, `--icon-button-active-text` | Status=Active | light `#1D2542`, `#FFFFFF` / dark `#050411`, `#BBC7D6` | **New** · Figma: Dark Atoms → Primary Blue Dark (Dark), White (Light) |
 
 ## Props
 
@@ -102,5 +134,6 @@ import { IconButton } from 'rifbar-ds';
 - Default `aria-label`s: “Search”, “Previous page”, “Next page”, “Close”, “Page N” — override with your own `aria-label` (e.g. Ukrainian copy).
 - `kind="page"` + `active` → `aria-current="page"`; `kind="search"` → `aria-pressed`.
 - Wrap pagination in `<nav aria-label="…">`.
-- ⚠️ Touch target: 32×32 / 40×40 px (below 44×44). Kept as designed — desktop ERP.
+- ⚠️ Touch target: 24×24 (`size="sm"`) / 32×32 / 40×40 px (below 44×44). Kept as designed — desktop ERP.
 - ⚠️ Disabled at 20% opacity is below 3:1 contrast — flag to design (same as Button).
+- Dark theme contrast (calculated): content `#BDC5E2` on `#27282E` 8.57:1, Active 11.87:1, Close stroke `#646464` on black 3.55:1.

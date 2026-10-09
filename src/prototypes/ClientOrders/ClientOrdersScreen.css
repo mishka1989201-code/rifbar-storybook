@@ -1,0 +1,73 @@
+/* Client Orders prototype — every value references a token from src/tokens/tokens.json.
+   Frame: the dark app background, the side menu from 1440px, a rounded page panel (Figma `Content`). */
+
+.proto-client-orders {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  padding: var(--spacing-16);
+  background: var(--theme-app-bg);
+  font-family: var(--font-family-base);
+  /* Horizontal padding of the page content: Figma 32 / 28 (27) / 24 / 16 / 16 / 16 / 10. */
+  --proto-content-pad: var(--spacing-16);
+}
+
+.proto-client-orders[data-bp='1920'] { --proto-content-pad: var(--spacing-32); padding-right: var(--spacing-32); }
+.proto-client-orders[data-bp='1440'] { --proto-content-pad: var(--spacing-28); }
+.proto-client-orders[data-bp='1280'] { --proto-content-pad: var(--spacing-24); }
+.proto-client-orders[data-bp='360'] { --proto-content-pad: var(--spacing-10); padding: var(--spacing-16) var(--spacing-10); }
+
+/* With the side menu the frame has no left padding: the Navbar touches the edge, the panel follows it. */
+.proto-client-orders[data-side-menu] { padding-left: 0; }
+
+.proto-client-orders__navbar { flex: none; align-self: stretch; margin-top: calc(var(--spacing-16) * -1); margin-bottom: calc(var(--spacing-16) * -1); }
+
+/* Below 1440px the side menu opens over the content (Figma Grids: side menu over content). */
+.proto-client-orders__overlay {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 10;
+}
+
+.proto-client-orders__panel {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  box-sizing: border-box;
+  min-width: 0;
+  padding-bottom: var(--spacing-24);
+  border-radius: var(--radius-modal);
+  background: var(--color-bg);
+  overflow: clip;
+}
+
+.proto-client-orders__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  padding: 0 var(--proto-content-pad);
+}
+
+.proto-client-orders__table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-width: 0;
+}
+
+/* Figma `Filters Chevron Light`: chips wrap, 8px apart (row 4px under on 1024px and below). */
+.proto-client-orders__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4) var(--spacing-8);
+}
+
+/* The filter screen (Figma `Filter menu`) fills the frame; no dark frame around it. */
+.proto-client-orders--filters {
+  padding: 0;
+  background: var(--color-bg);
+}

@@ -5,7 +5,8 @@ import './ImageCard.css';
 /** Maps 1:1 to the Figma `Property 1`. */
 export type ImageCardSize =
   | 'md' // Property 1=Middle — 64px
-  | 'sm'; // Property 1=Small — 32px
+  | 'sm' // Property 1=Small — 32px
+  | 'lg'; // Figma Modal EditProduct → imageCards 160px
 
 export interface ImageCardProps extends HTMLAttributes<HTMLSpanElement> {
   /** Photo URL. If it is missing or fails to load, a placeholder icon is shown. */
@@ -39,7 +40,7 @@ export function ImageCard({ src, alt, size = 'md', fit = 'cover', className, ...
           onError={() => setFailed(src)}
         />
       ) : (
-        <Icon name="image" size={size === 'md' ? 24 : 16} color="secondary" label={alt ? `${alt} (no photo)` : undefined} />
+        <Icon name="image" size={size === 'sm' ? 16 : 24} color="secondary" label={alt ? `${alt} (no photo)` : undefined} />
       )}
     </span>
   );

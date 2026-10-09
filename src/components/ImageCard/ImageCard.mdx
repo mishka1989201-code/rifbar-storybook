@@ -17,6 +17,7 @@ A square **product photo thumbnail** with a light frame. Implements the Figma co
 |---|---|---|
 | `Property 1=Middle` | `size="md"` (default) | 64×64, radius 4px |
 | `Property 1=Small` | `size="sm"` | 32×32, radius 3px |
+| `imageCards` in Modal EditProduct | `size="lg"` | 160×160, radius 4px (Figma `Modal` → Edit Image) |
 | `img` layer (image fill, Fill/crop) | `src`, `fit="cover"` | White behind the photo |
 | Stroke | — | 1px inside, Stroke Light V2 |
 
@@ -52,11 +53,13 @@ Figma crops the photo to fill the square (`cover`). For photos that must be show
 
 ## Dark theme
 
+Figma frame **Dark Atoms Components → `Table Image`**: the frame stays white (the photos are shot on white) and the stroke is `#242424` — the existing `--image-card-border` dark value already matches, so nothing changed in CSS.
+
 <Canvas of={ImageCardStories.DarkTheme} />
 
 **Figma notes:**
 - In Figma the demo photo is zoomed to 150% and moved — that is just how that one picture was placed. In code any photo is centred and cropped by `cover`.
-- Empty / error placeholder and dark theme are not in Figma — AI-defined, check them.
+- Empty / error placeholder is not in Figma — AI-defined, check it.
 - `alt` is required: pass the product name, or `""` when the name is written next to the photo.
 
 ## Design tokens used
@@ -65,6 +68,7 @@ Figma crops the photo to fill the square (`cover`). For photos that must be show
 |---|---|---|---|
 | `--size-image-card` | width / height, Middle | `64px` | Figma: Property 1=Middle |
 | `--size-image-card-sm` | width / height, Small | `32px` | Figma: Property 1=Small |
+| `--size-image-card-lg` | width / height, `lg` | `160px` | **New** · Figma: Modal EditProduct → imageCards 160×160 |
 | `--radius-image-card` | corner radius, Middle | `4px` | Figma: radius 4 |
 | `--radius-xs` | corner radius, Small | `3px` | Existing (Figma: radius 3) |
 | `--image-card-bg` | background behind photo | `#FFFFFF` (White) | Figma: img fill White |
@@ -85,3 +89,7 @@ import { ImageCard } from 'rifbar-ds';
 <ImageCard src={product.photo} alt={product.name} />
 <ImageCard src={product.photo} alt="" size="sm" /> {/* name is written next to it */}
 ```
+
+## Accessibility
+
+- Dark theme: the stroke `#242424` on black is **1.35:1** (below 3:1) — as designed, flag to design; the photo itself carries the shape.

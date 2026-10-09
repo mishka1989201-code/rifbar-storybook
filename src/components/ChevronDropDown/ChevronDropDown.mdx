@@ -79,7 +79,26 @@ The Figma variant names do not match the board labels — code follows the **boa
 - Open colors and glows are raw values in Figma (no variables) — added as tokens below.
 - No dark theme in Figma. On dark backgrounds use `white`.
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Drop Down`** (9 colours × Static / Focus or pressed / Hover / Disabled): themed `--chevron-dropdown-*` tokens, light values unchanged. See **AllStatesDark**.
+
+| Colour | Dark Static | Dark open (Figma Hover) |
+|---|---|---|
+| Primary | `#4549A1` | `#888CF6` |
+| Secondary | `#5D6E82` | `#646464` |
+| Success | `#1FD246` | `#1DA73B` (unchanged) |
+| Info | `#0AABDE` | `#1997BE` (unchanged) |
+| Warning | `#F68F57` | `#A7572C` |
+| Danger | `#ED5742` | `#BF3C2A` (unchanged) |
+| Light (fill `#101010`) | `#5D6E82` | `#5D6E82` |
+| Dark | `#BDC5E2` | `#5D6E82` |
+
+Focus glows keep the light-theme `--shadow-focus-*` tokens (the dark frame draws the same hue). White is not drawn in the dark frame and is unchanged.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -108,6 +127,11 @@ The Figma variant names do not match the board labels — code follows the **boa
 | `--radius-pill` / `--radius-xs` | corners / white corners | `9999px` / `3px` | Figma: radius 30 / 3 |
 | `--size-icon` | arrow | `16px` | Existing (Icon) |
 | `--opacity-disabled` | disabled | `0.2` | Existing |
+| `--chevron-dropdown-primary`, `-primary-open` | Primary colour, open | light `#6368DF`, `#4D51B5` / dark `#4549A1`, `#888CF6` | **New** · Figma: Dark Atoms → Drop Down |
+| `--chevron-dropdown-secondary-open`, `-warning-open` | Secondary, Warning open | light `#3E4A57`, `#DA6C31` / dark `#646464`, `#A7572C` | **New** · Figma: Dark Atoms → Drop Down |
+| `--chevron-dropdown-info` | Info colour | light `#4549A1` / dark `#0AABDE` | **New** · Figma: Dark Atoms → Drop Down |
+| `--chevron-dropdown-dark`, `-dark-open` | Dark colour, open | light `#1D2542`, `#505978` / dark `#BDC5E2`, `#5D6E82` | **New** · Figma: Dark Atoms → Drop Down |
+| `--chevron-dropdown-light-bg` | Light fill | light `#F6F8FC` / dark `#101010` | **New** · Figma: Dark Atoms → Drop Down |
 
 ## Props
 
@@ -125,3 +149,7 @@ const [open, setOpen] = useState(false);
 </ChevronDropDown>
 {open && <ul id="status-menu" role="menu">…</ul>}
 ```
+## Accessibility
+
+- Dark theme contrast (calculated, on black): Success 10.37:1, Warning 8.99:1, Info 7.89:1, Danger 6.04:1, Dark 12.25:1, Primary open 7.13:1, Secondary 4.02:1; open states Warning 4.04:1, Danger 3.90:1, Secondary 3.55:1; Light (`#5D6E82` on `#101010`) 3.64:1;
+  ⚠️ Primary Static `#4549A1` **2.72:1** (below 3:1) — as designed, flag to design.

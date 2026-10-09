@@ -1,0 +1,107 @@
+/* CheckListModal — every value references a token from src/tokens/tokens.json.
+   Surface = Modal (size list, elevated); header button = Button atom; rows = Checkbox atom. */
+
+/* Figma: the 37px header button sits flush right; keep it from shrinking. */
+.ds-check-list-modal .ds-modal__bar > .ds-button {
+  flex: none;
+}
+
+/* Figma `Search Box`: 16px above and below the 40px field (hidden in Figma). */
+.ds-check-list-modal__search {
+  padding: var(--spacing-16);
+}
+
+/* Figma `modal__body`: 16px sides, 24px at the bottom. */
+.ds-check-list-modal__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0 var(--spacing-16) var(--spacing-24);
+  list-style: none;
+}
+
+/* Figma `RowInfoBlock`: 16px vertical padding, a Stroke Light V1 line under every row but the last. */
+.ds-check-list-modal__row {
+  display: flex;
+  padding: var(--spacing-16) 0;
+}
+
+.ds-check-list-modal__row:not(:last-child) {
+  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+}
+
+/* The whole row is the label: text at the left, the checkbox at the right. */
+.ds-check-list-modal__check.ds-checkbox {
+  flex: 1 1 auto;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  min-width: 0;
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-check-list-modal__check .ds-checkbox__label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ds-check-list-modal__empty {
+  padding: var(--spacing-16) 0;
+  color: var(--color-grey-dark);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+}
+
+/* ── accent / radio: the chosen row is Headlines, the others Grey Dark (Figma `Discounts off`) ── */
+.ds-check-list-modal--radio .ds-check-list-modal__check.ds-checkbox { color: var(--color-grey-dark); }
+.ds-check-list-modal--radio .is-checked .ds-check-list-modal__check.ds-checkbox,
+.ds-check-list-modal.is-accent .is-checked .ds-check-list-modal__check.ds-checkbox { color: var(--color-headlines); }
+
+/* ── pick: Figma `Flavor` — rows are 3px-radius buttons, 2px apart, in a 4px inset ── */
+.ds-check-list-modal--pick .ds-check-list-modal__list {
+  gap: var(--spacing-2);
+  padding: 0 var(--spacing-4) var(--spacing-8);
+}
+
+.ds-check-list-modal--pick .ds-check-list-modal__row {
+  padding: 0;
+  border-bottom: 0;
+}
+
+.ds-check-list-modal__pick {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: var(--spacing-16);
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: none;
+  color: var(--color-grey-dark);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+/* Figma shows the hovered row as BG Color with Primary Blue Dark text. */
+.ds-check-list-modal__pick:hover:not(:disabled) {
+  background: var(--color-bg);
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-check-list-modal__pick[aria-selected='true'] {
+  background: var(--color-primary-blue-dark);
+  color: var(--color-white);
+}
+
+.ds-check-list-modal__pick:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* AI-defined: Figma draws no keyboard focus; the Button ring colour. */
+.ds-check-list-modal__pick:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-hover-blue-light);
+  outline-offset: calc(var(--border-width-lg) * -1);
+}

@@ -3,6 +3,7 @@
 
 .ds-pagination-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-16);
@@ -12,4 +13,13 @@
   background: var(--color-white);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-table-row);
+}
+
+.ds-pagination-bar--flat { box-shadow: none; }
+
+/* Stacked: “Show:” on its own line, the pagination under it; the card around gives the side padding (Figma: py 12, px 0). */
+.ds-pagination-bar--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  padding-inline: 0;
 }

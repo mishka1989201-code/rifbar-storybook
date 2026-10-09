@@ -145,6 +145,6 @@ export const DarkTheme: Story = {
     </div>
   ),
   parameters: {
-    docs: { description: { story: 'Not in Figma. The frame stays white (photos are shot on white); the stroke becomes Stroke Light V2 — dark.' } },
+    docs: { description: { story: 'Figma "Dark Atoms Components" → Table Image: the frame stays white (photos are shot on white); the stroke becomes `#242424`.' } },
   },
 };

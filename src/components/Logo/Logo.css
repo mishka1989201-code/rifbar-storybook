@@ -16,9 +16,14 @@
   height: var(--size-logo-desktop-height);
 }
 
+.ds-logo--sm {
+  width: var(--size-logo-overlay-width);
+  height: var(--size-logo-overlay-height);
+}
+
 /* Figma: Primary Blue Dark (color style) */
 .ds-logo--default {
-  color: var(--color-primary-blue-dark);
+  color: var(--logo-color);
 }
 
 /* Not in Figma — AI-defined: on the dark Navbar the logo uses the active nav text color

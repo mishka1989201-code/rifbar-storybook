@@ -135,3 +135,16 @@ export const TableExample: Story = {
     docs: { description: { story: 'Table styles are demo-only (AI-defined), not part of the atom.' } },
   },
 };
+
+/** Figma "Dark Atoms Components" → Status. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllVariantsDark: Story = {
+  ...AllVariants,
+  name: 'All Colors (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

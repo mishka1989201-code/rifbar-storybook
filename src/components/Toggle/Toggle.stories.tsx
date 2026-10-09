@@ -135,3 +135,16 @@ export const SettingsExample: Story = {
     docs: { description: { story: 'Interactive, controlled. Gap 16px between rows is AI-defined (demo only).' } },
   },
 };
+
+/** Figma "Dark Atoms Components" → atom. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllVariantsDark: Story = {
+  ...AllVariants,
+  name: 'All States × Statuses (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

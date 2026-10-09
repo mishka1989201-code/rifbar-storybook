@@ -90,3 +90,16 @@ export const InverseDarkTheme: Story = {
   ),
   parameters: { noSurface: true, docs: { description: { story: 'In the dark theme the logo follows White (Light).' } } },
 };
+
+/** Figma "Dark Atoms Components" → Logo Rifbar Header Big. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DefaultDarkTheme: Story = {
+  name: 'Tone: default, dark theme',
+  args: { size: 'lg', tone: 'default' },
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

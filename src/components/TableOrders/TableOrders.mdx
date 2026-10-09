@@ -1,0 +1,96 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableOrdersStories from './TableOrders.stories';
+
+<Meta of={TableOrdersStories} />
+
+# TableOrders
+
+The orders list of the client page: sortable header and card rows on desktop, a grid of cards at 768px and below. Implements
+[`Table 1 - Management`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-311771)
+and the `Cards Line` frames. An **Organism** composed only of
+[TableHeader](?path=/docs/molecules-tableheader--docs) and
+[TableRowOrder](?path=/docs/molecules-tableroworder--docs).
+
+<Canvas of={TableOrdersStories.Default} />
+<Controls of={TableOrdersStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Table Header 4` (Order name · Price · Type · Date · Status · Actions) | `TableHeader` with the `orders` preset (override with `columns`) |
+| `Table Row 14` … `Table Row 23`, 8px apart | `TableRowOrder layout="row"`, one per item of `rows` |
+| `Cards Line 8` … (two cards per line, 768px) / `Card Row 4` (one per line, 480 / 360px) | `layout="cards"`: a [CardGrid](?path=/docs/molecules-cardgrid--docs) (`repeat(auto-fill, minmax(--size-card-grid-min, 1fr))`, gap 8) |
+
+## When to use
+
+- ✅ The orders of one client, with column sorting (table) or a card grid (phone / tablet).
+
+## When NOT to use
+
+- ❌ Clients — [TableClients](?path=/docs/organisms-tableclients--docs). Products — [TableProducts](?path=/docs/organisms-tableproducts--docs).
+
+## Variants, states and edge cases
+
+<Canvas of={TableOrdersStories.Cards} />
+<Canvas of={TableOrdersStories.CardsSingleColumn} />
+<Canvas of={TableOrdersStories.Empty} />
+<Canvas of={TableOrdersStories.Loading} />
+<Canvas of={TableOrdersStories.ErrorState} />
+<Canvas of={TableOrdersStories.CardsEmpty} />
+<Canvas of={TableOrdersStories.LongText} />
+<Canvas of={TableOrdersStories.NarrowContainer} />
+<Canvas of={TableOrdersStories.Sortable} />
+<Canvas of={TableOrdersStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the header and eleven rows at 1920 / 1440 / 1280 / 1024px (the table is as wide as the content, 1524px at 1920px); cards at 768 (two columns), 480 and 360px (one column); no empty, loading or error state.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Empty, Loading and Error: the header (or nothing, for cards) stays, a centred message replaces the rows.
+- The layout switch (`table` → `cards`) is a prop: the page decides by its width (the `ClientOrders` prototype uses 768px).
+- Sorting in the card layout is done outside (the toolbar sort menu); the cards have no header.
+- Dark theme: not designed — the light values are used.
+
+Assumed / normalised:
+
+- At 1280 / 1024px Figma keeps the same columns while the content narrows; the cells spread with `justify-between` (as in `TableClients`), so the columns need at least 754px (170 + 120 + 150 + 80 + 130 + 72 + 32 padding) and the table scrolls horizontally below that.
+- The Figma card grid is two columns at 704px and one at 448px; the threshold is the token `--size-card-grid-min` (300px, AI-defined).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-8` | gap between header and rows, between cards | `8px` | Existing tokens.json · Figma: gap 8 |
+| `--size-card-grid-min` | minimum card width in the grid ([CardGrid](?path=/docs/molecules-cardgrid--docs)) | `300px` | **New** · Figma: Cards Line / Pagination Responsive (cards 332–348px at 768, 384–448px at 480); the minimum is AI-defined. Added 2026-10-09 |
+| `--spacing-8` | bottom padding of the scroll area | `8px` | AI-defined use: keeps the row shadow from being clipped |
+| `--spacing-24` / `--spacing-16` | status message padding | 24 / 16px | AI-defined use: state not drawn in Figma |
+| `--color-grey-dark`, `--color-danger-strong` | empty / loading text, error text | `#5D6E82`, `#DF2E15` | AI-defined use: as `TableClients` |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | status message | 14 / 21px, 500 | AI-defined use: Body/Small Medium, as the rows |
+
+Header and row tokens are listed in [TableHeader](?path=/docs/molecules-tableheader--docs) and [TableRowOrder](?path=/docs/molecules-tableroworder--docs).
+
+## Props
+
+<ArgTypes of={TableOrdersStories} />
+
+## Code example
+
+```tsx
+import { TableOrders, OrderStatus } from 'rifbar-ds';
+
+<TableOrders
+  layout={width <= 768 ? 'cards' : 'table'}
+  rows={[{ id: 1, name: 'Order #3', price: '$1200', type: 'Purchase', date: '08.24.2023', status: <OrderStatus value="pending" /> }]}
+  onSort={(column) => setSort(column)}
+/>
+```
+
+## Accessibility
+
+- `role="table"` named by `label`; `row` / `columnheader` / `cell` come from the header and rows; sortable headers are buttons. `aria-busy` while loading; the status is `role="status"`, the error `role="alert"`. In the card layout there is no header, so the table is a list of rows.
+- The header does not expose the current sort order (`aria-sort` is not set): the table does not know it.
+- Contrast, computed: header `#4549A1` on the `#F6F8FC` page 7.26:1; row text 14.68:1; error `#DF2E15` on white 4.63:1; empty / loading `#5D6E82` on `#F6F8FC` 4.92:1.
+- ⚠️ Kept as designed: the cards are separated from the page by the shadow only (1.06:1); the `More` button is 37px high.

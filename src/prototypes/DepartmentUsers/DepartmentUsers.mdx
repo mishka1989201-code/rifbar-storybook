@@ -1,0 +1,85 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as DepartmentUsersStories from './DepartmentUsers.stories';
+
+<Meta of={DepartmentUsersStories} />
+
+# DepartmentUsers (prototype)
+
+A department page with its users and the responsive pagination, at 768 / 480 / 360px, in both proposals of the designer (v1 and v2). Implements the Figma frame
+[`Pagination Responsive`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3739-305804).
+
+A **prototype**: a whole screen of library components with fake in-memory data, not exported from `rifbar-ds`.
+New or extended components for this screen:
+[IconButton](?path=/docs/atoms-iconbutton--docs) (`size="sm"`), [Pagination](?path=/docs/molecules-pagination--docs) (`size`, v1 / v2),
+[PaginationBar](?path=/docs/molecules-paginationbar--docs) (`stacked`, `flat`, `siblingCount`), [PageHeader](?path=/docs/molecules-pageheader--docs) (`size="compact"`),
+[TableToolbar](?path=/docs/molecules-tabletoolbar--docs) (`showClear`), [CardGrid](?path=/docs/molecules-cardgrid--docs).
+
+<Canvas of={DepartmentUsersStories.Default} />
+<Controls of={DepartmentUsersStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `768px / 480px / 360px Pagination v1 / v2` | `breakpoint` + `pagination` props (the story decorator sets the frame width) |
+| `Header` (burger, title, bell, “‹ Management”); title 32 / 48px at 768, 20 / 30px at 480 and 360 | `PageHeader` (`size="compact"` at 480 and below), `BreadCrumbs variant="back"`, `HeaderMenu` |
+| `Ralls info` → `Row.HeaderCard` + `Info v3` + `Input/Title` | `InfoBlock variant="form"` (`size="mobile"` at 360px) with a `LabeledField` and a read-only `InputField` |
+| `board_all-orders` “Users in department” | `InfoBlock` with a custom body |
+| `Buttons & Filters`: Export, Clear, Filter 8, sort | `TableToolbar compact showClear` |
+| `search Field` (full width, 40px) | `SearchField size="mobile"` inside the toolbar |
+| `Sow Menu Pagination` 672px (768) / 384px (480) / 300px (360), above and below the cards | `PaginationBar flat` (`stacked` at 480 and below) |
+| Pagination v1 `1 2 3 4 5 6 … 14` / v2 `1 … 4 5 6 … 14` | `siblingCount` 2 / 1 |
+| `Table 1 - Management` → `CardRow` / `Card Row 10` | `CardGrid` of `CardRow direction="column"` with a danger delete `Button` |
+
+## Behaviour (what is interactive)
+
+Page buttons and arrows, the “Show” select, search, sort, “Clear” and the delete buttons work on the fake data (140 users, 10 per page, so 14 pages as in Figma). The “Filter” button, the tab-less header and the burger do nothing (the burger only toggles its label).
+
+## Variants
+
+<Canvas of={DepartmentUsersStories.Tablet768V1} />
+<Canvas of={DepartmentUsersStories.Tablet768V2} />
+<Canvas of={DepartmentUsersStories.Mobile480V1} />
+<Canvas of={DepartmentUsersStories.Mobile480V2} />
+<Canvas of={DepartmentUsersStories.Mobile360V1} />
+<Canvas of={DepartmentUsersStories.Mobile360V2} />
+
+## Figma notes
+
+What Figma draws: six frames (three widths × two pagination proposals) that differ only in the pagination and the widths; page 4 (v1) or page 5 (v2) of 14.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Hover, focus, disabled of all controls (from the atoms); empty list (“No users.”), the sort menu (the `Dropdown` list under the sort button, as in the Client Orders prototype).
+- The delete button removes the card at once (no confirmation); a real screen should ask first (see `ConfirmModal`).
+- Dark theme: not designed — the light values are used.
+
+Assumed / normalised — **need designer confirmation**:
+
+- **v1 or v2** of the pagination. Both are built; v1 is the library default.
+- The “Filter 8” badge is fixed (8); the button has no behaviour here.
+- The “Roli's Name” field is read-only; in Figma it is 357px wide at 768px (a half-width column), here it takes the form column (up to 508px).
+- Cards in a line are 180px high in Figma; here they keep their own height.
+- The 24px pagination switches at 480px; Figma does not say what happens between 480 and 768px.
+- The `Main info` badge icon (a violet square with an “i”) is the existing `info` icon in the blue badge, not the violet one.
+- Pictures: none are used on this screen.
+
+## Design tokens used
+
+No new tokens. The new component tokens are listed in their own MDX.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--theme-app-bg` | frame background | `#1D2542` | Existing tokens.json · Figma: Responsive templates → screen background |
+| `--color-bg`, `--radius-modal` | page panel fill, radius | `#F6F8FC`, `16px` | Existing tokens.json · Figma: Content (BG Color, radius 16) |
+| `--spacing-16` / `--spacing-10` | frame and card side padding at 768 · 480 / 360 | 16 / 10px | Existing tokens.json · Figma: Content x 16 (768, 480), 10 (360) |
+| `--spacing-24` | gap between the cards and the sections, panel bottom padding | `24px` | Existing tokens.json · Figma: Content gap 24 |
+| `--spacing-16` | gap in the list card (toolbar, bar, cards) | `16px` | Existing tokens.json · Figma: Table gap 16 |
+| `--color-grey-dark`, `--font-size-small` | empty text | `#5D6E82`, 14 / 21px | AI-defined use: as `TableOrders` |
+
+## Accessibility
+
+- One `main`, one `h1` (`PageHeader`); the cards are a `list` of `listitem`s; the toolbar is a `toolbar`; the pagination is a `nav`.
+- Delete buttons have a name with the user (“Delete David Schwimmer”). Focus is not moved after a deletion — add that in a real screen.
+- Contrast: card text `#292639` on white 14.68:1; pagination numbers `#1D2542` on `#ECEEFB` 13.03:1; delete icon white on the 60% danger red — see [Button](?path=/docs/atoms-button--docs).
+- ⚠️ Kept as designed: the 24px pagination buttons are far below the 44px touch target (the 40px ones too); the cards are separated from the page by a shadow only.

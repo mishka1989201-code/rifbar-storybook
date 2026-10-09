@@ -1,0 +1,105 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableRowOrderStories from './TableRowOrder.stories';
+
+<Meta of={TableRowOrderStories} />
+
+# TableRowOrder
+
+One order of the client's *Orders* tab — as a table row on desktop and as a card at 768px and below. Implements
+[`Table Row 14`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-311773)
+and [`Card Row 4`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-311200)
+as ONE component with a `layout`. It is a molecule: [Button](?path=/docs/atoms-button--docs) +
+[ChevronStatus](?path=/docs/atoms-chevronstatus--docs).
+
+<Canvas of={TableRowOrderStories.Default} />
+<Controls of={TableRowOrderStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Table Row 14` (white, Stroke Light V1, Table Row shadow, radius 10, padding 12/16) | `layout="row"` |
+| `Card Row 4` / `Card Row 3` (same surface, wrapping `Info Line Card`) | `layout="card"` |
+| `Header with Sort` cells: Order name 170 · Price 120 · Type 150 · Date 80 | `name`, `price`, `type`, `date` (widths of the `orders` preset of [TableHeader](?path=/docs/molecules-tableheader--docs)) |
+| `Status` 130 → `Chevron.Status` | `status` (any node; `OrderStatus` is the ready-made chip) |
+| `Buttons` 72 → `button_action` “More” | `Button variant="light" iconLeft="info"`, `actionLabel`, `onAction` |
+| Card variant “Fry's / +44 32 567 8473” | `client`, `phone` in the place of `price`, `type` |
+| Status → colour | `ORDER_STATUSES` (Pending = Secondary, In work = Info, Approved = Dark, Awaiting payment = Light, In shipping = Success, Rejected = Danger, Received = Primary) |
+
+## When to use
+
+- ✅ A row of an orders list; inside [TableOrders](?path=/docs/organisms-tableorders--docs) it is chosen by `layout`.
+
+## When NOT to use
+
+- ❌ Clients — [TableRowClient](?path=/docs/molecules-tablerowclient--docs). A document-preview card — [OrderCard](?path=/docs/molecules-ordercard--docs).
+
+## Variants, states and edge cases
+
+<Canvas of={TableRowOrderStories.Card} />
+<Canvas of={TableRowOrderStories.CardClientPhone} />
+<Canvas of={TableRowOrderStories.NameLink} />
+<Canvas of={TableRowOrderStories.Statuses} />
+<Canvas of={TableRowOrderStories.LongText} />
+<Canvas of={TableRowOrderStories.CardLongText} />
+<Canvas of={TableRowOrderStories.CardNarrow} />
+<Canvas of={TableRowOrderStories.Empty} />
+<Canvas of={TableRowOrderStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the row at 1524px with seven statuses over several rows, the card in two content variants (price + type, or client + phone),
+at 348px (two columns, 768px) and 448–308px (one column, 480 / 360px). Pictures are not involved: the “More” icon is the existing `info` icon.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Hover / focus of the name (as `TableRowClient`) and the hover of the row — the row is not clickable itself, only its name and button.
+- Long text: row cells are cut with an ellipsis; card cells wrap (`overflow-wrap: anywhere`).
+- Dark theme: not designed — the light values are used.
+
+Normalised or assumed:
+
+- In the card Figma lets the status chip join the first line when there is room (480px) or go to a second line (768px, 360px); this is plain flex wrapping with a 16px gap.
+- The Figma card name is Semi-Bold, the 2nd cell Medium, the 3rd Semi-Bold, the date Medium — kept as drawn, so “Purchase” is bolder than “$1200”.
+- The `Status` and `Actions` cells of the row keep their own size (no ellipsis) so the chip and the focus ring are never clipped.
+
+## Design tokens used
+
+No new tokens.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--color-white`, `--radius-lg` | surface, radius | `#FFFFFF`, `10px` | Existing tokens.json · Figma: Table Row 14 |
+| `--color-stroke-light-v1`, `--border-width-sm` | inside stroke (inset box-shadow) | `#F1F2F9`, `1px` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--shadow-table-row` | row shadow | `0 4px 4px rgba(0,0,0,.05)` | Existing tokens.json · Figma: Table Row |
+| `--spacing-12`, `--spacing-16` | padding | 12 / 16px | Existing tokens.json · Figma: py 12, px 16 |
+| `--spacing-8`, `--spacing-16` | card info line: top padding, gap; bottom padding 16 | 8 / 16px | Existing tokens.json · Figma: Info Line Card 1024px |
+| `--color-text`, `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` / `-semibold` | text | `#292639`, 14 / 21px, 500 / 600 | Existing tokens.json · Figma: Color Text, Body/Small Medium, Semi-Bold Headings/h7 |
+| `--color-hover-blue-light`, `--border-width-lg`, `--spacing-2`, `--radius-sm` | name hover and focus ring | `#888CF6`, 2px | AI-defined use: same as `TableRowClient` |
+
+## Props
+
+<ArgTypes of={TableRowOrderStories} />
+
+## Code example
+
+```tsx
+import { TableRowOrder, OrderStatus } from 'rifbar-ds';
+
+<TableRowOrder
+  name="Order #3" nameHref="/orders/3"
+  price="$1200" type="Purchase" date="08.24.2023"
+  status={<OrderStatus value="pending" />}
+  onAction={() => openMenu(3)}
+/>
+
+<TableRowOrder layout="card" name="Order #123" client="Fry's" phone="+44 32 567 8473" date="08.24.2023"
+  status={<OrderStatus value="in-work" />} />
+```
+
+## Accessibility
+
+- `role="row"` with `role="cell"` cells; put the rows inside an element with `role="table"` (`TableOrders` does).
+- The status is text in the chip, not colour alone. The name is a link or a button when `nameHref` / `onNameClick` is set.
+- Contrast, computed: row text `#292639` on white 14.68:1; chips (white text): Pending `#5D6E82` 5.23:1, In work `#4549A1` 7.72:1, Approved `#1D2542` 15.05:1, In shipping `#00864E` 4.65:1, Rejected `#DF2E15` 4.63:1, Received `#6368DF` 4.59:1; “Awaiting payment” `#5D6E82` on `#F6F8FC` 4.92:1.
+- ⚠️ Kept as designed: the “More” button is 37px high (below 44px); the cards are separated from the page by a 1.06:1 shadow only.

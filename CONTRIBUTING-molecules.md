@@ -38,7 +38,10 @@
 | SwitchGroup | дріжка з `SwitchButton` (Figma Switch: Light / Dark + hover): `options`, `value`, `onChange`, `tone` |
 | TimeTrackerTitle | Play-кнопка + «My Time» (Figma TimeTracker/Play Buttons and Title); `title`, `playProps` |
 | TimeTrackerDate | іконка + дата + три кнопки prev/reset/next (Figma TimeTracker/Date) |
+| NoRowsTable | заглушка порожньої таблиці (Figma No Rows table, desktop / phone-large / phone-small × light / dark): SVG-діаграма + водяний знак `Logo` + «Table has no rows»; `size`, `label`; сітка й осі — кольори зчитані з рендеру, потребують підтвердження |
 | TimeTrackerBar | верхня панель трекера = Title + Date (Figma TimeTracker/Play Actions Menu) |
+| AlertRow | рядок-підказка (Figma Welcome Card → Option 1/4/5): крапка + речення (`lead` Medium + решта) + `Button text-arrow`; `tone` warning / info |
+| CheckListModal | діалог зі списком чекбоксів (Figma Info Modal): `Modal size="list" elevated` + `Button` у шапці + рядки `Checkbox`; `options`, `value`, `onChange`, `allLabel`, `searchable`, `description` |
 | TimeScale | шкала дня з відпрацьованими періодами (Figma TimeTracker/Time Scale and Numbers); `segments` у годинах, `startHour`, `hours` |
 | AccessModeRow | карта «Default / Custom» (Figma Edit User Access): два radio (`Checkbox`) + кнопка «Edit» (активна лише для Custom); `value`, `onChange`, `onEdit`, `disabled` |
 | DocumentCard | карта документа (Figma Edit User Access New): іконка + заголовок + значення, вертикальні кнопки в `actions` |
@@ -60,6 +63,18 @@
 
 Усі експортуються з `src/index.ts`.
 
+Нове з екрана «Клієнт → Orders»: `TableRowOrder` (`layout` row / card, `OrderStatus`), `TableToolbar` (Export / Clear / `filters` / View / Search; `compact` для ≤768px),
+`CheckListModal` `variant` check / radio / pick + `accent`, `PageHeader` `onMenuClick`, `BreadCrumbs` `variant="back"`, пресет `orders` у `TableHeader`.
+
+Нове з екрана «Pagination Responsive»: `IconButton` / `Pagination` `size="sm"` (24px, 10px цифри), `PaginationBar` `stacked` / `flat` / `siblingCount` (v1 = 2, v2 = 1),
+`PageHeader` `size="compact"`, `TableToolbar` `showClear`, нова молекула `CardGrid` (адаптивна сітка карток, токен `--size-card-grid-min`).
+
+## Prototypes
+
+Цілі екрани з бібліотечних компонентів і фейкових даних: `src/prototypes/<Name>/`, заголовок історій `Prototypes/<Name>`, **не** експортуються з `src/index.ts`.
+Одна історія на кожен брейкпоінт Figma (декоратор задає ширину кадру) + окремі історії для екранів фільтрів. Нові компоненти, потрібні екрану, живуть у `src/components`.
+Прототипи: `ClientOrders` (1920 / 1440 / 1280 / 1024 / 768 / 480 / 360 + Filter menu / All Filters), `DepartmentUsers` (768 / 480 / 360 × пагінація v1 / v2). «Гілка Prototypes» у запиті = цей розділ Storybook.
+
 ## Organisms
 
 Великі компоненти, зібрані лише з молекул. Заголовок історій — `Organisms/<Name>`.
@@ -69,6 +84,14 @@
 | ChatLayout | вся панель чату (Figma chat  layout v2): `ChatHeader` + тред `items` (`date` / `message`) + `MessageBox`; `onSend`, `messageBoxProps`, `height` (тред скролиться і тримається внизу) |
 | TableProducts | таблиця продуктів (Figma Table - Products): `TableProductsHeader` + `TableProductsRow` з `rows`; `status` `ready` / `loading` / `error`, `emptyText`; у вузькому контейнері скролиться |
 | TableClients | таблиця клієнтів (Figma Table/Row & Header): `TableHeader` (`DEFAULT_CLIENTS_COLUMNS`) + `TableRowClient` з `rows`; `onSort`, `status`, `emptyText`; у вузькому контейнері скролиться |
+| Navbar | бічне меню (Figma Navbar/Full): `LogoBar` + `NavbarMenu` + `UserDropdown`; `size` 1920/1440/1280/1024/768/480/360, `collapsed`, `items` (групи з `children`), `user`; темна тема — через `data-theme` |
+| TimeTracker | картка робочого часу (Figma TimeTracker): `TimeTrackerBar` + статистика `stats` + `TimeScale`; `state` static/active/disabled, `segments`, `onToggle` |
+| WelcomeCard | вітальна картка (Figma Welcome Card): темний заголовок із `title`, `subtitle`, `stats`, `image` + `rows` (`AlertRow`); картинку з Figma не завантажено (403) |
+| FilterMenu | екран фільтрів 768px (Figma Filter Responsive Menu): шапка з `title`, `count`, закриттям + чіпи `FilterChevron` (`filters`) + секції в `children` (`CheckListModal`, `Modal` з `DatePicker`) |
+| ProductDetailCard | детальна картка товару (Figma Product Card 1524px): картинка 640 + `title`, `details` (`RowInfoBlock line`), `description`, `actions`; не плутати з плиткою `ProductCard`; фото з Figma не завантажено (403) |
+| ProductFormModal | форма товару (Figma Modal Add / Edit product, 480 / 360): `Modal size="480"/"360"` + 7 полів + блок зображення (add: бібліотека + `FileDropzone`; edit: `ImageCard lg` + кнопки); `mode`, `size`, `values`, `onFieldClick` |
+| ScheduledCallCard | картка запланованого дзвінка (Figma scheduled-call-menu): `CardHeader` (`tone` warning / success) + `FilterField icon="date"` + кнопка Refresh; `state` static / time-to-call |
+| TableOrders | список замовлень клієнта (Figma Table 1 - Management / Cards Line): `TableHeader` (пресет `orders`) + `TableRowOrder`; `layout` `table` / `cards` (сітка карток), `status`, `onSort` |
 | DatePicker | календар (Figma date-range-apply: date / date-time / OneButtonApply / Full): `mode` `single` / `range`, `withTime` (`TimePicker`), `footer` `actions` / `today` / `none`, `months`; `value` — чернетка, `onApply` / `onCancel`; клавіатура, `locale` |
 
 ## Процес для кожної молекули
@@ -121,3 +144,79 @@
   підвищувати специфічність (`.ds-molecule .ds-icon`). Це вже траплялось із `Checkbox` і `Icon` (розмір через `--ds-icon-size`).
 - Перевизначення атомів робити лише всередині молекули (наприклад, gap `Checkbox` 4px у `RadioGroupCard`) і писати це в Figma notes.
 - Іконка без назви у Figma: порівняти кандидатів окремим рендером (так `filter-light` виявилась повзунками, а потрібна `filter-dark`).
+
+## Передача в новий чат
+
+- Гілка `claude/peaceful-franklin-tnrmh4`, відкритий PR #12 у `main` (опис PR повністю оновлено 2026-10-09, разом із темною темою атомів; оновлювати лише на прохання). Якщо його злито — почати гілку наново
+  від `origin/main` (`git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`, пуш `--force-with-lease`) і відкривати **новий** PR лише на прохання.
+- На старті: `npm ci`, `npm run build:tokens`, `git fetch origin`, `git pull origin claude/peaceful-franklin-tnrmh4`.
+- Figma MCP інколи відключається посеред чату: `ToolSearch` із запитом `figma get_design_context` повертає інструменти після перепідключення.
+  Скіл `figma-design-to-code` читати як MCP-ресурс `skill://figma/figma-design-to-code/SKILL.md` (server `Figma`), у `get_design_context`
+  передавати `skillNames: "resource:figma-design-to-code"`. Дуже великі фрейми (календарі, цілі екрани) обрізаються: спершу `get_metadata`, далі
+  `get_design_context` по дочірніх вузлах; великі відповіді зберігаються у файл — читати їх `python3 -I` + `json`.
+- Скріншоти Figma: завантаження за посиланням дає 403 (проксі) — викликати `get_screenshot` з `enableBase64Response: true`. Картинки з `get_design_context` теж 403.
+- Звіт після кожного компонента — за форматом з `CLAUDE.md` («Report format»): що зроблено, історії, нові токени, припущення, доступність
+  (контрасти рахувати скриптом, не на око), що перевірено і що ні.
+- «Гілка Prototypes» у запитах = розділ Storybook `Prototypes/<Name>` (`src/prototypes/<Name>/`, див. розділ вище). Екран із кількома брейкпоінтами:
+  один компонент-екран із пропом `breakpoint`, історія на кожен кадр Figma, нові компоненти — у `src/components`, наявні розширювати пропами.
+
+### Зроблено в останніх чатах (2026-10-09)
+
+- **Темна тема всіх атомів** — див. розділ «Темна тема» нижче; опис PR #12 оновлено.
+- `TableRowClient`: hover-рядок із тултіпом (Figma Hover Row in Table, світла й темна), кнопки `onDelete` / `onCall` / `onNotes`, теми через токени `--table-row-*`;
+  `TooltipBordered` `tone="subtle"`. Тултіп показується на hover і фокус, Escape ховає.
+- `NoRowsTable` (Atoms): заглушка порожньої таблиці, 3 розміри × 2 теми, SVG перемальовано (Figma-вектори 403). Ще не підставлена в `TableClients` / `TableOrders`.
+- `Foundations/Favicons`: шаблон іконки + список розмірів; PNG-файлів у репо нема (можна відрендерити з `AppIcon` у `FaviconsDocs.tsx`).
+- Картинки від дизайнера лежать у `src/assets/demo` і використані в історіях `WelcomeCard`, `ProductDetailCard`, `ProductFormModal`, `ProductCard`, `OrderCard`, `BarcodeSettings`.
+- Ще не підтверджено дизайнером: кольори сітки / осі `NoRowsTable` (зчитані з рендеру), іконка телефону `call-v2`, позиція тултіпа рядка (307px / 899px — статичний мок).
+- Не пройдено вручну: `TableClients` у вузькому контейнері (скрол може обрізати тултіп), dark hover кнопок рядка, `ProductFormModal` з новим фото.
+
+### Темна тема (Figma `Dark Atoms Components`, 2026-10-09)
+
+Усі **атоми** мають темну тему (4 коміти: `357e578` кнопки / IconButton / Play / Pagination; `1b23ddd` поля, Checkbox, Toggle, Switcher, Search, Slider; `dc64c11` Tabs, SwitchButton, Status, DropDown, FilterChevron, HeaderMenu;
+`672678f` Tooltip, Scrollbar, Avatar, Logo, Icon, ImageCard). Нових компонентів і пропів немає: кольори в CSS беруть **теми-токени** (`--button-*`, `--field-*`, `--tab-accent` …; світле значення = попереднє, темне — з Figma). Усього 83 нових токени.
+Механізм: `data-theme="dark"` на `<html>` (перемикач у Storybook) або на будь-якому елементі; історії `…Dark` (`AllVariantsDark`, `AllStatesDark`, `DarkTheme` …) вмикають темну тему примусово.
+
+Як робити далі (**Молекули, потім Організми** — дизайнер надсилає посилання на темний блок, компоненти не переносимо, а оновлюємо наявні). Повний порядок — у `CLAUDE.md`, розділ «Dark theme». Коротко:
+1. `get_metadata` блока → `get_screenshot` / `get_design_context` кожного дочірнього вузла (великі відповіді зберігаються у файл). Імена змінних у коді — **світлі**, темне значення беремо **з пікселів скріншота** (`PIL`: найчастіший не-чорний колір у боксі; тонку 1px рамку на іншому тлі — сума двох рядків).
+2. Групу токенів у `tokens.json` (`value` = попереднє, `dark` = знайдене, посилання на наявні `color.*`), `npm run build:tokens`; у CSS замінити сирі `--color-*` на тему-токен; історія `…Dark`; розділ **Dark theme** в MDX + рядки в таблиці токенів + контрасти скриптом.
+3. Багато молекул успадкують темну тему від атомів — спершу подивитися їх у темній темі, власні токени додавати лише для власних кольорів (як `table-row`).
+4. Темний кадр Figma не завжди «адаптований» (див. питання нижче) — не копіювати нечитабельне мовчки, а винести питання дизайнеру.
+5. Один коміт на групу, звіт українською по кожній групі (що змінилось, нові токени, де темне ≠ світле, чого Figma не малює, контрасти < 3:1, що перевірено).
+
+Технічні дрібниці: історія `…Dark` береться через `...AllVariants` + decorator із `width: 'max-content'` (decorators meta можуть обмежувати ширину); якщо `args` обов'язкові — додати `args`. `Scrollbar` у headless Chromium малюється як overlay — перевіряти по обчислених кольорах.
+Токен не називати `value`. Id історій: `atoms-button--all-variants-dark`, `atoms-chevrondropdown--all-states-dark`, `atoms-headermenu--dark-theme`.
+
+### Як перевіряти (працює в контейнері)
+
+1. `npx tsc --noEmit -p tsconfig.json` і `npx vite build --config vite.lib.config.ts`.
+2. Візуально: esbuild + `renderToStaticMarkup` → HTML → headless Chromium (`/opt/pw-browsers/chromium-1194/chrome-linux/chrome --headless --no-sandbox --window-size=W,H --screenshot=…`);
+   CSS компонентів збирається esbuild (`--bundle --platform=node --jsx=automatic --outdir=…`, поруч з'являється `entry.css`), токени — `src/tokens/build/tokens.css` і `src/tokens/typography.css`.
+3. Storybook: `npx storybook build -o /tmp/sb-out` (≈30 с), далі статичний сервер на `/tmp/sb-out` і Playwright з `/opt/node-tools/node_modules/playwright`
+   (`chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox'] })`), `iframe.html?id=<story-id>&viewMode=story`,
+   слухати `pageerror` і `console` error. id історії: `prototypes-clientorders--tablet-768`, `molecules-pagination--small-v-1` (назва історії → kebab-case).
+4. Ще не пройдено вручну: `FilterMenu`, `Navbar`, `ProductFormModal`, `DatePicker`, `TableClients` Sortable і вузькі контейнери.
+
+### Відкриті питання дизайнеру (зібрано з усіх екранів)
+- Темна тема атомів: іконки `Icon` Primary у темному кадрі `#1D2542` на чорному (1.40:1, схоже, кадр не адаптований; у коді `#BDC5E2`); піл `Switcher` Dark `#050411` у Dark Atoms, але `#1D2542` у темному кадрі Navbar (`--theme-switcher-bg` не змінено);
+  `IconButton` Close: hover (залита `#050411`) проти «Activate» (яскрава рамка) — у коді логіка світлої теми; `FilterChevron` Outline V2 «(not approve)»; hover `SwitchButton` і темні фокус-кільця не намальовані;
+  кольори, зчитані з рендера (без змінної): hover / focus рамки, `Change`, галочка, рамка тултіпа, open-стани `ChevronStatus` / `ChevronDropDown`.
+  Нижче 3:1 на чорному (лишено за дизайном): hover `Checkbox` / `Toggle` / `HeaderMenu` / `Icon` (2.72:1), статичні рамки `InputField` / `SearchField` / `ImageCard` (1.35:1), `Primary` у `ChevronDropDown` / `ChevronStatus`, ініціали `chat` / `department` Avatar, підпис (2.97:1) і hover-значення (1.90:1) `FilterChevron`.
+
+- Правило рамки полів (Stroke Light V2 / Stroke Input / Activated), `Roli's Name` на `DepartmentUsers` (рамка).
+- Іконки за виглядом: `reboot`, `picture`, `save-line`, `admin`, `burger-rolled-up` (бургер шапки), `chevron-left` (назад у крихтах), `info` для «Main info».
+- `TableClients`: назва 7-ї колонки; `DatePicker`: мок-дати і Manrope; `--color-deep-blue`, кольори крапок `AlertRow`, `--color-warning-tint`, вага підпунктів `Navbar`.
+- Екрани `ClientOrders` / `DepartmentUsers`: перемикач View на ≤768 (завжди картки), v1 чи v2 пагінації, тінь `PaginationBar` у картках, відступи контенту (27px → `--spacing-28`),
+  таби на 360px (обрізаються), `CheckListModal accent` (Warehouse), діапазон дат у фільтрі за замовчуванням, нумерація карток (у Figma мок 1–10).
+
+## Повідомлення: Info / Important / Error (Figma `Error/Importantly/Info`)
+
+Три види текстів не є окремими компонентами, а пропи наявних:
+- **Info** — `Modal description` (Secondary Grey, Medium 14) під заголовком діалогу;
+- **Important** — `Modal important` (Warning, Semi-Bold 14) під описом, `role="note"`;
+- **Error** — `ModalField error` / `LabeledField error` (Danger, Regular 12, 4px під полем, `role="alert"`) + `invalid` на самому полі;
+  для `FileDropzone` рамка не змінюється (лише `invalid` → `aria-invalid`), повідомлення малює `ModalField error`.
+- Обов'язкове поле — `LabeledField required` (помаранчева `*`).
+Діалог «Discount confirmation» (дві групи радіо «відсоток / валюта» через «OR») зібрано в історіях `Modal` (`Discount…`), окремого компонента немає.
+- Дизайн-дошки з «станами» (як `Error/Importantly/Info`) — не компоненти: розібрати, які стани це, додати їх пропами/історіями в наявні компоненти
+  й у MDX (мапінг, Figma notes, токени, доступність), окремих компонентів не створювати.
