@@ -9,6 +9,9 @@ Card-like row of the clients table: name, company, phone, email, two dates and a
 [`Table Row 14`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=17-6506) and
 [`Table Row Hover Name`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=828-255423) (the same row with the name hovered),
 composed from [Button](?path=/docs/atoms-button--docs) (`variant="light"`, icon `info`).
+The hover frame [`Hover Row in Table`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3352-240764)
+(light and dark) adds the row hover fill, the delete / phone / notes buttons and a
+[TooltipBordered](?path=/docs/atoms-tooltipbordered--docs) with detailed information under the row.
 
 <Canvas of={TableRowClientStories.Default} />
 <Controls of={TableRowClientStories.Default} />
@@ -25,6 +28,11 @@ composed from [Button](?path=/docs/atoms-button--docs) (`variant="light"`, icon 
 | `Header with Sort` date (80px, right) | `joined` |
 | `Date 3` (119px, right) | `updated` |
 | `Buttons` → `button_action` Light Fill, icon `Info`, `More` | `Button variant="light" iconLeft="info"`, `actionLabel`, `onAction` |
+| `Table Row 2` hovered (Row Hover fill) / dark `Table Row 15` (Stroke Button fill) | the row on `:hover`; preview with `forceHover` |
+| `Buttons` → `button_action` Red (`delete`) | `onDelete` → `Button variant="danger" iconOnly="delete"` |
+| `button_action` Dark BG, phone icon | `onCall` → `Button variant="dark" iconOnly="call-v2"` |
+| `button_action` Dark BG, notes icon (dark frame only) | `onNotes` → `Button variant="dark" iconOnly="notes"` |
+| `Tooltip with border + shadow` (arrow top, 899px) | `tooltip` (+ `tooltipTitle`) → `TooltipBordered position="bottom" tone="subtle"` |
 | Card: white, border Stroke Light V1, radius 10, Table Row shadow, padding 12 / 16 | `.ds-table-row-client` |
 
 ## When to use
@@ -39,6 +47,11 @@ composed from [Button](?path=/docs/atoms-button--docs) (`variant="light"`, icon 
 ## States and edge cases
 
 <Canvas of={TableRowClientStories.HoverName} />
+<Canvas of={TableRowClientStories.HoverRow} />
+<Canvas of={TableRowClientStories.HoverRowDark} />
+<Canvas of={TableRowClientStories.Actions} />
+<Canvas of={TableRowClientStories.TooltipOnHover} />
+<Canvas of={TableRowClientStories.TooltipShortText} />
 <Canvas of={TableRowClientStories.NameAsLink} />
 <Canvas of={TableRowClientStories.NameAsButton} />
 <Canvas of={TableRowClientStories.LongText} />
@@ -48,15 +61,24 @@ composed from [Button](?path=/docs/atoms-button--docs) (`variant="light"`, icon 
 
 ## Figma notes
 
-What Figma draws: the static row and the row with the name in Hover Blue Light and underlined, 1524px wide. The row itself has no hover
-background in either frame.
+What Figma draws: the static row and the row with the name in Hover Blue Light and underlined, 1524px wide (no row hover fill there);
+and, in `Hover Row in Table`, the first row of the clients table hovered in the light and dark themes: Row Hover fill (dark: Stroke Button), the
+delete and phone buttons (a notes button too in the dark frame only) and the tooltip below the row, over the rows beneath it.
 
 Not drawn, defined by analogy (AI-defined):
 
 - Keyboard focus of the name: a 2px Hover Blue Light ring (the same colour as the hover; as in other DS controls).
 - Long text: every cell is cut with an ellipsis.
 - Name without `nameHref` / `onNameClick` is plain text and has no hover (the hover implies it is clickable).
-- Dark theme: not designed — the light values are used.
+- Dark theme: drawn only for the hovered row and its tooltip. The `--table-row-*` tokens carry those dark values for the whole row (fill, border,
+  text, shadow, buttons). The resting dark row uses the same values (the dark frame has resting rows, which match). Dark hover of the buttons themselves is not designed.
+- The tooltip opens on row hover **and** on keyboard focus inside the row (hover-only is not accessible), stays open while the pointer is on it,
+  and Escape hides it until the pointer or focus leaves the row.
+- Tooltip position: Figma draws a static mock (899px wide, 307px from the row's left edge, directly under the row, centred arrow); it is not tied to the
+  hovered cell. Both numbers are new size tokens; in a narrower row the width shrinks (`max-width`). Inside `TableClients` the horizontal scroll container can clip it at the table bottom.
+- The last date cell of the dark rows has a raw `#292639` text fill (almost invisible on black); the row text colour is used instead.
+- Phone icon: Figma shows a solid handset; the icon `call-v2` is matched by look (needs confirmation).
+- The delete button is `Red` at 60% in the light frame and solid Danger in the dark one; the 60% fill is the existing `Button variant="danger"`.
 
 Assumed / normalised:
 
@@ -66,13 +88,23 @@ Assumed / normalised:
 
 ## Design tokens used
 
-No new tokens.
+New tokens (all added 2026-10-09, with `source` in `tokens.json`): `--table-row-bg`, `--table-row-border`, `--table-row-text`, `--table-row-shadow`,
+`--table-row-hover-bg`, `--table-row-action-danger`, `--table-row-action-dark`, `--table-row-action-dark-icon`, `--table-row-action-light`,
+`--table-row-action-light-text` (themed: light = the values below, dark per the table), `--shadow-table-row-dark`, `--size-row-tooltip-width`, `--size-row-tooltip-offset`;
+`TooltipBordered` `--tooltip-bordered-subtle-*` ([see its page](?path=/docs/atoms-tooltipbordered--docs)).
 
 | Token | Property | Value | Source |
 |---|---|---|---|
-| `--color-white` | row fill | `#FFFFFF` | Existing tokens.json · Figma: White |
-| `--color-stroke-light-v1`, `--border-width-sm` | row border (inset) | `#F1F2F9`, 1px | Existing tokens.json · Figma: Stroke Light V1 |
-| `--shadow-table-row` | row shadow | `0 4px 4px rgba(0,0,0,.05)` | Existing tokens.json · Figma: Table Row |
+| `--table-row-bg` | row fill | `#FFFFFF` / dark `#000000` | **New** (themed) · Figma: White / White (Dark) |
+| `--table-row-border`, `--border-width-sm` | row border (inset) | `#F1F2F9` / dark `#242424`, 1px | **New** (themed) · Figma: Stroke Light (V1) |
+| `--table-row-shadow` | row shadow | `0 4px 4px rgba(0,0,0,.05)` / dark `0 10px 16px -13px rgba(0,0,0,.35)` | **New** (themed) · Figma: Table Row / Dark Mode Shadow 1 (`--shadow-table-row-dark` is **new**) |
+| `--table-row-hover-bg` | hovered row fill | `#EBEBF4` / dark `#242424` | **New** (themed) · Figma: Row Hover / Stroke Button |
+| `--table-row-action-danger` | delete button fill | `rgba(218,29,3,.6)` / dark `#ED5742` | **New** (themed) · Figma: Red button_action / Danger |
+| `--table-row-action-dark`, `--table-row-action-dark-icon` | phone / notes button fill, icon | `#1D2542`, `#FFFFFF` / dark `#BDC5E2`, `#000000` | **New** (themed) · Figma: Primary Blue Dark (Light), White (Dark) |
+| `--table-row-action-light`, `--table-row-action-light-text` | `More` fill, text | `#ECEEFB`, `#1D2542` / dark `#27282E`, `#BDC5E2` | **New** (themed) · Figma: Secondary Light, Primary Blue Dark (Light) |
+| `--size-row-tooltip-width`, `--size-row-tooltip-offset` | tooltip width, left offset | `899px`, `307px` | **New** · Figma: Hover Row in Table → tooltip 899px, x offset 307px |
+| `--spacing-10` | gap between action buttons | `10px` | Existing tokens.json · Figma: Buttons gap 10 |
+| `--tooltip-bordered-subtle-*` | tooltip colours | see TooltipBordered | **New** · Figma: BG Color, Stroke Light (V2), Secondary Grey, Color Text |
 | `--radius-lg` | row radius | `10px` | Existing tokens.json · Figma: radius 10 |
 | `--spacing-12` / `--spacing-16` | padding y / x | 12 / 16px | Existing tokens.json · Figma: py 12, px 16 |
 | `--color-text` | text | `#292639` | Existing tokens.json · Figma: Color Text |
@@ -107,5 +139,8 @@ import { TableRowClient } from 'rifbar-ds';
 
 - Cells are `role="cell"` in a `role="row"`; place the row inside an element with `role="table"` (see [TableClients](?path=/docs/organisms-tableclients--docs)).
 - The name is a real `<a>` or `<button>` when interactive; the `More` button has the visible label as its name. Add context for screen readers with `aria-label` on the row's button if several rows say only "More".
-- Contrast, computed: text `#292639` on white 14.68:1; `More` `#1D2542` on `#ECEEFB` 13.03:1.
+- Contrast, computed: text `#292639` on white 14.68:1, on the hover fill `#EBEBF4` 12.39:1 (dark `#C9C6D9` on `#242424` 9.29:1); `More` `#1D2542` on `#ECEEFB` 13.03:1 (dark `#BDC5E2` on `#27282E` 8.57:1);
+  phone / notes icon white on `#1D2542` 15.05:1 (dark black on `#BDC5E2` 12.25:1).
+- The icon-only buttons have `aria-label` (Delete, Call, Notes); the row is `aria-describedby` the tooltip when there is one. The tooltip content is not interactive.
+- ⚠️ Kept as designed: white icon on the 60% red fill over the hover row is 3.16:1 (dark: white on `#ED5742` 3.48:1) — meets 3:1 for graphics, below 4.5:1; the tooltip headline is 2.29:1 / dark 3.22:1.
 - ⚠️ Kept as designed: the name on hover (`#888CF6` on white) is 2.95:1, below 4.5:1 for text; the card border (`#F1F2F9` on white) is 1.12:1, and the card against the `#F6F8FC` page 1.06:1 — separated by the shadow only; the 37px `More` button is below the 44px touch target.

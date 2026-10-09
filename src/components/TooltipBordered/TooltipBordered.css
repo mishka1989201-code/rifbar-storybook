@@ -18,9 +18,9 @@
   flex-direction: column;
   gap: var(--spacing-4);
   padding: var(--spacing-10) var(--spacing-12);
-  border: 1px solid var(--color-headlines);
+  border: 1px solid var(--ds-tooltip-border, var(--color-headlines));
   border-radius: var(--radius-tooltip);
-  background-color: var(--color-white);
+  background-color: var(--ds-tooltip-bg, var(--color-white));
   font-weight: var(--font-weight-medium);
   overflow-wrap: anywhere;
 }
@@ -37,6 +37,10 @@
   line-height: var(--font-line-height-small);
 }
 
+.ds-tooltip-bordered__text > p {
+  margin: 0;
+}
+
 /* Arrow: a square with only two borders, rotated so the corner points away from the body.
    Its white fill covers the body border where they meet. */
 .ds-tooltip-bordered__arrow {
@@ -44,9 +48,9 @@
   box-sizing: border-box;
   width: var(--ds-tooltip-arrow-size);
   height: var(--ds-tooltip-arrow-size);
-  background-color: var(--color-white);
-  border-top: 1px solid var(--color-headlines);
-  border-right: 1px solid var(--color-headlines);
+  background-color: var(--ds-tooltip-bg, var(--color-white));
+  border-top: 1px solid var(--ds-tooltip-border, var(--color-headlines));
+  border-right: 1px solid var(--ds-tooltip-border, var(--color-headlines));
   border-top-right-radius: var(--spacing-2);
 }
 
@@ -104,4 +108,15 @@
   left: 50%;
   top: var(--ds-tooltip-arrow-slot);
   transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* ─── Tone: subtle (Figma Hover Row in Table; the dark theme is drawn there) ─── */
+.ds-tooltip-bordered--subtle {
+  --ds-tooltip-bg: var(--tooltip-bordered-subtle-bg);
+  --ds-tooltip-border: var(--tooltip-bordered-subtle-border);
+  color: var(--tooltip-bordered-subtle-text);
+}
+
+.ds-tooltip-bordered--subtle .ds-tooltip-bordered__title {
+  color: var(--tooltip-bordered-subtle-title);
 }

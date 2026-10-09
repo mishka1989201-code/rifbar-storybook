@@ -5,13 +5,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-12) var(--spacing-16);
   border-radius: var(--radius-lg);
-  background: var(--color-white);
-  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1), var(--shadow-table-row);
-  color: var(--color-text);
+  background: var(--table-row-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--table-row-border), var(--table-row-shadow);
+  color: var(--table-row-text);
   font-family: var(--font-family-base);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
@@ -34,12 +35,66 @@
 .ds-table-row-client__joined { width: 80px; text-align: right; }
 .ds-table-row-client__updated { width: 119px; text-align: right; }
 
-/* The button keeps its own width; overflow must not clip its focus ring. */
+/* The buttons keep their own width (the row hugs them, 119px at least); overflow must not clip a focus ring. */
 .ds-table-row-client__actions {
   display: flex;
+  gap: var(--spacing-10);
   justify-content: flex-end;
-  width: 119px;
+  min-width: 119px;
   overflow: visible;
+}
+
+/* Row actions (Figma `Hover Row in Table`). The static values of these atoms are the light ones; the dark theme
+   is drawn only in that frame, so the colours come from the `--table-row-action-*` tokens (equal to the atom in light). */
+.ds-table-row-client .ds-button--danger {
+  background-color: var(--table-row-action-danger);
+}
+
+.ds-table-row-client .ds-button--dark {
+  background-color: var(--table-row-action-dark);
+  color: var(--table-row-action-dark-icon);
+}
+
+.ds-table-row-client .ds-button--light {
+  background-color: var(--table-row-action-light);
+  color: var(--table-row-action-light-text);
+}
+
+/* Row hover (Figma Row Hover; dark: Stroke Button). Hover states of the buttons themselves come from the atom. */
+.ds-table-row-client:hover,
+.ds-table-row-client.is-hover {
+  background: var(--table-row-hover-bg);
+}
+
+/* Tooltip (Figma `Tooltip with border + shadow`, arrow on top): under the row, over the rows below it.
+   It is inside the row, so moving the pointer onto it keeps the row hovered (WCAG 1.4.13 hoverable). */
+.ds-table-row-client__tooltip {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: var(--size-row-tooltip-offset);
+  width: var(--size-row-tooltip-width);
+  max-width: calc(100% - var(--size-row-tooltip-offset));
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 150ms ease, visibility 150ms;
+}
+
+.ds-table-row-client__tooltip > .ds-tooltip-bordered.ds-tooltip-bordered--fixed {
+  width: 100%;
+}
+
+.ds-table-row-client:hover:not(.is-tooltip-dismissed) .ds-table-row-client__tooltip,
+.ds-table-row-client:focus-within:not(.is-tooltip-dismissed) .ds-table-row-client__tooltip,
+.ds-table-row-client.is-hover:not(.is-tooltip-dismissed) .ds-table-row-client__tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-table-row-client__tooltip {
+    transition: none;
+  }
 }
 
 /* Name: plain text; a link or button gets the Figma hover (Hover Blue Light, underlined). */
