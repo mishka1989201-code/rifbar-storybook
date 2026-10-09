@@ -147,7 +147,7 @@
 
 ## Передача в новий чат
 
-**Стан на 2026-10-09:** PR #12 (темна тема атомів) і PR #13 (темна тема молекул, 9 комітів) злиті в `main`. Далі — **темна тема Організмів**.
+**Стан на 2026-10-09:** PR #12, #13 і #14 злиті в `main`. Темна тема атомів, молекул і **Організмів** (Figma `Dark Organisms Components`, вузол `3765:129991`) зроблена на гілці `claude/peaceful-franklin-tnrmh4` (групи: таблиці; DatePicker; WelcomeCard / AlertRow / ScheduledCallCard; ProductDetailCard / ProductFormModal; фон Prototypes). Navbar, ChatLayout, TimeTracker, FilterMenu вже мали темну тему з молекул. Без темної теми лишились `AudioPlayer` і `CardGrid`. Новий PR — лише на прохання.
 Гілка `claude/peaceful-franklin-tnrmh4` після злиття містить лише злиту історію. На початку нового чату: `git fetch origin`, `git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`,
 пуш `--force-with-lease`, **новий** PR відкривати і зливати лише на прохання. Далі `npm ci`, `npm run build:tokens`.
 

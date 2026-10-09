@@ -41,7 +41,7 @@
   min-width: 0;
   padding-bottom: var(--spacing-24);
   border-radius: var(--radius-modal);
-  background: var(--color-bg);
+  background: var(--theme-page-bg);
   overflow: clip;
 }
 
@@ -69,5 +69,5 @@
 /* The filter screen (Figma `Filter menu`) fills the frame; no dark frame around it. */
 .proto-client-orders--filters {
   padding: 0;
-  background: var(--color-bg);
+  background: var(--theme-page-bg);
 }

@@ -73,8 +73,8 @@ Every component's MDX ends with a **Design tokens used** table, and the same tab
 
 ## Dark theme (Figma `Dark Atoms Components`, node `3389:241327`)
 
-The dark theme works through `data-theme="dark"` on `<html>` (Storybook toolbar sets it; any element with the attribute is dark inside). All Atoms and the Molecules block (Figma `Dark Molecules Components`, node `3429:17984`, 7 commits) are done. Not covered because the dark frame does not show them: `WelcomeCard`, `ScheduledCallCard`, `AudioPlayer`, `DatePicker`, `ProductDetailCard`, `ProductFormModal`, `CardGrid`, `TableProducts`, `TableClients`, `TableOrders`, FilterMenu sections (organism level).
-Organisms are next: the designer sends the Figma link of each dark block; split it into groups yourself. Hand-over notes (tools, scripts, tokens, open questions): `CONTRIBUTING-molecules.md` → «Передача в новий чат». Method (do not port component by component — update the existing ones):
+The dark theme works through `data-theme="dark"` on `<html>` (Storybook toolbar sets it; any element with the attribute is dark inside). All Atoms, the Molecules block (Figma `Dark Molecules Components`, node `3429:17984`) and the Organisms block (Figma `Dark Organisms Components`, node `3765:129991`) are done. Still without a dark theme because no dark frame shows them: `AudioPlayer` (raw colours), `CardGrid` (layout only).
+Method for any further dark block: the designer sends the Figma link; split it into groups yourself. Hand-over notes (tools, scripts, tokens, open questions): `CONTRIBUTING-molecules.md` → «Передача в новий чат». Method (do not port component by component — update the existing ones):
 
 1. `get_metadata` of the block (large: it is saved to a file — read it with `python3 -I` + `json`), then `get_screenshot` and `get_design_context` of each child. The variable names in the code are the **light** names
    (`Prinary Blue Dark (Light)`, `White (Dark)` …) — they do not give the dark value. **Sample the dark colours from the screenshot pixels** (`PIL`, `python3 -W ignore -I`; use the most common non-black colour of a box,
