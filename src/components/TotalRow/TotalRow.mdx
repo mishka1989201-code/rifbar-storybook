@@ -40,6 +40,10 @@ Icons were matched by look to the 16px set (`download-cloud`, `tick`); swap them
 <Canvas of={TotalRowStories.LargeAmount} />
 <Canvas of={TotalRowStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Total Dark`: bar `#000000`, label and amount `#C9C6D9`, a 1px top line `#242424` instead of the card shadow. Both buttons are solid `#BDC5E2` with black text, at every size (the `Button` atom keeps medium Dark BG buttons near-black, so `TotalRow.css` overrides them inside this molecule; light theme unchanged). Figma draws a document icon on “View doc”; the code keeps `tick` (see above). Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -54,6 +58,12 @@ Icons were matched by look to the 16px set (`download-cloud`, `tick`); swap them
 | `--font-size-h1` / `--font-line-height-h1` | amount | `40px` / `60px` | Figma: Headings/h1 |
 | `--spacing-16` | min gap between the groups | `16px` | AI-defined (Figma has `justify-between` only) |
 | ellipsis on the amount, hidden buttons without handlers | edge cases | — | AI-defined |
+| `--total-row-bg` | bar background | `#FFFFFF` / dark `#000000` | **New** · Figma: Total Dark → fill |
+| `--total-row-text` | label and amount | `#292639` / dark `#C9C6D9` | **New** · Figma: Total Dark → text |
+| `--total-row-shadow` | bar edge | `--shadow-card` / dark `--shadow-line-top-dark` | **New** · Figma: Total Dark → 1px top line `#242424` |
+| `--shadow-line-top-dark` | 1px top line | `inset 0 1px 0 0 #242424` | **New** · Figma: Total Dark → line (= Stroke Button Dark) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Button colors, radius and sizes: see the Button docs. No new tokens.
 
@@ -73,3 +83,4 @@ import { TotalRow } from 'rifbar-ds';
 
 - The icon-only button has `aria-label` (`downloadLabel`, default “Download”).
 - Both buttons are native `<button>`s reachable with Tab.
+- Dark theme contrast: text `#C9C6D9` on `#000000` 12.56:1; button text `#000000` on `#BDC5E2` 12.25:1.

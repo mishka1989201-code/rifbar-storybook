@@ -7,7 +7,7 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-8) 0;
-  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border-bottom: var(--border-width-sm) solid var(--row-info-block-border);
   font-family: var(--font-family-base);
 }
 
@@ -27,7 +27,7 @@
   white-space: nowrap;
 }
 
-.ds-row-info-block--pair .ds-row-info-block__label { color: var(--color-text); }
+.ds-row-info-block--pair .ds-row-info-block__label { color: var(--row-info-block-text); }
 .ds-row-info-block--pair .ds-row-info-block__value { color: var(--color-grey-dark); }
 
 /* ─── line — Figma `Info Line 1`: 200px + 16px gap + 300px = 2 : 3 ──────────── */
@@ -38,14 +38,14 @@
 }
 
 .ds-row-info-block--line .ds-row-info-block__label {
-  color: var(--color-secondary-grey);
+  color: var(--row-info-block-muted);
   font-size: var(--font-size-h6);
   line-height: var(--font-line-height-h6);
   font-weight: var(--font-weight-medium);
 }
 
 .ds-row-info-block--line .ds-row-info-block__value {
-  color: var(--color-primary-blue-dark);
+  color: var(--row-info-block-value);
   font-size: var(--font-size-standard);
   line-height: var(--font-line-height-standard);
   font-weight: var(--font-weight-regular);
@@ -68,7 +68,7 @@
 
 .ds-row-info-block--compact .ds-row-info-block__value {
   flex: 1 1 0;
-  color: var(--color-primary-blue-dark);
+  color: var(--row-info-block-value);
   overflow-wrap: anywhere;
 }
 
@@ -79,7 +79,7 @@
 .ds-row-info-block--stacked {
   justify-content: space-between;
   gap: var(--spacing-8);
-  border-bottom-color: var(--color-stroke-light-v1);
+  border-bottom-color: var(--row-info-block-border-soft);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);
@@ -93,7 +93,7 @@
   min-width: 0;
 }
 
-.ds-row-info-block--stacked .ds-row-info-block__label { color: var(--color-text); }
+.ds-row-info-block--stacked .ds-row-info-block__label { color: var(--row-info-block-text); }
 .ds-row-info-block--stacked .ds-row-info-block__description,
 .ds-row-info-block--stacked .ds-row-info-block__value { color: var(--color-grey-dark); }
 .ds-row-info-block--stacked .ds-row-info-block__value { flex: none; text-align: right; }
@@ -101,7 +101,7 @@
 /* ─── cells — Figma `order-list_item2`: first / centered middle / right-aligned last ─ */
 .ds-row-info-block--cells {
   gap: var(--spacing-8);
-  border-bottom-color: var(--color-stroke-light-v1);
+  border-bottom-color: var(--row-info-block-border-soft);
   color: var(--color-grey-dark);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
@@ -110,6 +110,6 @@
 }
 
 .ds-row-info-block__cell { flex: 1 1 0; text-align: center; }
-.ds-row-info-block__cell:first-child { flex: none; max-width: 40%; color: var(--color-text); text-align: left; }
+.ds-row-info-block__cell:first-child { flex: none; max-width: 40%; color: var(--row-info-block-text); text-align: left; }
 .ds-row-info-block__cell:last-child { flex: none; text-align: right; }
 .ds-row-info-block__cell:first-child:last-child { flex: 1 1 auto; max-width: none; }

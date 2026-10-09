@@ -50,6 +50,10 @@ Implements the Figma [`Table Row`](https://www.figma.com/design/4Q7E8IQ07a9xFiNV
 - The Hover stroke on `Style=Hover` is `#F1F2F9`, same as Static, so it is not visible against the row; kept as drawn.
 - Not designed, AI-defined: Focus ring of the toggle (`--shadow-focus`), ellipsis for long `name` / `type`, transitions with `prefers-reduced-motion`, `pointer-events: none` on disabled. Dark theme not designed — light values are used.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Table Row 14 Dark` (Static / Hover / Active / Disabled): row `#000000` with a `#242424` stroke, hover fill `#242424`, active stroke `#888CF6`, toggle `#27282E`, text `#C9C6D9` — all existing `--table-row-*` tokens. New: `--table-row-hover-shadow` (Dark Mode Shadow 1; Figma draws no coloured glow). The thumbnail in Figma shows a product photo, the story keeps its placeholder. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -71,6 +75,10 @@ Implements the Figma [`Table Row`](https://www.figma.com/design/4Q7E8IQ07a9xFiNV
 | `--color-text` | text | `#292639` | Existing tokens.json · Figma: Color Text |
 | `--font-size-small` / `--font-line-height-small` | text | `14px` / `21px` | Existing tokens.json · Figma: Body/Small Medium |
 | `--font-weight-medium` / `--font-weight-semibold` | body / index + name | 500 / 600 | Existing tokens.json · Figma: Body/Small Medium, Semi-Bold Headings/h7 |
+| `--table-row-bg` / `--table-row-border` / `--table-row-text` / `--table-row-hover-bg` / `--table-row-action-light` | row surface, stroke, text, hover fill, toggle | dark `#000000`, `#242424`, `#C9C6D9`, `#242424`, `#27282E` | Existing tokens.json · Figma: Table Row 14 Dark (reused) |
+| `--table-row-hover-shadow` | hover shadow | `--shadow-table-row-hover` / dark `--shadow-dark-1` | **New** · AI-defined: no glow in dark Figma |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -99,3 +107,4 @@ import { TableRowExpandable } from 'rifbar-ds';
 - The toggle is a real `<button>` with `aria-expanded` and `aria-label`; the row has `role="row"` (wrap rows in `role="table"`).
 - Toggle button is 36px — below the 44px touch target, kept as designed.
 - Disabled at 20% opacity is below 3:1 contrast — kept as designed.
+- Dark theme contrast: text `#C9C6D9` on `#000000` 12.56:1, on hover `#242424` 9.29:1; disabled is 20% opacity (⚠️ below 3:1, as designed).

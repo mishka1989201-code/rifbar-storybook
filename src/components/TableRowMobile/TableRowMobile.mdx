@@ -53,6 +53,10 @@ For the wide products table see [TableProductsRow](?path=/docs/molecules-tablepr
 - Not designed, AI-defined: hover / focus / disabled of the button (come from `Button`), long text (cut with an ellipsis, caption up to 40% of the row), hidden action.
 - The 480px button padding (12 / 8) is not a `Button` size, so it is applied as an override of the row. Dark theme not designed.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Table Row 360px Dark` / `Table Row 480 px Dark`: row `#000000`, bottom line `#242424`, text `#C9C6D9` — the existing `--table-row-*` tokens (as `TableRowClient`). The action button is solid `#BDC5E2` with black text (override in `TableRowMobile.css`, light unchanged). Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -66,6 +70,9 @@ For the wide products table see [TableProductsRow](?path=/docs/molecules-tablepr
 | `--spacing-10` | gap cells ↔ button | `10px` | Existing tokens.json · Figma: gap 10 |
 | `--spacing-8` | min gap between cells | `8px` | AI-defined use: keep cells apart when text is long |
 | `--spacing-12` / `--spacing-8` | 480 button padding | `12px` / `8px` | Existing tokens.json · Figma: button_action px 8, py 12 |
+| `--table-row-bg` / `--table-row-border` / `--table-row-text` | row surface, bottom line, text | `#FFFFFF`, `#F1F2F9`, `#292639` / dark `#000000`, `#242424`, `#C9C6D9` | Existing tokens.json · Figma: Table Row Dark (reused) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Button tokens (Primary Blue Dark fill, radius 5, icon 16, Body/Small Medium white) come from `Button`. No new tokens.
 
@@ -87,3 +94,4 @@ import { TableRowMobile } from 'rifbar-ds';
 - Cells have `role="row"` / `role="cell"`: put rows into a container with `role="table"` (and a header row) so the roles are valid.
 - Give the button a specific name via `actionProps` (`aria-label="Edit KPI"`), because every row says "Edit".
 - White on Primary Blue Dark is high contrast. The 37px button is below the 44px touch target (kept as designed).
+- Dark theme contrast: text on `#000000` 12.56:1; button text `#000000` on `#BDC5E2` 12.25:1.

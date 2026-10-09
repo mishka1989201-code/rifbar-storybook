@@ -39,6 +39,10 @@ Body row of the products table: white background, 1px bottom stroke. Implements 
 <Canvas of={TableProductsRowStories.LongText} />
 <Canvas of={TableProductsRowStories.EmptyCells} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Table Products Row Dark`: row `#000000`, text `#C9C6D9`, bottom line `#242424`. Story: `WithHeaderDark` (header + rows).
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -56,6 +60,11 @@ Body row of the products table: white background, 1px bottom stroke. Implements 
 | `--font-size-small` / `--font-line-height-small` | size / line height | `14px` / `21px` | Figma: Body/Small Medium |
 | ellipsis on `name`, `type`; wrap on `flavor` | overflow | — | AI-defined (Figma shows only short text; wrap follows the `min-w-full` flavor cell) |
 | `role="row"` / `cell` | semantics | — | AI-defined |
+| `--table-products-row-bg` | row background | `#FFFFFF` / dark `#000000` | **New** · Figma: Table Products Row Dark → fill |
+| `--table-products-row-border` | bottom line | `#D8E2EE` / dark `#242424` | **New** · Figma: Table Products Row Dark → line |
+| `--table-products-row-text` | cell text | `#292639` / dark `#C9C6D9` | **New** · Figma: Table Products Row Dark → text |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens. No hover / selected states in Figma, none added.
 
@@ -77,3 +86,4 @@ import { TableProductsHeader, TableProductsRow } from 'rifbar-ds';
 ## Accessibility
 
 - `role="row"` with `role="cell"` cells; place inside `role="table"` after a `TableProductsHeader`.
+- Dark theme contrast: `#C9C6D9` on `#000000` 12.56:1.

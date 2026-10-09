@@ -10,9 +10,9 @@
   width: 100%;
   padding: var(--spacing-16);
   overflow: clip;
-  background: var(--color-white);
-  box-shadow: var(--shadow-card);
-  color: var(--color-text);
+  background: var(--total-row-bg);
+  box-shadow: var(--total-row-shadow);
+  color: var(--total-row-text);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-semibold);
 }
@@ -45,4 +45,10 @@
   justify-content: flex-end;
   gap: var(--spacing-8);
   flex: none;
+}
+
+/* Dark theme (Figma Total Dark / Table Row 360-480 Dark): the action buttons of this molecule are solid (#BDC5E2) at every size; light theme unchanged. */
+.ds-total-row .ds-button--dark {
+  background-color: var(--button-solid-bg);
+  color: var(--button-on-solid);
 }

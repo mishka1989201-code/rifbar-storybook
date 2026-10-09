@@ -60,6 +60,10 @@ Pick a column set with `preset` or pass your own `columns`.
 <Canvas of={TableHeaderStories.LongLabel} />
 <Canvas of={TableHeaderStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Table Header 4 Dark`: transparent bar, header text and sort arrows `#888CF6` (Hover Blue Light). Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -74,6 +78,9 @@ Pick a column set with `preset` or pass your own `columns`.
 | `--border-width-lg`, `--color-headlines`, `--radius-sm` | keyboard focus ring on sortable header | `2px`, `#4549A1`, `5px` | AI-defined (no focus state in Figma) |
 | ellipsis / `nowrap` on cells | long labels | — | AI-defined |
 | `role="row"` / `columnheader`, `<button>` for sortable | semantics | — | AI-defined |
+| `--table-header-text` | header text, focus ring | `#4549A1` / dark `#888CF6` | **New** · Figma: Table Header 4 Dark → text |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens. Sort direction / active-sort states are not drawn in Figma, so there are none (the icon is the static two-arrow `sort`).
 
@@ -93,3 +100,4 @@ import { TableHeader } from 'rifbar-ds';
 
 - `role="row"` with `role="columnheader"` cells; use it inside an element with `role="table"` (or `grid`).
 - Sortable headers are real `<button>`s, reachable with Tab and activated with Enter / Space. Sort direction is not drawn in Figma, so `aria-sort` is not set.
+- Dark theme contrast: `#888CF6` on `#000000` 7.13:1.

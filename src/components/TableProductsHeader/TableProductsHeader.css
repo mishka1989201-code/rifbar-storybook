@@ -7,8 +7,8 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-8) var(--spacing-16);
-  background: var(--color-primary-blue-dark);
-  color: var(--color-white);
+  background: var(--table-products-header-bg);
+  color: var(--table-products-header-text);
   font-family: var(--font-family-base);
   font-size: var(--font-size-h7);
   line-height: var(--font-line-height-h7);
