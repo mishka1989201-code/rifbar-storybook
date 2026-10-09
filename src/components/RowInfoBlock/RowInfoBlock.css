@@ -27,8 +27,8 @@
   white-space: nowrap;
 }
 
-.ds-row-info-block--pair .ds-row-info-block__label { color: var(--row-info-block-text); }
-.ds-row-info-block--pair .ds-row-info-block__value { color: var(--color-grey-dark); }
+.ds-row-info-block--pair .ds-row-info-block__label { color: var(--row-info-block-pair-label); }
+.ds-row-info-block--pair .ds-row-info-block__value { color: var(--row-info-block-pair-value); }
 
 /* ─── line — Figma `Info Line 1`: 200px + 16px gap + 300px = 2 : 3 ──────────── */
 .ds-row-info-block--line {

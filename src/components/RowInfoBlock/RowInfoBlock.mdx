@@ -59,6 +59,10 @@ Implements the Figma component set [`RowInfoBlock`](https://www.figma.com/design
 
 Figma "Dark Molecules Components" → `Info v2 Dark`: values `#BDC5E2` (Primary Blue Dark Light), labels `#5D6E82` (unchanged), row lines `#242424`. Only the `compact` / `line` variant is drawn in dark; `pair`, `stacked` and `cells` are AI-defined by analogy (strong text `#C9C6D9`, muted `#646464`, lines `#242424`). Story: `AllVariantsDark`.
 
+## Dark theme (pair variant)
+
+`Ticket Info Dark`: `pair` label `#BDC5E2`, value `#BBC7D6` (new tokens `--row-info-block-pair-label`, `--row-info-block-pair-value`).
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -83,6 +87,9 @@ Figma "Dark Molecules Components" → `Info v2 Dark`: values `#BDC5E2` (Primary 
 | `--row-info-block-text` | strong label text | `#292639` / dark `#C9C6D9` | **New** · AI-defined |
 | `--row-info-block-value` | value text | `#1D2542` / dark `#BDC5E2` | **New** · Figma: Info v2 Dark → values |
 | `--row-info-block-muted` | muted text | `#A7A4B7` / dark `#646464` | **New** · AI-defined |
+| `--row-info-block-pair-label` / `--row-info-block-pair-value` | `pair` label / value | `#292639`, `#5D6E82` / dark `#BDC5E2`, `#BBC7D6` | **New** · Figma: Ticket Info Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
@@ -107,3 +114,4 @@ import { RowInfoBlock } from 'rifbar-ds';
 - Plain text in a `div`. For a real list of facts wrap rows in your own `<ul>`/`<dl>`.
 - Secondary Grey #A7A4B7 (`line` caption) on white is below 3:1 contrast — kept as designed. Grey Dark #5D6E82 on white passes.
 - Dark theme contrast: muted `#646464` on `#000000` 3.55:1 (⚠️ below 4.5:1, AI-defined).
+

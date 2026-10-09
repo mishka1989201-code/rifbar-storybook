@@ -8,16 +8,16 @@
   box-sizing: border-box;
   width: 100%;
   overflow: clip;
-  background: var(--color-white);
-  border: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  background: var(--info-block-bg);
+  border: var(--border-width-sm) solid var(--info-block-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--info-block-shadow);
 }
 
 /* Figma: inside this card the title row line is Stroke Light V2 (standalone Row.HeaderCard uses Secondary Light). */
 .ds-info-block > .ds-card-header {
   flex: none;
-  border-bottom-color: var(--color-stroke-light-v2);
+  border-bottom-color: var(--info-block-border-strong);
 }
 
 .ds-info-block__body {
@@ -35,7 +35,7 @@
    the last section has no bottom line. */
 .ds-info-block--ticket,
 .ds-info-block--details {
-  border-color: var(--color-stroke-light-v2);
+  border-color: var(--info-block-border-strong);
 }
 
 .ds-info-block--ticket .ds-info-block__body {
@@ -69,7 +69,7 @@
 
 /* Figma Select Client menu: body = columns of fields, each 508px wide (padding 32 / 16, gap 16);
    the line under the title row keeps the CardHeader color (Secondary Light). */
-.ds-info-block--form > .ds-card-header { border-bottom-color: var(--color-secondary-light); }
+.ds-info-block--form > .ds-card-header { border-bottom-color: var(--info-block-form-line); }
 
 /* Figma Create Invoice: the first row has 32px above, every row 32px below — also when the columns wrap
    (Size=Small), so there are 32px (not 64px) between stacked columns. */

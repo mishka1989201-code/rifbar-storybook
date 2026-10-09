@@ -9,7 +9,7 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-16) 0;
-  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border-bottom: var(--border-width-sm) solid var(--department-section-border);
   font-family: var(--font-family-base);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
@@ -28,7 +28,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--color-text);
+  color: var(--department-section-title);
   font-weight: var(--font-weight-medium);
 }
 

@@ -37,6 +37,10 @@ Title row at the top of a card or form section: round icon badge and a heading. 
 <Canvas of={CardHeaderStories.WithActions} />
 <Canvas of={CardHeaderStories.LongTitle} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `head Card Dark`: bar `#000000`, title `#888CF6`, badge glyph `#0AABDE` (Blue Light; in light it is Headlines). The `violet` tone (Ticket Info) is drawn **blue** in the dark frame (`#022631` ellipse, `#0AABDE` glyph) — copied as drawn. **Question for the designer:** is the blue ticket badge intended in dark, or should it stay violet? The standalone header line (`#242424`) is AI-defined. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -53,6 +57,13 @@ Title row at the top of a card or form section: round icon badge and a heading. 
 | `--font-size-h5` / `--font-line-height-h5` | title | `20px` / `30px` | Figma: Headings/h5 |
 | badge size `26px` | ellipse | — | Figma: 26×26 (raw, no size token) |
 | `actions` slot, ellipsis on title, `<h3>` | extras | — | AI-defined (not in Figma) |
+| `--card-header-bg` | bar background | `#FFFFFF` / dark `#000000` | **New** · Figma: head Card Dark → fill |
+| `--card-header-border` | bottom line | `#ECEEFB` / dark `#242424` | **New** · AI-defined: line not drawn in the standalone dark header |
+| `--card-header-title` | title | `#4549A1` / dark `#888CF6` | **New** · Figma: head Card Dark → title |
+| `--card-header-badge-fg` | badge glyph (`blue` tone) | `#4549A1` / dark `#0AABDE` | **New** · Figma: head Card Dark → glyph |
+| `--card-header-violet-bg` / `--card-header-violet-fg` | badge `violet` tone | violet tint, `#740ADE` / dark blue tint, `#0AABDE` | **New** · Figma: Ticket Info Dark → badge (open question) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 The ellipse color could not be read from Figma directly (the asset was an image), so it was sampled from the render and
 matched to Blue Light `#0AABDE` at 22%, the same pattern as `--color-green-light-tint`. Check it with the designer.
@@ -74,3 +85,4 @@ import { CardHeader } from 'rifbar-ds';
 
 - The title is an `<h3>`; adjust the level in your page structure if needed.
 - The badge icon is decorative (`aria-hidden`).
+- Dark theme contrast: title `#888CF6` on `#000000` 7.13:1; badge glyph `#0AABDE` on `#022631` 5.96:1.

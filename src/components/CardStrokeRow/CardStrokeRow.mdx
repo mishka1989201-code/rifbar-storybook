@@ -41,6 +41,10 @@ One line inside a card: a caption on the left and a value on the right. Implemen
 - Long label/value are not designed. AI-defined: the label is truncated with an ellipsis, the value stays on one line (max 60% of the row).
 - The 8px gap between label and value is AI-defined (Figma has none, the two are pushed apart).
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Card Stroke Dark`: label `#4549A1` (Headlines, unchanged), value `#C9C6D9`. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -50,6 +54,9 @@ One line inside a card: a caption on the left and a value on the right. Implemen
 | `--spacing-16` | side padding | `16px` | Existing tokens.json · Figma: padding 16 |
 | `--spacing-2` | gap inside value frame | `2px` | Existing tokens.json · Figma: Frame 427320358 gap 2 |
 | `--spacing-8` | min gap label ↔ value | `8px` | AI-defined use: keep text apart when it is long |
+| `--card-stroke-row-text` / `--card-stroke-row-label` | value, label | `#292639` / dark `#C9C6D9`; label dark `#4549A1` | **New** · Figma: Card Stroke Dark → text |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -68,3 +75,4 @@ import { CardStrokeRow } from 'rifbar-ds';
 ## Accessibility
 
 - Plain text in a `div`; text color #292639 on white has high contrast. If the rows form a list of facts, wrap them in your own `<dl>`/`role="list"`.
+- Dark theme contrast: label `#4549A1` on `#000000` 2.72:1 (⚠️ below 3:1, as designed — kept; consider `#888CF6`), value 12.56:1.

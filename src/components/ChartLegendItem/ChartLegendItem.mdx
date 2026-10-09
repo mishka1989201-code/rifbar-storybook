@@ -43,6 +43,10 @@ Implements the Figma component [`ChartDescription`](https://www.figma.com/design
 - Long label is not designed. AI-defined: truncated with an ellipsis.
 - Dark theme not designed. The legend text is black at 60% in both themes — on a dark background pass your own color via CSS.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Chart Description Dark`: text `#D2D3D9`, swatch unchanged. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -53,6 +57,9 @@ Implements the Figma component [`ChartDescription`](https://www.figma.com/design
 | `--size-icon` | swatch size | `16px` | Existing tokens.json · same 16px value as Icons 16px |
 | `--radius-avatar-square` | swatch radius | `4px` | Existing tokens.json · same 4px value as Department Avatar |
 | `--spacing-8` | gap | `8px` | Existing tokens.json · Figma: gap 8 |
+| `--chart-legend-text` | label | `rgba(0,0,0,.6)` / dark `#D2D3D9` | **New** · Figma: Chart Description Dark → text |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -71,3 +78,4 @@ import { ChartLegendItem } from 'rifbar-ds';
 
 - The swatch is decorative (`aria-hidden`): color alone must not carry meaning, so keep the label.
 - Black at 60% on white is about 7:1 ✅. The legend does not make a chart accessible on its own — give the chart a text alternative.
+- Dark theme contrast: `#D2D3D9` on `#000000` 14.06:1.

@@ -38,6 +38,10 @@ and [InfoClient](?path=/docs/molecules-infoclient--docs).
 <Canvas of={ClientDetailsStories.LongWord} />
 <Canvas of={ClientDetailsStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Client Details Dark`: outer `#000000`, card `#101010` with a `#242424` stroke, title `#646464`, text `#C9C6D9`. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -57,6 +61,11 @@ and [InfoClient](?path=/docs/molecules-infoclient--docs).
 | `--font-family-base` | font family | Poppins | Figma: Poppins |
 | caption `line-height: 1` | caption | — | Figma: `leading-none` (raw) |
 | `overflow-wrap: anywhere` | long words | — | AI-defined |
+| `--client-details-bg` / `--client-details-card-bg` | outer / card fill | `#FFFFFF`, `#F6F8FC` / dark `#000000`, `#101010` | **New** · Figma: Client Details Dark → fills |
+| `--client-details-card-border` | card stroke | `#D8E2EE` / dark `#242424` | **New** · Figma: Client Details Dark → stroke |
+| `--client-details-title` / `--client-details-text` | title / text | `#A7A4B7`, `#292639` / dark `#646464`, `#C9C6D9` | **New** · Figma: Client Details Dark → text |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -76,3 +85,4 @@ import { ClientDetails } from 'rifbar-ds';
 ## Accessibility
 
 - Plain text content; no interactive elements. Text color `#292639` on `#F6F8FC` is well above AA.
+- Dark theme contrast (on `#101010`): title `#646464` 3.22:1 (⚠️ below 4.5:1, kept as designed), text 11.38:1.

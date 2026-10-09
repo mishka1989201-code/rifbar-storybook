@@ -96,6 +96,10 @@ The last row has no bottom line. The frame in Figma sits next to `TicketInfo/v1`
 <Canvas of={InfoBlockStories.Mobile} />
 <Canvas of={InfoBlockStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `board_all-orders Dark` and `Ticket Info Dark`: card `#000000`, stroke and header line `#242424`, title `#888CF6`. No shadow is visible in dark; AI-defined: Dark Mode Shadow 1. The ticket rows are `RowInfoBlock variant="pair"` (label `#BDC5E2`, value `#BBC7D6`), the sections are `DepartmentSection`. Stories: `DefaultDark`, `TicketDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -112,6 +116,11 @@ The last row has no bottom line. The frame in Figma sits next to `TicketInfo/v1`
 | `--spacing-10` | side padding in `mobile` | `10px` | Existing tokens.json · Figma: board_all-orders 320px padding 10 |
 | `--spacing-24` / `--spacing-16` | body padding in `details` | `24px` / `16px` | Existing tokens.json · Figma: Information 1 padding 24 / 16 |
 | `--color-stroke-light-v2` | card border in `details` | `#D8E2EE` | Existing tokens.json · Figma: Stroke Light V2 |
+| `--info-block-bg` | card fill | `#FFFFFF` / dark `#000000` | **New** · Figma: board_all-orders Dark → fill |
+| `--info-block-border` / `--info-block-border-strong` / `--info-block-form-line` | stroke, header line, form header line | `#F1F2F9`, `#D8E2EE`, `#ECEEFB` / dark `#242424` | **New** · Figma: board_all-orders Dark → strokes |
+| `--info-block-shadow` | card shadow | `--shadow-card` / dark `--shadow-dark-1` | **New** · AI-defined: no shadow drawn |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Figma notes for `Create Invoice` (not drawn / assumed):
 
@@ -153,3 +162,4 @@ import { InfoBlock } from 'rifbar-ds';
 ## Accessibility
 
 - Rendered as a `<section>` whose heading is the `CardHeader` `<h3>`; the body is a description list (see `InfoClient`).
+- Dark theme: see `CardHeader`, `InfoClient`, `RowInfoBlock` and `DepartmentSection` for text contrasts.
