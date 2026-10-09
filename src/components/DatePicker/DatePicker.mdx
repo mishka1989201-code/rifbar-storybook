@@ -84,6 +84,14 @@ Assumed / normalised:
 - The shadow is the existing Table Row (`0 4 4`); Figma's effect list is `0 4 2`. Same decision as for the table rows.
 - The icons `chevron-left` / `chevron-right` / `xmark` / `tick` are matched by look (Figma icons are unnamed vectors).
 
+## Dark theme
+
+Figma `Dark Organisms Components` → `Date-range-dark` (3773:295556), `date-range-apply-dark` (3950:288380: `date`, `date-time`), `date-range-today-dark` (3773:297463). Dark values were sampled from the Figma render: panel `#000000`, border / dividers / range box `#242424`, weekdays and days `#C9C6D9`, month title and neighbouring days `#646464`, days between the ends `#27282E`, selected day `#BDC5E2` with black text. `Cancel` is the light button (`#27282E`); `Apply` is drawn solid `#BDC5E2`, so the panel overrides the `dark` medium button the same way `Modal` does (light theme unchanged). Story `All variants (dark theme)`.
+
+Open question for the designer: Figma draws no hover / focus for the days and arrows in dark; the code keeps the light logic (hover ring `--color-hover-blue-light`, arrow hover = range colour, focus ring `--shadow-focus`).
+
+The `--color-*` rows of the table below are light values; the last rows are the themed tokens.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -109,6 +117,14 @@ Assumed / normalised:
 | `--shadow-focus` | day / arrow focus | Focus or pressed | AI-defined use: the focus shadow of inputs and buttons |
 | `--color-grey-dark` | empty range summary | `#5D6E82` | AI-defined use: secondary text |
 | Button `light` / `dark`, `TimePicker` tokens | footer, time | — | see [Button](?path=/docs/atoms-button--docs), [TimePicker](?path=/docs/molecules-timepicker--docs) |
+| `--date-picker-bg` | panel | light `#FFFFFF` / dark `#000000` | **New** · Figma: Date-range-dark fill |
+| `--date-picker-stroke` | border, dividers, range box | light `#F1F2F9` / dark `#242424` | **New** · Figma: Date-range-dark strokes |
+| `--date-picker-text` | days, weekdays, range text | light `#292639` / dark `#C9C6D9` | **New** · Figma: Date-range-dark text |
+| `--date-picker-muted` | month title, neighbouring days | light `#A7A4B7` / dark `#646464` | **New** · Figma: Date-range-dark title |
+| `--date-picker-range-bg` | days in range, arrow hover | light `#ECEEFB` / dark `#27282E` | **New** · Figma: Date-range-dark range band (arrow hover: AI-defined) |
+| `--date-picker-selected-bg` / `--date-picker-selected-text` | selected day | light `#1D2542` on white / dark `#BDC5E2` on `#000000` | **New** · Figma: Date-range-dark selected day |
+| `--date-picker-empty-text` | empty range summary | light `#5D6E82` / dark `#646464` | **New** · AI-defined use: same grey as the month title |
+| `--table-row-shadow` | panel shadow | light Table Row / dark `--shadow-dark-1` | Existing tokens.json · Figma: Table Row (replaces `--shadow-table-row`) |
 
 ## Props
 
@@ -133,3 +149,4 @@ import { DatePicker } from 'rifbar-ds';
 - Contrast, computed: days `#292639` on white 14.68:1, on the range `#ECEEFB` 12.71:1; picked day white on `#1D2542` 15.05:1; `Cancel` `#1D2542` on `#ECEEFB` 13.03:1.
 - ⚠️ Kept as designed: the month title and the days of the neighbouring months (`#A7A4B7` on white) are 2.43:1, below 4.5:1 for text (2.11:1 when a neighbouring day falls in a range); the range band (`#ECEEFB` on white) is 1.15:1 and the panel border 1.12:1 — below 3:1 for non-text; the hover ring (`#888CF6`) is 2.95:1; the days are 32px high (about 33px wide) and `Cancel` / `Apply` are 37px high — below the 44px touch target.
 - Not covered: `min` / `max` dates and disabled days are not designed, so there are no props for them.
+- Dark theme contrast, computed: days `#C9C6D9` on `#000000` 12.56:1, on the range `#27282E` 8.79:1; picked day black on `#BDC5E2` 12.25:1; month title / neighbouring days `#646464` on `#000000` 3.55:1 (below 4.5:1, as in light) and 2.48:1 inside a range; panel border and range band (`#242424` / `#27282E` on black) 1.35:1 / 1.43:1 — below 3:1, kept as designed.
