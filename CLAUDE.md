@@ -139,16 +139,13 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   in-memory data, one story per Figma breakpoint. `ClientOrders` (client page, Orders tab, 1920…360px + filter screens at 768 / 480 / 360px), `DepartmentUsers` (Pagination Responsive: 768 / 480 / 360px × pagination v1 / v2).
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens, Favicons
 
-Latest work: the dark theme of **all Atoms** (4 groups: Button / IconButton / PlayButton / Pagination; InputField / Checkbox / Toggle / Switcher / SearchField / Slider;
-Tabs / SwitchButton / ChevronStatus / ChevronDropDown / FilterChevron / HeaderMenu; TooltipBordered / Scrollbar / Avatar / Logo / Icon / ImageCard), 83 new themed tokens, `…Dark` stories and a "Dark theme" section in each MDX.
+Latest work (2026-10-09): the dark theme of **Atoms, Molecules and Organisms** is done and merged (PR #12, #13, #14, #15; 380 themed tokens). `AudioPlayer` and `CardGrid` have no dark frame and stay light.
+`FilterMenu` is kept as is: the dark Figma frame `Filters` (768px) draws field + dropdown sections, the code draws card sections (the designer said: leave it).
 Earlier: TableRowClient hover + tooltip, TooltipBordered `subtle`, NoRowsTable, Foundations/Favicons, demo photos in `src/assets/demo`.
-Open PR: #12 (`claude/peaceful-franklin-tnrmh4` → `main`): Navbar, TimeTracker, WelcomeCard + AlertRow, CheckListModal, FilterMenu, ProductDetailCard,
-ProductFormModal, ScheduledCallCard, the Error / Important / Info states, Prototypes, the table / pagination components and the dark theme of the Atoms.
-The PR description was fully updated on 2026-10-09 (including the dark theme, the 83 tokens and the open dark-theme questions). Keep it in sync when more is added; only on request.
-If it is merged when the next session starts, restart the branch from `origin/main` (same name, force-with-lease) and open a new PR.
+No open PR. The branch `claude/peaceful-franklin-tnrmh4` holds only merged history: at the start of a session restart it from `origin/main` (same name, force-with-lease) and open a new PR only on request.
 
-Dark theme of Molecules and Organisms: **not done** — wait for the designer's Figma link of the dark Molecules block, then follow "Dark theme" above. Many molecules inherit the dark theme from their atoms
-(they are built from Button, IconButton, InputField …); check each in dark first and add `--<component>-*` tokens only where the molecule has its own colours (like `table-row`).
+**Next: Prototypes** (whole screens, new screens generated from Figma frames). Workflow, scaffold script (`node scripts/new-prototype.mjs`) and checklist: `CONTRIBUTING-molecules.md` → «Прототипи: передача в новий чат».
+
 
 Open design questions (also in the PR #10 description):
 
@@ -173,5 +170,5 @@ Storybook builds (`npx storybook build`) and the stories of the newest work (bot
 How to verify, the handoff checklist and the designer questions are in `CONTRIBUTING-molecules.md` («Передача в новий чат»).
 The other interactive stories (FilterMenu, CheckListModal, Navbar, ProductFormModal, DatePicker, TableClients Sortable) were still not walked through.
 
-Next: more components from the Figma file, one link (or several for one component) at a time. Reuse an existing component when the new
+Next after Prototypes: more components from the Figma file, one link (or several for one component) at a time. Reuse an existing component when the new
 frame only changes layout, sizes or columns (extend it with a prop or a preset instead of adding a new one).
