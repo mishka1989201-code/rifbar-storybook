@@ -34,6 +34,10 @@ Document card: title with a button, a document preview and label/value rows. Imp
 <Canvas of={OrderCardStories.LongText} />
 <Canvas of={OrderCardStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Order Card Dark`: card `#000000`, stroke `#242424`, labels `#888CF6`, title and values `#C9C6D9`; the chevron button and the status pill come from the atoms. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -46,6 +50,9 @@ Document card: title with a button, a document preview and label/value rows. Imp
 | `--color-headlines` / `--color-text` | labels / values | `#4549A1` / `#292639` | Figma |
 | `--font-size-mini` + semibold | all text | 12 / 18 / 600 | Figma: Body/Mini Semi-Bold |
 | `--spacing-4/16/24/40` | paddings, gaps | — | Figma |
+| `--order-card-bg` / `--order-card-border` / `--order-card-shadow` / `--order-card-text` / `--order-card-label` | surface, stroke, shadow, text, labels | dark `#000000`, `#242424`, `--shadow-dark-1`, `#C9C6D9`, `#888CF6` | **New** · Figma: Order Card Dark (shadow: AI-defined) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 `object-position: top` on the preview approximates the Figma crop (needs confirmation). Icon `chevron-down` in the button matches Figma.
 
@@ -70,3 +77,4 @@ import { OrderCard, Button, ChevronStatus } from 'rifbar-ds';
 
 - Icon-only `action` needs `aria-label`; give the preview an `previewAlt`.
 - Underlined values are plain text, not links.
+- Dark theme contrast: labels 7.13:1, text 12.56:1.

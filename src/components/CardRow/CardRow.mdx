@@ -64,6 +64,10 @@ Values are `fields` (`weight`, `underline`, `grow` for wrapping text); a status 
 <Canvas of={CardRowStories.NarrowContainer} />
 <Canvas of={CardRowStories.NoActions} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Card Row 1025 - Dark`, `Cards Line 1 Dark`, `Card Row 1 Dark`, 768/360 variants: card `#000000`, stroke `#242424`, text `#C9C6D9` — the existing `--table-row-*` tokens. Buttons come from the `Button` atom. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -79,6 +83,9 @@ Values are `fields` (`weight`, `underline`, `grow` for wrapping text); a status 
 | `--spacing-80` | image size | `80px` | Figma (existing spacing token reused as size) |
 | `--color-stroke-light-v2`, `--radius-image-card` | image border, radius | `#D8E2EE`, `4px` | Figma |
 | `--size-control-sm` | actions row height | `37px` | Figma: Buttons height 37 |
+| `--table-row-bg` / `--table-row-border` / `--table-row-text` / `--table-row-shadow` | card surface, stroke (also thumbnail), text, shadow | dark `#000000`, `#242424`, `#C9C6D9`, `--shadow-dark-1` | Existing tokens.json · Figma: Card Row Dark (reused) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 | `--size-card-row-image-lg` | 111px image | `111px` | **New** · Figma: imageCards 111×111 |
 | `--size-card-row-labeled-min` | min width of a labeled line | `412px` | **New** · Figma: Info Line 412 |
@@ -111,3 +118,4 @@ import { CardRow, Button, ChevronStatus } from 'rifbar-ds';
 
 - Icon-only buttons need `aria-label`; the checkbox needs `checkboxProps={{ 'aria-label': … }}`.
 - Underlined values are plain text, not links — wrap them in `<a>` when they navigate.
+- Dark theme contrast: text `#C9C6D9` on `#000000` 12.56:1.

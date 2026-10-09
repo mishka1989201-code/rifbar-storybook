@@ -45,6 +45,10 @@ Icons: `tick`, `info`, `warning-v1`, `warning-v2`, close = `xmark` (24px). Chose
 <Canvas of={NotificationStories.NarrowContainer} />
 <Canvas of={NotificationStories.NarrowBanner} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Short Reports Dark`: Success `#00150C` / `#00864E`, Info `#00161D` / `#0AABDE`, Warning `#1B0A00` / `#A7572C`, Error `#170300` / `#ED5742` (existing `*-bg-dark`, `warning-dark` colours; light Info text is Headlines, dark is Blue Light). “Sign the Contract” is drawn on `#000000` with a `#242424` stroke and `#0AABDE` text — not on the Info tint — so the banner layout has its own tokens. Stories: `DefaultDark` (Success), `InfoDark`, `WarningDark`, `ErrorDark`, `SignTheContractDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -56,6 +60,12 @@ Icons: `tick`, `info`, `warning-v1`, `warning-v2`, close = `xmark` (24px). Chose
 | `--shadow-table-row` | shadow | `0 4px 4px rgba(0,0,0,.05)` | Figma: Table Row |
 | `--font-size-h6` + medium (title semibold) | text | 16 / 24 | Figma: Medium Headings/h6 |
 | `--spacing-8/16/32` | paddings, gaps | — | Figma |
+| `--notification-success-bg` / `--notification-info-bg` / `--notification-warning-bg` / `--notification-error-bg` | fills | dark `#00150C`, `#00161D`, `#1B0A00`, `#170300` | **New** · Figma: Short Reports Dark |
+| `--notification-info-color` / `--notification-warning-color` | Info / Warning text | `#4549A1`, `#F68F57` / dark `#0AABDE`, `#A7572C` | **New** · Figma: Short Reports Dark |
+| `--notification-banner-bg` / `--notification-banner-border` | “Sign the Contract” fill, stroke | info tint / dark `#000000`, `#242424` | **New** · Figma: Short Reports Dark → Sign the Contract |
+| `--notification-shadow` | shadow | table-row shadow / dark `--shadow-dark-1` | **New** · AI-defined: no shadow drawn |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Fixed Figma widths (500 / 428 / 1524px) become `width: 100%`. Wrapping of the banner, close-button focus ring and `role` are AI-defined.
 
@@ -86,3 +96,4 @@ import { Notification, Button } from 'rifbar-ds';
 - `role="alert"` for warning and error, `role="status"` for success and info.
 - The close button has `aria-label` (`closeLabel`).
 - Warning text (#F68F57 on #FFF5F0) has low contrast — it follows Figma; avoid putting critical info only in this color.
+- Dark theme contrast (script): Success `#00864E` on `#00150C` 4.06:1, Info 6.97:1, Warning `#A7572C` on `#1B0A00` 3.71:1 (⚠️ below 4.5:1, kept as designed), Error 5.76:1, banner text 7.89:1.

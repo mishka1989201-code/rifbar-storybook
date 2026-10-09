@@ -10,28 +10,28 @@
   border: var(--border-width-sm) solid var(--ds-notification-border);
   border-radius: var(--radius-md);
   background: var(--ds-notification-bg);
-  box-shadow: var(--shadow-table-row);
+  box-shadow: var(--notification-shadow);
   color: var(--ds-notification-color);
   font-family: var(--font-family-base);
 }
 
 .ds-notification--success {
-  --ds-notification-bg: var(--color-success-bg);
+  --ds-notification-bg: var(--notification-success-bg);
   --ds-notification-border: var(--color-success-border);
   --ds-notification-color: var(--color-green-dark);
 }
 .ds-notification--info {
-  --ds-notification-bg: var(--color-info-bg);
+  --ds-notification-bg: var(--notification-info-bg);
   --ds-notification-border: var(--color-info-border);
-  --ds-notification-color: var(--color-headlines);
+  --ds-notification-color: var(--notification-info-color);
 }
 .ds-notification--warning {
-  --ds-notification-bg: var(--color-warning-bg);
+  --ds-notification-bg: var(--notification-warning-bg);
   --ds-notification-border: var(--color-warning-border);
-  --ds-notification-color: var(--color-warning);
+  --ds-notification-color: var(--notification-warning-color);
 }
 .ds-notification--error {
-  --ds-notification-bg: var(--color-error-bg);
+  --ds-notification-bg: var(--notification-error-bg);
   --ds-notification-border: var(--color-error-border);
   --ds-notification-color: var(--color-danger);
 }
@@ -76,6 +76,8 @@
 
 /* Figma “Sign the Contract”: text hugs the left, buttons the right; wraps on narrow screens. */
 .ds-notification--banner {
+  --ds-notification-bg: var(--notification-banner-bg);
+  --ds-notification-border: var(--notification-banner-border);
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--spacing-16);

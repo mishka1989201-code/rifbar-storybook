@@ -6,12 +6,12 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-12) var(--spacing-16);
-  background: var(--color-white);
-  border: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  background: var(--table-row-bg);
+  border: var(--border-width-sm) solid var(--table-row-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-table-row);
+  box-shadow: var(--table-row-shadow);
   font-family: var(--font-family-base);
-  color: var(--color-text);
+  color: var(--table-row-text);
 }
 
 /* Figma V1 (checkbox + image) uses 10px side padding. */
@@ -26,7 +26,7 @@
   width: var(--spacing-80);
   height: var(--spacing-80);
   object-fit: cover;
-  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border: var(--border-width-sm) solid var(--table-row-border);
   border-radius: var(--radius-image-card);
   box-sizing: border-box;
 }

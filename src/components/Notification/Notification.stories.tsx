@@ -75,3 +75,68 @@ export const NarrowBanner: Story = {
   name: 'Narrow banner',
   args: { ...SignTheContract.args, style: { maxWidth: 420 } },
 };
+
+/** Figma "Dark Molecules Components" → Short Reports Dark → Success. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DefaultDark: Story = {
+  ...Default,
+  name: 'Success (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+/** Figma "Dark Molecules Components" → Short Reports Dark → Info. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const InfoDark: Story = {
+  ...Info,
+  name: 'Info (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+/** Figma "Dark Molecules Components" → Short Reports Dark → Warning. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const WarningDark: Story = {
+  ...Warning,
+  name: 'Warning (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+/** Figma "Dark Molecules Components" → Short Reports Dark → Error. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const ErrorDark: Story = {
+  ...Error,
+  name: 'Error (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+/** Figma "Dark Molecules Components" → Short Reports Dark → Sign the Contract. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const SignTheContractDark: Story = {
+  ...SignTheContract,
+  name: 'Sign the contract (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

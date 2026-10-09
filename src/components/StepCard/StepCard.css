@@ -9,10 +9,10 @@
   width: 100%;
   padding: var(--spacing-24) var(--spacing-8);
   overflow: clip;
-  background: var(--color-white);
-  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  background: var(--step-card-bg);
+  border: var(--border-width-sm) solid var(--step-card-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--step-card-shadow);
   font-family: var(--font-family-base);
   text-align: center;
 }
@@ -34,13 +34,13 @@
   height: 50px;
   padding: 6px;
   border-radius: var(--radius-round);
-  background: var(--color-green-pale);
+  background: var(--step-card-badge-bg);
   color: var(--color-green-light);
 }
 
 .ds-step-card__title {
   margin: 0;
-  color: var(--color-primary-blue-dark);
+  color: var(--step-card-title);
   font-size: var(--font-size-h5);
   line-height: var(--font-line-height-h5);
   font-weight: var(--font-weight-medium);
