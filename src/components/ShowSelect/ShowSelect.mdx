@@ -34,6 +34,10 @@ which now uses this component.
 <Canvas of={ShowSelectStories.Interactive} />
 <Canvas of={ShowSelectStories.CustomLabel} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Sow Menu Pagination Dark`: label `#888CF6`. The option list is not drawn in Figma, so it is AI-defined by analogy with Table Row / Pagination: list `#000000`, text `#C9C6D9`, hover `#27282E`, selected `#888CF6`. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -43,6 +47,13 @@ which now uses this component.
 | `--spacing-8` | gap label ↔ select, value ↔ chevron | `8px` | Figma |
 | `--color-white`, `--radius-sm`, `--shadow-tooltip`, `--spacing-4` | option list | — | AI-defined |
 | `--color-text`, `--color-secondary-light`, `--color-headlines` | list option, hover, chosen | — | AI-defined |
+| `--show-select-label` | “Show:” label | `#4549A1` / dark `#888CF6` | **New** · Figma: Sow Menu Pagination Dark → label |
+| `--show-select-list-bg` / `--show-select-list-shadow` | option list surface | white, tooltip shadow / dark `#000000`, `--shadow-dark-1` | **New** · AI-defined: list not drawn |
+| `--show-select-option-text` | option text | `#292639` / dark `#C9C6D9` | **New** · AI-defined |
+| `--show-select-option-hover-bg` | option hover | `#ECEEFB` / dark `#27282E` | **New** · AI-defined |
+| `--show-select-option-selected` | selected option | `#4549A1` / dark `#888CF6` | **New** · AI-defined |
+
+The `--color-*` rows above are light values; the dark values come from the Dark theme tokens listed in the last rows.
 
 The field itself (32px, border, 14px Medium value) comes from `FilterField`. No new tokens.
 The option list is not in Figma — AI-defined: opens above the field, closes on outside click and Escape.
@@ -62,3 +73,4 @@ import { ShowSelect } from 'rifbar-ds';
 ## Accessibility
 
 - The list is a `listbox` of `option`s labelled by “Show:”; Enter / Space choose, Escape closes.
+- Dark theme contrast (script): label `#888CF6` on `#000000` 7.13:1, option text 12.56:1, selected on hover `#27282E` 4.99:1.

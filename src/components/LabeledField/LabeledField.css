@@ -11,7 +11,7 @@
 }
 
 .ds-labeled-field__title {
-  color: var(--color-text);
+  color: var(--labeled-field-text);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);

@@ -7,8 +7,8 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-16);
-  background: var(--color-white);
-  border-bottom: var(--border-width-sm) solid var(--color-secondary-light);
+  background: var(--card-header-bg);
+  border-bottom: var(--border-width-sm) solid var(--card-header-border);
   font-family: var(--font-family-base);
 }
 
@@ -29,13 +29,13 @@
   height: 26px;
   border-radius: 50%;
   background: var(--color-blue-light-tint);
-  color: var(--color-headlines);
+  color: var(--card-header-badge-fg);
 }
 
 /* Figma TicketInfo/v1: violet ellipse (Violet Icons @ 22%) with a Violet Icons glyph. */
 .ds-card-header__badge--violet {
-  background: var(--color-violet-tint);
-  color: var(--color-violet-icons);
+  background: var(--card-header-violet-bg);
+  color: var(--card-header-violet-fg);
 }
 
 .ds-card-header__badge--warning {
@@ -53,7 +53,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--color-headlines);
+  color: var(--card-header-title);
   font-size: var(--font-size-h5);
   line-height: var(--font-line-height-h5);
   font-weight: var(--font-weight-semibold);

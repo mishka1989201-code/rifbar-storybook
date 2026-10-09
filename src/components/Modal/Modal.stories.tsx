@@ -391,3 +391,16 @@ export const AllVariants: Story = {
     </div>
   ),
 };
+
+/** Figma "Dark Molecules Components" → Add Product Modal Dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AddProductDark: Story = {
+  ...AddProduct,
+  name: 'Add product (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

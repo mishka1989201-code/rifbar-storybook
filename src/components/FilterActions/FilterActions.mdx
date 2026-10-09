@@ -44,6 +44,10 @@ Implements the Figma frame [`Actions`](https://www.figma.com/design/4Q7E8IQ07a9x
 - The badge is hidden when `filterCount` is `0` / `undefined` (AI-defined).
 - Dark theme not designed — light values are used.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Filter Responsive Dark`: the Filter button label, icon and counter badge are `#BDC5E2` (badge number `#000000`); the search field and buttons come from the atoms. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -53,6 +57,9 @@ Implements the Figma frame [`Actions`](https://www.figma.com/design/4Q7E8IQ07a9x
 | `--color-stroke-light-v1` / `--color-stroke-button` | button fill / stroke (Button atom) | `#F1F2F9` / `#CBC8DB` | Existing tokens.json · Figma: Stroke Light V1, Stroke  Button |
 | `--font-size-micro` / `--font-line-height-micro` | badge number (Button atom) | `10px` / `15px` | Existing tokens.json · Figma: Body/Micro Medium |
 | `--color-stroke-light-v2`, `--color-secondary-light`, `--color-secondary-grey` | search field stroke, button, placeholder (SearchField atom) | `#D8E2EE`, `#ECEEFB`, `#A7A4B7` | Existing tokens.json · Figma: Stroke Light V2, Secondary Light, Secondary Grey |
+| `--filter-menu-accent` | Filter label, icon, counter | `#4549A1` / dark `#BDC5E2` | **New** · Figma: Filter Responsive Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -77,3 +84,4 @@ import { FilterActions } from 'rifbar-ds';
 - Container is `role="toolbar"`; the filter button has a visible label, the search field has `aria-label="Search"`.
 - Secondary Grey `#A7A4B7` placeholder on white is below 3:1 contrast — kept as designed.
 - Desktop-size controls: the filter button is 37px high (below 44px touch target) — kept as designed; the search field is 40px.
+- Dark theme contrast: `#BDC5E2` on `#242424` 9.05:1.

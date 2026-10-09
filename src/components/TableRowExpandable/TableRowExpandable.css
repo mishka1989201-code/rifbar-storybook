@@ -2,9 +2,9 @@
    Figma strokes are "inside": drawn with an inset box-shadow next to the row shadow. */
 
 .ds-table-row-expandable {
-  --ds-table-row-bg: var(--color-white);
-  --ds-table-row-stroke: var(--color-stroke-light-v1);
-  --ds-table-row-shadow: var(--shadow-table-row);
+  --ds-table-row-bg: var(--table-row-bg);
+  --ds-table-row-stroke: var(--table-row-border);
+  --ds-table-row-shadow: var(--table-row-shadow);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,7 +14,7 @@
   border-radius: var(--radius-lg);
   background: var(--ds-table-row-bg);
   box-shadow: inset 0 0 0 var(--border-width-sm) var(--ds-table-row-stroke), var(--ds-table-row-shadow);
-  color: var(--color-text);
+  color: var(--table-row-text);
   font-family: var(--font-family-base);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
@@ -24,15 +24,15 @@
 
 .ds-table-row-expandable:hover,
 .ds-table-row-expandable.is-hover {
-  --ds-table-row-bg: var(--color-row-hover);
-  --ds-table-row-shadow: var(--shadow-table-row-hover);
+  --ds-table-row-bg: var(--table-row-hover-bg);
+  --ds-table-row-shadow: var(--table-row-hover-shadow);
 }
 
 /* Active (opened) wins over hover: Figma draws it white with the Headlines stroke. */
 .ds-table-row-expandable.is-active {
-  --ds-table-row-bg: var(--color-white);
+  --ds-table-row-bg: var(--table-row-bg);
   --ds-table-row-stroke: var(--theme-card-hover-border);
-  --ds-table-row-shadow: var(--shadow-table-row);
+  --ds-table-row-shadow: var(--table-row-shadow);
 }
 
 .ds-table-row-expandable.is-disabled {
@@ -81,14 +81,14 @@
   padding: var(--spacing-10);
   border: 0;
   border-radius: var(--radius-sm);
-  background: var(--color-secondary-light);
+  background: var(--table-row-action-light);
   cursor: pointer;
   transition: box-shadow 0.15s ease;
 }
 
 .ds-table-row-expandable:hover .ds-table-row-expandable__toggle,
 .ds-table-row-expandable.is-hover .ds-table-row-expandable__toggle {
-  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-stroke-light-v1);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--table-row-border);
 }
 
 .ds-table-row-expandable__toggle:focus-visible {

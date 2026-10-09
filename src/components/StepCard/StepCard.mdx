@@ -33,6 +33,10 @@ Process step tile: a round icon, a step name and a date. Implements the Figma [`
 <Canvas of={StepCardStories.LongTitle} />
 <Canvas of={StepCardStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Step 1 Dark`: card `#101010` (BG Dark), stroke `#242424`, icon ellipse `#161C16` (new value-named colour `--color-green-pale-dark`), title `#BDC5E2`, date `#5D6E82` (unchanged). Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -45,6 +49,11 @@ Process step tile: a round icon, a step name and a date. Implements the Figma [`
 | `--color-green-light` | icon color | `#1FD246` | Figma: Green Light (icon fill sampled from the render, needs confirmation) |
 | `--color-primary-blue-dark` / `--color-grey-dark` | title / caption | `#1D2542` / `#5D6E82` | Figma |
 | `--font-size-h5` / `--font-size-small` | title / caption | 20 / 14 | Figma |
+| `--step-card-bg` / `--step-card-border` / `--step-card-shadow` | surface, stroke, shadow | white, `#D8E2EE`, card / dark `#101010`, `#242424`, `--shadow-dark-1` | **New** · Figma: Step 1 Dark |
+| `--step-card-badge-bg` / `--step-card-title` | icon ellipse, title | `#E6FCE6`, `#1D2542` / dark `#161C16`, `#BDC5E2` | **New** · Figma: Step 1 Dark |
+| `--color-green-pale-dark` | dark icon ellipse | `#161C16` | **New** · Figma: Step 1 Dark (no variable, named by value) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Badge size 50px with 6px padding is taken from Figma as is (no size token).
 
@@ -63,3 +72,4 @@ import { StepCard } from 'rifbar-ds';
 ## Accessibility
 
 - The icon is decorative; the step name is the `<h3>`.
+- Dark theme contrast: title `#BDC5E2` on `#101010` 11.1:1, date `#5D6E82` 3.64:1 (⚠️ below 4.5:1, kept as designed).

@@ -8,9 +8,9 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-12) var(--spacing-16);
-  background: var(--color-white);
-  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v2);
-  color: var(--color-text);
+  background: var(--table-products-row-bg);
+  border-bottom: var(--border-width-sm) solid var(--table-products-row-border);
+  color: var(--table-products-row-text);
   font-family: var(--font-family-base);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);

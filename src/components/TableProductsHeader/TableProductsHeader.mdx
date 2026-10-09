@@ -40,6 +40,10 @@ per cell in Figma, but no sort icons are drawn in this design.
 <Canvas of={TableProductsHeaderStories.LongLabel} />
 <Canvas of={TableProductsHeaderStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Table Products Header Dark`: dark grey bar `#242424`, text `#BBC7D6` (White Light). Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -54,6 +58,10 @@ per cell in Figma, but no sort icons are drawn in this design.
 | `--font-size-h7` / `--font-line-height-h7` | font size / line height | `14px` / `21px` | Figma: Headings/h7 |
 | ellipsis / `nowrap` on cells | long labels | — | AI-defined (not in Figma) |
 | `role="row"` / `columnheader` | semantics | — | AI-defined |
+| `--table-products-header-bg` | bar background | `#1D2542` / dark `#242424` | **New** · Figma: Table Products Header Dark → fill |
+| `--table-products-header-text` | header text | `#FFFFFF` / dark `#BBC7D6` | **New** · Figma: Table Products Header Dark → text |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -80,3 +88,4 @@ import { TableProductsHeader } from 'rifbar-ds';
 
 - `role="row"` with `role="columnheader"` cells; use it inside an element with `role="table"` (or `grid`).
 - White on `#1D2542` text contrast is well above AA.
+- Dark theme contrast: `#BBC7D6` on `#242424` 9.06:1.

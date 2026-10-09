@@ -7,8 +7,8 @@
   width: 100%;
   overflow: clip;
   border-radius: var(--radius-lg);
-  background: var(--color-white);
-  box-shadow: var(--shadow-card);
+  background: var(--time-tracker-bg);
+  box-shadow: var(--time-tracker-shadow);
   font-family: var(--font-family-base);
 }
 
@@ -18,7 +18,7 @@
   flex-direction: column;
   gap: var(--spacing-10);
   padding: var(--spacing-16) var(--spacing-16) var(--spacing-32);
-  background: var(--color-white);
+  background: var(--time-tracker-bg);
 }
 
 .ds-time-tracker__stats {
@@ -26,7 +26,7 @@
   flex-wrap: wrap;
   align-items: center;
   margin: 0;
-  color: var(--color-text);
+  color: var(--time-tracker-text);
   font-weight: var(--font-weight-semibold);
   white-space: nowrap;
 }
@@ -47,7 +47,7 @@
 }
 
 .ds-time-tracker__stat + .ds-time-tracker__stat {
-  border-left: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border-left: var(--border-width-sm) solid var(--time-tracker-divider);
 }
 
 .ds-time-tracker__label {

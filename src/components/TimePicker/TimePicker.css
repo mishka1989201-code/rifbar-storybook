@@ -22,14 +22,14 @@
 }
 
 .ds-time-picker__time {
-  color: var(--color-text);
+  color: var(--time-picker-text);
   font-size: var(--font-size-h5);
   line-height: var(--font-line-height-h5);
   font-variant-numeric: tabular-nums;
 }
 
 .ds-time-picker__period {
-  color: var(--color-secondary-grey);
+  color: var(--time-picker-period);
   font-size: var(--font-size-h7);
   line-height: var(--font-line-height-h7);
 }

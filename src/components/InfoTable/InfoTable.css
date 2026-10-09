@@ -8,7 +8,7 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-32) var(--spacing-16);
-  background: var(--color-white);
+  background: var(--info-table-bg);
   font-family: var(--font-family-base);
 }
 

@@ -34,6 +34,10 @@ Number card: a caption and a big number, with either a link and a watermark (V1)
 <Canvas of={StatCardStories.LongValue} />
 <Canvas of={StatCardStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Card In processing Dark`: card `#000000`, stroke `#27282E`, label and “See all” `#BDC5E2`, number `#888CF6`, watermark `#2F3156` (opaque; light is `#BDC5E2` at 60%). Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -45,6 +49,11 @@ Number card: a caption and a big number, with either a link and a watermark (V1)
 | `--color-headlines` / `--color-primary-blue-dark` | value / caption | `#4549A1` / `#1D2542` | Figma |
 | `--font-size-h2` / `--font-size-mini` / `--font-size-h6` | value / caption / amount | 32 / 12 / 16 | Figma |
 | `--color-primary-blue-dark-light` | watermark | `#BDC5E2` @ 60% | AI-defined (Figma logo is an image; colour sampled from the render, needs confirmation) |
+| `--stat-card-bg` / `--stat-card-border` / `--stat-card-shadow` | surface, stroke, shadow | white, `#ECEEFB`, card / dark `#000000`, `#27282E`, `--shadow-dark-1` | **New** · Figma: Card In processing Dark |
+| `--stat-card-text` / `--stat-card-number` | label, number | `#1D2542`, `#4549A1` / dark `#BDC5E2`, `#888CF6` | **New** · Figma: Card In processing Dark |
+| `--stat-card-watermark` / `--stat-card-watermark-opacity` | watermark | `#BDC5E2` @ 0.6 / dark `#2F3156` @ 1 | **New** · Figma: Card In processing Dark (colour read from the render) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 The watermark size (62×89) is in CSS as is; the sign paths are the same as in `Logo`.
 
@@ -63,3 +72,4 @@ import { StatCard, Button } from 'rifbar-ds';
 ## Accessibility
 
 - The watermark is `aria-hidden`; the link in `footer` needs a clear label.
+- Dark theme contrast: number 7.13:1, label 12.25:1; watermark `#2F3156` on `#000000` 1.69:1 (decorative).

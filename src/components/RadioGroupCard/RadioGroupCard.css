@@ -17,7 +17,7 @@
 
 .ds-radio-group-card__title {
   margin: 0;
-  color: var(--color-text);
+  color: var(--radio-group-card-title);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);
@@ -31,8 +31,8 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-16);
-  background: var(--color-bg);
-  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  background: var(--radio-group-card-bg);
+  border: var(--border-width-sm) solid var(--radio-group-card-border);
   border-radius: var(--radius-lg);
 }
 
@@ -46,7 +46,7 @@
 }
 
 .ds-radio-group-card .ds-checkbox:has(input:checked) .ds-checkbox__label {
-  color: var(--color-headlines);
+  color: var(--radio-group-card-selected);
   font-weight: var(--font-weight-medium);
 }
 

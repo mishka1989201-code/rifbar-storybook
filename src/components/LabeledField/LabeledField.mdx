@@ -53,6 +53,10 @@ It composes the existing `InputField` atoms — the control is passed as `childr
 - `Modal` has its own `ModalField` with identical styling (it predates this component); it was left unchanged.
 - No new tokens. Dark theme not designed — token values follow the theme automatically.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Add Product Modal Dark`: labels `#C9C6D9`; the fields come from `InputField` / `FilterField`. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -64,6 +68,9 @@ It composes the existing `InputField` atoms — the control is passed as `childr
 | `--spacing-4` | gap title ↔ field | `4px` | Existing tokens.json · Figma: gap 4 |
 | `--font-family-base` | font | Poppins | Existing tokens.json · Figma: Poppins |
 | `--color-stroke-light-v2`, `--color-grey-dark`, `--radius-sm` | field border, placeholder, radius | `#D8E2EE`, `#5D6E82`, `5px` | Existing tokens.json · Figma: Stroke Light V2, Grey Dark (drawn by the `InputField` atom) |
+| `--labeled-field-text` | label | `#292639` / dark `#C9C6D9` | **New** · Figma: Add Product Modal Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 

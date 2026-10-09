@@ -9,7 +9,7 @@
   width: 100%;
   margin: 0;
   padding: var(--spacing-32) var(--spacing-16);
-  background: var(--color-white);
+  background: var(--info-client-bg);
   font-family: var(--font-family-base);
 }
 
@@ -32,7 +32,7 @@
 
 .ds-info-client__label {
   margin: 0;
-  color: var(--color-secondary-grey);
+  color: var(--info-client-label);
   font-size: var(--font-size-mini);
   line-height: var(--font-line-height-mini);
   font-weight: var(--font-weight-medium);
@@ -45,7 +45,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--color-text);
+  color: var(--info-client-value);
   font-size: var(--font-size-h5);
   line-height: var(--font-line-height-h5);
   font-weight: var(--font-weight-semibold);

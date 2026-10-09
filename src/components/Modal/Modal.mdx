@@ -76,6 +76,10 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 - Not designed, AI-defined: a modal without icon or without footer, the invalid field state (from `InputField`), focus ring on the close button (from `IconButton`), the modal at narrow widths (`width: 100%` with the Figma widths as `max-width`). Dark theme not designed — light values are used.
 - Figma notes on the `InputField`: Static = Stroke Input border, Grey Dark placeholder — the atom already does this.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Add Product Modal Dark`, `Approve Modal Dark`: dialog `#000000` with a `#242424` outline, title and icon `#BDC5E2`, header / footer lines `#242424`, field labels `#C9C6D9`, descriptions `#646464`; the primary footer button is solid `#BDC5E2` with black text (override in `Modal.css`, light unchanged). Fields, dropdowns and the dropzone come from their own components. Story: `AddProductDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -104,6 +108,11 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 | `--spacing-8` | gap between title and close button | `8px` | Existing tokens.json · Figma: header gap 8 |
 | `--spacing-4` | field caption gap, mobile icon offset | `4px` | Existing tokens.json · Figma: gap 4, pt 4 |
 | Close button, fields, buttons | — | — | Existing atoms: `IconButton` (Secondary Grey stroke), `InputField` (Stroke Input `#8A87A0`, Grey Dark placeholder), `Button` (Secondary Light / Primary Blue Dark) |
+| `--modal-bg` / `--modal-text` / `--modal-shadow` | dialog, text, elevated shadow | white, `#1D2542`, tooltip / dark `#000000`, `#BDC5E2`, `--shadow-modal-dark` | **New** · Figma: Approve Modal Dark |
+| `--modal-line` / `--modal-muted` / `--modal-label` | lines, description, field label | `#F1F2F9`, `#A7A4B7`, `#292639` / dark `#242424`, `#646464`, `#C9C6D9` | **New** · Figma: Add Product Modal Dark |
+| `--shadow-modal-dark` | dark outline + shadow | `inset 0 0 0 1px #242424, 0 10px 16px -13px rgba(0,0,0,.35)` | **New** · Figma: Approve Modal Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -145,3 +154,4 @@ import { Button, FilterField, InputField, Modal, ModalField, ModalSection } from
 - Secondary Grey `#A7A4B7` stroke of the close button on white is below 3:1 contrast — kept as designed.
 - `description` is linked to the dialog by `aria-describedby`; `important` is a `role="note"`; the field `error` is a `role="alert"` so it is announced when it appears. Set `invalid` on the control as well, so the error is not shown by color alone.
 - Contrast (calculated, on white): `description` `#A7A4B7` **2.43:1**; `important` Warning `#F68F57` **2.34:1**; the error text Danger `#ED5742` **3.48:1** for 12px text (below 4.5:1). ⚠️ All three kept as designed.
+- Dark theme contrast: title 12.25:1, labels `#C9C6D9` 12.56:1, description `#646464` 3.55:1 (⚠️ below 4.5:1, kept as designed), button text `#000000` on `#BDC5E2` 12.25:1.

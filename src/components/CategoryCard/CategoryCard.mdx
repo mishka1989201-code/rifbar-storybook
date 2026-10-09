@@ -38,6 +38,10 @@ Small tile for a category grid: a picture and a centred one-line name. Implement
 <Canvas of={CategoryCardStories.LongText} />
 <Canvas of={CategoryCardStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Category Card Dark` (Static / Hover): card `#000000`, stroke `#242424`, title `#C9C6D9`; hover stroke `#888CF6` comes from `--theme-card-hover-border`. Stories: `DefaultDark`, `HoverDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -51,6 +55,9 @@ Small tile for a category grid: a picture and a centred one-line name. Implement
 | `--font-size-mini` / `--font-line-height-mini` / `--font-weight-medium` | title | `12px` / `18px` / `500` | Figma: Body/Mini Medium |
 | `--spacing-4` / `--spacing-8` | padding, gap | — | Figma |
 | `--color-bg` | picture placeholder | `#F6F8FC` | AI-defined (no image state) |
+| `--category-card-bg` / `--category-card-border` / `--category-card-shadow` / `--category-card-text` / `--category-card-media-bg` | surface, stroke, shadow, title, photo placeholder | dark `#000000`, `#242424`, `--shadow-dark-1`, `#C9C6D9`, `#101010` | **New** · Figma: Category Card Dark (shadow, placeholder: AI-defined) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -73,3 +80,4 @@ import { CategoryCard } from 'rifbar-ds';
 
 - With `href` the whole tile is one link named by `title`; the picture has empty `alt` by default so the name is not read twice.
 - Without `href` it is plain content; make it interactive yourself if needed.
+- Dark theme contrast: title 12.56:1.

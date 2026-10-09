@@ -49,6 +49,10 @@ Implements the Figma frame [`Time picker`](https://www.figma.com/design/4Q7E8IQ0
 - Figma colour `M3/sys/light/surface` (#FFFBFE) exists only as the unused frame fill — the component is transparent.
 - Not designed, AI-defined: digits are tabular (`font-variant-numeric`) so the value does not jitter; `minuteStep`; `disabled` (atom's 20% opacity); focus ring comes from the `Slider` atom. Dark theme not designed — light values are used.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Time picker`: time `#C9C6D9`, am/pm `#646464`; the two sliders come from the `Slider` atom. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -64,6 +68,9 @@ Implements the Figma frame [`Time picker`](https://www.figma.com/design/4Q7E8IQ0
 | `--size-slider-track` | slider row height | `2px` | Existing tokens.json · Figma: Inactive track height 2 |
 | `--color-not-active` | track and handle stroke (Slider atom) | `#D2D3D9` | Existing tokens.json · Figma: Not Active |
 | `--opacity-disabled` | disabled (Slider atom) | `0.2` | AI-defined use: Figma has no disabled; same as the other atoms |
+| `--time-picker-text` / `--time-picker-period` | time, am/pm | `#292639`, `#A7A4B7` / dark `#C9C6D9`, `#646464` | **New** · Figma: Time picker |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -85,3 +92,4 @@ import { TimePicker } from 'rifbar-ds';
 - Slider rows are 18px high — below the 44px touch target, kept as designed.
 - Secondary Grey `#A7A4B7` (AM / PM) on white is below 3:1 contrast; Not Active `#D2D3D9` track is 1.5:1 — kept as designed.
 - Disabled at 20% opacity is below 3:1.
+- Dark theme contrast: time 12.56:1; am/pm `#646464` 3.55:1 (⚠️ below 4.5:1, as designed).

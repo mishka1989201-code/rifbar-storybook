@@ -45,6 +45,10 @@ Implements the Figma component [`user`](https://www.figma.com/design/4Q7E8IQ07a9
 - Long name is not designed. AI-defined: truncated with an ellipsis.
 - Dark theme not designed — light values are used.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `user Dark` (Static / Hover / Focus or pressed / Disabled): name `#BBC7D6`, hover `#888CF6`, pressed `#4549A1`, disabled = 20% opacity; the avatar ring comes from `Avatar`. The light theme has no hover/pressed colour drawn, so the new tokens keep the static colour there. Story: `AllStatesDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -55,6 +59,9 @@ Implements the Figma component [`user`](https://www.figma.com/design/4Q7E8IQ07a9
 | `--shadow-focus` | focus ring | — | AI-defined use: same ring as other controls |
 | `--opacity-disabled` | disabled | `20%` | AI-defined use: same as other controls |
 | `--radius-sm` | focus ring shape | `5px` | AI-defined use: rounds the focus ring |
+| `--user-dropdown-text` / `--user-dropdown-hover` / `--user-dropdown-pressed` | name: static / hover / pressed | `#1D2542` (all) / dark `#BBC7D6`, `#888CF6`, `#4549A1` | **New** · Figma: user Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Avatar tokens (dark fill, ring, shadow) come from `Avatar`. No new tokens.
 
@@ -74,3 +81,4 @@ import { UserDropdown } from 'rifbar-ds';
 
 - `<button aria-haspopup aria-expanded>`; the accessible name is the user name (the avatar is hidden from screen readers).
 - Name #1D2542 on white has high contrast. The 32px target is below 44px (kept as designed).
+- Dark theme contrast: static `#BBC7D6` on `#000000` 12.25:1, hover 7.13:1, pressed `#4549A1` 2.72:1 (⚠️ below 3:1, as designed).

@@ -42,3 +42,16 @@ export const OutOfRange: Story = {
   name: 'Period outside the scale',
   args: { segments: [{ start: 6, end: 9 }, { start: 19, end: 23 }] },
 };
+
+/** Figma "Dark Molecules Components" → Time Scale and Numbers Dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const FullDayDark: Story = {
+  ...FullDay,
+  name: 'Full day (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

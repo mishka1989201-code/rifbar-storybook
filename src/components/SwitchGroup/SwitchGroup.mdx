@@ -42,6 +42,10 @@ A track with two or more [SwitchButton](?path=/docs/atoms-switchbutton--docs)s �
 <Canvas of={SwitchGroupStories.ThreeOptions} />
 <Canvas of={SwitchGroupStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Switch Dark` (Light-Dark / Dark-Dark / hover): both tracks are `#242424`. The `Dark` track has an active tab `#101010` with `#BDC5E2` text — drawn by the `SwitchButton` atom. **Open question:** the `Light` track keeps a light active tab `#ECEEFB` with `#BBC7D6` text (1.48:1) in the dark frame, which looks unadapted; the atom keeps the dark active tab, the frame is not copied. Stories: `DefaultDark` (Light track), `DarkTrackDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -52,6 +56,10 @@ A track with two or more [SwitchButton](?path=/docs/atoms-switchbutton--docs)s �
 | `--radius-lg` | track radius | `10px` | Figma: radius 10 |
 | `--color-white`, `--shadow-table-row` | Light track | — | Figma: White, Table Row |
 | `--color-stroke-light-v2` | Dark track | `#D8E2EE` | Figma: Stroke Light V2 |
+| `--switch-group-light-bg` / `--switch-group-light-shadow` | Light track, shadow | white, table-row shadow / dark `#242424`, `--shadow-dark-1` | **New** · Figma: Switch Dark → Light track |
+| `--switch-group-dark-bg` | Dark track | `#D8E2EE` / dark `#242424` | **New** · Figma: Switch Dark → Dark track |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Button colours, 16px / 500 text and hover fills come from the `SwitchButton` atom (hover updated to the Figma values in this change).
 No new tokens.
@@ -85,3 +93,4 @@ import { SwitchGroup } from 'rifbar-ds';
 ## Accessibility
 
 - A `group` with an `aria-label`; each button has `aria-pressed`. Tab moves between buttons, Enter / Space choose.
+- Dark theme contrast: inactive `#5D6E82` on `#242424` 2.97:1 (⚠️ below 3:1, as designed).

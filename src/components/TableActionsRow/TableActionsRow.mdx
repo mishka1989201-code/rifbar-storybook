@@ -38,12 +38,19 @@ and [SearchField](?path=/docs/atoms-searchfield--docs); it has no background of 
 <Canvas of={TableActionsRowStories.SearchDisabled} />
 <Canvas of={TableActionsRowStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Actions Dark`: row background `#000000`; Export / Clear and the search field come from the `Button` and `SearchField` atoms, which already have the dark theme. No own colours, no new tokens. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
 |---|---|---|---|
 | `--spacing-8` | gap between the two buttons | `8px` | Figma: Buttons & Filters gap 8 |
 | `--spacing-16` | min gap between the groups | `16px` | AI-defined (Figma has `justify-between` only) |
+
+
+The `--color-*` rows above are light values; the dark values come from the Dark theme tokens listed in the last rows.
 
 Button and search colors, radius, typography: see the atom docs. No new tokens.
 
@@ -67,3 +74,4 @@ import { TableActionsRow } from 'rifbar-ds';
 
 - Wrapped in `role="toolbar"` with an accessible name; buttons and the search field are reachable with Tab.
 - Search has `aria-label="Search table"` (override via `searchProps`).
+- Dark theme: see the `Button` and `SearchField` atoms.

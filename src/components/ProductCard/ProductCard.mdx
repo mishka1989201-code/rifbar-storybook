@@ -38,6 +38,10 @@ Product tile: photo with badge and checkbox, name, spec rows and a big button. I
 <Canvas of={ProductCardStories.LongText} />
 <Canvas of={ProductCardStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Category Card Dark`: card `#000000`, stroke `#242424`, title / labels / price badge `#888CF6` (badge text `#000000`), subtitle and values `#C9C6D9`. In the frame the “Edit” / “Details” buttons are near-black (`#27282E` / `#050411` with a stroke); the code leaves the action slot to the story (`Button` atom). Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -51,6 +55,10 @@ Product tile: photo with badge and checkbox, name, spec rows and a big button. I
 | `--color-text` | values | `#292639` | Figma: Color Text |
 | `--font-size-h5` / `--font-size-small` / `--font-size-mini` | title / rows / subtitle | 20 / 14 / 12 | Figma |
 | `--spacing-4/8/16/24` | paddings, gaps | — | Figma |
+| `--product-card-bg` / `--product-card-border` / `--product-card-shadow` / `--product-card-media-bg` | surface, stroke, shadow, photo placeholder | white, `#D8E2EE`, card-raised, `#F6F8FC` / dark `#000000`, `#242424`, `--shadow-dark-1`, `#101010` | **New** · Figma: Category Card Dark (shadow, placeholder: AI-defined) |
+| `--product-card-accent` / `--product-card-on-accent` / `--product-card-text` | title, labels, badge / badge text / text | `#4549A1`, `#FFFFFF`, `#292639` / dark `#888CF6`, `#000000`, `#C9C6D9` | **New** · Figma: Category Card Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Square photo (`aspect-ratio: 1`) and the full-width button are AI-defined (Figma is a fixed 284px card).
 
@@ -76,3 +84,4 @@ import { ProductCard, Button } from 'rifbar-ds';
 
 - Give the photo a meaningful `imageAlt`; the checkbox needs `checkboxProps={{ 'aria-label': … }}`.
 - Rendered as an `<article>` with an `<h3>`; specs are a description list.
+- Dark theme contrast: accent `#888CF6` on `#000000` 7.13:1, badge text 7.13:1, text 12.56:1.

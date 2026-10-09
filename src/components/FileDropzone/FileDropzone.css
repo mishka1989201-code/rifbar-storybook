@@ -10,7 +10,7 @@
   width: 100%;
   min-height: var(--size-barcode-field);
   padding: var(--spacing-8) var(--spacing-16);
-  border: var(--border-width-lg) dashed var(--color-headlines-alpha-40);
+  border: var(--border-width-lg) dashed var(--file-dropzone-border);
   border-radius: var(--radius-md);
   background: transparent;
   color: var(--color-grey-dark);
@@ -29,8 +29,8 @@
   gap: var(--spacing-8);
 }
 
-.ds-file-dropzone__icon { color: var(--color-headlines); flex: none; }
-.ds-file-dropzone__browse { color: var(--color-headlines); }
+.ds-file-dropzone__icon { color: var(--file-dropzone-accent); flex: none; }
+.ds-file-dropzone__browse { color: var(--file-dropzone-accent); }
 
 .ds-file-dropzone--large {
   min-height: var(--size-dropzone-large);
@@ -40,7 +40,7 @@
 .ds-file-dropzone:hover,
 .ds-file-dropzone.is-drag-over {
   border-color: var(--color-headlines);
-  background: var(--color-bg);
+  background: var(--file-dropzone-drag-bg);
 }
 
 .ds-file-dropzone:focus-within { box-shadow: var(--shadow-focus); }

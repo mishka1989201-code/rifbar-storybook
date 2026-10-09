@@ -54,6 +54,10 @@ Built from [Avatar](?path=/docs/atoms-avatar--docs) (`size="xs"`) and [Icon](?pa
 - The × icon is `Icons 16px / xmark` scaled to 12px. In code its click area is 20×20 (invisible extra 4px each side).
 - No hover, focus or error states in Figma — to add if needed.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Sent emails dark`: capsule `#242424`, stroke `#646464`, text and × `#888CF6`. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -69,6 +73,9 @@ Built from [Avatar](?path=/docs/atoms-avatar--docs) (`size="xs"`) and [Icon](?pa
 | `--border-width-sm` / `--border-width-lg` | stroke / focus ring | `1px` / `2px` | Figma: stroke 1px inside / existing |
 | `--radius-pill` | corner radius | `9999px` | Figma: radius 30px on 24px height |
 | Avatar `xs` tokens | avatar | see [Avatar](?path=/docs/atoms-avatar--docs) | |
+| `--email-chevron-bg` / `--email-chevron-border` / `--email-chevron-text` | capsule, stroke, text + × | `#F1F2F9`, `#A7A4B7`, `#5D6E82` / dark `#242424`, `#646464`, `#888CF6` | **New** · Figma: Sent emails dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -89,3 +96,4 @@ import { EmailChevron } from 'rifbar-ds';
 - × is a real `<button>` named “Remove David Schwimmer” (change with `removeLabel`).
 - The avatar is decorative here — the name is written next to it.
 - Contrast: name Grey Dark on Stroke Light V1 — 4.7:1 ✅; avatar initials White on Hover Blue — 4.6:1 ✅.
+- Dark theme contrast: `#888CF6` on `#242424` 5.27:1.

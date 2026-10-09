@@ -7,7 +7,7 @@
   box-sizing: border-box;
   width: 100%;
   padding: 0 var(--spacing-16) var(--spacing-32);
-  background: var(--color-white);
+  background: var(--client-details-bg);
   font-family: var(--font-family-base);
 }
 
@@ -21,22 +21,22 @@
   min-width: 0;
   box-sizing: border-box;
   padding: var(--spacing-16);
-  background: var(--color-bg);
-  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  background: var(--client-details-card-bg);
+  border: var(--border-width-sm) solid var(--client-details-card-border);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-standard);
 }
 
 /* Figma: caption is Body/Standart Medium with `leading-none`. */
 .ds-client-details__title {
-  color: var(--color-secondary-grey);
+  color: var(--client-details-title);
   font-weight: var(--font-weight-medium);
   line-height: 1;
 }
 
 .ds-client-details__text {
   min-width: 100%;
-  color: var(--color-text);
+  color: var(--client-details-text);
   font-weight: var(--font-weight-regular);
   line-height: var(--font-line-height-standard);
   overflow-wrap: anywhere;

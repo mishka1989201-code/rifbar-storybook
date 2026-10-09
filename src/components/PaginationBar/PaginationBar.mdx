@@ -51,6 +51,10 @@ Footer of a table or list: how many rows to show on the left, page switcher on t
 
 **Not designed in Figma:** the open list of page sizes. AI-defined: a white card above the field (the bar sits at the bottom of the page) with the Tooltip shadow; options in Body/Small Medium, hover on Secondary Light, selected option in Headlines. Closes on outside click, Escape or choice.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Sow Menu Pagination Dark`: bar `#000000` (White Dark), “Show:” label `#888CF6`, page buttons and the select come from the `Pagination` / `FilterField` atoms. The bar shadow is not visible in Figma; AI-defined: Dark Mode Shadow 1 as for Table Row. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -65,6 +69,10 @@ Footer of a table or list: how many rows to show on the left, page switcher on t
 | `--color-text`, `--font-weight-medium` | list options | `#292639`, `500` | AI-defined (as the field value) |
 | `--color-secondary-light` | option hover | `#ECEEFB` | AI-defined |
 | `--shadow-tooltip` | list shadow | 6 layers | AI-defined (as Tooltip) |
+| `--pagination-bar-bg` | bar background | `#FFFFFF` / dark `#000000` | **New** · Figma: Sow Menu Pagination Dark → fill = White (Dark) |
+| `--pagination-bar-shadow` | bar shadow | table-row shadow / dark `--shadow-dark-1` | **New** · AI-defined: not visible in the dark frame |
+
+The `--color-*` rows above are light values; the dark values come from the Dark theme tokens listed in the last rows.
 
 Field and page buttons use their own tokens, see the atom docs. No new tokens.
 
@@ -93,3 +101,4 @@ import { PaginationBar } from 'rifbar-ds';
 - Page switcher is a `<nav aria-label="Pagination">` (from `Pagination`).
 - The size select is a button with `aria-haspopup="listbox"` / `aria-expanded`, the list is `role="listbox"` and options are reachable with Tab, chosen with Enter / Space.
 - Escape closes the list.
+- Dark theme contrast: “Show:” `#888CF6` on `#000000` 7.13:1.

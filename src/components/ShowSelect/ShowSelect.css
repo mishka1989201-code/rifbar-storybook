@@ -8,7 +8,7 @@
 }
 
 .ds-show-select__label {
-  color: var(--color-headlines);
+  color: var(--show-select-label);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-small);
@@ -36,14 +36,14 @@
   margin: 0;
   padding: var(--spacing-4) 0;
   list-style: none;
-  background: var(--color-white);
+  background: var(--show-select-list-bg);
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-tooltip);
+  box-shadow: var(--show-select-list-shadow);
 }
 
 .ds-show-select__option {
   padding: var(--spacing-4) var(--spacing-8);
-  color: var(--color-text);
+  color: var(--show-select-option-text);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-small);
@@ -53,10 +53,10 @@
 
 .ds-show-select__option:hover,
 .ds-show-select__option:focus-visible {
-  background: var(--color-secondary-light);
+  background: var(--show-select-option-hover-bg);
   outline: none;
 }
 
 .ds-show-select__option.is-selected {
-  color: var(--color-headlines);
+  color: var(--show-select-option-selected);
 }

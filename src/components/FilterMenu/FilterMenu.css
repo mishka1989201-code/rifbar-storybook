@@ -9,7 +9,7 @@
   width: 100%;
   padding-bottom: var(--spacing-16);
   overflow: clip;
-  background: var(--color-bg);
+  background: var(--filter-menu-bg);
   font-family: var(--font-family-base);
 }
 
@@ -21,9 +21,9 @@
   justify-content: space-between;
   gap: var(--spacing-8);
   padding: var(--spacing-24) var(--spacing-16) var(--spacing-16);
-  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
-  background: var(--color-white);
-  box-shadow: var(--shadow-header);
+  border-bottom: var(--border-width-sm) solid var(--filter-menu-header-border);
+  background: var(--filter-menu-header-bg);
+  box-shadow: var(--filter-menu-header-shadow);
 }
 
 .ds-filter-menu__header .ds-icon-button {
@@ -36,7 +36,7 @@
   gap: var(--spacing-8);
   min-width: 0;
   margin: 0;
-  color: var(--color-headlines);
+  color: var(--filter-menu-accent);
   font-size: var(--font-size-h4);
   line-height: var(--font-line-height-h4);
   font-weight: var(--font-weight-medium);
@@ -58,8 +58,8 @@
   height: var(--size-count-badge);
   padding-inline: var(--spacing-4);
   border-radius: var(--radius-pill);
-  background: var(--color-headlines);
-  color: var(--color-white);
+  background: var(--filter-menu-badge-bg);
+  color: var(--filter-menu-badge-text);
   font-size: var(--font-size-mini);
   line-height: var(--font-line-height-mini);
   font-weight: var(--font-weight-medium);

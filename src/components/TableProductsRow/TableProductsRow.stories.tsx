@@ -59,3 +59,16 @@ export const EmptyCells: Story = {
   name: 'Empty cells',
   args: { nicotine: '—', quantity: '—', amount: '—' },
 };
+
+/** Figma "Dark Molecules Components" → Table Products Row Dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const WithHeaderDark: Story = {
+  ...WithHeader,
+  name: 'With header (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

@@ -6,7 +6,7 @@
   align-items: center;
   gap: var(--spacing-8);
   max-width: 100%;
-  color: var(--color-chart-label);
+  color: var(--chart-legend-text);
   font-family: var(--font-family-base);
   font-size: var(--font-size-mini);
   line-height: var(--font-line-height-mini);

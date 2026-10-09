@@ -9,8 +9,8 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-16);
-  background: var(--color-bg);
-  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  background: var(--access-mode-row-bg);
+  border: var(--border-width-sm) solid var(--access-mode-row-border);
   border-radius: var(--radius-lg);
 }
 
@@ -32,7 +32,7 @@
 }
 
 .ds-access-row .ds-checkbox:has(input:checked) .ds-checkbox__label {
-  color: var(--color-headlines);
+  color: var(--access-mode-row-selected);
   font-weight: var(--font-weight-medium);
 }
 

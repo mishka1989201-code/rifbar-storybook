@@ -75,3 +75,16 @@ export const BackWithoutParent: Story = {
   args: { variant: 'back', items: [{ label: 'Mickey Herman' }] },
   parameters: { docs: { description: { story: 'With one crumb there is nowhere to go back: the chevron and the name are plain text (AI-defined).' } } },
 };
+
+/** Figma "Dark Molecules Components" → Bread Crumbs Dark / Bread Crumbs Hover Dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DefaultDark: Story = {
+  ...Default,
+  name: 'Default (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

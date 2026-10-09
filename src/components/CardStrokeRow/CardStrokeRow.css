@@ -8,7 +8,7 @@
   box-sizing: border-box;
   width: 100%;
   padding: 0 var(--spacing-16);
-  color: var(--color-text);
+  color: var(--card-stroke-row-text);
   font-family: var(--font-family-base);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
@@ -16,6 +16,7 @@
 }
 
 .ds-card-stroke-row__label {
+  color: var(--card-stroke-row-label);
   flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;

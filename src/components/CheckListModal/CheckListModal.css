@@ -27,7 +27,7 @@
 }
 
 .ds-check-list-modal__row:not(:last-child) {
-  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-bottom: var(--border-width-sm) solid var(--modal-line);
 }
 
 /* The whole row is the label: text at the left, the checkbox at the right. */
@@ -36,7 +36,7 @@
   flex-direction: row-reverse;
   justify-content: space-between;
   min-width: 0;
-  color: var(--color-text);
+  color: var(--check-list-modal-text);
   font-weight: var(--font-weight-medium);
 }
 
@@ -55,7 +55,7 @@
 /* ── accent / radio: the chosen row is Headlines, the others Grey Dark (Figma `Discounts off`) ── */
 .ds-check-list-modal--radio .ds-check-list-modal__check.ds-checkbox { color: var(--color-grey-dark); }
 .ds-check-list-modal--radio .is-checked .ds-check-list-modal__check.ds-checkbox,
-.ds-check-list-modal.is-accent .is-checked .ds-check-list-modal__check.ds-checkbox { color: var(--color-headlines); }
+.ds-check-list-modal.is-accent .is-checked .ds-check-list-modal__check.ds-checkbox { color: var(--check-list-modal-accent); }
 
 /* ── pick: Figma `Flavor` — rows are 3px-radius buttons, 2px apart, in a 4px inset ── */
 .ds-check-list-modal--pick .ds-check-list-modal__list {
@@ -86,13 +86,13 @@
 
 /* Figma shows the hovered row as BG Color with Primary Blue Dark text. */
 .ds-check-list-modal__pick:hover:not(:disabled) {
-  background: var(--color-bg);
-  color: var(--color-primary-blue-dark);
+  background: var(--check-list-modal-pick-hover-bg);
+  color: var(--check-list-modal-pick-hover-text);
 }
 
 .ds-check-list-modal__pick[aria-selected='true'] {
-  background: var(--color-primary-blue-dark);
-  color: var(--color-white);
+  background: var(--check-list-modal-pick-selected-bg);
+  color: var(--check-list-modal-pick-selected-text);
 }
 
 .ds-check-list-modal__pick:disabled {

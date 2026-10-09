@@ -63,6 +63,10 @@ Normalised or assumed:
 - The Figma card name is Semi-Bold, the 2nd cell Medium, the 3rd Semi-Bold, the date Medium — kept as drawn, so “Purchase” is bolder than “$1200”.
 - The `Status` and `Actions` cells of the row keep their own size (no ellipsis) so the chip and the focus ring are never clipped.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `order-list__item` / `board_all-orders Dark`: the `--table-row-*` tokens (row `#000000`, stroke `#242424`, text `#C9C6D9`); the status pills and “More” button come from the atoms. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 No new tokens.
@@ -76,6 +80,9 @@ No new tokens.
 | `--spacing-8`, `--spacing-16` | card info line: top padding, gap; bottom padding 16 | 8 / 16px | Existing tokens.json · Figma: Info Line Card 1024px |
 | `--color-text`, `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` / `-semibold` | text | `#292639`, 14 / 21px, 500 / 600 | Existing tokens.json · Figma: Color Text, Body/Small Medium, Semi-Bold Headings/h7 |
 | `--color-hover-blue-light`, `--border-width-lg`, `--spacing-2`, `--radius-sm` | name hover and focus ring | `#888CF6`, 2px | AI-defined use: same as `TableRowClient` |
+| `--table-row-bg` / `--table-row-border` / `--table-row-text` / `--table-row-shadow` | row surface, stroke, text, shadow | dark `#000000`, `#242424`, `#C9C6D9`, `--shadow-dark-1` | Existing tokens.json · Figma: Table Row Dark (reused) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -103,3 +110,4 @@ import { TableRowOrder, OrderStatus } from 'rifbar-ds';
 - The status is text in the chip, not colour alone. The name is a link or a button when `nameHref` / `onNameClick` is set.
 - Contrast, computed: row text `#292639` on white 14.68:1; chips (white text): Pending `#5D6E82` 5.23:1, In work `#4549A1` 7.72:1, Approved `#1D2542` 15.05:1, In shipping `#00864E` 4.65:1, Rejected `#DF2E15` 4.63:1, Received `#6368DF` 4.59:1; “Awaiting payment” `#5D6E82` on `#F6F8FC` 4.92:1.
 - ⚠️ Kept as designed: the “More” button is 37px high (below 44px); the cards are separated from the page by a 1.06:1 shadow only.
+- Dark theme contrast: text 12.56:1.

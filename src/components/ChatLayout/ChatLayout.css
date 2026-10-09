@@ -6,10 +6,10 @@
   box-sizing: border-box;
   width: 100%;
   overflow: clip;
-  border: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border: var(--border-width-sm) solid var(--chat-layout-border);
   border-radius: var(--radius-lg);
-  background: var(--color-secondary-light);
-  box-shadow: var(--shadow-card);
+  background: var(--chat-layout-bg);
+  box-shadow: var(--chat-layout-shadow);
   font-family: var(--font-family-base);
 }
 

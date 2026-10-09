@@ -9,9 +9,9 @@
   width: 100%;
   margin: 0;
   padding: var(--spacing-12) var(--spacing-16);
-  border-top: var(--border-width-sm) solid var(--color-stroke-light-v2);
-  background: var(--color-white);
-  box-shadow: var(--shadow-header);
+  border-top: var(--border-width-sm) solid var(--message-box-border);
+  background: var(--message-box-bg);
+  box-shadow: var(--message-box-shadow);
   font-family: var(--font-family-base);
 }
 
@@ -23,7 +23,7 @@
   border: none;
   outline: none;
   background: none;
-  color: var(--color-primary-blue-dark);
+  color: var(--message-box-text);
   font: inherit;
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
@@ -31,7 +31,7 @@
 }
 
 .ds-message-box__input::placeholder {
-  color: var(--color-secondary-grey);
+  color: var(--message-box-placeholder);
   opacity: 1;
 }
 
@@ -46,19 +46,19 @@
   border: none;
   border-radius: var(--radius-sm);
   background: none;
-  color: var(--color-secondary-grey);
+  color: var(--message-box-placeholder);
   cursor: pointer;
   transition: color 150ms ease;
 }
 
 /* AI-defined: the arrow also takes the Focus color while text is typed, so it does not look disabled. */
 .ds-message-box:is(:focus-within, .is-focus, .has-value) .ds-message-box__send {
-  color: var(--color-hover-blue);
+  color: var(--message-box-send-focus);
 }
 
 .ds-message-box:is(:focus-within, .is-focus, .has-value) .ds-message-box__send:is(:hover, :focus-visible),
 .ds-message-box.is-hover .ds-message-box__send {
-  color: var(--color-hover-blue-light);
+  color: var(--message-box-send-hover);
 }
 
 /* AI-defined: Figma draws no keyboard focus ring for the arrow. */

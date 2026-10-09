@@ -67,6 +67,10 @@ Assumed / normalised:
 - Message list is `role="log"`.
 - Figma asset downloads were not used: icons come from the existing set (`chat`, `check-double`, `send-chat`).
 
+## Dark theme
+
+No dark frame exists for the chat panel (it is an organism built from `ChatHeader`, `ChatMessage`, `MessageBox`). AI-defined: panel `#101010`, stroke `#242424`, Dark Mode Shadow 1. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -83,6 +87,9 @@ Assumed / normalised:
 | `--font-size-mini`, `--font-line-height-mini`, `--font-weight-regular` | date | 12 / 18px, 400 | Existing tokens.json · Figma: Body/Mini Regular |
 | `--color-hover-blue-light`, `--border-width-lg` | thread focus ring | `#888CF6`, 2px | AI-defined use: same ring as the `MessageBox` send arrow |
 | Tokens of `ChatHeader`, `ChatMessage`, `MessageBox` | header, cards, input bar | — | see the MDX of each molecule |
+| `--chat-layout-bg` / `--chat-layout-border` / `--chat-layout-shadow` | panel, stroke, shadow | `#ECEEFB`, `#F1F2F9`, card / dark `#101010`, `#242424`, `--shadow-dark-1` | **New** · AI-defined |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 

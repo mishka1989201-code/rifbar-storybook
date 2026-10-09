@@ -6,7 +6,7 @@
   box-sizing: border-box;
   width: 100%;
   overflow-x: auto;
-  background: var(--color-white);
+  background: var(--tabs-header-bg);
   border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 

@@ -9,8 +9,8 @@
   width: 100%;
   max-width: var(--size-modal-desktop);
   border-radius: var(--radius-modal);
-  background: var(--color-white);
-  color: var(--color-primary-blue-dark);
+  background: var(--modal-bg);
+  color: var(--modal-text);
   font-family: var(--font-family-base);
 }
 
@@ -35,7 +35,7 @@
 }
 
 .ds-modal--elevated {
-  box-shadow: var(--shadow-tooltip);
+  box-shadow: var(--modal-shadow);
 }
 
 /* ─── Header ────────────────────────────────────────────────────────── */
@@ -45,7 +45,7 @@
   align-items: stretch;
   gap: var(--spacing-8);
   padding: var(--spacing-24) var(--spacing-16) var(--spacing-16);
-  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-bottom: var(--border-width-sm) solid var(--modal-line);
 }
 
 /* The title row: title at the left, the close button at the right. */
@@ -59,7 +59,7 @@
 /* Figma `Error/Importantly/Info`: Info — Body/Small Medium in Secondary Grey. */
 .ds-modal__description {
   margin: 0;
-  color: var(--color-secondary-grey);
+  color: var(--modal-muted);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);
@@ -109,7 +109,7 @@
   justify-content: center;
   gap: var(--spacing-16);
   padding: var(--spacing-16);
-  border-bottom: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-bottom: var(--border-width-sm) solid var(--modal-line);
 }
 
 .ds-modal__section--plain {
@@ -129,7 +129,7 @@
 }
 
 .ds-modal__label {
-  color: var(--color-text);
+  color: var(--modal-label);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);
@@ -142,7 +142,7 @@
   justify-content: center;
   gap: var(--spacing-16);
   padding: var(--spacing-16) var(--spacing-16) var(--spacing-24);
-  border-top: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-top: var(--border-width-sm) solid var(--modal-line);
 }
 
 .ds-modal__footer > * {
@@ -189,4 +189,10 @@
   line-height: var(--font-line-height-mini);
   font-weight: var(--font-weight-regular);
   overflow-wrap: anywhere;
+}
+
+/* Dark theme (Figma Approve / Add Product Modal Dark): the primary footer button is solid (#BDC5E2) at every size; light theme unchanged. */
+.ds-modal__footer .ds-button--dark {
+  background-color: var(--button-solid-bg);
+  color: var(--button-on-solid);
 }

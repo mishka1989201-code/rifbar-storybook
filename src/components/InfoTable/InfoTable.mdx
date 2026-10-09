@@ -48,6 +48,10 @@ The rows are the existing [`RowInfoBlock variant="line"`](?path=/docs/molecules-
 - A long value wraps (Figma “Address from”); `RowInfoBlock` alone would cut it with an ellipsis, `InfoTable` overrides that.
 - The Figma node has a light bottom line under the whole panel — a frame edge, not drawn. Dark theme not designed.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Info v2 Dark`: panel `#000000`; the rows are `RowInfoBlock` (labels `#5D6E82`, values `#BDC5E2`, lines `#242424`, see that component). Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -62,6 +66,9 @@ The rows are the existing [`RowInfoBlock variant="line"`](?path=/docs/molecules-
 | `--font-size-h6` / `--font-line-height-h6` / `--font-weight-medium` | caption | `16px` / `24px` / `500` | Existing tokens.json · Figma: Headings/h6 Medium (via `RowInfoBlock`) |
 | `--font-size-standard` / `--font-line-height-standard` / `--font-weight-regular` | value | `16px` / `24px` / `400` | Existing tokens.json · Figma: Body/Standart (via `RowInfoBlock`) |
 | `--spacing-8` / `--spacing-16` | row padding / caption–value gap | `8` / `16px` | Existing tokens.json · Figma: py 8, gap 16 (via `RowInfoBlock`) |
+| `--info-table-bg` | panel background | `#FFFFFF` / dark `#000000` | **New** · Figma: Info v2 Dark → fill |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -84,3 +91,4 @@ import { InfoTable } from 'rifbar-ds';
 
 - The rows are plain `div`/`span`; for screen readers a description list (`dl`) would be better — not done to stay 1:1 with `RowInfoBlock`.
 - Secondary Grey `#A7A4B7` captions on white are below 3:1 contrast — kept as designed.
+- Dark theme contrast: labels `#5D6E82` on `#000000` 4.02:1 (⚠️ below 4.5:1, kept as designed), values `#BDC5E2` 12.25:1.

@@ -10,12 +10,12 @@
   width: 100%;
   padding: var(--spacing-16);
   overflow: clip;
-  background: var(--color-white);
-  border: var(--border-width-sm) solid var(--color-secondary-light);
+  background: var(--stat-card-bg);
+  border: var(--border-width-sm) solid var(--stat-card-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--stat-card-shadow);
   font-family: var(--font-family-base);
-  color: var(--color-primary-blue-dark);
+  color: var(--stat-card-text);
 }
 
 .ds-stat-card.has-aside {
@@ -40,7 +40,7 @@
 
 .ds-stat-card__value {
   margin: 0;
-  color: var(--color-headlines);
+  color: var(--stat-card-number);
   font-size: var(--font-size-h2);
   line-height: var(--font-line-height-h2);
   font-weight: var(--font-weight-medium);
@@ -75,7 +75,7 @@
   right: var(--spacing-16);
   width: 62px;
   height: 89px;
-  color: var(--color-primary-blue-dark-light);
-  opacity: 0.6;
+  color: var(--stat-card-watermark);
+  opacity: var(--stat-card-watermark-opacity);
   pointer-events: none;
 }

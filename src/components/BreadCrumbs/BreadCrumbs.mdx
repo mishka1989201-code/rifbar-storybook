@@ -42,6 +42,10 @@ Shows where the user is in the page hierarchy and lets them go back up. Implemen
 
 **Not designed in Figma:** hover and focus on crumbs. AI-defined: hover underlines the crumb; focus draws a 2px Headlines outline. The last crumb is the current page and is not interactive.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Bread Crumbs Dark` / `Bread Crumbs Hover Dark`. Dark ≠ light: inner crumbs are Grey Dark `#5D6E82` (same as the root), only the current page is bright `#BDC5E2`; a hovered crumb turns `#888CF6`. Light theme is unchanged (inner crumbs Primary Blue Dark). **Question for the designer:** should the light theme also grey out the inner crumbs? Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -54,6 +58,11 @@ Shows where the user is in the page hierarchy and lets them go back up. Implemen
 | `--spacing-8` | padding top / bottom | `8px` | Figma: padding-y 8 |
 | `--spacing-16` / `--spacing-4` | row gap / column gap | `16px` / `4px` | Figma: gap 16 4 |
 | `--color-headlines`, `--border-width-lg` | focus ring | `#4549A1`, `2px` | AI-defined (same as Tab) |
+| `--breadcrumbs-current` | current page text | `#1D2542` / dark `#BDC5E2` | **New** · Figma: Bread Crumbs Dark → last crumb |
+| `--breadcrumbs-link` | inner crumbs text | `#1D2542` / dark `#5D6E82` | **New** · Figma: Bread Crumbs Dark → inner crumbs |
+| `--breadcrumbs-hover` | hovered crumb text | `#1D2542` / dark `#888CF6` | **New** · Figma: Bread Crumbs Hover Dark → hovered crumb (light: underline only) |
+
+The `--color-*` rows above are light values; the dark values come from the Dark theme tokens listed in the last rows.
 
 No new tokens.
 
@@ -80,3 +89,4 @@ import { BreadCrumbs } from 'rifbar-ds';
 - `<nav aria-label="Breadcrumb">` with an ordered list; the last crumb has `aria-current="page"`.
 - The separator icon is decorative (`aria-hidden`).
 - Contrast: Grey Dark on White 5.2:1, Primary Blue Dark on White 15:1.
+- Dark theme contrast (on `#000000`): Grey Dark 4.02:1 (⚠️ below 4.5:1 for 14px text, kept as designed), current `#BDC5E2` 12.25:1, hover `#888CF6` 7.13:1.

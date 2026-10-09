@@ -60,6 +60,10 @@ Assumed / normalised:
 - The send arrow is the existing 24px `send-chat` icon (a straight arrow; `send` is a tilted paper plane and does not match), chosen by look. Needs designer confirmation.
 - Figma asset downloads were not used.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Message Box Dark` (Static / Focus / Disabled / Focus & Hover): bar `#000000` with a `#242424` top line, typed text `#BDC5E2`, placeholder and static arrow `#646464`, Focus arrow `#0AABDE`, Focus & Hover arrow `#4549A1`. Dark ≠ light: the light arrow goes Hover Blue → Hover Blue Light. **Open question:** the dark hover arrow `#4549A1` is darker than the focus arrow (2.72:1 on black). Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -76,6 +80,11 @@ Assumed / normalised:
 | `--font-size-small`, `--font-line-height-small`, `--font-weight-regular` | text | 14 / 21 / 400 | Existing tokens.json · Figma: Body/Small Regular |
 | `--opacity-disabled` | Disabled | `0.2` | Existing tokens.json · Figma: opacity 20% |
 | `--radius-sm`, `--border-width-lg`, `--spacing-2` | arrow focus ring | 5px / 2px / 2px | AI-defined use: focus ring as in other atoms |
+| `--message-box-bg` / `--message-box-border` / `--message-box-shadow` | bar, top line, shadow | white, `#D8E2EE`, header / dark `#000000`, `#242424`, `--shadow-dark-1` | **New** · Figma: Message Box Dark (shadow: AI-defined) |
+| `--message-box-text` / `--message-box-placeholder` | text, placeholder + static arrow | `#1D2542`, `#A7A4B7` / dark `#BDC5E2`, `#646464` | **New** · Figma: Message Box Dark |
+| `--message-box-send-focus` / `--message-box-send-hover` | arrow Focus / Focus & Hover | `#6368DF`, `#888CF6` / dark `#0AABDE`, `#4549A1` | **New** · Figma: Message Box Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -106,3 +115,4 @@ const [text, setText] = useState('');
 - ⚠️ Kept as designed: placeholder and Static arrow in Secondary Grey on white are 2.4:1, and the Focus & Hover arrow (Hover Blue Light) is 3.0:1 — below 3:1 for the placeholder, borderline for the arrow.
 - ⚠️ Disabled at 20% opacity is below 3:1.
 - ⚠️ The 24px arrow is below the 44px touch target (the bar itself is 48px high).
+- Dark theme contrast: text 12.25:1, placeholder `#646464` 3.55:1 (⚠️ below 4.5:1, kept as designed), Focus arrow 7.89:1, hover arrow `#4549A1` 2.72:1 (⚠️ below 3:1, as drawn).

@@ -70,6 +70,10 @@ Normalised or assumed:
 - The header has the Header Shadow above its bottom line (`--shadow-header`, as in `ChatHeader`).
 - Figma assets were not used; the icons are the existing `Icon` set.
 
+## Dark theme
+
+Only the frame chrome is covered (header, panel, counter badge; `--filter-menu-*` tokens, mostly AI-defined — the dark Figma has no `Filter menu` frame). The filter sections inside are an organism-level component and still light; they are part of the next stage. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -84,6 +88,10 @@ Normalised or assumed:
 | `--spacing-24`, `--spacing-16`, `--spacing-8`, `--spacing-4` | paddings, gaps | 24 / 16 / 8 / 4px | Existing tokens.json · Figma: header padding 24 × 16, gaps |
 | `--spacing-6` | gap between chip lines | `6px` | **New** · Figma: Filters Chevron Light row gap 6 |
 | Tokens of `FilterChevron`, `IconButton`, `CheckListModal`, `Modal`, `DatePicker` | chips, close, sections | — | see the MDX of each |
+| `--filter-menu-bg` / `--filter-menu-header-bg` / `--filter-menu-header-border` / `--filter-menu-header-shadow` | panel, header, header line, header shadow | `#F6F8FC`, `#FFFFFF`, `#F1F2F9`, header shadow / dark `#101010`, `#000000`, `#242424`, `--shadow-dark-1` | **New** · AI-defined |
+| `--filter-menu-badge-bg` / `--filter-menu-badge-text` / `--filter-menu-accent` | counter badge, number, label | `#4549A1`, `#FFFFFF` / dark `#BDC5E2`, `#000000` | **New** · Figma: Filter Responsive Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 

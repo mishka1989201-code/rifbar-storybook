@@ -41,6 +41,10 @@ Implements the Figma component [`InfoRow.Card 1024px`](https://www.figma.com/des
 - Figma has no line-height on the label (100% in the style); `--font-line-height-h7` (21px) is used, like the value.
 - Dark theme not designed — light values are used.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Info Line Card 1024px Dark`: label `#5D6E82`, value `#BDC5E2`. The code has one `color` for the row (AI-defined: both `#BDC5E2`; Figma greys the label). Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -50,6 +54,9 @@ Implements the Figma component [`InfoRow.Card 1024px`](https://www.figma.com/des
 | `--font-weight-medium` | value | 500 | Existing tokens.json · Figma: Body/Small Medium |
 | `--spacing-8` | gap, vertical padding | `8px` | Existing tokens.json · Figma: gap 8, padding 8 |
 | `--size-info-row-label` | label column width | `200px` | **New** · Figma: label column 200 |
+| `--info-row-card-text` | row text | `#292639` / dark `#BDC5E2` | **New** · Figma: Info Line Card 1024px Dark → value |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -66,3 +73,4 @@ import { InfoRowCard } from 'rifbar-ds';
 ## Accessibility
 
 - Plain text in `div`s. For a list of facts wrap rows in your own `<dl>` / `<ul>`. #292639 on white has high contrast.
+- Dark theme contrast: `#BDC5E2` on `#000000` 12.25:1.

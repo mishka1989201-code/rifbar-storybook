@@ -42,6 +42,10 @@ automatically and `justify` picks `space-between` (Line) or `flex-start` (Wrap).
 <Canvas of={InfoClientStories.NarrowContainer} />
 <Canvas of={InfoClientStories.LongValue} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `info_client dark`: panel `#000000`, labels `#646464` (Secondary Grey Dark), values `#C9C6D9`. The access toggle comes from the `Toggle` atom. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -57,6 +61,11 @@ automatically and `justify` picks `space-between` (Line) or `flex-start` (Wrap).
 | `--font-size-h5` / `--font-line-height-h5` / `--font-weight-semibold` | value | `20px` / `30px` / `600` | Figma: Semi-Bold Headings/h5 |
 | `--font-family-base` | font family | Poppins | Figma: Poppins |
 | ellipsis on value, `<dl>/<dt>/<dd>` semantics | extras | — | AI-defined |
+| `--info-client-bg` | panel | `#FFFFFF` / dark `#000000` | **New** · Figma: info_client dark → fill |
+| `--info-client-label` | label | `#A7A4B7` / dark `#646464` | **New** · Figma: info_client dark → label |
+| `--info-client-value` | value | `#292639` / dark `#C9C6D9` | **New** · Figma: info_client dark → value |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -81,3 +90,4 @@ import { InfoClient } from 'rifbar-ds';
 ## Accessibility
 
 - Rendered as a description list (`<dl>`, `<dt>` label, `<dd>` value), so label/value pairs are announced together.
+- Dark theme contrast: label `#646464` on `#000000` 3.55:1 (⚠️ below 4.5:1, kept as designed), value 12.56:1.

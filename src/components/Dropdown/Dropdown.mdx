@@ -78,6 +78,10 @@ Panel widths: 180px (list), 204px (with search), 300px (notifications, user) —
 - Figma draws the User panel above its trigger (the menu opens upwards in the header); positioning is left to the parent.
 - Not designed, AI-defined: keyboard focus on the scrolling list (`tabIndex=0` from `Scrollbar`, `--shadow-focus` on rows).
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Dropdown Dark` (Standart, Radio, Checkbox, each with search; Notification; User): panel `#000000` with a `#242424` stroke, rows `#BBC7D6`, hovered row `#242424`, selected Standart row `#BBC7D6` with `#050411` text, selected radio / checkbox label `#888CF6`; notifications: unread / hover `#242424`, text `#BDC5E2`, “See all” `#888CF6`, e-mail `#6368DF` (unchanged). Shadow not drawn; AI-defined: Dark Mode Shadow 1. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -101,6 +105,12 @@ Panel widths: 180px (list), 204px (with search), 300px (notifications, user) —
 | `--size-dropdown` / `--size-dropdown-search` / `--size-dropdown-wide` | panel width | `180px` / `204px` / `300px` | **New** · Figma: Dropdown widths |
 | `--size-scrollbar-thin` / `--color-text` / `--color-stroke-light-v1` | scrolling list scrollbar | `3px` / thumb / track | Existing tokens.json · Figma: Scrollbar.DropdownAndPopUp (via `Scrollbar`) |
 | `--shadow-focus` / `--opacity-disabled` | focus ring / disabled option | — | AI-defined use: not drawn in Figma, as in the other atoms |
+| `--dropdown-bg` / `--dropdown-border` / `--dropdown-divider` / `--dropdown-shadow` | panel, stroke, separator, shadow | white, `#F1F2F9`, `#D8E2EE`, tooltip / dark `#000000`, `#242424`, `#242424`, `--shadow-dark-1` | **New** · Figma: Dropdown Dark (shadow: AI-defined) |
+| `--dropdown-row-text` / `--dropdown-row-hover-bg` / `--dropdown-row-hover-text` | row, hovered row | `#5D6E82`, `#F6F8FC`, `#1D2542` / dark `#BBC7D6`, `#242424`, `#BBC7D6` | **New** · Figma: Dropdown Dark |
+| `--dropdown-selected-bg` / `--dropdown-selected-text` / `--dropdown-control-selected-bg` / `--dropdown-accent` | selected Standart row; selected radio / checkbox row; accent | `#1D2542`, `#FFFFFF`, `#FFFFFF`, `#4549A1` / dark `#BBC7D6`, `#050411`, `#000000`, `#888CF6` | **New** · Figma: Dropdown Dark |
+| `--dropdown-unread-bg` / `--dropdown-notification-text` / `--dropdown-empty` | unread / hovered notification, notification text, empty text | `#F6F8FC`, `#1D2542`, `#A7A4B7` / dark `#242424`, `#BDC5E2`, `#646464` | **New** · Figma: Dropdown Dark → Notification (empty: AI-defined) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -132,3 +142,4 @@ import { Dropdown } from 'rifbar-ds';
 - `variant="user"`: `role="menu"` with `menuitem` buttons. The trigger should set `aria-haspopup` / `aria-expanded` and handle `Esc`.
 - Rows are 37px high and the 16px radio / checkbox are small targets — below the 44px touch target, kept as designed.
 - Grey Dark `#5D6E82` rows pass 4.5:1; Secondary Grey `#A7A4B7` (search placeholder, empty text) and Hover Blue `#6368DF` (e-mail, about 4:1) are below the text contrast target — kept as designed. Disabled at 20 % is below 3:1.
+- Dark theme contrast: row text `#BBC7D6` on `#000000` 12.25:1, selected `#050411` on `#BBC7D6` 11.87:1, hover on `#242424` 9.06:1, accent 7.13:1, e-mail `#6368DF` 4.58:1, notification `#BDC5E2` on `#242424` 9.05:1.

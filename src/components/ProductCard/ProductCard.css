@@ -8,10 +8,10 @@
   width: 100%;
   padding: var(--spacing-4);
   overflow: clip;
-  background: var(--color-white);
-  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  background: var(--product-card-bg);
+  border: var(--border-width-sm) solid var(--product-card-border);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card-raised);
+  box-shadow: var(--product-card-shadow);
   font-family: var(--font-family-base);
 }
 
@@ -21,7 +21,7 @@
   aspect-ratio: 1;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: var(--color-bg);
+  background: var(--product-card-media-bg);
 }
 
 .ds-product-card__image {
@@ -36,9 +36,9 @@
   top: var(--spacing-8);
   left: var(--spacing-8);
   padding: var(--spacing-4) var(--spacing-8);
-  background: var(--color-headlines);
+  background: var(--product-card-accent);
   border-radius: var(--radius-sm);
-  color: var(--color-white);
+  color: var(--product-card-on-accent);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);
@@ -71,7 +71,7 @@
 
 .ds-product-card__title {
   margin: 0;
-  color: var(--color-headlines);
+  color: var(--product-card-accent);
   font-size: var(--font-size-h5);
   line-height: var(--font-line-height-h5);
   font-weight: var(--font-weight-semibold);
@@ -80,7 +80,7 @@
 
 .ds-product-card__subtitle {
   margin: 0;
-  color: var(--color-text);
+  color: var(--product-card-text);
   font-size: var(--font-size-mini);
   line-height: var(--font-line-height-mini);
   font-weight: var(--font-weight-medium);
@@ -106,12 +106,12 @@
 
 .ds-product-card__label {
   margin: 0;
-  color: var(--color-headlines);
+  color: var(--product-card-accent);
 }
 
 .ds-product-card__value {
   margin: 0;
-  color: var(--color-text);
+  color: var(--product-card-text);
   text-align: right;
 }
 

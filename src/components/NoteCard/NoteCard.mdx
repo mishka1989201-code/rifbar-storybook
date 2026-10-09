@@ -60,6 +60,10 @@ Assumed / normalised:
 - The date is a `<time>`; the Figma format `07.23.2023` is only text — formatting is up to the caller.
 - The clock icon is the existing `time-new` (round filled clock), chosen by look. Needs designer confirmation. Figma asset downloads were not used.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Notes Dark` (Static / Hover): card `#000000` with a `#242424` stroke, inner block `#101010` with a `#242424` stroke, text `#C9C6D9`, “more” `#0AABDE`, clock `#888CF6`, hover stroke `#888CF6`. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -77,6 +81,11 @@ Assumed / normalised:
 | `--font-size-standard`, `--font-line-height-standard`, `--font-weight-regular` | text, date | 16 / 24 / 400 | Existing tokens.json · Figma: Body/Standart |
 | `--font-weight-medium` | "more" | `500` | Existing tokens.json · Figma: Poppins Medium |
 | `--color-hover-blue`, `--border-width-lg`, `--spacing-2`, `--radius-xs` | "more" hover and focus ring | — | AI-defined use: not drawn in Figma |
+| `--note-card-bg` / `--note-card-stroke` / `--note-card-shadow` / `--note-card-hover-stroke` | card, stroke, shadow, hover stroke | white, `#F1F2F9`, card, `#4549A1` / dark `#000000`, `#242424`, `--shadow-dark-1`, `#888CF6` | **New** · Figma: Notes Dark (shadow: AI-defined) |
+| `--note-card-text` / `--note-card-inner-bg` / `--note-card-inner-border` | text, inner block, inner stroke | `#292639`, `#F6F8FC`, `#D8E2EE` / dark `#C9C6D9`, `#101010`, `#242424` | **New** · Figma: Notes Dark |
+| `--note-card-accent` / `--note-card-icon` | “more”, clock | `#4549A1` / dark `#0AABDE`, `#888CF6` | **New** · Figma: Notes Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -98,3 +107,4 @@ import { NoteCard } from 'rifbar-ds';
 
 - An `<article>`; "more" is a real `<button>`; the date is a `<time>`; the clock icon is decorative (`aria-hidden`).
 - Contrast: Color Text on BG Color 13.8:1, Headlines on BG Color 7.3:1.
+- Dark theme contrast: text `#C9C6D9` on `#101010` 11.38:1, “more” `#0AABDE` 7.15:1.
