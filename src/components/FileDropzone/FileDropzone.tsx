@@ -9,6 +9,11 @@ export interface FileDropzoneProps extends Omit<HTMLAttributes<HTMLLabelElement>
   accept?: string;
   multiple?: boolean;
   disabled?: boolean;
+  /**
+   * The attached file was rejected: sets `aria-invalid`. Figma (`Error/Importantly/Info`) draws only a Danger message under
+   * the area — show it with `ModalField error` / `LabeledField error`; the dashed border does not change.
+   */
+  invalid?: boolean;
   /** First line, next to the icon. */
   label?: ReactNode;
   /** Link-like text after “or,”. */
@@ -28,6 +33,7 @@ export function FileDropzone({
   accept,
   multiple,
   disabled = false,
+  invalid = false,
   label = 'Drag your files here',
   browseLabel = 'Browse',
   size = 'default',
@@ -74,6 +80,7 @@ export function FileDropzone({
         accept={accept}
         multiple={multiple}
         disabled={disabled}
+        aria-invalid={invalid || undefined}
         onChange={(e) => {
           const files = Array.from(e.target.files ?? []);
           if (files.length) onFiles?.(files);

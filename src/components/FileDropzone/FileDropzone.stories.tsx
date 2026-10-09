@@ -36,6 +36,10 @@ export const Large: Story = {
 
 // ─── STATES (not in Figma) ───────────────────────────────────────────────────
 export const DragOver: Story = { name: 'Drag over', args: { forceDragOver: true } };
+export const Invalid: Story = {
+  parameters: { docs: { description: { story: 'Figma `Error/Importantly/Info`: the area looks the same; `invalid` only sets `aria-invalid`. Put the Danger message under it with `ModalField error` / `LabeledField error`.' } } },
+  args: { invalid: true },
+};
 export const Disabled: Story = { args: { disabled: true } };
 
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────

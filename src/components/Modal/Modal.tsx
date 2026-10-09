@@ -17,6 +17,16 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
   icon?: IconName | null;
   /** Figma `Property 1`. */
   size?: ModalSize;
+  /**
+   * Information under the title (Figma `Error/Importantly/Info` → Info): Medium text in Secondary Grey,
+   * e.g. “You have selected some product(s) for the customer…”.
+   */
+  description?: ReactNode;
+  /**
+   * An important note under the description (Figma `Error/Importantly/Info` → Importantly): Semi-Bold text in Warning,
+   * e.g. “If you specify the discount value as 0 or empty… it will be deleted.”.
+   */
+  important?: ReactNode;
   /** Called on click of the close button in the header. */
   onClose?: () => void;
   /** Replaces the close button in the header (Figma `Info Modal` has a 37px `button_action` with a chevron up). */
@@ -40,6 +50,8 @@ export function Modal({
   title,
   icon = 'plus-box',
   size = 'desktop',
+  description,
+  important,
   onClose,
   headerAction,
   elevated = false,
@@ -50,10 +62,18 @@ export function Modal({
   ...rest
 }: ModalProps) {
   const titleId = useId();
+  const descriptionId = useId();
   const classes = ['ds-modal', `ds-modal--${size}`, elevated && 'ds-modal--elevated', className].filter(Boolean).join(' ');
   return (
-    <div role="dialog" aria-labelledby={titleId} className={classes} {...rest}>
+    <div
+      role="dialog"
+      aria-labelledby={titleId}
+      aria-describedby={description != null ? descriptionId : undefined}
+      className={classes}
+      {...rest}
+    >
       <div className="ds-modal__header">
+        <div className="ds-modal__bar">
         <div className="ds-modal__title-wrap">
           {icon && (
             <span className="ds-modal__icon" aria-hidden>
@@ -65,6 +85,17 @@ export function Modal({
           </h2>
         </div>
         {headerAction ?? <IconButton kind="close" aria-label={closeLabel} onClick={onClose} />}
+        </div>
+        {description != null && (
+          <p id={descriptionId} className="ds-modal__description">
+            {description}
+          </p>
+        )}
+        {important != null && (
+          <p className="ds-modal__important" role="note">
+            {important}
+          </p>
+        )}
       </div>
       {children != null && <div className="ds-modal__body">{children}</div>}
       {actions != null && <div className="ds-modal__footer">{actions}</div>}
@@ -91,12 +122,14 @@ export function ModalSection({ divider = true, className, children, ...rest }: M
 export interface ModalFieldProps extends Omit<LabelHTMLAttributes<HTMLLabelElement>, 'children'> {
   /** Field caption, e.g. “Warehouse name”. */
   label: ReactNode;
+  /** Error message under the control (Figma `Error/Importantly/Info` → Error). Mark the control `invalid` too. */
+  error?: ReactNode;
   /** The control: `InputField`, `FilterField`… */
   children?: ReactNode;
 }
 
 /** Figma `Name / Title` + field: Body/Small Medium caption 4px above a control. */
-export function ModalField({ label, children, className, ...rest }: ModalFieldProps) {
+export function ModalField({ label, error, children, className, ...rest }: ModalFieldProps) {
   const classes = ['ds-modal__field', className].filter(Boolean).join(' ');
   return (
     <div className={classes}>
@@ -104,6 +137,11 @@ export function ModalField({ label, children, className, ...rest }: ModalFieldPr
         {label}
       </label>
       {children}
+      {error != null && (
+        <span className="ds-modal__error" role="alert">
+          {error}
+        </span>
+      )}
     </div>
   );
 }

@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
 import { FilterField, InputField } from '../InputField';
+import { Checkbox } from '../Checkbox';
 import { FileDropzone } from '../FileDropzone';
 import { Modal, ModalField, ModalRow, ModalSection } from './Modal';
 
@@ -43,9 +44,9 @@ const Fields = ({ idPrefix }: { idPrefix: string }) => (
   </>
 );
 
-const Actions = ({ accept = 'Accept' }: { accept?: string }) => (
+const Actions = ({ accept = 'Accept', cancel = 'Close' }: { accept?: string; cancel?: string }) => (
   <>
-    <Button variant="light" iconLeft="xmark">Close</Button>
+    <Button variant="light" iconLeft="xmark">{cancel}</Button>
     <Button variant="dark" iconLeft="tick">{accept}</Button>
   </>
 );
@@ -233,6 +234,142 @@ export const NarrowContainer: Story = {
         <Fields idPrefix="narrow" />
       </Modal>
     </div>
+  ),
+};
+
+// ─── ERROR / IMPORTANT / INFO (Figma `Error/Importantly/Info`) ───────────────
+const ERROR_FIGMA_URL =
+  'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-308102';
+
+const DISCOUNT_INFO = 'You have selected some product(s) for the customer. Select the interest rate for the discount.';
+const DISCOUNT_IMPORTANT =
+  'If you specify the discount value as 0 or empty and this customer already has a discount, it will be deleted.';
+
+type DiscountChoice = 'percent' | 'currency' | null;
+
+/** Figma `Discount Modal`: two radio groups (percent / currency) separated by “OR”. The inactive group is drawn in Grey Dark. */
+function DiscountBody({ choice, percent, amount, error }: { choice: DiscountChoice; percent?: string; amount?: string; error?: string }) {
+  const name = useId();
+  const caption = (active: boolean): React.CSSProperties => ({
+    color: active ? 'var(--color-text)' : 'var(--color-grey-dark)',
+    fontSize: 'var(--font-size-small)',
+    lineHeight: 'var(--font-line-height-small)',
+    fontWeight: 'var(--font-weight-medium)',
+  });
+  const group: React.CSSProperties = { display: 'flex', gap: 'var(--spacing-8)', alignItems: 'flex-start' };
+  const column: React.CSSProperties = { display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', flex: '1 1 0', minWidth: 0 };
+  return (
+    <ModalSection divider={false} style={{ gap: 'var(--spacing-24)' }}>
+      <div style={group}>
+        <Checkbox type="radio" size={16} name={name} aria-label="Percent" checked={choice === 'percent'} onChange={() => {}} />
+        <div style={column}>
+          <span style={caption(choice === 'percent')}>Enter the value of the discount in percent (%)</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
+            <InputField
+              aria-label="Discount in percent"
+              placeholder={error ? 'Write the discount value here' : 'Enter the value'}
+              defaultValue={percent}
+              invalid={!!error}
+            />
+            {error && (
+              <span className="ds-modal__error" role="alert">
+                {error}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+      <span style={{ ...caption(true), fontWeight: 'var(--font-weight-semibold)', textTransform: 'uppercase', lineHeight: 1 }}>OR</span>
+      <div style={group}>
+        <Checkbox type="radio" size={16} name={name} aria-label="Currency" checked={choice === 'currency'} onChange={() => {}} />
+        <div style={{ ...column, flexDirection: 'row', gap: 'var(--spacing-8)' }}>
+          <div style={column}>
+            <span style={caption(choice === 'currency')}>Enter the discount value in currency</span>
+            <InputField aria-label="Discount in currency" placeholder="Write the amount here" defaultValue={amount} />
+          </div>
+          <div style={{ ...column, flex: 'none' }}>
+            <span style={caption(choice === 'currency')}>Base currency</span>
+            <FilterField value="US dollar" />
+          </div>
+        </div>
+      </div>
+    </ModalSection>
+  );
+}
+
+const discountDocs = (text: string) => ({
+  design: { type: 'figma' as const, url: ERROR_FIGMA_URL },
+  docs: { description: { story: text } },
+});
+
+export const WithDescriptionAndImportant: Story = {
+  name: 'Description and important note (Figma Info / Importantly)',
+  args: {
+    title: 'Discount confirmation',
+    icon: 'gift-discount',
+    size: 'wide',
+    description: DISCOUNT_INFO,
+    important: DISCOUNT_IMPORTANT,
+  },
+  parameters: discountDocs(
+    'Figma `Error/Importantly/Info`: `description` is Medium text in Secondary Grey, `important` is Semi-Bold text in Warning, both under the title row, 8px apart.',
+  ),
+  render: (args) => (
+    <Modal {...args} actions={<Actions cancel="Cancel" />}>
+      <DiscountBody choice={null} />
+    </Modal>
+  ),
+};
+
+export const DiscountWithError: Story = {
+  name: 'Discount: field error (Figma Error)',
+  args: { title: 'Discount confirmation', icon: 'gift-discount', size: 'wide', description: DISCOUNT_INFO, important: DISCOUNT_IMPORTANT },
+  parameters: discountDocs(
+    'Figma `Discount Modal` with an error: the chosen group has an empty field with a Danger border and the message “To continue - enter the value in the input field!” (Regular 12px, Danger) 4px below it.',
+  ),
+  render: (args) => (
+    <Modal {...args} actions={<Actions cancel="Cancel" />}>
+      <DiscountBody choice="percent" error="To continue - enter the value in the input field!" />
+    </Modal>
+  ),
+};
+
+export const DiscountPercentChosen: Story = {
+  name: 'Discount: percent chosen',
+  args: { title: 'Discount confirmation', icon: 'gift-discount', size: 'wide', description: DISCOUNT_INFO, important: DISCOUNT_IMPORTANT },
+  parameters: discountDocs('Figma `Discount Modal`: the percent group is chosen and filled (`15`); the currency group is Grey Dark.'),
+  render: (args) => (
+    <Modal {...args} actions={<Actions cancel="Cancel" />}>
+      <DiscountBody choice="percent" percent="15" />
+    </Modal>
+  ),
+};
+
+export const DiscountCurrencyChosen: Story = {
+  name: 'Discount: currency chosen',
+  args: { title: 'Discount confirmation', icon: 'gift-discount', size: 'wide', description: DISCOUNT_INFO, important: DISCOUNT_IMPORTANT },
+  parameters: discountDocs('Figma `Discount Modal`: the currency group is chosen and filled (`1200`, US dollar); the percent group is Grey Dark.'),
+  render: (args) => (
+    <Modal {...args} actions={<Actions cancel="Cancel" />}>
+      <DiscountBody choice="currency" amount="1200" />
+    </Modal>
+  ),
+};
+
+export const FileNotSupported: Story = {
+  name: 'File error (Figma Add Product Modal → error)',
+  args: { title: 'Add product', size: 'wide' },
+  parameters: discountDocs(
+    'Figma `Add Product Modal` with an error: the dropzone keeps its dashed border; a Danger message “The attached file is not supported!” sits 4px under it (`ModalField error`, the dropzone is `invalid`).',
+  ),
+  render: (args) => (
+    <Modal {...args} actions={<Actions cancel="Cancel" />}>
+      <ModalSection divider={false}>
+        <ModalField label="Image" error="The attached file is not supported!">
+          <FileDropzone size="large" accept="image/*" invalid />
+        </ModalField>
+      </ModalSection>
+    </Modal>
   ),
 };
 

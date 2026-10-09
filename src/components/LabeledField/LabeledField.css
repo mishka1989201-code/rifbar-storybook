@@ -19,3 +19,12 @@
 }
 
 .ds-labeled-field__required { color: var(--color-warning); }
+
+/* Figma `Error/Importantly/Info` → Error: Body/Mini Regular in Danger, 4px under the field. */
+.ds-labeled-field__error {
+  color: var(--color-danger);
+  font-size: var(--font-size-mini);
+  line-height: var(--font-line-height-mini);
+  font-weight: var(--font-weight-regular);
+  overflow-wrap: anywhere;
+}

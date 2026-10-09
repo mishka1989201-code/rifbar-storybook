@@ -1,4 +1,4 @@
-import { useId, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
 import { Modal, type ModalProps } from '../Modal';
@@ -22,7 +22,7 @@ export interface CheckListModalProps extends Omit<ModalProps, 'children' | 'onCh
   onChange?: (value: string[]) => void;
   /** Text of the first row that checks / clears every option (Figma `All`). Omit it for no such row. */
   allLabel?: ReactNode;
-  /** Line under the title (Figma: a hidden 460px text in the header). */
+  /** Info text under the title (Figma: a hidden 460px text in the header) — `Modal` `description`. */
   description?: ReactNode;
   /** Shows a search field above the list (Figma: a hidden `Search Box`). Filters the rows by their text. */
   searchable?: boolean;
@@ -62,7 +62,6 @@ export function CheckListModal({
   ...rest
 }: CheckListModalProps) {
   const [query, setQuery] = useState('');
-  const descriptionId = useId();
   const enabled = options.filter((o) => !o.disabled);
   const allChecked = enabled.length > 0 && enabled.every((o) => value.includes(o.value));
   const needle = query.trim().toLowerCase();
@@ -86,7 +85,7 @@ export function CheckListModal({
       size="list"
       elevated
       className={classes}
-      aria-describedby={description != null ? descriptionId : undefined}
+      description={description}
       headerAction={
         <Button
           variant="light"
@@ -98,11 +97,6 @@ export function CheckListModal({
       }
     >
       {collapsed ? null : <>
-      {description != null && (
-        <p id={descriptionId} className="ds-check-list-modal__description">
-          {description}
-        </p>
-      )}
       {searchable && (
         <div className="ds-check-list-modal__search">
           <SearchField

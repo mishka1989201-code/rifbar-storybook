@@ -2,18 +2,8 @@
    Surface = Modal (size list, elevated); header button = Button atom; rows = Checkbox atom. */
 
 /* Figma: the 37px header button sits flush right; keep it from shrinking. */
-.ds-check-list-modal .ds-modal__header > .ds-button {
+.ds-check-list-modal .ds-modal__bar > .ds-button {
   flex: none;
-}
-
-/* AI-defined: Figma's description is hidden; it sits in the body, above the list, on the modal padding. */
-.ds-check-list-modal__description {
-  margin: 0;
-  padding: var(--spacing-16) var(--spacing-16) 0;
-  color: var(--color-text);
-  font-size: var(--font-size-small);
-  line-height: var(--font-line-height-small);
-  font-weight: var(--font-weight-regular);
 }
 
 /* Figma `Search Box`: 16px above and below the 40px field (hidden in Figma). */

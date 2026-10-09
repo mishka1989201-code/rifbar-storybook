@@ -89,7 +89,7 @@ The option list is **not** part of this atom. Open your own list from `onClick` 
   - New **Status=Error** for all 4 types (Danger border).
   - Disabled border follows the value: empty → Stroke Input, filled → Input field (Filter Disabled was Input field).
 - Hover is drawn only for empty fields. In code, hover gives the Headlines border to filled fields too.
-- The error message text is not part of the atom — it belongs to a future form-field molecule.
+- The error message text is not part of the atom — it is the `error` prop of `LabeledField` / `ModalField` (Figma `Error/Importantly/Info`: Regular 12px, Danger, 4px under the field). *Important* and *Info* texts belong to the dialog header (`Modal` `important` / `description`).
 - Fields have no fill (transparent), as in Figma.
 
 ## Design tokens used

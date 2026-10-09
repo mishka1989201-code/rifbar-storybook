@@ -18,6 +18,7 @@ It composes the existing `InputField` atoms — the control is passed as `childr
 | `Input/Title` | `<LabeledField title="Name">` | root, column, gap 4 |
 | text “Name” | `title` | Body/Small Medium, Color Text |
 | `InputField` (static, empty) | `children` = `<InputField placeholder="…" />` | field states come from the atom |
+| `Error/Importantly/Info` → Error: message under the field ([node 818:308102](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-308102)) | `error` | Regular 12 / 18px in Danger, 4px under the control, `role="alert"`; set `invalid` on the control too |
 | `Client*` (orange star, node [1407:445305](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1407-445305)) | `required` | `*` in Warning colour, hidden from screen readers (the control carries `required` or `aria-required`) |
 | frame width 188.667px | container width | the code takes 100% of the parent; Figma width is only the frame size |
 
@@ -38,6 +39,7 @@ It composes the existing `InputField` atoms — the control is passed as `childr
 <Canvas of={LabeledFieldStories.WithTextField} />
 <Canvas of={LabeledFieldStories.Focus} />
 <Canvas of={LabeledFieldStories.Error} />
+<Canvas of={LabeledFieldStories.ErrorMessage} />
 <Canvas of={LabeledFieldStories.Disabled} />
 <Canvas of={LabeledFieldStories.LongTitle} />
 <Canvas of={LabeledFieldStories.Narrow} />
@@ -46,6 +48,7 @@ It composes the existing `InputField` atoms — the control is passed as `childr
 ## Figma notes
 
 - Figma draws one state: caption + empty static field. Focus, error and disabled come from `InputField` (see its description in Figma).
+- **Error message:** Figma `Error/Importantly/Info` draws the message (Regular 12px, Danger) 4px under an `invalid` field. It is the `error` prop; it is drawn inside the same `<label>`, so it becomes part of the control's accessible name and is also announced (`role="alert"`). *Important* and *Info* texts of that frame live in the dialog header — see `Modal`.
 - The title is a single `<label>` around caption and control, so clicking the caption focuses the control and screen readers read it as the control's name.
 - `Modal` has its own `ModalField` with identical styling (it predates this component); it was left unchanged.
 - No new tokens. Dark theme not designed — token values follow the theme automatically.
@@ -57,6 +60,7 @@ It composes the existing `InputField` atoms — the control is passed as `childr
 | `--color-text` | title color | `#292639` | Existing tokens.json · Figma: Color Text |
 | `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | title | `14px` / `21px` / `500` | Existing tokens.json · Figma: Body/Small Medium |
 | `--color-warning` | required star | `#F68F57` | Existing tokens.json · Figma: Warning |
+| `--color-danger`, `--font-size-mini`, `--font-line-height-mini`, `--font-weight-regular` | `error` | `#ED5742`, 12 / 18px, 400 | Existing tokens.json · Figma: Danger, Body/Mini Regular |
 | `--spacing-4` | gap title ↔ field | `4px` | Existing tokens.json · Figma: gap 4 |
 | `--font-family-base` | font | Poppins | Existing tokens.json · Figma: Poppins |
 | `--color-stroke-light-v2`, `--color-grey-dark`, `--radius-sm` | field border, placeholder, radius | `#D8E2EE`, `#5D6E82`, `5px` | Existing tokens.json · Figma: Stroke Light V2, Grey Dark (drawn by the `InputField` atom) |
@@ -78,5 +82,6 @@ import { LabeledField, InputField } from 'rifbar-ds';
 ## Accessibility
 
 - The `<label>` wraps the control, so the caption is its accessible name; do not add a second `aria-label`.
+- The error message is `role="alert"` and sits in the label; pair it with `invalid` on the control. Danger `#ED5742` on white is **3.48:1** for 12px text — below 4.5:1, kept as designed.
 - The field is 32px high — below the 44px touch target; kept as designed.
 - Grey Dark placeholder `#5D6E82` on white is above 4.5:1; the empty-state border (Stroke Light V2) is below 3:1 — kept as designed.

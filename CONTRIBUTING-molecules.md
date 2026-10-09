@@ -143,3 +143,13 @@
   (контрасти рахувати скриптом, не на око), що перевірено і що ні.
 - Не перевірено в браузері: Storybook жодного разу не запускався. Якщо буде нагода — пройтися історіями, особливо інтерактивними
   (`FilterMenu`, `CheckListModal`, `Navbar`, `DatePicker`, `TableClients` Sortable) і вузькими контейнерами.
+
+## Повідомлення: Info / Important / Error (Figma `Error/Importantly/Info`)
+
+Три види текстів не є окремими компонентами, а пропи наявних:
+- **Info** — `Modal description` (Secondary Grey, Medium 14) під заголовком діалогу;
+- **Important** — `Modal important` (Warning, Semi-Bold 14) під описом, `role="note"`;
+- **Error** — `ModalField error` / `LabeledField error` (Danger, Regular 12, 4px під полем, `role="alert"`) + `invalid` на самому полі;
+  для `FileDropzone` рамка не змінюється (лише `invalid` → `aria-invalid`), повідомлення малює `ModalField error`.
+- Обов'язкове поле — `LabeledField required` (помаранчева `*`).
+Діалог «Discount confirmation» (дві групи радіо «відсоток / валюта» через «OR») зібрано в історіях `Modal` (`Discount…`), окремого компонента немає.

@@ -32,6 +32,16 @@ export const WithTextField: Story = { args: { title: 'Description', children: <T
 // ─── STATES (delegated to the field) ─────────────────────────────────────────
 export const Focus: Story = { args: { children: <InputField placeholder="Enter the product name" forceFocus /> } };
 export const Error: Story = { args: { children: <InputField placeholder="Enter the product name" invalid /> } };
+export const ErrorMessage: Story = {
+  name: 'Error with message',
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-308102' } },
+  args: {
+    title: 'Discount in percent',
+    error: 'To continue - enter the value in the input field!',
+    children: <InputField placeholder="Write the discount value here" invalid />,
+  },
+  decorators: [(Story) => <div style={{ width: 320 }}><Story /></div>],
+};
 export const Disabled: Story = { args: { children: <InputField placeholder="Enter the product name" disabled /> } };
 
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
@@ -53,6 +63,7 @@ export const AllVariants: Story = {
       <LabeledField title="Name"><InputField placeholder="Enter the product name" /></LabeledField>
       <LabeledField title="Name"><InputField defaultValue="Wireless headphones" /></LabeledField>
       <LabeledField title="Name"><InputField placeholder="Enter the product name" invalid /></LabeledField>
+      <LabeledField title="Name" error="Enter the product name!"><InputField placeholder="Enter the product name" invalid /></LabeledField>
       <LabeledField title="Name"><InputField placeholder="Enter the product name" disabled /></LabeledField>
       <LabeledField title="Category"><FilterField placeholder="Choose a category" /></LabeledField>
       <LabeledField title="Description"><TextField placeholder="Enter a description" /></LabeledField>
