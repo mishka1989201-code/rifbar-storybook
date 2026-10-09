@@ -12,6 +12,11 @@ export interface BreadCrumbItem {
 export interface BreadCrumbsProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
   /** Path from the root to the current page. The last item is the current page. */
   items: BreadCrumbItem[];
+  /**
+   * `path` — the full path (Figma `Bread Crumbs`). `back` — Figma `Bread Crumbs` at 768px and below: only the current
+   * page name after a back chevron; it navigates to the previous crumb (its `href` / `onClick`), when there is one.
+   */
+  variant?: 'path' | 'back';
   /** Accessible name of the navigation landmark. */
   'aria-label'?: string;
 }
@@ -22,11 +27,40 @@ export interface BreadCrumbsProps extends Omit<HTMLAttributes<HTMLElement>, 'chi
  */
 export function BreadCrumbs({
   items,
+  variant = 'path',
   className,
   'aria-label': ariaLabel = 'Breadcrumb',
   ...rest
 }: BreadCrumbsProps) {
   const classes = ['ds-breadcrumbs', className].filter(Boolean).join(' ');
+
+  if (variant === 'back') {
+    const current = items[items.length - 1];
+    const parent = items[items.length - 2];
+    const content = (
+      <>
+        <Icon name="chevron-left" size={16} color="current" />
+        {current?.label}
+      </>
+    );
+    const cls = 'ds-breadcrumbs__item ds-breadcrumbs__back';
+    return (
+      <nav aria-label={ariaLabel} className={classes} {...rest}>
+        {parent?.href ? (
+          <a className={cls} href={parent.href} onClick={parent.onClick} aria-label={`${ariaLabel}: ${parent.label}`}>
+            {content}
+          </a>
+        ) : parent?.onClick ? (
+          <button type="button" className={cls} onClick={parent.onClick} aria-label={`${ariaLabel}: ${parent.label}`}>
+            {content}
+          </button>
+        ) : (
+          <span className={cls}>{content}</span>
+        )}
+      </nav>
+    );
+  }
+
   return (
     <nav aria-label={ariaLabel} className={classes} {...rest}>
       <ol className="ds-breadcrumbs__list">

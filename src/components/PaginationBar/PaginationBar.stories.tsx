@@ -74,5 +74,5 @@ export const NarrowContainer: Story = {
       <PaginationBar {...args} />
     </div>
   ),
-  parameters: { docs: { description: { story: 'The bar keeps both groups on one row; it is meant for tablet width and up.' } } },
+  parameters: { docs: { description: { story: 'Below the width of both groups the pagination wraps under “Show:” (Figma 360px draws it stacked; AI-defined threshold: it wraps when it no longer fits).' } } },
 };

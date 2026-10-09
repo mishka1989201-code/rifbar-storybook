@@ -20,6 +20,7 @@ Shows where the user is in the page hierarchy and lets them go back up. Implemen
 | Next texts (Primary Blue Dark) | `items[1..]` |
 | `Icons 16px` Rifbar Small, Color=Secondary | separator, `<Icon name="rifbar-small" color="secondary">` |
 | Frame `flex-wrap`, gap 16 / 4, padding-y 8 | `.ds-breadcrumbs__list` |
+| 768px and below: `Icons 16px` chevron + one text (Primary Blue Dark) | `variant="back"`: `chevron-left` icon + the last item, linking to the previous item |
 
 ## When to use
 
@@ -34,6 +35,10 @@ Shows where the user is in the page hierarchy and lets them go back up. Implemen
 <Canvas of={BreadCrumbsStories.Short} />
 <Canvas of={BreadCrumbsStories.SingleItem} />
 <Canvas of={BreadCrumbsStories.LongPath} />
+<Canvas of={BreadCrumbsStories.Back} />
+<Canvas of={BreadCrumbsStories.BackWithoutParent} />
+
+**Needs confirmation (`back`):** Figma draws the chevron and the *current* page name (“‹ Mickey Herman”) at 768px and below; the target of the click is not drawn. Here it is the previous crumb (“All clients”), the icon is the existing `chevron-left` (16px) and the text is Primary Blue Dark. Hover and focus are the same AI-defined ones as below.
 
 **Not designed in Figma:** hover and focus on crumbs. AI-defined: hover underlines the crumb; focus draws a 2px Headlines outline. The last crumb is the current page and is not interactive.
 

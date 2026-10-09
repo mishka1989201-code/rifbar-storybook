@@ -20,6 +20,8 @@ It is composed of [`HeaderMenu`](?path=/docs/atoms-headermenu--docs), [`BreadCru
 | `Bread Crumbs` | + `breadcrumbs` | `BreadCrumbs` under the title, gap 16 |
 | `Bread Crumbs & Tabs` | + `breadcrumbs` + `tabs` | title–crumbs gap 4, then tabs |
 | `Title & Menu` “Clients” | `title` + `menu` | Light Headings/h2 32 / 48, Headlines; menu = `HeaderMenu` |
+| Burger before the title at 1280px and below (`Icons 24px`) | `onMenuClick` (`burger-rolled-up`), `menuLabel` |
+| `Bread Crumbs` at 768px and below (chevron + current page) | `breadcrumbs={{ variant: 'back', items }}` |
 | `Header Menu` (bell, chart, support) | `menu` = `<HeaderMenu><HeaderMenuItem …/></HeaderMenu>` | the three icon flags of Figma are separate `HeaderMenuItem`s |
 
 ## When to use
@@ -39,6 +41,8 @@ It is composed of [`HeaderMenu`](?path=/docs/atoms-headermenu--docs), [`BreadCru
 <Canvas of={PageHeaderStories.LongTitle} />
 <Canvas of={PageHeaderStories.ManyTabs} />
 <Canvas of={PageHeaderStories.Narrow} />
+<Canvas of={PageHeaderStories.WithMenuButton} />
+<Canvas of={PageHeaderStories.BackBreadcrumbs} />
 <Canvas of={PageHeaderStories.Interactive} />
 <Canvas of={PageHeaderStories.AllVariants} />
 
@@ -46,6 +50,7 @@ It is composed of [`HeaderMenu`](?path=/docs/atoms-headermenu--docs), [`BreadCru
 
 - The Figma `Default` bar is drawn with a `drop-shadow` filter (`0 30 12.5 / 10%`) while the other three use `box-shadow` Cards Shadow (`0 30 25 −20 / 10%`); the code uses the Cards Shadow token everywhere (the first looks like a leftover).
 - Figma shows a bell with the warning dot only; `chartIcon` and `supportIcom` flags exist in Figma and map to more `HeaderMenuItem`s (not shown by default).
+- The burger and the `back` breadcrumb come from the 1280 / 1024 / 768px frames. **Needs designer confirmation:** the burger glyph (`burger-rolled-up`, short middle line, matched by look) and what the back chevron links to (here the previous crumb).
 - The title is an `h1`; the page should have exactly one.
 - Not designed, AI-defined: long title (wraps), many tabs (the `TabsHeader` scrolls horizontally), the layout on narrow screens (same bar, no collapsing). Dark theme not designed.
 
@@ -58,6 +63,7 @@ It is composed of [`HeaderMenu`](?path=/docs/atoms-headermenu--docs), [`BreadCru
 | `--spacing-8` / `--spacing-16` | bar padding, row gap | `8` / `16px` | Existing tokens.json · Figma: py 8, px 16, gap 16 |
 | `--spacing-4` | title–crumbs gap with tabs | `4px` | Existing tokens.json · Figma: Title & Bread Crumbs gap 4 |
 | `--color-headlines` | title | `#4549A1` | Existing tokens.json · Figma: Headlines |
+| `--color-headlines`, `--color-hover-blue`, `--spacing-8` | burger colour, hover, gap to the title | `#4549A1`, `#6368DF`, 8px | Existing tokens.json · Figma: Title & Menu gap 8; hover AI-defined |
 | `--font-size-h2` / `--font-line-height-h2` / `--font-weight-light` | title | `32px` / `48px` / `300` | Existing tokens.json · Figma: Light Headings/h2 |
 | `--font-family-base` | font | Poppins | Existing tokens.json · Figma: Poppins |
 
@@ -81,4 +87,5 @@ import { PageHeader, HeaderMenu, HeaderMenuItem } from 'rifbar-ds';
 ## Accessibility
 
 - A `<header>` landmark with one `<h1>`; breadcrumbs are a `nav`, tabs a `tablist` (from the composed parts).
+- The burger is a button with an `aria-label`; Headlines `#4549A1` on white 7.72:1; 24px (below 44px) — kept as designed.
 - Grey Dark breadcrumb root and the 32px menu buttons are below the 44px touch target — kept as designed.

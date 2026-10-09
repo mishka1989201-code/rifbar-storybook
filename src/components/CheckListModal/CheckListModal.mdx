@@ -25,6 +25,9 @@ A dialog with a list of options to tick — for example the statuses to filter b
 | First row `All` | `allLabel="All"` — checks / clears every row |
 | Hidden: text under the title (460px) | `description` |
 | Hidden: `Search Box` (`search Field` 40px) | `searchable` (`SearchField size="mobile"`) |
+| `Info Modal` “Discounts off” (radio at the right, chosen row Headlines) | `variant="radio"` |
+| `Info Modal` “Flavor” / “Marketer” (rows filled Primary Blue Dark when picked) | `variant="pick"` (`role="listbox"`), with `searchable` for “Marketer” |
+| `Info Modal` “Warehouse” (search + rows in Headlines) | `searchable`, `accent` |
 | Hidden: `date-range-apply` | not part of this component — use [DatePicker](?path=/docs/organisms-datepicker--docs) |
 
 ## When to use
@@ -49,6 +52,11 @@ A dialog with a list of options to tick — for example the statuses to filter b
 <Canvas of={CheckListModalStories.LongLabels} />
 <Canvas of={CheckListModalStories.NarrowContainer} />
 <Canvas of={CheckListModalStories.NothingFound} />
+<Canvas of={CheckListModalStories.Radio} />
+<Canvas of={CheckListModalStories.Pick} />
+<Canvas of={CheckListModalStories.PickSearchable} />
+<Canvas of={CheckListModalStories.Accent} />
+<Canvas of={CheckListModalStories.RadioInteractive} />
 <Canvas of={CheckListModalStories.Interactive} />
 <Canvas of={CheckListModalStories.AllVariants} />
 
@@ -63,6 +71,9 @@ Not drawn, defined by analogy (AI-defined):
 - **Search** — filters the rows by their text; `All` is hidden while the field has text; an empty result shows “Nothing found”.
 - **Description** — the hidden Figma text under the title is the `Modal` `description` (Secondary Grey, Medium), now drawn in the header.
 - **Collapsed** (`collapsed`) — the list is hidden and the header button shows a chevron down with `aria-expanded`; Figma draws only the open state.
+- **`radio` / `pick`** — hold one value (`value` is a list of at most one id); `radio` shares one `name` per instance (`useId`); `All` is not shown. Figma draws the Discounts rows only in the 736px dialog.
+- **Pick hover** — Figma shows “Triple berry” filled BG Color with Primary Blue Dark text; it is taken as the hover of a row. Focus ring and disabled (20%) are AI-defined.
+- **`accent` (Warehouse)** — Figma draws every row in Headlines and the first row (“All”) on BG Color. Status rows in the other frame are Color Text with all rows checked, so the two frames disagree; **needs designer confirmation** — here Headlines is a prop, not the default.
 - **Long labels** wrap; **narrow containers** — the dialog fills them.
 - **Dark theme** — not designed: the light values are used.
 
@@ -84,6 +95,12 @@ Normalised or assumed:
 | `--color-stroke-light-v1`, `--border-width-sm` | lines under the header and between rows | `#F1F2F9`, `1px` | Existing tokens.json · Figma: Stroke Light V1 |
 | `--color-text`, `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | row text | `#292639`, 14 / 21px, 500 | Existing tokens.json · Figma: Color Text, Body/Small Medium |
 | `--spacing-16`, `--spacing-24` | row padding, body padding | 16 / 24px | Existing tokens.json · Figma: RowInfoBlock py 16, body pb 24 |
+| `--color-headlines` | chosen row text (`radio`, `accent`) | `#4549A1` | Existing tokens.json · Figma: Headlines (Discounts off, Warehouse) |
+| `--color-grey-dark` | not chosen row text (`radio`, `pick`) | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
+| `--color-primary-blue-dark`, `--color-white` | picked row fill and text (`pick`) | `#1D2542`, `#FFFFFF` | Existing tokens.json · Figma: Flavor → Peach & Ice |
+| `--color-bg` | hovered row fill (`pick`) | `#F6F8FC` | Existing tokens.json · Figma: BG Color (Flavor → Triple berry) |
+| `--radius-xs`, `--spacing-2`, `--spacing-4` | pick row radius, gap, inset | 3 / 2 / 4px | Existing tokens.json · Figma: RowInfoBlock radius 3, gap 2, px 4 |
+| `--opacity-disabled` | disabled pick row | `20%` | AI-defined use: Disabled = 20% |
 | `--color-secondary-light` | header button fill | `#ECEEFB` | Existing tokens.json · Figma: Secondary Light (`Button` light) |
 | `--color-headlines`, `--color-grey-dark` | checkbox chosen / unchosen | `#4549A1`, `#5D6E82` | see `Checkbox` |
 | `--color-grey-dark` | “Nothing found” | `#5D6E82` | AI-defined use: same grey as other empty texts |
@@ -116,4 +133,5 @@ import { CheckListModal } from 'rifbar-ds';
 - `role="dialog"` labelled by the title (from `Modal`); add `aria-modal`, a focus trap and `Esc` in the page that opens it. The list has an accessible name; each row is a native checkbox inside its label, so the whole row is clickable.
 - The header button has an accessible name (`collapseLabel`).
 - Contrast (calculated): row text `#292639` on white 14.68:1; title 15.05:1; white tick on `#4549A1` 7.72:1; unchosen box `#5D6E82` 5.23:1; chevron on Secondary Light 13.03:1.
+- `radio` / `pick` (calculated): Headlines `#4549A1` on white 7.72:1; Grey Dark `#5D6E82` on white 5.23:1 and on BG Color 4.92:1; white on the picked `#1D2542` row 15.05:1; Primary Blue Dark on the hovered BG Color row 14.15:1. The `pick` list is a `listbox` of `option` buttons (`aria-selected`); the `radio` rows are native radios of one group.
 - ⚠️ Kept as designed: the lines between rows (Stroke Light V1) are 1.12:1 against white; the 24px checkboxes and the 37px header button are below the 44px touch target (the row itself is 56px high and fully clickable).

@@ -74,6 +74,23 @@ export const Interactive: Story = {
   },
 };
 
+export const WithMenuButton: Story = {
+  name: 'With menu button',
+  args: { breadcrumbs: CRUMBS, tabs: TABS, onMenuClick: () => undefined },
+  parameters: { docs: { description: { story: 'Figma header at 1280px and below: the side menu is hidden, the burger (`burger-rolled-up`, 24px) sits before the title.' } } },
+};
+export const BackBreadcrumbs: Story = {
+  name: 'Back breadcrumbs',
+  args: {
+    title: 'Mickey Herman',
+    breadcrumbs: { variant: 'back', items: [{ label: 'Clients', href: '#' }, { label: 'All clients', href: '#' }, { label: 'Mickey Herman' }] },
+    tabs: TABS,
+    onMenuClick: () => undefined,
+  },
+  decorators: [(Story) => <div style={{ maxWidth: 736 }}><Story /></div>],
+  parameters: { docs: { description: { story: 'Figma header at 768px and below: only the current page after a back chevron; it goes to the previous crumb.' } } },
+};
+
 // ─── ALL VARIANTS ────────────────────────────────────────────────────────────
 export const AllVariants: Story = {
   name: 'All variants',

@@ -25,7 +25,7 @@ export interface TableHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   onSort?: (id: string) => void;
 }
 
-export type TableHeaderPreset = 'warehouses' | 'categories' | 'clients' | 'productsAnalytics' | 'paymentsAnalytics';
+export type TableHeaderPreset = 'warehouses' | 'categories' | 'clients' | 'orders' | 'productsAnalytics' | 'paymentsAnalytics';
 
 /**
  * Column sets drawn in Figma. All frames share one look (transparent row, padding 8/16,
@@ -59,6 +59,15 @@ export const TABLE_HEADER_PRESETS: Record<TableHeaderPreset, TableHeaderColumn[]
     { id: 'email', label: 'Email', width: 220, sortable: true },
     { id: 'joined', label: 'Joined', width: 80, align: 'end', sortable: true },
     { id: 'actions', label: 'Actions', width: 166, align: 'end' },
+  ],
+  /** Figma `Table Header 4` (818:311772) — header of `TableRowOrder` in the client's Orders tab. */
+  orders: [
+    { id: 'name', label: 'Order name', width: 170, sortable: true },
+    { id: 'price', label: 'Price', width: 120, align: 'end', sortable: true },
+    { id: 'type', label: 'Type', width: 150, sortable: true },
+    { id: 'date', label: 'Date', width: 80, align: 'end', sortable: true },
+    { id: 'status', label: 'Status', width: 130, sortable: true },
+    { id: 'actions', label: 'Actions', width: 72, align: 'end' },
   ],
   /** Figma `Table Header 6` (3697:291914) — header of `TableRowAnalytics` with an image. */
   productsAnalytics: [

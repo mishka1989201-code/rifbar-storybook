@@ -97,6 +97,47 @@ export const NothingFound: Story = {
   parameters: { docs: { description: { story: 'Type text that matches no row — “Nothing found” is shown (AI-defined).' } } },
 };
 
+// ─── FILTER VARIANTS (Figma All Filters: Discounts off, Flavor, Warehouse, Marketer) ─────
+const DISCOUNTS: CheckListOption[] = [
+  { value: 'off', label: 'Discounts off' },
+  { value: 'active', label: 'Active Discounts' },
+];
+const FLAVORS: CheckListOption[] = ['Malibu peach pineapple orange', 'Peach & Ice', 'Triple berry', 'Grey'].map((label) => ({ value: label, label }));
+const WAREHOUSES: CheckListOption[] = ['Warsaw #345', 'Seattle #24', 'Idaho Falls #132'].map((label) => ({ value: label, label }));
+const MARKETERS: CheckListOption[] = ['Paul Rudd', 'David Schwimmer', 'Matthew Perry', 'Matt LeBlanc'].map((label) => ({ value: label, label }));
+
+export const Radio: Story = {
+  name: 'Radio (Discounts off)',
+  args: { variant: 'radio', title: 'Discounts off', options: DISCOUNTS, value: ['off'], allLabel: undefined },
+  parameters: { docs: { description: { story: 'One choice: the chosen row is Headlines, the other Grey Dark, the radio sits at the right (Figma `Discounts off`).' } } },
+};
+
+export const Pick: Story = {
+  name: 'Pick list (Flavor)',
+  args: { variant: 'pick', title: 'Flavor', options: FLAVORS, value: ['Peach & Ice'], allLabel: undefined },
+  parameters: { docs: { description: { story: 'One choice without a control: the picked row is Primary Blue Dark with white text. Hover a row to see the BG Color fill Figma draws on “Triple berry”.' } } },
+};
+
+export const PickSearchable: Story = {
+  name: 'Pick list with search (Marketer)',
+  args: { variant: 'pick', title: 'Marketer', options: MARKETERS, value: ['David Schwimmer'], allLabel: undefined, searchable: true, searchPlaceholder: 'Search by keyword' },
+};
+
+export const Accent: Story = {
+  name: 'Accent with search (Warehouse)',
+  args: { title: 'Warehouse', options: WAREHOUSES, value: WAREHOUSES.map((o) => o.value), allLabel: 'All', accent: true, searchable: true, searchPlaceholder: 'Search by keyword' },
+  parameters: { docs: { description: { story: 'Checked rows are Headlines (Figma `Warehouse`). Figma also fills the “All” row with BG Color — taken as its hover and not drawn as a state.' } } },
+};
+
+export const RadioInteractive: Story = {
+  name: 'Radio interactive',
+  args: { variant: 'radio', title: 'Discounts off', options: DISCOUNTS, allLabel: undefined },
+  render: function Render(args) {
+    const [value, setValue] = useState<string[]>(['off']);
+    return <CheckListModal {...args} value={value} onChange={setValue} />;
+  },
+};
+
 // ─── INTERACTIVE ─────────────────────────────────────────────────────────────
 export const Interactive: Story = {
   render: function Render(args) {

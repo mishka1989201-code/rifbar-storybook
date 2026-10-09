@@ -41,3 +41,31 @@
   font-weight: var(--font-weight-light);
   overflow-wrap: anywhere;
 }
+
+/* Figma `Title & Menu` at 1280px and below: the 24px burger sits 8px before the title. */
+.ds-page-header__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.ds-page-header__burger {
+  display: inline-flex;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: none;
+  color: var(--color-headlines);
+  cursor: pointer;
+}
+
+.ds-page-header__burger:hover { color: var(--color-hover-blue); }
+
+/* AI-defined: Figma draws no focus for the burger; same ring as the Tab. */
+.ds-page-header__burger:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline-offset: var(--border-width-lg);
+}

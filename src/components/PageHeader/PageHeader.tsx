@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
+import { Icon } from '../Icon';
 import { BreadCrumbs, type BreadCrumbsProps } from '../BreadCrumbs';
 import { TabsHeader, type TabsHeaderProps } from '../TabsHeader';
 import './PageHeader.css';
@@ -12,6 +13,10 @@ export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLElement>, 'titl
   breadcrumbs?: BreadCrumbsProps;
   /** Adds the `TabsHeader` at the bottom (Figma `Tabs`). */
   tabs?: TabsHeaderProps;
+  /** Shows the burger before the title (Figma header at 1280px and below, where the side menu is hidden). */
+  onMenuClick?: () => void;
+  /** Accessible name of the burger. */
+  menuLabel?: string;
 }
 
 /**
@@ -19,13 +24,20 @@ export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLElement>, 'titl
  * the Cards shadow, a title row with the menu and, optionally, breadcrumbs and tabs. The Figma variant
  * is chosen by which of `breadcrumbs` and `tabs` are passed.
  */
-export function PageHeader({ title, menu, breadcrumbs, tabs, className, ...rest }: PageHeaderProps) {
+export function PageHeader({ title, menu, breadcrumbs, tabs, onMenuClick, menuLabel = 'Open menu', className, ...rest }: PageHeaderProps) {
   const classes = ['ds-page-header', tabs && 'ds-page-header--tabs', className].filter(Boolean).join(' ');
   return (
     <header className={classes} {...rest}>
       <div className="ds-page-header__intro">
         <div className="ds-page-header__top">
-          <h1 className="ds-page-header__title">{title}</h1>
+          <div className="ds-page-header__heading">
+            {onMenuClick && (
+              <button type="button" className="ds-page-header__burger" aria-label={menuLabel} onClick={onMenuClick}>
+                <Icon name="burger-rolled-up" size={24} color="current" />
+              </button>
+            )}
+            <h1 className="ds-page-header__title">{title}</h1>
+          </div>
           {menu}
         </div>
         {breadcrumbs && <BreadCrumbs {...breadcrumbs} />}

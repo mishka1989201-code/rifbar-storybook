@@ -51,3 +51,57 @@
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
 }
+
+/* ── accent / radio: the chosen row is Headlines, the others Grey Dark (Figma `Discounts off`) ── */
+.ds-check-list-modal--radio .ds-check-list-modal__check.ds-checkbox { color: var(--color-grey-dark); }
+.ds-check-list-modal--radio .is-checked .ds-check-list-modal__check.ds-checkbox,
+.ds-check-list-modal.is-accent .is-checked .ds-check-list-modal__check.ds-checkbox { color: var(--color-headlines); }
+
+/* ── pick: Figma `Flavor` — rows are 3px-radius buttons, 2px apart, in a 4px inset ── */
+.ds-check-list-modal--pick .ds-check-list-modal__list {
+  gap: var(--spacing-2);
+  padding: 0 var(--spacing-4) var(--spacing-8);
+}
+
+.ds-check-list-modal--pick .ds-check-list-modal__row {
+  padding: 0;
+  border-bottom: 0;
+}
+
+.ds-check-list-modal__pick {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: var(--spacing-16);
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: none;
+  color: var(--color-grey-dark);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+/* Figma shows the hovered row as BG Color with Primary Blue Dark text. */
+.ds-check-list-modal__pick:hover:not(:disabled) {
+  background: var(--color-bg);
+  color: var(--color-primary-blue-dark);
+}
+
+.ds-check-list-modal__pick[aria-selected='true'] {
+  background: var(--color-primary-blue-dark);
+  color: var(--color-white);
+}
+
+.ds-check-list-modal__pick:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* AI-defined: Figma draws no keyboard focus; the Button ring colour. */
+.ds-check-list-modal__pick:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-hover-blue-light);
+  outline-offset: calc(var(--border-width-lg) * -1);
+}

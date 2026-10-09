@@ -110,9 +110,11 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
 - **Molecules** (chat / feedback): AlertRow, ChatHeader, ChatMessage, Notification, NotificationLine
 - **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle
 - **Molecules** (tables): TableActionsRow, TableHeader (presets incl. `productsAnalytics`, `paymentsAnalytics`), TableProductsHeader,
-  TableProductsRow, TableRowAnalytics, TableRowClient, TableRowExpandable, TableRowMobile, TableRowQuantity, TotalRow
-- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient), Navbar (LogoBar + NavbarMenu + UserDropdown), TimeTracker (TimeTrackerBar + stats + TimeScale), WelcomeCard (AlertRow rows + dark header), FilterMenu (FilterChevron chips + CheckListModal / Modal + DatePicker sections), ProductDetailCard (picture + RowInfoBlock rows + description + actions), ProductFormModal (Modal 480 / 360 + fields + image block), ScheduledCallCard (CardHeader + FilterField date + Refresh),
+  TableProductsRow, TableRowAnalytics, TableRowClient, TableRowExpandable, TableRowOrder (row / card), TableToolbar (desktop / compact), TableRowMobile, TableRowQuantity, TotalRow
+- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient), TableOrders (TableHeader `orders` + TableRowOrder; `layout` table / cards), Navbar (LogoBar + NavbarMenu + UserDropdown), TimeTracker (TimeTrackerBar + stats + TimeScale), WelcomeCard (AlertRow rows + dark header), FilterMenu (FilterChevron chips + CheckListModal / Modal + DatePicker sections), ProductDetailCard (picture + RowInfoBlock rows + description + actions), ProductFormModal (Modal 480 / 360 + fields + image block), ScheduledCallCard (CardHeader + FilterField date + Refresh),
   DatePicker (Button + TimePicker; date / date-time / today / range)
+- **Prototypes** (`src/prototypes`, titles `Prototypes/<Name>`, not exported from `src/index.ts`): whole screens assembled from library components with fake
+  in-memory data, one story per Figma breakpoint. First one: `ClientOrders` (client page, Orders tab, 1920…360px + filter screens at 768 / 480 / 360px).
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens
 
 Open PR: #12 (`claude/peaceful-franklin-tnrmh4` → `main`): Navbar, TimeTracker, WelcomeCard + AlertRow, CheckListModal, FilterMenu, ProductDetailCard,
@@ -134,8 +136,9 @@ Open design questions (also in the PR #10 description):
 - Needs confirmation: `--color-warning-tint` (badge of `ScheduledCallCard`, read from the render), `reboot` / `picture` / `save-line` icons.
 - Many icons are matched by look (Figma icons are unnamed vectors) — see the "needs designer confirmation" list in the MDX of each component.
 
-Never verified in a browser: Storybook has not been run yet (everything was checked with `tsc`, the library build and headless Chromium
-renders with a fallback font). Walk through the stories once before relying on interactive behavior.
+Storybook was built (`npx storybook build`) and a few stories were opened in headless Chromium (the `ClientOrders` prototype, `TableRowOrder`,
+`TableOrders`, `TableToolbar`, `CheckListModal` radio / pick / accent, `PageHeader`, no console errors; the Status menu was opened by a click).
+The other interactive stories (FilterMenu, CheckListModal, Navbar, ProductFormModal, DatePicker, TableClients Sortable) were still not walked through.
 
 Next: more components from the Figma file, one link (or several for one component) at a time. Reuse an existing component when the new
 frame only changes layout, sizes or columns (extend it with a prop or a preset instead of adding a new one).

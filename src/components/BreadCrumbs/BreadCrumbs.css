@@ -57,3 +57,10 @@ button.ds-breadcrumbs__item:focus-visible {
   outline: var(--border-width-lg) solid var(--color-headlines);
   outline-offset: var(--border-width-lg);
 }
+
+/* `back`: chevron + current page name, 4px apart. */
+.ds-breadcrumbs__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}

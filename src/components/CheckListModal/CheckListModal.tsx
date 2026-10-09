@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
 import { Modal, type ModalProps } from '../Modal';
@@ -13,13 +13,23 @@ export interface CheckListOption {
   disabled?: boolean;
 }
 
+/**
+ * `check` — Figma `Info Modal` with checkboxes (Status, Warehouse). `radio` — one choice with a radio at the right
+ * (Discounts off). `pick` — one choice, no control: the picked row is filled Primary Blue Dark (Flavor, Marketer).
+ */
+export type CheckListVariant = 'check' | 'radio' | 'pick';
+
 export interface CheckListModalProps extends Omit<ModalProps, 'children' | 'onChange' | 'size' | 'icon' | 'headerAction'> {
   /** Rows of the list. Figma: 8 statuses. */
   options: CheckListOption[];
-  /** Values of the checked rows. */
+  /** Figma `Info Modal` rows: checkboxes (default), a radio group or a pick list. */
+  variant?: CheckListVariant;
+  /** Values of the checked rows. With `radio` / `pick` the list holds at most one value. */
   value?: string[];
-  /** Called with the new list of checked values. */
+  /** Called with the new list of checked values (one value with `radio` / `pick`). */
   onChange?: (value: string[]) => void;
+  /** `check`: checked rows get the Headlines text colour (Figma `Warehouse`). `radio` always does. */
+  accent?: boolean;
   /** Text of the first row that checks / clears every option (Figma `All`). Omit it for no such row. */
   allLabel?: ReactNode;
   /** Info text under the title (Figma: a hidden 460px text in the header) — `Modal` `description`. */
@@ -47,8 +57,10 @@ const textOf = (node: ReactNode) => (typeof node === 'string' || typeof node ===
  */
 export function CheckListModal({
   options,
+  variant = 'check',
   value = [],
   onChange,
+  accent = false,
   allLabel,
   description,
   searchable = false,
@@ -62,12 +74,18 @@ export function CheckListModal({
   ...rest
 }: CheckListModalProps) {
   const [query, setQuery] = useState('');
+  const groupName = useId();
+  const single = variant !== 'check';
   const enabled = options.filter((o) => !o.disabled);
   const allChecked = enabled.length > 0 && enabled.every((o) => value.includes(o.value));
   const needle = query.trim().toLowerCase();
   const visible = needle ? options.filter((o) => textOf(o.label).toLowerCase().includes(needle)) : options;
 
   const toggle = (option: CheckListOption) => {
+    if (single) {
+      onChange?.([option.value]);
+      return;
+    }
     onChange?.(value.includes(option.value) ? value.filter((v) => v !== option.value) : [...value, option.value]);
   };
   const toggleAll = () => {
@@ -75,7 +93,9 @@ export function CheckListModal({
     onChange?.(allChecked ? locked : [...locked, ...enabled.map((o) => o.value)]);
   };
 
-  const classes = ['ds-check-list-modal', className].filter(Boolean).join(' ');
+  const classes = ['ds-check-list-modal', `ds-check-list-modal--${variant}`, accent && 'is-accent', className]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <Modal
@@ -108,26 +128,52 @@ export function CheckListModal({
           />
         </div>
       )}
-      <ul className="ds-check-list-modal__list" aria-label={listLabel ?? textOf(title) ?? undefined}>
-        {allLabel != null && !needle && (
+      <ul
+        className="ds-check-list-modal__list"
+        aria-label={listLabel ?? textOf(title) ?? undefined}
+        role={variant === 'pick' ? 'listbox' : undefined}
+      >
+        {!single && allLabel != null && !needle && (
           <li className="ds-check-list-modal__row">
             <Checkbox className="ds-check-list-modal__check" checked={allChecked} onChange={toggleAll}>
               {allLabel}
             </Checkbox>
           </li>
         )}
-        {visible.map((option) => (
-          <li key={option.value} className="ds-check-list-modal__row">
-            <Checkbox
-              className="ds-check-list-modal__check"
-              checked={value.includes(option.value)}
-              disabled={option.disabled}
-              onChange={() => toggle(option)}
-            >
-              {option.label}
-            </Checkbox>
-          </li>
-        ))}
+        {visible.map((option) => {
+          const checked = value.includes(option.value);
+          const rowClass = ['ds-check-list-modal__row', checked && 'is-checked'].filter(Boolean).join(' ');
+          if (variant === 'pick') {
+            return (
+              <li key={option.value} className={rowClass} role="presentation">
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={checked}
+                  disabled={option.disabled}
+                  className="ds-check-list-modal__pick"
+                  onClick={() => toggle(option)}
+                >
+                  {option.label}
+                </button>
+              </li>
+            );
+          }
+          return (
+            <li key={option.value} className={rowClass}>
+              <Checkbox
+                className="ds-check-list-modal__check"
+                type={variant === 'radio' ? 'radio' : 'checkbox'}
+                name={variant === 'radio' ? groupName : undefined}
+                checked={checked}
+                disabled={option.disabled}
+                onChange={() => toggle(option)}
+              >
+                {option.label}
+              </Checkbox>
+            </li>
+          );
+        })}
         {visible.length === 0 && <li className="ds-check-list-modal__empty">Nothing found</li>}
       </ul>
       </>}

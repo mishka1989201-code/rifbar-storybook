@@ -62,6 +62,15 @@
 
 Усі експортуються з `src/index.ts`.
 
+Нове з екрана «Клієнт → Orders»: `TableRowOrder` (`layout` row / card, `OrderStatus`), `TableToolbar` (Export / Clear / `filters` / View / Search; `compact` для ≤768px),
+`CheckListModal` `variant` check / radio / pick + `accent`, `PageHeader` `onMenuClick`, `BreadCrumbs` `variant="back"`, пресет `orders` у `TableHeader`.
+
+## Prototypes
+
+Цілі екрани з бібліотечних компонентів і фейкових даних: `src/prototypes/<Name>/`, заголовок історій `Prototypes/<Name>`, **не** експортуються з `src/index.ts`.
+Одна історія на кожен брейкпоінт Figma (декоратор задає ширину кадру) + окремі історії для екранів фільтрів. Нові компоненти, потрібні екрану, живуть у `src/components`.
+Перший: `ClientOrders` (1920 / 1440 / 1280 / 1024 / 768 / 480 / 360 + Filter menu / All Filters). «Гілка Prototypes» у запиті = цей розділ Storybook.
+
 ## Organisms
 
 Великі компоненти, зібрані лише з молекул. Заголовок історій — `Organisms/<Name>`.
@@ -78,6 +87,7 @@
 | ProductDetailCard | детальна картка товару (Figma Product Card 1524px): картинка 640 + `title`, `details` (`RowInfoBlock line`), `description`, `actions`; не плутати з плиткою `ProductCard`; фото з Figma не завантажено (403) |
 | ProductFormModal | форма товару (Figma Modal Add / Edit product, 480 / 360): `Modal size="480"/"360"` + 7 полів + блок зображення (add: бібліотека + `FileDropzone`; edit: `ImageCard lg` + кнопки); `mode`, `size`, `values`, `onFieldClick` |
 | ScheduledCallCard | картка запланованого дзвінка (Figma scheduled-call-menu): `CardHeader` (`tone` warning / success) + `FilterField icon="date"` + кнопка Refresh; `state` static / time-to-call |
+| TableOrders | список замовлень клієнта (Figma Table 1 - Management / Cards Line): `TableHeader` (пресет `orders`) + `TableRowOrder`; `layout` `table` / `cards` (сітка карток), `status`, `onSort` |
 | DatePicker | календар (Figma date-range-apply: date / date-time / OneButtonApply / Full): `mode` `single` / `range`, `withTime` (`TimePicker`), `footer` `actions` / `today` / `none`, `months`; `value` — чернетка, `onApply` / `onCancel`; клавіатура, `locale` |
 
 ## Процес для кожної молекули
@@ -141,8 +151,9 @@
   передавати `skillNames: "resource:figma-design-to-code"`. Дуже великі фрейми (календарі) можуть обрізатись — брати дочірні вузли окремо.
 - Звіт після кожного компонента — за форматом з `CLAUDE.md` («Report format»): що зроблено, історії, нові токени, припущення, доступність
   (контрасти рахувати скриптом, не на око), що перевірено і що ні.
-- Не перевірено в браузері: Storybook жодного разу не запускався. Якщо буде нагода — пройтися історіями, особливо інтерактивними
-  (`FilterMenu`, `CheckListModal`, `Navbar`, `DatePicker`, `TableClients` Sortable) і вузькими контейнерами.
+- Storybook збирається (`npx storybook build -o /tmp/sb-out`) і відкривається в headless Chromium (Playwright у `/opt/node-tools`, статичний сервер на зібраному
+  `/tmp/sb-out`, `iframe.html?id=<story-id>`): так перевірено прототип `ClientOrders` та нові компоненти. Ще не пройдено вручну: `FilterMenu`, `Navbar`,
+  `ProductFormModal`, `DatePicker`, `TableClients` Sortable і вузькі контейнери.
 
 ## Повідомлення: Info / Important / Error (Figma `Error/Importantly/Info`)
 

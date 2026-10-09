@@ -1,0 +1,104 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as TableToolbarStories from './TableToolbar.stories';
+
+<Meta of={TableToolbarStories} />
+
+# TableToolbar
+
+The toolbar above a table or a card list. Implements
+[`Buttons & Filters` / `Actions`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=818-311188)
+of the client's Orders tab, desktop and `compact` (768px and below) as ONE component. A molecule composed of
+[Button](?path=/docs/atoms-button--docs), [ViewSwitch](?path=/docs/molecules-viewswitch--docs) and
+[SearchField](?path=/docs/atoms-searchfield--docs); it replaces [TableActionsRow](?path=/docs/molecules-tableactionsrow--docs)
+wherever filters or a view switch are needed (`TableActionsRow` stays for the plain Export / Clear / Search row).
+
+<Canvas of={TableToolbarStories.Default} />
+<Controls of={TableToolbarStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `button_action Export` (dark, `export` icon) | `Button variant="dark" iconLeft="export"`, `onExport`, `exportLabel` |
+| `Clear` (outline, desktop) | `Button variant="outline" iconLeft="clear"`, `onClear`, `clearLabel` |
+| `Date range` and `Status` fields (desktop) | `filters` slot — two `FilterField`s (`icon="date"` for the date range) with their own menus |
+| `Filter` + count badge (768px and below) | `compact`: `Button variant="outline" iconLeft="filter-dark" counter={filterCount}`, `onFilterClick`, `filterLabel` |
+| Square sort button (768px and below) | `sort` slot — an icon `Button` (`iconOnly="sort"`) with its menu |
+| `viewing style` “View:” | `view`, `onViewChange` → `ViewSwitch` |
+| `search Field` (232px; full width at 768px and below) | `SearchField` (`size="desktop"` / `"mobile"` in `compact`), `searchProps` |
+
+## When to use
+
+- ✅ Above a list that has export, filtering and a view switch.
+
+## When NOT to use
+
+- ❌ Only Export / Clear / Search — [TableActionsRow](?path=/docs/molecules-tableactionsrow--docs).
+
+## Variants, states and edge cases
+
+<Canvas of={TableToolbarStories.Compact} />
+<Canvas of={TableToolbarStories.CompactNoFilters} />
+<Canvas of={TableToolbarStories.WithoutView} />
+<Canvas of={TableToolbarStories.CompactNarrow} />
+<Canvas of={TableToolbarStories.DesktopNarrow} />
+<Canvas of={TableToolbarStories.LongLabels} />
+<Canvas of={TableToolbarStories.Interactive} />
+<Canvas of={TableToolbarStories.AllVariants} />
+
+## Figma notes
+
+What Figma draws: the desktop row at 1920 / 1440 / 1280 / 1024px (Export, Clear, Date range, Status, View, Search at the right) and `Buttons & Filters` at 768 / 480 / 360px (Export, Filter 8, sort, View, then Search on its own line). The “More” items of the menus are drawn as separate frames (`Sort by`, `Status Filter`) — see the Client Orders prototype.
+
+Not drawn, defined by analogy (AI-defined):
+
+- Hover, focus and disabled of every control come from the atoms.
+- The badge is hidden when `filterCount` is 0 / not set (Figma always shows 8).
+- A desktop toolbar in a narrow container wraps; below 768px use `compact`.
+- Dark theme: not designed — the light values are used.
+
+Assumed / normalised:
+
+- The sort button is a 37px square (Figma pads the 16px icon by 10.5px, i.e. the existing `iconOnly` button).
+- The `Filter` icon is `filter-dark` (the slider icon `filter-light` is a different glyph).
+- At 360px Figma puts “View:” on its own line below the buttons; at 480px it stays on the line. This is flex wrapping, not a separate variant.
+
+## Design tokens used
+
+No new tokens.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--spacing-8` | gap between controls | `8px` | Existing tokens.json · Figma: Buttons & Filters gap 8 |
+| `--spacing-24` | gap between wrapped lines; search under the buttons | `24px` | Existing tokens.json · Figma: row gap 24, Actions gap 24 |
+| `--spacing-16` | gap between the controls and the desktop search | `16px` | AI-defined use: same as `TableActionsRow` |
+| `232px` | desktop search width | `232px` | Existing in `TableActionsRow` (Figma: SearchField 232) |
+
+Colours of the buttons, the view switch and the search come from their atoms and molecules.
+
+## Props
+
+<ArgTypes of={TableToolbarStories} />
+
+## Code example
+
+```tsx
+import { TableToolbar } from 'rifbar-ds';
+
+<TableToolbar
+  compact={width <= 768}
+  filterCount={appliedFilters.length}
+  onFilterClick={() => setFiltersOpen(true)}
+  sort={sortButtonWithMenu}
+  view={view}
+  onViewChange={setView}
+  searchProps={{ onSearch: setQuery }}
+/>
+```
+
+## Accessibility
+
+- `role="toolbar"` named “Table actions”; every control is a native button or input. Icon-only buttons need an `aria-label` (the `sort` slot is yours).
+- The count badge is read as part of the button text (“Filter 8”).
+- Contrast, computed: `Filter` label Headlines `#4549A1` on `#F1F2F9` 6.91:1; Export white on `#1D2542` 15.05:1.
+- ⚠️ Kept as designed: buttons are 37px and the desktop search 32px high (below 44px); “View:” icons are 24px.
