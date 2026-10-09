@@ -155,3 +155,16 @@ export const PaginationExample: Story = {
     docs: { description: { story: 'Interactive. Gap between buttons (8px) is AI-defined — Pagination molecule is not ported yet.' } },
   },
 };
+
+/** Figma "Dark Atoms Components" → Icon Button. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllVariantsDark: Story = {
+  ...AllVariants,
+  name: 'All Kinds × States (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

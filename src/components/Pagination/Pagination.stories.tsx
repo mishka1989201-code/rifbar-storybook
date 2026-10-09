@@ -104,3 +104,16 @@ export const AllVersions: Story = {
     </div>
   ),
 };
+
+/** Figma "Dark Atoms Components" → Pagination Dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const AllVersionsDark: Story = {
+  ...AllVersions,
+  name: 'All Versions (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

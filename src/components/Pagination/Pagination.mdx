@@ -67,7 +67,14 @@ Figma `Pagination Responsive` draws two proposals at 768 / 480 / 360px: **v1** k
 - `size="sm"`: 24px buttons (Body/Micro Medium), `space-between` over the container; the `...` box is 24×24. Which width switches the size is the page's decision (the prototypes use 480px).
 - **Needs designer confirmation:** v1 or v2. Both are implemented (`siblingCount`), the default stays v1.
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `Pagination Dark`** (`<` 1 2 3 `>`): the buttons are `IconButton`, so the dark colours come from its `--icon-button-*` tokens
+(fill `#27282E`, active page `#050411` with `#BBC7D6` text, text `#BDC5E2`). The "..." gap uses `--icon-button-text`. See **AllVersionsDark**.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -82,6 +89,7 @@ Figma `Pagination Responsive` draws two proposals at 768 / 480 / 360px: **v1** k
 | `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | text | `14px` / `21px` / `500` | Existing tokens.json · Figma: Body/Small Medium |
 
 No new tokens were needed.
+| `--icon-button-text` | `...` gap text | light `#1D2542` / dark `#BDC5E2` | Existing tokens.json · Figma: Dark Atoms → Prinary Blue Dark (Light) (added with IconButton dark) |
 
 ## Props
 
@@ -101,3 +109,4 @@ import { Pagination } from 'rifbar-ds';
 - The current page has `aria-current="page"`; arrows have `Previous page` / `Next page` labels.
 - ⚠️ Buttons are 40×40px, slightly below the 44px touch target — kept as designed.
 - ⚠️ Disabled arrows at 20% opacity are below 3:1 contrast (same as other components).
+- Dark theme: same contrasts as IconButton (8.57:1 text, 11.87:1 active page).

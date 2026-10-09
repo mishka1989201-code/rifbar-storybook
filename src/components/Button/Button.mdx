@@ -64,7 +64,30 @@ Pressed currently reuses Hover; Loading is not implemented — ask design before
 
 Empty state: not applicable — Button doesn't display data.
 
+## Dark theme
+
+Figma frame **Dark Atoms Components → `button_actio_dark`**. No new component or props: the colours come from themed `--button-*` tokens
+(light value = the previous value, so the light theme is unchanged). Switch the toolbar theme, or open **AllVariantsDark**.
+
+| Variant | Dark fill | Dark text / stroke |
+|---|---|---|
+| `outline` | `#242424` (stroke `#242424`, so no visible border) | `#BDC5E2` |
+| `dark` (text buttons) | `#050411` | `#BBC7D6` |
+| `dark` with `size="big"` or `iconOnly` | `#BDC5E2` | `#000000` |
+| `light` | `#27282E` | `#BDC5E2` |
+| `danger` | `#ED5742` (solid, not the 60% Danger Fill) | `#000000` |
+| `gray` | `#5D6E82` | `#000000` |
+| `text-arrow` | – | `#BDC5E2`, hover `#888CF6` |
+| `text-checkmarks` | – | `#888CF6`, hover `#4549A1` |
+
+Hover is the same recipe as in the light theme (fill removed, stroke + text in `#BDC5E2`; Red in `#ED5742`). Disabled stays at 20% opacity.
+
+**Figma dark notes:** Dark BG is not one colour in the dark frame: text buttons use Primary Blue Dark (Dark) `#050411`, while Big and Just Icon use Primary Blue Dark (Light) `#BDC5E2`
+with black content. `text-arrow` / `text-checkmarks` hover colours and the counter badge are read from the render (Figma shows no variable). Focus ring is not designed in dark; the light ring `--color-headlines` is kept.
+
 ## Design tokens used
+
+The `--color-*` rows are the **light** values. The component CSS reads them through the themed tokens listed at the end of the table, which resolve to these colours in the light theme and to the dark palette in the dark theme.
 
 | Token | Property | Value | Source |
 |---|---|---|---|
@@ -96,6 +119,15 @@ Empty state: not applicable — Button doesn't display data.
 | `--size-counter` | counter badge | `14px` | Figma: Number badge |
 | `--size-control-sm` | icon-only square | `37px` | Figma: height Size=Small/Medium |
 | `--opacity-disabled` | disabled | `0.2` | Figma: layer opacity Status=Disabled |
+| `--button-ink` | text (Outline, Light Fill, Text & Arrow); hover stroke/text (Outline, Dark BG, Light Fill) | light `#1D2542` / dark `#BDC5E2` | **New** · Figma: Dark Atoms → Prinary Blue Dark (Light) |
+| `--button-outline-bg`, `--button-outline-border` | Outline fill, stroke | light `#F1F2F9`, `#CBC8DB` / dark `#242424`, `#242424` | **New** · Figma: Dark Atoms → Stroke Light (V1), Stroke Button |
+| `--button-dark-bg`, `--button-dark-text` | Dark BG (text buttons) fill, text | light `#1D2542`, `#FFFFFF` / dark `#050411`, `#BBC7D6` | **New** · Figma: Dark Atoms → Primary Blue Dark (Dark), White (Light) |
+| `--button-solid-bg`, `--button-on-solid` | Dark BG Big / icon-only fill; text on Dark BG Big, Red, Gray BG, counter | light `#1D2542`, `#FFFFFF` / dark `#BDC5E2`, `#000000` | **New** · Figma: Dark Atoms → Prinary Blue Dark (Light), White (Dark) |
+| `--button-light-bg` | Light Fill fill | light `#ECEEFB` / dark `#27282E` | **New** · Figma: Dark Atoms → Secondary Light |
+| `--button-danger-bg` | Red fill | light `rgba(218,29,3,0.6)` / dark `#ED5742` | **New** · Figma: Dark Atoms → Danger |
+| `--button-link-hover` | Text & Arrow hover | light `#4549A1` / dark `#888CF6` | **New** · Figma: Dark Atoms (read from the render) |
+| `--button-checkmarks`, `--button-checkmarks-hover` | Text & Checkmarks text, hover | light `#4549A1`, `#888CF6` / dark `#888CF6`, `#4549A1` | **New** · Figma: Dark Atoms (read from the render) |
+| `--button-counter-bg` | counter badge | light `#1D2542` / dark `#BDC5E2` | **New** · AI-defined: read from the render, same as Dark BG Big |
 
 ## Props
 
@@ -120,3 +152,5 @@ import { Button } from './components/Button';
 - Icons are `aria-hidden`; icon-only buttons **must** pass `aria-label`.
 - ⚠️ Touch target: Figma sets 37×37px (below the 44×44px guideline). Kept as designed — desktop ERP.
 - ⚠️ Contrast: Red (`rgba(218,29,3,0.6)` on white ≈ 3:1 with white text) and the 20% disabled opacity are below 4.5:1 — flag to design.
+- Dark theme contrast (calculated): Outline text 9.05:1, Dark BG 11.87:1, Dark BG Big 12.25:1, Light Fill 8.57:1, Red 6.04:1, Gray 4.02:1 (passes 3:1 for large/UI text, not 4.5:1 for 14px text — kept as designed),
+  Text & Checkmarks hover `#4549A1` on black **2.72:1** (below 3:1), focus ring `#4549A1` on black 2.72:1 — flag to design.

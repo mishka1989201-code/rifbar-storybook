@@ -29,7 +29,7 @@
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
-  color: var(--color-primary-blue-dark);
+  color: var(--icon-button-text);
 }
 
 /* Size sm: the items spread over the container (Figma Pagination 300px, space-between). */
