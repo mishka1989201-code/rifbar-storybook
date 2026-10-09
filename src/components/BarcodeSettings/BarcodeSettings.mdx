@@ -51,6 +51,10 @@ Composed of `TextField`, [`FileDropzone`](?path=/docs/atoms-filedropzone--docs) 
 - The 9px gap between the dropzone icon and text is 8 in code (no 9px token). The Figma panel height (257 for Information3) is not fixed: the preview is 193px high (257 − 2 × 32).
 - Dark theme not designed.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Information 1 / 3 / 4 Dark`: panel `#000000`, labels `#C9C6D9`, textarea stroke `#242424`; buttons come from the atoms. The barcode preview stays white (a barcode must be scannable). Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -62,6 +66,9 @@ Composed of `TextField`, [`FileDropzone`](?path=/docs/atoms-filedropzone--docs) 
 | `--size-barcode-field` | text area and dropzone height | `95px` | **New** · Figma: InputField / Drag Files height 95 |
 | `--size-barcode-preview-width` / `--size-barcode-preview-height` | preview box | `244px` / `193px` | **New** · Figma: Information3 image |
 | `--radius-image-card` / `--color-white` | preview radius / fill | `4px` / `#FFFFFF` | Existing tokens.json · Figma: img radius 4, White |
+| `--barcode-settings-bg` / `--barcode-settings-border` / `--barcode-settings-text` | panel, column divider, labels | white, `#ECEEFB`, `#292639` / dark `#000000`, `#242424`, `#C9C6D9` | **New** · Figma: Information 1 Dark (divider: AI-defined) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 The field, dropzone (`--color-headlines-alpha-40` **New**) and buttons bring their own tokens — see `InputField`, `FileDropzone`, `Button`.
 

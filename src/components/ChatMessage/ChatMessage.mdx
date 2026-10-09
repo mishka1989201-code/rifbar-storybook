@@ -67,6 +67,10 @@ Assumed / normalised:
 - The time is a `<time>` element; `dateTime` is optional.
 - Figma asset downloads were not used; the check is the existing `check-double` icon (the Figma mask asset matches by look).
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Recieved message +Avatar +Time Dark` / `Message sent + Time & Check Dark`: received bubble `#000000` with a `#242424` stroke, sent bubble `#242424`, text `#BDC5E2`, time `#5D6E82` (unchanged), read ticks `#4549A1` (read from the render). Shadow not drawn; AI-defined: Dark Mode Shadow 1. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -84,6 +88,11 @@ Assumed / normalised:
 | `--spacing-16` / `--spacing-8` / `--spacing-4` | padding / avatar gap / time–check gap | 16 / 8 / 4px | Existing tokens.json · Figma: padding 16, gap 8, gap 4 |
 | `--font-size-small`, `--font-line-height-small` | message text | 14 / 21px | Existing tokens.json · Figma: Body/Small Regular |
 | `--font-size-mini`, `--font-line-height-mini` | time | 12 / 18px | Existing tokens.json · Figma: Body/Mini Regular |
+| `--chat-message-bg` / `--chat-message-border` / `--chat-message-shadow` | received bubble | white, `#F1F2F9`, card / dark `#000000`, `#242424`, `--shadow-dark-1` | **New** · Figma: Recieved message Dark (shadow: AI-defined) |
+| `--chat-message-sent-bg` / `--chat-message-sent-border` | sent bubble | `#F1F2F9`, `#F6F8FC` / dark `#242424` | **New** · Figma: Message sent Dark |
+| `--chat-message-text` / `--chat-message-check` | text, read ticks | `#000000`, `#6368DF` / dark `#BDC5E2`, `#4549A1` | **New** · Figma: Message Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -108,3 +117,4 @@ import { ChatMessage } from 'rifbar-ds';
 - The avatar has `role="img"` with the sender's name; the check icon has the accessible name "Read". Wrap a list of messages in an element with
   `role="log"` and an `aria-label` so new messages are announced.
 - ⚠️ Kept as designed: the time (Grey Dark `#5D6E82`, 12px) is 4.7:1 on the sent card and 5.2:1 on white — passes AA; the double check in Hover Blue on `#F1F2F9` is 4.1:1 (non-text, passes 3:1).
+- Dark theme contrast: text `#BDC5E2` on `#242424` 9.05:1; time `#5D6E82` on `#242424` 2.97:1 (⚠️ below 4.5:1, kept as designed); ticks `#4549A1` 2.01:1 (decorative).

@@ -9,8 +9,9 @@
   width: 100%;
   max-width: var(--size-modal-confirm);
   border-radius: var(--radius-modal);
-  background: var(--color-white);
-  color: var(--color-primary-blue-dark);
+  background: var(--modal-bg);
+  box-shadow: var(--modal-confirm-shadow);
+  color: var(--modal-text);
   font-family: var(--font-family-base);
 }
 
@@ -40,7 +41,7 @@
 .ds-confirm-modal__description {
   max-width: var(--size-modal-desktop);
   margin: 0;
-  color: var(--color-secondary-grey);
+  color: var(--modal-muted);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
   overflow-wrap: anywhere;
@@ -53,5 +54,11 @@
   justify-content: center;
   gap: var(--spacing-16);
   padding: var(--spacing-16) var(--spacing-16) var(--spacing-32);
-  border-top: var(--border-width-sm) solid var(--color-stroke-light-v1);
+  border-top: var(--border-width-sm) solid var(--modal-line);
+}
+
+/* Dark theme (Figma Approve Modal Dark): the primary footer button is solid (#BDC5E2) at every size; light theme unchanged. */
+.ds-confirm-modal__footer .ds-button--dark {
+  background-color: var(--button-solid-bg);
+  color: var(--button-on-solid);
 }

@@ -44,6 +44,10 @@ so the component is named after what it shows.
 <Canvas of={DocumentCardStories.LongValue} />
 <Canvas of={DocumentCardStories.NarrowContainer} />
 
+## Dark theme
+
+No dark frame exists for this card; AI-defined: `#101010` fill, `#242424` stroke, title `#BDC5E2`, value `#5D6E82` (unchanged). Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -57,6 +61,9 @@ so the component is named after what it shows.
 | `--color-grey-dark` | value | `#5D6E82` | Figma: Grey Dark |
 | `--font-size-small` / `--font-line-height-small` | text | `14px` / `21px` | Figma |
 | `--font-weight-medium` / `--font-weight-regular` | title / value | `500` / `400` | Figma |
+| `--document-card-bg` / `--document-card-border` / `--document-card-title` | fill, stroke, title | `#F6F8FC`, `#D8E2EE`, `#1D2542` / dark `#101010`, `#242424`, `#BDC5E2` | **New** · AI-defined |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Buttons bring their own tokens. No new tokens. The Figma card is 384px wide; here it is 100% of the container.
 

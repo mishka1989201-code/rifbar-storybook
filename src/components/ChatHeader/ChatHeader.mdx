@@ -52,6 +52,10 @@ Assumed / normalised:
 - The title is an `<h2>`; the Figma frame does not say which heading level is right.
 - Figma asset downloads were not used.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `chat header dark`: bar `#000000` with a `#242424` line, title and quote `#BDC5E2`, badge `#888CF6`. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -65,6 +69,10 @@ Assumed / normalised:
 | `--font-size-h5`, `--font-line-height-h5`, `--font-weight-semibold` | title | 20 / 30 / 600 | Existing tokens.json · Figma: Semi-Bold Headings/h5 |
 | `--color-grey-dark` | quote | `#5D6E82` | Existing tokens.json · Figma: Grey Dark (Not Active menu) |
 | `--font-size-mini`, `--font-line-height-mini`, `--font-weight-medium` | quote | 12 / 18 / 500 | Existing tokens.json · Figma: Body/Mini Medium |
+| `--chat-header-bg` / `--chat-header-border` / `--chat-header-shadow` | bar, line, shadow | white, `#D8E2EE`, header / dark `#000000`, `#242424`, `--shadow-dark-1` | **New** · Figma: chat header dark (shadow: AI-defined) |
+| `--chat-header-title` / `--chat-header-quote` / `--chat-header-icon` | title, quote, badge | `#4549A1`, `#5D6E82`, `#4549A1` / dark `#BDC5E2`, `#BDC5E2`, `#888CF6` | **New** · Figma: chat header dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -84,3 +92,4 @@ import { ChatHeader } from 'rifbar-ds';
 
 - A `<header>` with an `<h2>`; the icon is decorative (`aria-hidden`).
 - Contrast: Headlines on white 7.7:1, Grey Dark on white 5.2:1.
+- Dark theme contrast: title and quote 12.25:1.

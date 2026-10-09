@@ -8,8 +8,8 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-16);
-  background: var(--color-bg);
-  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  background: var(--document-card-bg);
+  border: var(--border-width-sm) solid var(--document-card-border);
   border-radius: var(--radius-lg);
   font-family: var(--font-family-base);
   font-size: var(--font-size-small);
@@ -21,7 +21,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--spacing-4);
-  color: var(--color-primary-blue-dark);
+  color: var(--document-card-title);
 }
 
 .ds-document-card__title {

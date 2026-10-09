@@ -2,8 +2,8 @@
    Figma strokes are "inside": drawn with an inset box-shadow next to the card shadow. */
 
 .ds-note-card {
-  --ds-note-stroke: var(--color-stroke-light-v1);
-  --ds-note-shadow: var(--shadow-card);
+  --ds-note-stroke: var(--note-card-stroke);
+  --ds-note-shadow: var(--note-card-shadow);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -13,9 +13,9 @@
   width: 100%;
   padding: var(--spacing-16);
   border-radius: var(--radius-lg);
-  background: var(--color-white);
+  background: var(--note-card-bg);
   box-shadow: inset 0 0 0 var(--border-width-sm) var(--ds-note-stroke), var(--ds-note-shadow);
-  color: var(--color-text);
+  color: var(--note-card-text);
   font-family: var(--font-family-base);
   font-size: var(--font-size-standard);
   line-height: var(--font-line-height-standard);
@@ -26,7 +26,7 @@
 /* ─── Hover (Figma Hover: Headlines border, Hover Large Cards shadow) ── */
 .ds-note-card:hover,
 .ds-note-card.is-hover {
-  --ds-note-stroke: var(--color-headlines);
+  --ds-note-stroke: var(--note-card-hover-stroke);
   --ds-note-shadow: var(--shadow-hover-card-lg);
 }
 
@@ -35,9 +35,9 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-16);
-  border: var(--border-width-sm) solid var(--color-stroke-light-v2);
+  border: var(--border-width-sm) solid var(--note-card-inner-border);
   border-radius: var(--radius-lg);
-  background: var(--color-bg);
+  background: var(--note-card-inner-bg);
 }
 
 .ds-note-card__text {
@@ -64,19 +64,19 @@
   border: none;
   border-radius: var(--radius-xs);
   background: none;
-  color: var(--color-headlines);
+  color: var(--note-card-accent);
   font: inherit;
   font-weight: var(--font-weight-medium);
   cursor: pointer;
 }
 
 .ds-note-card__more:hover {
-  color: var(--color-hover-blue);
+  color: var(--note-card-accent);
 }
 
 /* AI-defined: Figma draws no focus for the link. */
 .ds-note-card__more:focus-visible {
-  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline: var(--border-width-lg) solid var(--note-card-accent);
   outline-offset: var(--spacing-2);
 }
 
@@ -89,7 +89,7 @@
 
 .ds-note-card__date-icon {
   flex: none;
-  color: var(--color-headlines);
+  color: var(--note-card-icon);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -84,6 +84,10 @@ Normalised or assumed:
 - The Tooltip Shadow is the `--shadow-tooltip` token (box shadow); Figma draws it as drop shadows with half the blur, which look the same.
 - Row text is Medium Color Text (`#292639`); the `Checkbox` atom's own label is Regular Primary Blue Dark, so the color and weight are overridden here.
 
+## Dark theme
+
+No dark frame exists for the list dialog (“Info Modal”). AI-defined: panel and lines as `Modal`, row text `#C9C6D9`, chosen row `#888CF6`, `pick` rows hover `#242424` and selected `#BBC7D6` with `#050411` text — as `Dropdown`. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -105,6 +109,10 @@ Normalised or assumed:
 | `--color-headlines`, `--color-grey-dark` | checkbox chosen / unchosen | `#4549A1`, `#5D6E82` | see `Checkbox` |
 | `--color-grey-dark` | “Nothing found” | `#5D6E82` | AI-defined use: same grey as other empty texts |
 | `--opacity-disabled` | disabled row | `0.2` | AI-defined use: as other atoms |
+| `--check-list-modal-text` / `--check-list-modal-accent` | row text, chosen row | `#292639`, `#4549A1` / dark `#C9C6D9`, `#888CF6` | **New** · AI-defined |
+| `--check-list-modal-pick-hover-bg` / `-hover-text` / `-selected-bg` / `-selected-text` | `pick` rows | as `Dropdown` | **New** · AI-defined |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 

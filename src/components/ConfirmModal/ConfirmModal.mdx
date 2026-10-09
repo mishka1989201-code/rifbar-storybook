@@ -48,6 +48,10 @@ It draws **only the dialog**: overlay, centring, scroll lock, focus trap and `Es
 - `role="alertdialog"` is used because the dialog asks for a decision; the page decides the initial focus (usually the safe button).
 - Dark theme not designed.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Approve Modal Dark`: dialog `#000000` with a `#242424` outline, title `#BDC5E2`, description `#646464`, footer line `#242424`; “Accept” is solid `#BDC5E2` with black text (override in `ConfirmModal.css`). Uses the `--modal-*` tokens (see `Modal`). Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -60,6 +64,9 @@ It draws **only the dialog**: overlay, centring, scroll lock, focus trap and `Es
 | `--color-secondary-grey` / `--font-size-small` / `--font-weight-medium` | description | `#A7A4B7` / `14px` / `500` | Existing tokens.json · Figma: Secondary Grey, Medium Headings/h7 |
 | `--size-modal-desktop` | description max width | `450px` | AI-defined use: Figma 460px, nearest token |
 | `--color-stroke-light-v1` / `--border-width-sm` | footer top line | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--modal-confirm-shadow` | dialog outline | none / dark `--shadow-modal-dark` | **New** · Figma: Approve Modal Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -85,3 +92,4 @@ import { ConfirmModal, Button } from 'rifbar-ds';
 
 - `role="alertdialog"` with `aria-labelledby` / `aria-describedby`; the close button has an accessible name.
 - The description in Secondary Grey `#A7A4B7` on white is below 3:1 contrast — kept as designed. The 40px close button and 37px buttons are below the 44px touch target.
+- Dark theme contrast: see `Modal`.

@@ -48,6 +48,10 @@ A real `<input type="file">` is inside, so click, keyboard (Tab, Enter / Space) 
 - File validation and upload are the parent's job: the component only reports files via `onFiles`.
 - Dark theme not designed.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Add Product Modal Dark` dropzone: dashed border `#4549A1` (light: Headlines at 40%), text `#5D6E82` (unchanged), icon and “Browse” `#888CF6`. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -61,6 +65,9 @@ A real `<input type="file">` is inside, so click, keyboard (Tab, Enter / Space) 
 | `--font-size-standard` / `--font-line-height-standard` / `--font-weight-regular` | text | `16px` / `24px` / `400` | Existing tokens.json · Figma: Body/Standart |
 | `--spacing-8` / `--spacing-16` | padding, icon gap | `8` / `16px` | Existing tokens.json · Figma: icon gap 9 → 8 |
 | `--color-bg` / `--shadow-focus` / `--opacity-disabled` | hover / drag-over fill, focus, disabled | — | AI-defined use: not drawn in Figma |
+| `--file-dropzone-border` / `--file-dropzone-accent` / `--file-dropzone-drag-bg` | dashed border, icon + Browse, drag-over fill | `#4549A1` @ 40%, `#4549A1`, `#F6F8FC` / dark `#4549A1`, `#888CF6`, `#101010` | **New** · Figma: Add Product Modal Dark (drag-over: AI-defined) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -81,3 +88,4 @@ import { FileDropzone } from 'rifbar-ds';
 - Dropping is a pointer-only convenience; Browse covers keyboard users.
 - “Drag your files here” in Grey Dark on white passes 4.5:1; the dashed border (Headlines @ 40%) is below 3:1 — kept as designed.
 - The 95px area is above the 44px touch target.
+- Dark theme contrast: text `#5D6E82` on `#000000` 4.02:1 (⚠️ below 4.5:1, kept as designed), “Browse” 7.13:1.
