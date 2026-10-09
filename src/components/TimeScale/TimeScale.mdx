@@ -35,6 +35,10 @@ The time tracker is built from four molecules: [Title](?path=/docs/molecules-tim
 <Canvas of={TimeScaleStories.OtherHours} />
 <Canvas of={TimeScaleStories.OutOfRange} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Time Scale and Numbers Dark`: track `#242424`, part separators `#101010`, labels `#888CF6`, worked periods a teal gradient `#53BAB4 → #197474` (end colours read from the render — needs confirmation; new colour token `--color-time-worked-gradient-dark`). Story: `FullDayDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -48,6 +52,11 @@ The time tracker is built from four molecules: [Title](?path=/docs/molecules-tim
 | `--color-headlines` | labels | `#4549A1` | Figma: Headlines |
 | `--font-size-small` / `--font-line-height-small` / `--font-weight-medium` | labels | `14px` / `21px` / `500` | Figma: Medium Headings/h7 |
 | `--spacing-4` | gap scale ↔ labels | `4px` | Figma: gap 4 |
+| `--time-scale-track` / `--time-scale-gap` | track, part separators | `#D8E2EE`, `#F6F8FC` / dark `#242424`, `#101010` | **New** · Figma: Time Scale and Numbers Dark |
+| `--time-scale-worked` / `--color-time-worked-gradient-dark` | worked periods | green gradient / dark teal gradient | **New** · Figma: Time Scale and Numbers Dark (colours read from the render) |
+| `--time-scale-label` | hour labels | `#4549A1` / dark `#888CF6` | **New** · Figma: Time Scale and Numbers Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Needs confirmation:
 - The green is a raster image in Figma; the gradient is sampled from the render (left light green → right dark green on each period).
@@ -72,3 +81,4 @@ import { TimeScale } from 'rifbar-ds';
 ## Accessibility
 
 - The scale is one image with a text summary (`aria-label`: range and worked periods); the visible labels are hidden from screen readers.
+- Dark theme contrast: labels 7.13:1.

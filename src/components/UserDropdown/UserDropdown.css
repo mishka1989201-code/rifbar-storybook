@@ -11,7 +11,7 @@
   border: none;
   border-radius: var(--radius-sm);
   background: none;
-  color: var(--color-primary-blue-dark);
+  color: var(--user-dropdown-text);
   font-family: var(--font-family-base);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
@@ -23,6 +23,10 @@
 .ds-user-dropdown--inverse {
   color: var(--theme-nav-text-active);
 }
+
+/* Figma user Dark: hover and pressed name colours (light theme keeps the static colour). */
+.ds-user-dropdown:hover:not(:disabled):not(.ds-user-dropdown--inverse) { color: var(--user-dropdown-hover); }
+.ds-user-dropdown:active:not(:disabled):not(.ds-user-dropdown--inverse) { color: var(--user-dropdown-pressed); }
 
 /* Compact: the name is visually hidden but stays readable by screen readers. */
 .ds-user-dropdown--compact .ds-user-dropdown__text {

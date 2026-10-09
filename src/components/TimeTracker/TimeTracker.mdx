@@ -69,6 +69,10 @@ Normalised or assumed:
 - The Semi-Bold h7 caption has line-height *Auto* in Figma; `--font-line-height-h7` (21px) is used.
 - The Play and Stop glyphs and the worked-time gradient come from `PlayButton` / `TimeScale` (the Figma raster fills were sampled earlier).
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Play Actions Menu Dark`, `Date Dark`, `Time Scale and Numbers Dark`: card `#000000`, “Today” `#888CF6`, statistics `#C9C6D9`, dividers `#242424`, scale track `#242424`, hour labels `#888CF6`, worked periods a teal gradient. Buttons come from the atoms. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -82,6 +86,9 @@ Normalised or assumed:
 | `--font-size-h1`, `--font-line-height-h1` | statistic value | 40 / 60px | Existing tokens.json · Figma: Semi-Bold Headings/h1 |
 | `--color-stroke-light-v2`, `--border-width-sm` | line between statistics | `#D8E2EE`, `1px` | Existing tokens.json · Figma: Stroke Light V2 |
 | Tokens of `TimeTrackerBar`, `TimeScale`, `PlayButton` | top bar, scale, button | — | see the MDX of each part |
+| `--time-tracker-bg` / `--time-tracker-shadow` / `--time-tracker-text` / `--time-tracker-divider` | card, shadow, stats text, stats divider | white, card, `#292639`, `#D8E2EE` / dark `#000000`, `--shadow-dark-1`, `#C9C6D9`, `#242424` | **New** · Figma: Play Actions Menu Dark (shadow, text, divider: AI-defined) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens.
 
@@ -116,3 +123,4 @@ import { TimeTracker } from 'rifbar-ds';
 - The Play / Stop button has an accessible name (“Play” / “Stop”); `state="disabled"` sets the native `disabled`.
 - Contrast (calculated, on white): statistic text `#292639` 14.68:1; hour labels Headlines `#4549A1` 7.72:1; name Grey Dark `#5D6E82` 5.23:1.
 - ⚠️ Kept as designed: the empty scale track (Stroke Light V2 `#D8E2EE`) is 1.31:1 against white; the disabled Play button at 20% opacity is below 3:1; the 32–38px buttons are below the 44px touch target.
+- Dark theme contrast: stats `#C9C6D9` on `#000000` 12.56:1.

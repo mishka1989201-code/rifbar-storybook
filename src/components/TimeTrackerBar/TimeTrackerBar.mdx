@@ -30,6 +30,10 @@ The time tracker is built from four molecules: [Title](?path=/docs/molecules-tim
 <Canvas of={BarStories.Interactive} />
 <Canvas of={BarStories.NarrowContainer} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Play Actions Menu Dark`: bar `#000000` with a `#242424` bottom line (AI-defined; Figma draws none) — `--time-tracker-bg` / `--time-tracker-bar-border`. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -37,6 +41,9 @@ The time tracker is built from four molecules: [Title](?path=/docs/molecules-tim
 | `--color-white` | background | `#FFFFFF` | Figma: White |
 | `--spacing-16` | padding, gap | `16px` | Figma: p 16 |
 | `--color-stroke-light-v1` / `--border-width-sm` | bottom line | `#F1F2F9` / `1px` | Figma: Stroke Light V1 |
+| `--time-tracker-bg` / `--time-tracker-bar-border` | bar, bottom line | white, `#F1F2F9` / dark `#000000`, `#242424` | **New** · Figma: Play Actions Menu Dark (line: AI-defined) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 Everything inside comes from the two parts. No new tokens. AI-defined: wrapping on a narrow bar (the date block goes under the title).
 

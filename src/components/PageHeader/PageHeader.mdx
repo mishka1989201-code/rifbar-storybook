@@ -56,6 +56,10 @@ It is composed of [`HeaderMenu`](?path=/docs/atoms-headermenu--docs), [`BreadCru
 - The title is an `h1`; the page should have exactly one.
 - Not designed, AI-defined: long title (wraps), many tabs (the `TabsHeader` scrolls horizontally), the layout on narrow screens (same bar, no collapsing). Dark theme not designed.
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `Header Dark` (Default / Tabs / Bread Crumbs / both): bar `#000000`, title `#888CF6`, bell `#5D6E82` with the orange dot unchanged, tabs and crumbs from `TabsHeader` / `BreadCrumbs`. Shadow not drawn; AI-defined: Dark Mode Shadow 1. Story: `AllVariantsDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -69,6 +73,10 @@ It is composed of [`HeaderMenu`](?path=/docs/atoms-headermenu--docs), [`BreadCru
 | `--color-headlines`, `--color-hover-blue`, `--spacing-8` | burger colour, hover, gap to the title | `#4549A1`, `#6368DF`, 8px | Existing tokens.json · Figma: Title & Menu gap 8; hover AI-defined |
 | `--font-size-h2` / `--font-line-height-h2` / `--font-weight-light` | title | `32px` / `48px` / `300` | Existing tokens.json · Figma: Light Headings/h2 |
 | `--font-family-base` | font | Poppins | Existing tokens.json · Figma: Poppins |
+| `--page-header-bg` / `--page-header-shadow` | bar, shadow | white, card / dark `#000000`, `--shadow-dark-1` | **New** · Figma: Header Dark → fill (shadow: AI-defined) |
+| `--page-header-accent` / `--page-header-burger-hover` | title, burger, focus ring / burger hover | `#4549A1`, `#6368DF` / dark `#888CF6` | **New** · Figma: Header Dark → title (hover: AI-defined) |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 ## Props
 
@@ -92,3 +100,4 @@ import { PageHeader, HeaderMenu, HeaderMenuItem } from 'rifbar-ds';
 - A `<header>` landmark with one `<h1>`; breadcrumbs are a `nav`, tabs a `tablist` (from the composed parts).
 - The burger is a button with an `aria-label`; Headlines `#4549A1` on white 7.72:1; 24px (below 44px) — kept as designed.
 - Grey Dark breadcrumb root and the 32px menu buttons are below the 44px touch target — kept as designed.
+- Dark theme contrast: title `#888CF6` on `#000000` 7.13:1; bell `#5D6E82` 4.02:1 (⚠️ below 4.5:1, kept as designed).

@@ -7,7 +7,7 @@
 }
 
 .ds-view-switch__label {
-  color: var(--color-headlines);
+  color: var(--view-switch-label);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-small);
@@ -28,7 +28,7 @@
   border: 0;
   border-radius: var(--radius-xs);
   /* Figma: the view that is not chosen is Secondary Grey. */
-  color: var(--color-secondary-grey);
+  color: var(--view-switch-inactive);
   cursor: pointer;
 }
 

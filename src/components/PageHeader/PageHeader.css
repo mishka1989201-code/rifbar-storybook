@@ -8,8 +8,8 @@
   box-sizing: border-box;
   width: 100%;
   padding: var(--spacing-8) var(--spacing-16);
-  background: var(--color-white);
-  box-shadow: var(--shadow-card);
+  background: var(--page-header-bg);
+  box-shadow: var(--page-header-shadow);
   font-family: var(--font-family-base);
 }
 
@@ -35,7 +35,7 @@
 .ds-page-header__title {
   min-width: 0;
   margin: 0;
-  color: var(--color-headlines);
+  color: var(--page-header-accent);
   font-size: var(--font-size-h2);
   line-height: var(--font-line-height-h2);
   font-weight: var(--font-weight-light);
@@ -58,15 +58,15 @@
   border: 0;
   border-radius: var(--radius-xs);
   background: none;
-  color: var(--color-headlines);
+  color: var(--page-header-accent);
   cursor: pointer;
 }
 
-.ds-page-header__burger:hover { color: var(--color-hover-blue); }
+.ds-page-header__burger:hover { color: var(--page-header-burger-hover); }
 
 /* AI-defined: Figma draws no focus for the burger; same ring as the Tab. */
 .ds-page-header__burger:focus-visible {
-  outline: var(--border-width-lg) solid var(--color-headlines);
+  outline: var(--border-width-lg) solid var(--page-header-accent);
   outline-offset: var(--border-width-lg);
 }
 

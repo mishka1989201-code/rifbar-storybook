@@ -18,14 +18,14 @@
   margin-inline: var(--size-time-scale-inset);
   overflow: clip;
   border-radius: var(--radius-pill);
-  background: var(--color-stroke-light-v2);
+  background: var(--time-scale-track);
 }
 
 /* Figma: each part is Stroke Light V2 with a 2px BG Color line on its right (not on the last). */
 .ds-time-scale__part {
   flex: 1 0 0;
   min-width: 0;
-  border-right: var(--border-width-lg) solid var(--color-bg);
+  border-right: var(--border-width-lg) solid var(--time-scale-gap);
 }
 
 .ds-time-scale__part--last {
@@ -36,14 +36,14 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  background: var(--color-time-worked-gradient);
+  background: var(--time-scale-worked);
 }
 
 .ds-time-scale__numbers {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  color: var(--color-headlines);
+  color: var(--time-scale-label);
   font-size: var(--font-size-small);
   line-height: var(--font-line-height-small);
   font-weight: var(--font-weight-medium);

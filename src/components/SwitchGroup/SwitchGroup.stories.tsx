@@ -74,3 +74,29 @@ export const NarrowContainer: Story = {
   name: 'Narrow container',
   decorators: [(Story) => <div style={{ maxWidth: 220, overflow: 'hidden' }}><Story /></div>],
 };
+
+/** Figma "Dark Molecules Components" → Switch Dark → Light. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DefaultDark: Story = {
+  ...Default,
+  name: 'Light track (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+/** Figma "Dark Molecules Components" → Switch Dark → Dark. Forces the dark theme for this story; the toolbar theme switch does the same for every story. */
+export const DarkTrackDark: Story = {
+  ...Dark,
+  name: 'Dark track (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', minWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};

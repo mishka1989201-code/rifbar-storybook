@@ -36,6 +36,10 @@ import * as ViewSwitchStories from './ViewSwitch.stories';
 <Canvas of={ViewSwitchStories.Interactive} />
 <Canvas of={ViewSwitchStories.CustomLabel} />
 
+## Dark theme
+
+Figma "Dark Molecules Components" → `viewing style Dark` / `viewing style hover Dark`: label `#888CF6`, chosen icon `#BBC7D6` (`--icon-primary`), other icon `#646464`, hover `#888CF6`. Story: `DefaultDark`.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -46,6 +50,9 @@ import * as ViewSwitchStories from './ViewSwitch.stories';
 | `--color-secondary-grey` | not chosen icon | `#A7A4B7` | Figma: Secondary Grey |
 | `--color-hover-blue-light` | hover icon | `#888CF6` | Figma: Hover Blue Light |
 | `--spacing-8` / `--spacing-4` | gaps | — | Figma |
+| `--view-switch-label` / `--view-switch-inactive` | label, not chosen icon | `#4549A1`, `#A7A4B7` / dark `#888CF6`, `#646464` | **New** · Figma: viewing style Dark |
+
+The `--color-*` rows above are light values; the dark values come from the themed tokens listed in the last rows.
 
 No new tokens. The Figma frames show only these two colour sets; reading the `828` frame as the hover of the not chosen view is an assumption.
 AI-defined: `:focus-visible` ring, `aria-pressed`, dark theme (the colours are not themed).
@@ -65,3 +72,4 @@ import { ViewSwitch } from 'rifbar-ds';
 ## Accessibility
 
 - A `group` named by the label; each icon button has an `aria-label` and `aria-pressed`.
+- Dark theme contrast: label 7.13:1; inactive icon `#646464` on `#000000` 3.55:1.
