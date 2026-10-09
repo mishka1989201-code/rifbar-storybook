@@ -147,23 +147,36 @@
 
 ## Передача в новий чат
 
-- **Темна тема молекул зроблена (2026-10-09, 7 комітів після злиття PR #12; блок Figma `Dark Molecules Components`, вузол `3429:17984`).** PR #12 злито; нову гілку почато від `origin/main`, новий PR відкривати лише на прохання. Нижче текст про PR #12 — історичний.
-- (історично) Гілка `claude/peaceful-franklin-tnrmh4`, відкритий PR #12 у `main` (опис PR повністю оновлено 2026-10-09, разом із темною темою атомів; оновлювати лише на прохання). Якщо його злито — почати гілку наново
-  від `origin/main` (`git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`, пуш `--force-with-lease`) і відкривати **новий** PR лише на прохання.
-- На старті: `npm ci`, `npm run build:tokens`, `git fetch origin`, `git pull origin claude/peaceful-franklin-tnrmh4`.
-- Figma MCP інколи відключається посеред чату: `ToolSearch` із запитом `figma get_design_context` повертає інструменти після перепідключення.
-  Скіл `figma-design-to-code` читати як MCP-ресурс `skill://figma/figma-design-to-code/SKILL.md` (server `Figma`), у `get_design_context`
-  передавати `skillNames: "resource:figma-design-to-code"`. Дуже великі фрейми (календарі, цілі екрани) обрізаються: спершу `get_metadata`, далі
-  `get_design_context` по дочірніх вузлах; великі відповіді зберігаються у файл — читати їх `python3 -I` + `json`.
-- Скріншоти Figma: завантаження за посиланням дає 403 (проксі) — викликати `get_screenshot` з `enableBase64Response: true`. Картинки з `get_design_context` теж 403.
-- Звіт після кожного компонента — за форматом з `CLAUDE.md` («Report format»): що зроблено, історії, нові токени, припущення, доступність
-  (контрасти рахувати скриптом, не на око), що перевірено і що ні.
-- «Гілка Prototypes» у запитах = розділ Storybook `Prototypes/<Name>` (`src/prototypes/<Name>/`, див. розділ вище). Екран із кількома брейкпоінтами:
-  один компонент-екран із пропом `breakpoint`, історія на кожен кадр Figma, нові компоненти — у `src/components`, наявні розширювати пропами.
+**Стан на 2026-10-09:** PR #12 (темна тема атомів) і PR #13 (темна тема молекул, 9 комітів) злиті в `main`. Далі — **темна тема Організмів**.
+Гілка `claude/peaceful-franklin-tnrmh4` після злиття містить лише злиту історію. На початку нового чату: `git fetch origin`, `git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`,
+пуш `--force-with-lease`, **новий** PR відкривати і зливати лише на прохання. Далі `npm ci`, `npm run build:tokens`.
+
+- Дизайнер надсилає посилання на темний блок Організмів (Figma `Dark … Components`, той самий файл `4Q7E8IQ07a9xFiNVBfmo4M`); спершу `get_metadata`, потім `get_screenshot` по вузлах, **розбити на групи самому** і йти групами (один коміт на групу, звіт українською після кожної). Усі групи підряд, без зупинок, якщо дизайнер не просив інакше.
+- Організми в коді (Storybook `Organisms/…`): `Navbar`, `TableClients`, `TableOrders`, `TableProducts`, `DatePicker`, `ChatLayout`, `TimeTracker`, `WelcomeCard`, `ProductDetailCard`, `ScheduledCallCard`, `ProductFormModal`, `FilterMenu` (+ `Prototypes/ClientOrders`, `Prototypes/DepartmentUsers`).
+  Ще **без темної теми** (сирі `--color-*` у CSS): `WelcomeCard`, `ScheduledCallCard`, `AudioPlayer`, `DatePicker`, `ProductDetailCard`, `ProductFormModal`, `CardGrid`, `TableProducts`, `TableClients`, `TableOrders`, секції `FilterMenu`. Перелік повторно знайти так:
+  `grep -ln "color-white)\|color-text)\|color-stroke-light\|color-secondary-light)\|color-primary-blue-dark)\|color-bg)\|color-headlines)" src/components/*/*.css`.
+- Метод — розділ «Dark theme» у `CLAUDE.md` + нижче «Темна тема молекул: що вже вміємо» (токени, `table-row`, перебивання кнопок, рендер, MDX).
+- Figma MCP інколи відключається посеред чату: `ToolSearch` із запитом `figma get_design_context` повертає інструменти. Скіл `figma-design-to-code` читати як MCP-ресурс
+  `skill://figma/figma-design-to-code/SKILL.md` (server `Figma`), у `get_design_context` передавати `skillNames: "resource:figma-design-to-code"`.
+  Дуже великі фрейми обрізаються: `get_metadata`, далі по дочірніх вузлах; великі відповіді зберігаються у файл — читати `python3 -I` + `json`.
+- Скріншоти Figma: `get_screenshot` з `enableBase64Response: true` (посилання дає 403 через проксі); PNG лежить у `/root/.claude/projects/.../tool-results/` — пікселі брати звідти (`PIL`).
+- «Гілка Prototypes» у запитах = розділ Storybook `Prototypes/<Name>` (`src/prototypes/<Name>/`).
+
+### Темна тема молекул: що вже вміємо (2026-10-09)
+
+- Токени: групи на компонент (`dropdown.*`, `modal.*`, `table-row.*` …), `value` = попередній колір, `dark` = із Figma, посилання на наявні `color.*`. Сирі значення без змінної — `color.<назва-за-значенням>` (`green-pale-dark`). Тінь у темній темі: `--shadow-dark-1`, контур+тінь — `--shadow-modal-dark`, верхня лінія — `--shadow-line-top-dark`.
+- **`table-row.*`** (bg, border, text, shadow, hover-bg, hover-shadow, action-*) — готові токени для будь-якого рядка / картки списку; використані в `TableRowClient`, `TableRowExpandable`, `TableRowMobile`, `CardRow`, `TableRowOrder/Quantity/Analytics`.
+- Якщо світле значення було `transparent` / `none` — так і писати в `value` (світла тема не змінюється).
+- Атом `Button` у темній темі: `dark` тільки `big` / `iconOnly` суцільний (`#BDC5E2`), `small` / `medium` майже чорні. Де Figma малює суцільну кнопку на будь-якому розмірі — перебити в CSS молекули:
+  `.ds-<name> .ds-button--dark { background-color: var(--button-solid-bg); color: var(--button-on-solid); }` (світле значення те саме, тож світла тема не змінюється). Так зроблено в `TotalRow`, `TableRowMobile`, `Modal`, `ConfirmModal`.
+- Кадр Figma не завжди адаптований (світла активна вкладка з нечитним текстом, сірий заголовок відкритого акордеона тощо) — копіювати те, що намальовано, якщо читається; нечитне **не** копіювати і виносити питання дизайнеру (є в описі PR #13).
+- Історії: `…Dark` через `...Base` + decorator `data-theme="dark"` (шаблон — наприкінці будь-якого `*.stories.tsx` молекули). Id на кшталт `molecules-dropdown--all-variants-dark`; організми — `organisms-…`; `TimeTracker/Bar/Date/Title/Scale` мають id `organisms-timetracker--…` і `molecules-timetracker-bar--…`.
+- Рендер і порівняння: `npx storybook build -o /tmp/sb-out`, далі `node scripts/dark-shot.mjs <outDir> <id> …` (темну тему ставить сам; параметр URL `globals=theme:dark` не працює). Контрасти — скриптом (формула WCAG), не на око.
+- MDX: розділ **Dark theme** перед «Design tokens used», нові рядки в кінці таблиці, контрасти в Accessibility; питання до дизайнера — в описі PR.
 
 ### Зроблено в останніх чатах (2026-10-09)
 
-- **Темна тема всіх атомів** — див. розділ «Темна тема» нижче; опис PR #12 оновлено.
+- **Темна тема всіх атомів** — див. розділ «Темна тема» нижче (PR #12 злито).
 - `TableRowClient`: hover-рядок із тултіпом (Figma Hover Row in Table, світла й темна), кнопки `onDelete` / `onCall` / `onNotes`, теми через токени `--table-row-*`;
   `TooltipBordered` `tone="subtle"`. Тултіп показується на hover і фокус, Escape ховає.
 - `NoRowsTable` (Atoms): заглушка порожньої таблиці, 3 розміри × 2 теми, SVG перемальовано (Figma-вектори 403). Ще не підставлена в `TableClients` / `TableOrders`.
