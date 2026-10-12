@@ -18,7 +18,7 @@ export interface TableRowClientGroup {
  * `history` — Figma `Table Row 25` (client page → Last updates): ID, name, status, call date, change date; no buttons.
  * `calls` — Figma `Table Row 16` (client page → Call records): call icon + seller, phone, date, duration, date, play button or result text; opens a player under the row.
  * `card` — Figma `Card Row` of Clients → All clients (768px and below): the values of `management` wrap into a white card (name, company, phone, group, status, date), the buttons sit under them, right-aligned.
- * `calls-card` — `calls` at 768px and below (AI-defined, Figma draws no narrow Call records): the seller, phone, date, duration and updated date wrap in a card, the play button / result at the right, the player under it.
+ * `calls-card` — `calls` at 480px and below (Figma Call records 480 / 360): the seller, phone, date and duration wrap in a card (no `updated` date), the play button / result at the right, the player under it.
  * `users` — Figma `Table Row 24` / `15` of `Departments - Edit` (Admin → Departments → Users in department): ID + name, email, department, role, date, red delete button; no `More` button.
  * `pending` — Clients → All clients → Pending: name, company, phone, email, joined and four icon buttons (reject, approve, call, details), each with a tooltip. AI-defined (no Figma frame yet).
  * `pending-card` — `pending` at 768px and below: the values wrap in a card, the buttons sit under them, right-aligned.
@@ -52,6 +52,8 @@ export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>
   callResult?: ReactNode;
   /** `calls` layout only: the dark play button of a recording. */
   onPlay?: () => void;
+  /** `calls` layout only: draws the `updated` cell (default). Figma Call records at 768px has no such column: the header and the rows leave it out. */
+  showUpdated?: boolean;
   /** `calls` layout only: while `player` is shown the play button turns into the light close button. */
   onClose?: () => void;
   /** `calls` layout only: the player under the row (Figma `Table Row 16` open), e.g. `<AudioPlayer embedded />`. */
@@ -128,6 +130,7 @@ export function TableRowClient({
   callState = 'answered',
   duration,
   callResult,
+  showUpdated = true,
   onPlay,
   onClose,
   player,
@@ -314,7 +317,7 @@ export function TableRowClient({
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__phone">{phone}</div>
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__call-day">{callDate}</div>
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__duration">{duration}</div>
-            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{updated}</div>
+            {showUpdated && <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{updated}</div>}
             {callActionsCell}
           </div>
           {player && <div className="ds-table-row-client__player">{player}</div>}
@@ -326,7 +329,6 @@ export function TableRowClient({
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__phone">{phone}</div>
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__call-day">{callDate}</div>
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__duration">{duration}</div>
-            {updated && <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{updated}</div>}
           </div>
           {callActionsCell}
           {player && <div className="ds-table-row-client__player">{player}</div>}

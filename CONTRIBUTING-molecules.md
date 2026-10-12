@@ -146,9 +146,10 @@
 
 ## Передача в новий чат
 
-**Стан на 2026-10-09:** PR #12–#15 злиті в `main`. Темна тема атомів, молекул і організмів **закінчена** (Figma `Dark Atoms / Molecules / Organisms Components`). Без темної теми лишились лише `AudioPlayer` і `CardGrid` (темного кадру немає). `FilterMenu` лишено як є за рішенням дизайнера (темний кадр «Filters» 768px має інші секції, ніж компонент). Відкритих PR немає. Далі — **Прототипи**, але в окремому репозиторії `rifbar-prototypes` (його `CLAUDE.md` — повна інструкція для нового чату).
-Гілка `claude/peaceful-franklin-tnrmh4` після злиття містить лише злиту історію. На початку нового чату: `git fetch origin`, `git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`,
-пуш `--force-with-lease`, **новий** PR відкривати і зливати лише на прохання. Далі `npm ci`, `npm run build:tokens`.
+**Стан на 2026-10-12:** усе злито в `main`, відкритих PR немає. Темна тема атомів, молекул і організмів **закінчена** (PR #12–#15); `FilterMenu` лишено як є за рішенням дизайнера; `CardGrid` без темної теми. Далі — **Прототипи** в окремому репозиторії `rifbar-prototypes` (його `CLAUDE.md` — повна інструкція для нового чату).
+Остання робота: **адаптивні клієнтські екрани** (Figma `Responsive design - Clients`, вузол `7147:226702`, 1920 … 360px) — PR #21–#24 + наступний PR із виправленням Call records. Нові пропси / розкладки: `TableRowClient` `card` / `history-card` / `calls-card` (+ `showUpdated`), `TableClients` `view="cards"` / `header` / стиснення колонок `management` / `CALLS_CLIENTS_COLUMNS_NO_UPDATED`, `TableActionsRow` `sort` / `compact`, `TableRowExpandable layout="card"`, `TableToolbar showExport`, `Button fluid`, `ScheduledCallCard fluid`, `DiscountModal size`, адаптивний `AudioPlayer embedded`, темна тема `AudioPlayer` (AI-defined, `--audio-player-*`).
+Гілка сесії після злиття містить лише злиту історію. На початку нового чату: `git fetch origin main && git checkout -B <гілка> origin/main`, пуш `--force-with-lease`, **новий** PR відкривати і зливати лише на прохання. Далі `npm ci`, `npm run build:tokens`.
+**Урок:** імена вузлів у `get_metadata` обрізаються (`… Main info) - conver…` = «conversation recordings», тобто Call records). Перш ніж писати «Figma цього не малює», перелічити **всі** вузли фрейму з повними іменами (скрипт `python3 -I` по файлу метаданих) і подивитися кожен.
 
 - Організми в коді (Storybook `Organisms/…`): `Navbar`, `TableClients`, `TableOrders`, `TableProducts`, `DatePicker`, `ChatLayout`, `TimeTracker`, `WelcomeCard`, `ProductDetailCard`, `ScheduledCallCard`, `ProductFormModal`, `FilterMenu`.
 - Метод — розділ «Dark theme» у `CLAUDE.md` + нижче «Темна тема молекул: що вже вміємо» (токени, `table-row`, перебивання кнопок, рендер, MDX).

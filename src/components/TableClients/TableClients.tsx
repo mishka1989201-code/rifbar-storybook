@@ -7,7 +7,7 @@ import './TableClients.css';
 /** One row of the table; fields map 1:1 to `TableRowClient`. */
 export interface TableClientsItem extends Pick<
   TableRowClientProps,
-  'index' | 'callState' | 'duration' | 'callResult' | 'onPlay' | 'onClose' | 'player' | 'callDate' | 'changeDate' | 'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'department' | 'userRole' | 'group' | 'status' | 'joined' | 'updated' | 'attention' | 'source' | 'actionLabel' | 'onAction' | 'onDelete' | 'onCall' | 'onNotes' | 'onReject' | 'onApprove' | 'onInfo' | 'rejectTooltip' | 'approveTooltip' | 'callTooltip' | 'infoTooltip' | 'deleteTooltip' | 'notesTooltip' | 'callMenu' | 'tooltip' | 'tooltipTitle'
+  'showUpdated' | 'index' | 'callState' | 'duration' | 'callResult' | 'onPlay' | 'onClose' | 'player' | 'callDate' | 'changeDate' | 'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'department' | 'userRole' | 'group' | 'status' | 'joined' | 'updated' | 'attention' | 'source' | 'actionLabel' | 'onAction' | 'onDelete' | 'onCall' | 'onNotes' | 'onReject' | 'onApprove' | 'onInfo' | 'rejectTooltip' | 'approveTooltip' | 'callTooltip' | 'infoTooltip' | 'deleteTooltip' | 'notesTooltip' | 'callMenu' | 'tooltip' | 'tooltipTitle'
 > {
   id: string | number;
 }
@@ -117,6 +117,9 @@ export const CALLS_CLIENTS_COLUMNS: TableHeaderColumn[] = [
   { id: 'updated', label: 'Updated', width: 119, align: 'end', sortable: true },
   { id: 'actions', label: 'Actions', width: 119, align: 'end' },
 ];
+
+/** `CALLS_CLIENTS_COLUMNS` without `Updated`: Figma Call records at 768px (pass `showUpdated: false` on the rows). */
+export const CALLS_CLIENTS_COLUMNS_NO_UPDATED: TableHeaderColumn[] = CALLS_CLIENTS_COLUMNS.filter((c) => c.id !== 'updated');
 
 /**
  * Figma `Table/Row & Header`: the transparent `TableHeader` on top of `TableRowClient` cards, 8px apart.

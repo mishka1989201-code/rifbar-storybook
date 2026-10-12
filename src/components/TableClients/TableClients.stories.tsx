@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AudioPlayer } from '../AudioPlayer';
 import { CallMenu } from '../CallMenu';
 import { ChevronStatus } from '../ChevronStatus';
-import { TableClients, type TableClientsItem } from './TableClients';
+import { CALLS_CLIENTS_COLUMNS_NO_UPDATED, TableClients, type TableClientsItem } from './TableClients';
 
 const FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=93-34229';
 
@@ -226,7 +226,7 @@ export const HistoryCards: Story = {
 
 const CALL = { phone: '+44 32 567 8473', callDate: '06.17.2022', duration: '00:02:30', updated: '07.23.2023', onNameClick: () => undefined };
 export const CallsCards: Story = {
-  name: 'Calls cards (768px and below)',
+  name: 'Calls cards (480 / 360px)',
   args: {
     layout: 'calls',
     view: 'cards',
@@ -237,8 +237,23 @@ export const CallsCards: Story = {
       { id: 3, name: 'Justin Ridge', ...CALL, callState: 'missed', updated: undefined, callResult: 'cancel' },
     ],
   },
-  parameters: { docs: { description: { story: 'AI-defined (Figma draws no narrow Call records): `TableRowClient layout="calls-card"` in a `CardGrid`.' } } },
+  parameters: { docs: { description: { story: 'Figma Call records at 480 / 360px: `TableRowClient layout="calls-card"` in a `CardGrid` — name, phone, date and time wrap, the play button (or the result) at the right, the player fills the card; no `Updated` date.' } } },
   decorators: [(Story) => <div style={{ maxWidth: 416 }}><Story /></div>],
+};
+
+export const CallsNoUpdated: Story = {
+  name: 'Calls without Updated (768px)',
+  args: {
+    layout: 'calls',
+    label: 'Call records',
+    columns: CALLS_CLIENTS_COLUMNS_NO_UPDATED,
+    rows: [
+      { id: 1, name: 'Dave Filoni', ...CALL, showUpdated: false, onPlay: () => undefined },
+      { id: 2, name: 'Justin Ridge', ...CALL, showUpdated: false, callState: 'missed', callResult: 'cancel' },
+    ],
+  },
+  parameters: { docs: { description: { story: 'Figma Call records at 768px: Seller, Phone, Date, Time, Actions — no `Updated` column (`columns={CALLS_CLIENTS_COLUMNS_NO_UPDATED}` and `showUpdated: false`).' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 704 }}><Story /></div>],
 };
 
 export const HistoryNoHeader: Story = {
