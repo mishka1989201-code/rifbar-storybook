@@ -21,6 +21,7 @@ It draws **only the dialog**: overlay, centring, scroll lock, focus trap and `Es
 | `modal__header` + `Icon Button` (40px, Secondary Grey stroke, ✕) | `IconButton kind="close"` | top right, `onClose` |
 | “Do you want approve?” | `title` | Semi-Bold Headings/h4 24 / 36 |
 | “Accept user registration…” | `description` | Medium 14, Secondary Grey, centred, max 450px |
+| `Approve Modal` of the Clients delete popup (493px, two equal buttons) | `<ConfirmModal size="compact">` | `--size-modal-confirm-compact` |
 | `Buttons` (line on top, py 16 / 32) | `actions` | `Button variant="light" iconLeft="xmark"` Cancel + `variant="dark" iconLeft="tick"` Accept |
 
 ## When to use
@@ -58,6 +59,7 @@ Figma "Dark Molecules Components" → `Approve Modal Dark`: dialog `#000000` wit
 |---|---|---|---|
 | `--color-white` / `--radius-modal` | dialog fill / radius | `#FFFFFF` / `16px` | Existing tokens.json · Figma: White, radius 16 |
 | `--size-modal-confirm` | max width | `630px` | **New** · Figma: Approve Modal width 630 |
+| `--size-modal-confirm-compact` | max width, `size="compact"` | `493px` | **New** · Figma: Approve Modal 840:327040 width 493 |
 | `--spacing-16` / `--spacing-24` / `--spacing-32` | paddings, title–text gap, footer bottom | `16` / `24` / `32px` | Existing tokens.json · Figma: padding 16, gap 24, pb 32 |
 | `--font-size-h4` / `--font-line-height-h4` / `--font-weight-semibold` | title | `24px` / `36px` / `600` | Existing tokens.json · Figma: Semi-Bold Headings/h4 |
 | `--color-primary-blue-dark` | title | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark |
