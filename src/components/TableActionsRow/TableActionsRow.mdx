@@ -43,6 +43,10 @@ and [SearchField](?path=/docs/atoms-searchfield--docs); it has no background of 
 
 Figma "Dark Molecules Components" → `Actions Dark`: row background `#000000`; Export / Clear and the search field come from the `Button` and `SearchField` atoms, which already have the dark theme. No own colours, no new tokens. Story: `DefaultDark`.
 
+## Without Export, with filters (added 2026-10-12)
+
+Figma `TableActionsRow` (`1299:429122`) of the client's Custom price tab draws “Clear”, the filter fields `Group` and `Discounts on`, and the search — no Export. `showExport={false}` hides the dark button; `filters` is a slot after “Clear” for `FilterField`s. No new tokens.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |

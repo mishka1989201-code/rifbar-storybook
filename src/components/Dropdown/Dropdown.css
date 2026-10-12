@@ -192,3 +192,8 @@ button.ds-dropdown__notification-button:focus-visible { outline: none; box-shado
   border: 0;
   border-top: var(--border-width-sm) solid var(--dropdown-divider);
 }
+
+/* Figma `Groups DropDown`: the panel is as wide as the field it opens under. */
+.ds-dropdown--fluid {
+  width: 100%;
+}

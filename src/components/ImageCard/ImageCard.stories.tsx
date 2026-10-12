@@ -71,6 +71,12 @@ export const Sizes: Story = {
 };
 
 // ─── EMPTY / ERROR ───────────────────────────────────────────────────────────
+export const Sale: Story = {
+  name: 'Sale badge (Figma Sale)',
+  args: { sale: true },
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1299-429137' } },
+};
+
 export const NoPhoto: Story = {
   name: 'No photo (empty)',
   render: (args) => (

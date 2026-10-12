@@ -1,0 +1,92 @@
+/* SelectProducts — every value references a token from src/tokens/tokens.json.
+   Cards reuse the Table Row tokens (white card, Stroke Light V1, Table Row shadow). */
+
+.ds-select-products {
+  container-type: inline-size;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: var(--font-family-base);
+}
+
+/* Figma `Table Header 5`: 8px above, 44px from the sides. */
+.ds-select-products__head {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-8) var(--spacing-44) 0;
+}
+
+.ds-select-products__all {
+  color: var(--select-products-all);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Left column first; 8px between cards; 28px from the outer edge and 16px from the middle (Figma `Types`). */
+.ds-select-products__list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(var(--ds-select-products-rows), auto);
+  column-gap: var(--spacing-32);
+  row-gap: var(--spacing-8);
+  margin: 0;
+  padding: var(--spacing-8) var(--spacing-28) var(--spacing-32);
+  list-style: none;
+}
+
+.ds-select-products--single .ds-select-products__list {
+  grid-template-columns: 1fr;
+}
+
+@container (max-width: 640px) {
+  .ds-select-products__list {
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+}
+
+.ds-select-products__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-10);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--spacing-12) var(--spacing-16);
+  border-radius: var(--radius-lg);
+  background: var(--table-row-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--table-row-border), var(--table-row-shadow);
+}
+
+.ds-select-products__item.is-disabled {
+  opacity: var(--opacity-disabled);
+}
+
+/* Figma: Medium Headings/h6 (16 / 24) in Grey Dark. */
+.ds-select-products__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--select-products-name);
+  font-size: var(--font-size-standard);
+  line-height: var(--font-line-height-standard);
+  font-weight: var(--font-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ds-select-products__prices {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--spacing-16);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.ds-select-products__price { color: var(--select-products-price); }
+.ds-select-products__old { color: var(--select-products-price-old); }
+.ds-select-products__new { color: var(--select-products-price-new); }

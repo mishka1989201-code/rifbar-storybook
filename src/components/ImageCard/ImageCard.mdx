@@ -62,6 +62,11 @@ Figma frame **Dark Atoms Components → `Table Image`**: the frame stays white (
 - Empty / error placeholder is not in Figma — AI-defined, check it.
 - `alt` is required: pass the product name, or `""` when the name is written next to the photo.
 
+## Sale badge (added 2026-10-12)
+
+`sale` draws the Figma `Sale` badge (`Table Row 21` → `imageCards`): a round “%” 3px from the top-left corner, Hover Blue with white Semi-Bold 13px text (`role="img"`, name from `saleLabel`). The dark colours are AI-defined (no dark frame): Hover Blue Light with the Checkbox mark colour.
+New tokens: `--image-card-sale-bg`, `--image-card-sale-text`, `--font-size-sale` (13px, Figma: no text style bound), `--spacing-44` is not used here. The badge height uses the existing `--font-line-height-micro` (15px).
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
@@ -76,6 +81,9 @@ Figma frame **Dark Atoms Components → `Table Image`**: the frame stays white (
 | `--border-width-sm` | stroke width | `1px` | Existing |
 | `--icon-secondary` | placeholder icon | `#5D6E82` (Grey Dark) | Existing (Icon) |
 | `--size-icon-lg` / `--size-icon` | placeholder icon size | `24px` / `16px` | Existing (Icon) |
+| `--image-card-sale-bg` | Sale badge fill | Hover Blue `#6368DF` | **New** · Figma: Table Row 21 → imageCards → Sale. Dark AI-defined |
+| `--image-card-sale-text` | Sale badge text | White | **New** · Figma: Table Row 21 → imageCards → Sale. Dark AI-defined |
+| `--font-size-sale`, `--font-line-height-micro` | Sale badge text 13 / 15 | 13px / 15px | **New** (size) · Figma: Sale text 13; Existing tokens.json (line height) |
 
 ## Props
 

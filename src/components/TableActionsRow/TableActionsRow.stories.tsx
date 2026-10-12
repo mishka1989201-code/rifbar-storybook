@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Dropdown } from '../Dropdown';
+import { FilterField } from '../InputField';
 import { TableActionsRow } from './TableActionsRow';
 
 const FIGMA_URL =
@@ -56,6 +57,24 @@ export const ExportMenu: Story = {
   parameters: {
     design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=79-60265' },
     docs: { description: { story: 'Figma `Export DropDown`: the standard `Dropdown` (180px) 4px under Export. Opening and closing belong to the caller.' } },
+  },
+};
+
+export const CustomPriceFilters: Story = {
+  name: 'Without Export, with filters (Custom price)',
+  args: {
+    showExport: false,
+    searchProps: { placeholder: 'Search by keyword' },
+    filters: (
+      <>
+        <FilterField placeholder="Group" />
+        <FilterField value="Discounts on" />
+      </>
+    ),
+  },
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1299-429122' },
+    docs: { description: { story: 'Figma `TableActionsRow` of the client\'s Custom price tab: “Clear”, two `FilterField`s (`Group`, `Discounts on`) and the search. No Export button (`showExport={false}`).' } },
   },
 };
 

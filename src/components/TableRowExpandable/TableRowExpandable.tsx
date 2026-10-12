@@ -10,7 +10,9 @@ export interface TableRowExpandableProps extends Omit<HTMLAttributes<HTMLDivElem
   image?: string;
   /** Product name (Semi-Bold). */
   name?: ReactNode;
-  /** Volume / size, right-aligned, e.g. `15 ml`. */
+  /** Figma `Sale` badge on the photo: the product has a discount. */
+  sale?: boolean;
+  /** Volume / size, right-aligned, e.g. `15 ml`. Pass `null` to leave the cell empty (group rows of Figma `Custom price`). */
   size?: ReactNode;
   /** Product type, e.g. `RECHARGEABLE / DISPOSABLE`. */
   type?: ReactNode;
@@ -37,6 +39,7 @@ export interface TableRowExpandableProps extends Omit<HTMLAttributes<HTMLDivElem
 export function TableRowExpandable({
   index = 1,
   image,
+  sale = false,
   name = 'Astro',
   size = '15 ml',
   type = 'RECHARGEABLE / DISPOSABLE',
@@ -64,7 +67,7 @@ export function TableRowExpandable({
     <div role="row" className={classes} aria-disabled={disabled || undefined} {...rest}>
       <div className="ds-table-row-expandable__lead">
         <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__id">{index}</div>
-        <ImageCard src={image} alt="" size="md" />
+        <ImageCard src={image} alt="" size="md" sale={sale} />
         <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__name">{name}</div>
       </div>
       <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__size">{size}</div>

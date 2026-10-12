@@ -126,8 +126,8 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   ViewSwitch, ShowSelect, SwitchGroup
 - **Molecules** (cards / info): Accordion, CardHeader, CardRow, CardStrokeRow, CategoryCard, ChartLegendItem, ClientDetails, DepartmentItem,
   DepartmentSection, DocumentCard, InfoBlock (info / ticket / details / form), InfoClient, InfoRowCard, InfoTable, NoteCard, OrderCard,
-  ProductCard, RowInfoBlock, StatCard, StepCard
-- **Molecules** (forms / dialogs): AccessModeRow, BarcodeSettings, CheckListModal, ConfirmModal, Dropdown, FilterActions, LabeledField, MessageBox, Modal
+  ProductCard, RowInfoBlock, SelectProducts, StatCard, StepCard
+- **Molecules** (forms / dialogs): AccessModeRow, BarcodeSettings, CheckListModal, ConfirmModal, Dropdown (`fluid`), DiscountModal, FilterActions, LabeledField, MessageBox, Modal
   (+ ModalSection, ModalField, ModalRow; sizes desktop / mobile / wide / list / 480 / 360; header `description` / `important`, field `error`), RadioGroupCard
 - **Molecules** (chat / feedback): AlertRow, CallMenu, ChatHeader, ChatMessage, Notification, NotificationLine
 - **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle
@@ -160,6 +160,7 @@ Open design questions (also in the PR #10 description):
   containers its months keep their own width instead of stretching (Figma `Filter Responsive Menu`).
 - `FilterField` / `InputField` filled state: some frames (`ScheduledCallCard`, `ProductFormModal` Base currency, `Discount Modal`) draw a filled field with the
   Stroke Input border and Grey Dark text; the atom's `Activated` state (Input field border, Color Text) is used. Part of the same "one border rule" question.
+- Client pages (2026-10-12), needs the designer: `DiscountModal` — the “0 or empty deletes the discount” note contradicts the empty-value error (code follows the error frame), base currency is static; `SelectProducts` has no partial “Select all” state (as Figma) and no dark frame; `Dropdown` selected row is dark in `Groups DropDown` but not drawn in `Status DropDown`; `ScheduledCallCard` Refresh uses `clear`; Recover password / Update icons matched by look.
 - Needs confirmation: `--color-warning-tint` (badge of `ScheduledCallCard`, read from the render), `reboot` / `picture` / `save-line` icons.
 - Many icons are matched by look (Figma icons are unnamed vectors) — see the "needs designer confirmation" list in the MDX of each component.
 - Dark theme of the Atoms, for the designer: `Icon` Primary is `#1D2542` on black in the dark frame (1.40:1, looks not adapted; code keeps `#BDC5E2`); `Switcher` Dark pill is `#050411` in Dark Atoms but `#1D2542` in the Navbar dark frame

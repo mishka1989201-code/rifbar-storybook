@@ -21,7 +21,7 @@ Implements the Figma component set [`scheduled-call-menu`](https://www.figma.com
 | `Row.HeaderCard` (“Scheduled call”, Semi-Bold h5 Headlines, phone in a 26px circle) | `CardHeader` — `title`, `icon="call"` |
 | `Status` caption “Date - Time” (Mini Medium, colorPlaceholder) | `dateLabel` |
 | `InputField` “03/28/2024 10:23 AM” + calendar icon | `FilterField icon="date"` — `value`, `placeholder`, `onDateClick` |
-| `button_action` “Refresh” (Light) | `Button variant="light" iconLeft="reboot"` — `refreshLabel`, `onRefresh` |
+| `button_action` “Refresh” (Light) | `Button variant="light" iconLeft="clear"` — `refreshLabel`, `onRefresh` |
 | Card: radius 10, Cards Shadow, width 1524 | `.ds-scheduled-call-card` (fills its container; the stories use 1524px) |
 
 ## When to use
@@ -60,7 +60,7 @@ Normalised or assumed:
 - The client page ([Details (Main info)](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=55-16581)) draws the **Static** card (white) with the **green** badge — `badgeTone="success"` overrides the badge colour (needs confirmation which is right for Static).
 - The badge fills are read from the render (the SVG asset was not downloaded): Warning and Green Light at 22%, like the other badge tints (`--color-warning-tint` is new; `--color-green-light-tint` existed) — **needs confirmation**.
 - Figma's header line is Stroke Light V2 on the card fill; `CardHeader` draws a Secondary Light line on white, so the card overrides both.
-- The refresh icon is matched by look (`reboot`) — **needs designer confirmation**.
+- The refresh icon is matched by look (`clear`, the same two-arrow icon as the Clear button; the first version used `reboot`) — **needs designer confirmation**.
 
 ## Dark theme
 

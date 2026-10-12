@@ -62,7 +62,7 @@ export function ScheduledCallCard({
           />
         </label>
         {onRefresh && (
-          <Button variant="light" iconLeft="reboot" onClick={onRefresh}>
+          <Button variant="light" iconLeft="clear" onClick={onRefresh}>
             {refreshLabel}
           </Button>
         )}

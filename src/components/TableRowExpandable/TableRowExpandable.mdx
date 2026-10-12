@@ -54,6 +54,11 @@ Implements the Figma [`Table Row`](https://www.figma.com/design/4Q7E8IQ07a9xFiNV
 
 Figma "Dark Molecules Components" → `Table Row 14 Dark` (Static / Hover / Active / Disabled): row `#000000` with a `#242424` stroke, hover fill `#242424`, active stroke `#888CF6`, toggle `#27282E`, text `#C9C6D9` — all existing `--table-row-*` tokens. New: `--table-row-hover-shadow` (Dark Mode Shadow 1; Figma draws no coloured glow). The thumbnail in Figma shows a product photo, the story keeps its placeholder. Story: `AllVariantsDark`.
 
+## Sale and group rows (added 2026-10-12)
+
+- `sale` shows the `Sale` badge on the photo (`ImageCard sale`) — Figma `Table Row 21`.
+- A group row (Caps, Glasses, Backpacks in Figma `Custom price`) keeps the data columns at their width but empty: pass `null` to `size`, `type`, `nicotine`, `price`. The toggle is the same button.
+
 ## Design tokens used
 
 | Token | Property | Value | Source |

@@ -27,6 +27,7 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 | `Error/Importantly/Info` → Error (Regular 12, Danger, 4px under the field) | `ModalField error` | `role="alert"`; mark the control `invalid` |
 | `Icon Button` (40px, Secondary Grey stroke, xmark 24) | `IconButton kind="close"` | `onClose` |
 | `modal__body` | `ModalSection` | padding 16, gap 16, bottom line |
+| `Discount Modal` (550px, 24px title, row footer) | `size="550"` | Same layout as `wide`, width `--size-modal-info`; see `DiscountModal` |
 | `Info Modal` of the clients table (550px, user icon, `RowInfoBlock` rows, no footer) | `<Modal size="info">` + `ModalSection divider={false}` + `RowInfoBlock` | `--size-modal-info`; Figma draws the line under the last two rows inconsistently — here every row but the last has it |
 | `Note` + red `*` (Danger) | `ModalField required` | the asterisk is `aria-hidden`; set `required` on the control too |
 | `Name / Title` + `InputField` | `ModalField` + `InputField` / `FilterField` | caption Body/Small Medium, gap 4 |

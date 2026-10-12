@@ -60,6 +60,12 @@ export const ProductsAnalytics: Story = {
   },
 };
 
+export const CustomPrice: Story = {
+  name: 'Custom price',
+  args: { preset: 'customPrice' },
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1299-429125' } },
+};
+
 export const PaymentsAnalytics: Story = {
   name: 'Payments analytics',
   args: { preset: 'paymentsAnalytics' },

@@ -1,0 +1,71 @@
+/* DiscountModal — every value references a token from src/tokens/tokens.json.
+   The dialog is `Modal`; this file only lays out the two radio groups. */
+
+.ds-discount-modal__body {
+  gap: var(--spacing-24);
+}
+
+.ds-discount-modal__group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+}
+
+.ds-discount-modal__column {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.ds-discount-modal__column--currency {
+  flex: none;
+}
+
+.ds-discount-modal__row {
+  display: flex;
+  flex: 1 1 0;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.ds-discount-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* Body/Small Medium: Color Text for the chosen group, Grey Dark for the other (Figma). */
+.ds-discount-modal__caption {
+  color: var(--discount-modal-inactive);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-discount-modal__group.is-chosen .ds-discount-modal__caption {
+  color: var(--modal-label);
+}
+
+.ds-discount-modal__or {
+  color: var(--modal-label);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+}
+
+/* Figma `Base Currency`: the 180px list is 4px under the field. It is aligned to the field's right edge so that it stays inside the dialog. */
+.ds-discount-modal__currency {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-discount-modal__list {
+  position: absolute;
+  top: calc(100% + var(--spacing-4));
+  right: 0;
+  z-index: 5;
+}

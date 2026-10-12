@@ -30,6 +30,10 @@
   max-width: var(--size-modal-form-narrow);
 }
 
+.ds-modal--550 {
+  max-width: var(--size-modal-info);
+}
+
 .ds-modal--info {
   max-width: var(--size-modal-info);
 }
