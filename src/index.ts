@@ -72,6 +72,7 @@ export * from './components/NoRowsTable';
 export * from './components/NoteCard';
 export * from './components/TableRowAnalytics';
 export * from './components/TableRowClient';
+export * from './components/CallMenu';
 export * from './components/TableRowOrder';
 export * from './components/TableToolbar';
 export * from './components/AccessModeRow';

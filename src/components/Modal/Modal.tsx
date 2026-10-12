@@ -5,10 +5,10 @@ import './Modal.css';
 
 /**
  * Figma `Property 1`: Desktop = 450px wide, Mobile = 340px wide. `wide` = 630px (Figma `Add Product Modal`, two-column form).
- * `list` = 736px (Figma `Info Modal`, a list of options).
+ * `list` = 736px (Figma `Info Modal`, a list of options). `info` = 550px (Figma `Info Modal` of the clients table: a card of `RowInfoBlock` rows, no footer).
  * `480` / `360` = Figma `Modal` Property 2 (Add / Edit product): 20px title, stacked full-width footer buttons; `360` has 10px sides.
  */
-export type ModalSize = 'desktop' | 'mobile' | 'wide' | 'list' | '480' | '360';
+export type ModalSize = 'desktop' | 'mobile' | 'wide' | 'list' | 'info' | '480' | '360';
 
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Header title, e.g. “Create warehouse”. */
@@ -122,6 +122,8 @@ export function ModalSection({ divider = true, className, children, ...rest }: M
 export interface ModalFieldProps extends Omit<LabelHTMLAttributes<HTMLLabelElement>, 'children'> {
   /** Field caption, e.g. “Warehouse name”. */
   label: ReactNode;
+  /** Adds the red asterisk after the caption (Figma `Note*`). The control itself should be `required` too. */
+  required?: boolean;
   /** Error message under the control (Figma `Error/Importantly/Info` → Error). Mark the control `invalid` too. */
   error?: ReactNode;
   /** The control: `InputField`, `FilterField`… */
@@ -129,12 +131,17 @@ export interface ModalFieldProps extends Omit<LabelHTMLAttributes<HTMLLabelEleme
 }
 
 /** Figma `Name / Title` + field: Body/Small Medium caption 4px above a control. */
-export function ModalField({ label, error, children, className, ...rest }: ModalFieldProps) {
+export function ModalField({ label, required, error, children, className, ...rest }: ModalFieldProps) {
   const classes = ['ds-modal__field', className].filter(Boolean).join(' ');
   return (
     <div className={classes}>
       <label className="ds-modal__label" {...rest}>
         {label}
+        {required && (
+          <span className="ds-modal__required" aria-hidden>
+            *
+          </span>
+        )}
       </label>
       {children}
       {error != null && (

@@ -48,6 +48,10 @@ export interface InfoBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ti
   icon?: CardHeaderProps['icon'];
   /** Optional content on the right of the title row (not in Figma). */
   actions?: ReactNode;
+  /** Badge colour of the title row. Default: `violet` for `ticket`, `blue` otherwise. */
+  tone?: CardHeaderProps['tone'];
+  /** Buttons row under the body, right-aligned (Figma `Row.Total` of `InfoBlock.board_all-orders`: Recover password / Update). */
+  footer?: ReactNode;
   /** Props of the default `InfoClient` body (`fields`, `justify`). Ignored when `children` is set. */
   infoProps?: InfoClientProps;
   /** Custom body under the title row. Defaults to `<InfoClient {...infoProps} />`. */
@@ -67,6 +71,8 @@ export function InfoBlock({
   title,
   icon,
   actions,
+  tone,
+  footer,
   infoProps,
   children,
   className,
@@ -88,8 +94,9 @@ export function InfoBlock({
   const ticketBody = sections?.map((section, i) => <DepartmentSection key={section.id ?? i} {...section} />);
   return (
     <section className={classes} {...rest}>
-      <CardHeader title={title} icon={icon} actions={actions} tone={isTicket ? 'violet' : 'blue'} />
+      <CardHeader title={title} icon={icon} actions={actions} tone={tone ?? (isTicket ? 'violet' : 'blue')} />
       <div className="ds-info-block__body">{children ?? (isTicket ? ticketBody : variant === 'details' ? detailsBody : variant === 'form' ? formBody : <InfoClient {...infoProps} />)}</div>
+      {footer && <div className="ds-info-block__footer">{footer}</div>}
     </section>
   );
 }

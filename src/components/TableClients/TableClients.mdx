@@ -22,6 +22,20 @@ The clients table: sortable header and card rows. Implements the Figma frame
 | `Table Row Hover Name` | hover / focus of the name (see [TableRowClient](?path=/docs/molecules-tablerowclient--docs)) |
 | Frame: column, gap 8, width 1524 | `.ds-table-clients__table` (fills its container; the stories use 1524px) |
 
+## Management layout
+
+`layout="management"` is the table of the Figma frame
+[`Manager User - Clients - All Clients Tab`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=47-11326):
+the columns are Name, Company, Phone, Groups, Status, Updated, Joined, Actions (`MANAGEMENT_CLIENTS_COLUMNS`) and the rows use
+`TableRowClient layout="management"` (`group`, `status`, `attention`, `source`, `deleteTooltip`, `notesTooltip`, `callMenu`). Notes about the header labels and
+the assumptions are in the [TableRowClient](?path=/docs/molecules-tablerowclient--docs) page.
+
+<Canvas of={TableClientsStories.Management} />
+
+`layout="history"` is the *Last updates* table of the client page (Figma `Table Row 25`): `HISTORY_CLIENTS_COLUMNS` = ID, Name, Status, Call date, Change date.
+
+<Canvas of={TableClientsStories.History} />
+
 ## When to use
 
 - ✅ A list of clients with sorting by column.

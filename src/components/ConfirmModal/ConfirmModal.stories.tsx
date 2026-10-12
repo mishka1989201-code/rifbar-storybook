@@ -45,6 +45,21 @@ export const Destructive: Story = {
     actions: <Actions danger accept="Delete" />,
   },
 };
+export const Compact: Story = {
+  args: {
+    size: 'compact',
+    title: 'Do you want to delete?',
+    description: 'If you delete this client, it will not appear in the general table.',
+    actions: (
+      <>
+        <Button variant="light" iconLeft="xmark-small">Cancel</Button>
+        <Button variant="danger" iconLeft="delete">Delete</Button>
+      </>
+    ),
+  },
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=840-327040' } },
+};
+
 export const WithoutDescription: Story = { name: 'Without description', args: { description: undefined } };
 export const WithoutFooter: Story = { name: 'Without footer', args: { actions: undefined } };
 

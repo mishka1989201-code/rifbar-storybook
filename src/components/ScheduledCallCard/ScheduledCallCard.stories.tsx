@@ -34,6 +34,12 @@ export const Default: Story = {};
 export const TimeToCall: Story = { name: 'Time to call (Figma Property 1=Time to call)', args: { state: 'time-to-call' } };
 
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
+export const StaticGreenBadge: Story = {
+  name: 'Static, green badge (Figma client page)',
+  args: { badgeTone: 'success' },
+  parameters: { docs: { description: { story: 'Figma `Manager User - Clients - All Clients Tab - Details (Main info)`: the white Static card with the green badge.' } } },
+};
+
 export const NoDate: Story = { name: 'No date', args: { value: undefined } };
 
 export const NoRefresh: Story = {

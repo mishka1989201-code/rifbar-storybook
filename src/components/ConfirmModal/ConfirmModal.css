@@ -62,3 +62,17 @@
   background-color: var(--button-solid-bg);
   color: var(--button-on-solid);
 }
+
+/* Compact (Figma Approve Modal 493px, Clients delete popup): the two footer buttons share the width equally. */
+.ds-confirm-modal--compact {
+  max-width: var(--size-modal-confirm-compact);
+}
+
+.ds-confirm-modal--compact .ds-confirm-modal__footer {
+  flex-wrap: nowrap;
+}
+
+.ds-confirm-modal--compact .ds-confirm-modal__footer > * {
+  flex: 1 1 0;
+  min-width: 0;
+}

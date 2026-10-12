@@ -1,0 +1,82 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as CallMenuStories from './CallMenu.stories';
+
+<Meta of={CallMenuStories} />
+
+# CallMenu
+
+A small bubble with an arrow on top and two ways to reach a client: **WhatsApp** and **A phone call**. Implements the Figma component
+[`tooltip-call`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=5318-243539). It opens under the phone button of a clients table row
+([TableRowClient](?path=/docs/molecules-tablerowclient--docs), prop `callMenu`).
+
+<Canvas of={CallMenuStories.Default} />
+<Controls of={CallMenuStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `tooltip-call` | `CallMenu` |
+| `Tooltip arrow/Top` | the arrow (same drawing as [TooltipBordered](?path=/docs/atoms-tooltipbordered--docs) `position="bottom"`) |
+| `WhatsApp-container` (Stroke Light V1, green circle, padding 6 / 27 / 6 / 6) | the first option, `onWhatsApp`, `whatsAppLabel` |
+| `Call-container` (Stroke Light V2, dark circle, padding 6 / 12 / 6 / 6) | the second option, `onCall`, `callLabel`; `forceCallActive` previews the Figma fill |
+
+## When to use
+
+- ✅ Choosing the channel when the user presses a phone button.
+
+## When NOT to use
+
+- ❌ A plain list of actions: use [Dropdown](?path=/docs/molecules-dropdown--docs).
+
+## States and edge cases
+
+<Canvas of={CallMenuStories.AllVariants} />
+<Canvas of={CallMenuStories.AllVariantsDark} />
+
+## Figma notes
+
+What Figma draws: one static bubble, the call option filled darker than the WhatsApp option (read as the hovered / pressed one).
+
+Not drawn, defined by analogy (AI-defined):
+
+- Resting fill of both options is Stroke Light V1; hover and pressed use Stroke Light V2 (the Figma "Call" fill).
+- Keyboard focus: a 2px Hover Blue Light ring.
+- Dark theme: no dark frame; values by analogy with TooltipBordered (`--call-menu-*` tokens, listed below).
+- The WhatsApp glyph could not be downloaded (asset proxy 403); the icon `whatsapp` is drawn by hand — **needs designer confirmation**.
+- Open / close and position are the caller's job (the table row shows it on hover and focus of the phone button).
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--call-menu-bg` | bubble fill | `#FFFFFF` / dark `#000000` | **New** · Figma: Component color/Background |
+| `--call-menu-border` | bubble stroke | `#CBC8DB` / dark `#242424` | **New** · Figma: Stroke Button |
+| `--call-menu-option-bg` | WhatsApp option fill | `#F1F2F9` / dark `#27282E` | **New** · Figma: Stroke Light (V1); AI-defined dark |
+| `--call-menu-option-active-bg` | call option fill, hover | `#D8E2EE` / dark `#242424` | **New** · Figma: Stroke Light (V2) |
+| `--call-menu-text` | label | `#1D2542` / dark `#BDC5E2` | **New** · Figma: Primary Blue Dark |
+| `--call-menu-whatsapp` | WhatsApp circle | `#00864E` | **New** · Figma: Green Dark |
+| `--call-menu-call` | phone circle | `#1D2542` / dark `#BDC5E2` | **New** · Figma: Primary Blue Dark (Light) |
+| `--call-menu-icon` | glyph | `#FFFFFF` / dark `#000000` | **New** · Figma: White |
+| `--shadow-tooltip-filter` | bubble shadow | six-layer drop shadow | Existing tokens.json · Figma: Tooltip Shadow |
+| `--radius-tooltip`, `--spacing-6` / `10` / `12` / `26` / `28` | radius, paddings, circle | 8px, … | Existing tokens.json · Figma: radius 8, paddings, 26px circle |
+| `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | labels | 14 / 21px, 500 | Existing tokens.json · Figma: Body/Small Medium |
+
+## Props
+
+<ArgTypes of={CallMenuStories} />
+
+## Code example
+
+```tsx
+import { CallMenu } from 'rifbar-ds';
+
+<CallMenu onWhatsApp={() => openWhatsApp()} onCall={() => dial()} />
+```
+
+## Accessibility
+
+- `role="menu"` with two `role="menuitem"` buttons; native buttons, so Tab and Enter / Space work.
+- Label contrast is Primary Blue Dark on Stroke Light V1 / V2 (13.48:1 and 11.49:1 in the light theme; 8.57:1 and 9.05:1 in the dark one, calculated by script); the white glyph on the Green Dark circle is 4.65:1.
+- ⚠️ The bubble stroke Stroke Button on white is 1.64:1 (kept as designed).
+- ⚠️ The options are 38px high, below the 44px touch target (kept as designed).

@@ -33,6 +33,11 @@ The last section has no bottom line. Without `sections` pass your own `children`
 
 The title row line is Stroke Light V2 here (the standalone `Row.HeaderCard` frame uses Secondary Light), so `InfoBlock` overrides that one border color.
 
+**Footer, tone and links** (Figma [`InfoBlock.board_all-orders`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=55-16581)): `footer` puts buttons under the body, right-aligned (Figma `Row.Total`: *Recover password*, *Update*);
+`tone` overrides the badge colour (`Details` and `Last updates` use other badges); an `InfoClient` field with `href` is a link (the email, Hover Blue Light, underlined).
+
+<Canvas of={InfoBlockStories.ClientInfoWithFooter} />
+
 ## When to use
 
 - ✅ Info card of a client / order / document on a details page.

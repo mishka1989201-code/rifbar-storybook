@@ -575,6 +575,12 @@
       "figma": "icons/16px/solid/shield_person (layer is misnamed in Figma — it is a dollar sign)",
       "node": "6312:313723",
       "frame": "6989-21787"
+    },
+    "whatsapp": {
+      "group": "Icons 16px",
+      "figma": "WhatsApp (tooltip-call → Frame; the asset could not be downloaded, drawn by hand — needs designer confirmation)",
+      "node": "5318:243570",
+      "frame": "5318-243514"
     }
   },
   "24": {

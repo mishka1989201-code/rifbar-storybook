@@ -33,6 +33,11 @@ export const CustomIcon: Story = {
   args: { title: 'Payment details', icon: 'cart' },
 };
 
+export const Indigo: Story = {
+  name: 'Indigo (Figma Last updates)',
+  args: { title: 'Last updates', icon: 'time-new', tone: 'indigo' },
+};
+
 export const WithActions: Story = {
   name: 'With actions',
   args: { actions: <Button variant="outline">Edit</Button> },

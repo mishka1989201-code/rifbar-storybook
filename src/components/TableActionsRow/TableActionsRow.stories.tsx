@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Dropdown } from '../Dropdown';
 import { TableActionsRow } from './TableActionsRow';
 
 const FIGMA_URL =
@@ -43,6 +44,19 @@ export const CustomLabels: Story = {
 export const SearchDisabled: Story = {
   name: 'Search disabled',
   args: { searchProps: { disabled: true } },
+};
+
+export const ExportMenu: Story = {
+  name: 'Export menu',
+  args: {
+    exportOpen: true,
+    exportMenu: <Dropdown options={[{ value: 'csv', label: 'CSV' }, { value: 'pdf', label: 'PDF', forceHover: true }, { value: 'xlsx', label: 'Excel' }]} />,
+  },
+  decorators: [(Story) => <div style={{ paddingBottom: 140 }}><Story /></div>],
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=79-60265' },
+    docs: { description: { story: 'Figma `Export DropDown`: the standard `Dropdown` (180px) 4px under Export. Opening and closing belong to the caller.' } },
+  },
 };
 
 export const NarrowContainer: Story = {

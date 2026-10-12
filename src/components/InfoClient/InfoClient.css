@@ -50,3 +50,16 @@
   line-height: var(--font-line-height-h5);
   font-weight: var(--font-weight-semibold);
 }
+
+/* Link value (Figma: email in Hover Blue Light, underlined). */
+.ds-info-client__link {
+  color: var(--color-hover-blue-light);
+  text-decoration: underline;
+}
+
+/* AI-defined: Figma draws no keyboard focus; same ring as the other table links. */
+.ds-info-client__link:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-hover-blue-light);
+  outline-offset: var(--spacing-2);
+  border-radius: var(--radius-sm);
+}

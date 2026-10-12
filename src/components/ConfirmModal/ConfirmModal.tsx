@@ -2,6 +2,9 @@ import { useId, type HTMLAttributes, type ReactNode } from 'react';
 import { IconButton } from '../IconButton';
 import './ConfirmModal.css';
 
+/** `default` = 630px, buttons hug their labels; `compact` = 493px with two equal-width footer buttons (Figma Approve Modal of the Clients delete popup). */
+export type ConfirmModalSize = 'default' | 'compact';
+
 export interface ConfirmModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Question, e.g. “Do you want approve?”. */
   title: ReactNode;
@@ -11,6 +14,8 @@ export interface ConfirmModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   onClose?: () => void;
   /** Accessible name of the close button. */
   closeLabel?: string;
+  /** Figma width: `default` 630px or `compact` 493px (the footer buttons share the width equally). */
+  size?: ConfirmModalSize;
   /** Footer: usually two `Button`s (Cancel / Accept). */
   actions?: ReactNode;
 }
@@ -26,12 +31,13 @@ export function ConfirmModal({
   onClose,
   closeLabel = 'Close',
   actions,
+  size = 'default',
   className,
   ...rest
 }: ConfirmModalProps) {
   const titleId = useId();
   const descriptionId = useId();
-  const classes = ['ds-confirm-modal', className].filter(Boolean).join(' ');
+  const classes = ['ds-confirm-modal', size === 'compact' && 'ds-confirm-modal--compact', className].filter(Boolean).join(' ');
   return (
     <div
       role="alertdialog"

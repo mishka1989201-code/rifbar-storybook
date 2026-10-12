@@ -8,6 +8,8 @@ export interface InfoClientField {
   label: ReactNode;
   /** Value under the caption, e.g. “+44325678473”. */
   value: ReactNode;
+  /** Makes the value a link (Figma: the email is Hover Blue Light and underlined). */
+  href?: string;
 }
 
 export interface InfoClientProps extends HTMLAttributes<HTMLDListElement> {
@@ -47,7 +49,15 @@ export function InfoClient({
       {fields.map((field) => (
         <div key={field.id} className="ds-info-client__field">
           <dt className="ds-info-client__label">{field.label}</dt>
-          <dd className="ds-info-client__value">{field.value}</dd>
+          <dd className="ds-info-client__value">
+            {field.href ? (
+              <a className="ds-info-client__link" href={field.href}>
+                {field.value}
+              </a>
+            ) : (
+              field.value
+            )}
+          </dd>
         </div>
       ))}
     </dl>

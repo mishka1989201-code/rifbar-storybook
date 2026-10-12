@@ -14,7 +14,7 @@ export interface IconDef {
   frame: string;
 }
 
-export type Icon16Name = 'accounting' | 'admin' | 'arrow-drop-down' | 'arrow-drop-up' | 'arrow-left' | 'arrow-right' | 'back' | 'badge' | 'bag-v2' | 'bag' | 'barcode' | 'bullet' | 'call-v2' | 'call' | 'cart' | 'category' | 'chart-v2' | 'chart' | 'chat' | 'check-double' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'chevron-up' | 'clear' | 'clock' | 'contract' | 'copy' | 'csv' | 'dashboard' | 'date' | 'delete' | 'doc' | 'dollar' | 'download-cloud' | 'download-doc' | 'edit-v2' | 'edit' | 'email' | 'employees' | 'export' | 'eye' | 'file' | 'filter-dark' | 'filter-light' | 'finance' | 'forward' | 'graph' | 'groups' | 'image' | 'info' | 'invoice' | 'link' | 'mail' | 'notes' | 'number' | 'order' | 'output-circle' | 'pause' | 'phone-callback' | 'phone-forwarded' | 'picture' | 'play' | 'plus-box' | 'plus' | 'print' | 'product-box' | 'question' | 'reboot' | 'reply' | 'rifbar-big' | 'rifbar-small' | 'save-fill' | 'save-line' | 'search' | 'sell' | 'sent' | 'settings' | 'shield-access' | 'shield-person' | 'shield' | 'shipping-local' | 'sort' | 'stop' | 'tick' | 'ticket' | 'time-new' | 'trash' | 'tune' | 'user' | 'volume-up' | 'warehouse' | 'warning-v1' | 'warning-v2' | 'xmark-small' | 'xmark';
+export type Icon16Name = 'accounting' | 'admin' | 'arrow-drop-down' | 'arrow-drop-up' | 'arrow-left' | 'arrow-right' | 'back' | 'badge' | 'bag-v2' | 'bag' | 'barcode' | 'bullet' | 'call-v2' | 'call' | 'cart' | 'category' | 'chart-v2' | 'chart' | 'chat' | 'check-double' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'chevron-up' | 'clear' | 'clock' | 'contract' | 'copy' | 'csv' | 'dashboard' | 'date' | 'delete' | 'doc' | 'dollar' | 'download-cloud' | 'download-doc' | 'edit-v2' | 'edit' | 'email' | 'employees' | 'export' | 'eye' | 'file' | 'filter-dark' | 'filter-light' | 'finance' | 'forward' | 'graph' | 'groups' | 'image' | 'info' | 'invoice' | 'link' | 'mail' | 'notes' | 'number' | 'order' | 'output-circle' | 'pause' | 'phone-callback' | 'phone-forwarded' | 'picture' | 'play' | 'plus-box' | 'plus' | 'print' | 'product-box' | 'question' | 'reboot' | 'reply' | 'rifbar-big' | 'rifbar-small' | 'save-fill' | 'save-line' | 'search' | 'sell' | 'sent' | 'settings' | 'shield-access' | 'shield-person' | 'shield' | 'shipping-local' | 'sort' | 'stop' | 'tick' | 'ticket' | 'time-new' | 'trash' | 'tune' | 'user' | 'volume-up' | 'warehouse' | 'warning-v1' | 'warning-v2' | 'whatsapp' | 'xmark-small' | 'xmark';
 export type Icon24Name = 'arrow-circle-left' | 'arrow-step-down' | 'arrow-step' | 'bag' | 'barcode' | 'bell' | 'burger-rolled-up' | 'burger' | 'cards-view' | 'chart-fill' | 'chat' | 'check-circle' | 'csv' | 'date' | 'doc-new' | 'doc' | 'download-doc' | 'edit' | 'file' | 'finance' | 'gift-discount' | 'info' | 'link' | 'list-view' | 'number' | 'phone' | 'plus-box' | 'plus-solid' | 'rifbar' | 'sale' | 'send-chat' | 'send' | 'signed-doc' | 'support' | 'tick' | 'ticket' | 'upload' | 'user' | 'warning-v1' | 'warning-v2' | 'xmark';
 
 export const ICONS_16: Record<Icon16Name, IconDef> = {
@@ -769,6 +769,14 @@ export const ICONS_16: Record<Icon16Name, IconDef> = {
     "figma": "Warning v2",
     "node": "144:57712",
     "frame": "5-8779"
+  },
+  "whatsapp": {
+    "viewBox": "0 0 16 16",
+    "body": "<path d=\"M8 1.5C4.41 1.5 1.5 4.41 1.5 8C1.5 9.15 1.8 10.23 2.33 11.17L1.5 14.5L4.93 13.7C5.84 14.2 6.89 14.5 8 14.5C11.59 14.5 14.5 11.59 14.5 8C14.5 4.41 11.59 1.5 8 1.5ZM8 2.8C10.87 2.8 13.2 5.13 13.2 8C13.2 10.87 10.87 13.2 8 13.2C7.03 13.2 6.12 12.93 5.34 12.47L5.08 12.31L3.42 12.7L3.84 11.08L3.67 10.8C3.15 10.03 2.8 9.05 2.8 8C2.8 5.13 5.13 2.8 8 2.8Z\" fill=\"currentColor\" /><path d=\"M10.9 9.9C10.9 9.9 10.1 9.5 9.9 9.45C9.7 9.4 9.55 9.55 9.45 9.7C9.35 9.85 9.15 10.1 9.05 10.2C8.95 10.3 8.85 10.3 8.65 10.2C8.45 10.1 7.85 9.9 7.15 9.25C6.6 8.75 6.25 8.15 6.15 7.95C6.05 7.75 6.15 7.65 6.25 7.55C6.35 7.45 6.45 7.3 6.55 7.2C6.65 7.1 6.7 7 6.75 6.9C6.8 6.8 6.8 6.7 6.75 6.6C6.7 6.5 6.35 5.65 6.2 5.3C6.05 4.95 5.9 5 5.8 5H5.55C5.45 5 5.3 5.05 5.15 5.2C5 5.35 4.6 5.75 4.6 6.55C4.6 7.35 5.2 8.15 5.3 8.25C5.4 8.35 6.5 10 8.2 10.7C8.6 10.9 8.9 11 9.15 11.05C9.55 11.2 9.9 11.15 10.2 11.1C10.5 11.05 11.1 10.75 11.25 10.4C11.4 10.05 11.4 9.75 11.35 9.7C11.3 9.65 11.2 9.6 10.9 9.9Z\" fill=\"currentColor\" />",
+    "group": "Icons 16px",
+    "figma": "WhatsApp (tooltip-call → Frame; the asset could not be downloaded, drawn by hand — needs designer confirmation)",
+    "node": "5318:243570",
+    "frame": "5318-243514"
   },
   "xmark-small": {
     "viewBox": "0 0 16 16",

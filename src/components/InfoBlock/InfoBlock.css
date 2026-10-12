@@ -91,3 +91,12 @@
 .ds-info-block--form .ds-info-block__body > .ds-info-block__column--wide {
   flex-basis: calc(2 * var(--size-form-column));
 }
+
+/* Figma Row.Total inside the card: white row, buttons at the right, 8px apart, 16px below and at the sides. */
+.ds-info-block__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-8);
+  padding: 0 var(--spacing-16) var(--spacing-16);
+}
