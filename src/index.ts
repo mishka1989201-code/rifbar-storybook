@@ -20,6 +20,7 @@ export * from './components/Tabs';
 export * from './components/SwitchButton';
 export * from './components/Logo';
 export * from './components/HeaderMenu';
+export * from './components/RegionSwitch';
 export * from './components/ImageCard';
 export * from './components/TooltipBordered';
 export * from './components/SearchField';

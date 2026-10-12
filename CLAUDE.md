@@ -123,7 +123,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   IconButton (`size` sm), ImageCard, InputField (Input / Filter / Text / Color), Logo, NoRowsTable, PlayButton, Scrollbar (content + dropdown), SearchField,
   Slider, SwitchButton, Switcher, Tabs, Toggle, TooltipBordered
 - **Molecules** (navigation / layout): BreadCrumbs, CardGrid, LogoBar, NavbarMenu, PageHeader (`size` compact), Pagination (`size` sm, `siblingCount` v1 / v2), PaginationBar (`stacked`, `flat`), TabsHeader, UserDropdown,
-  ViewSwitch, ShowSelect, SwitchGroup
+  ViewSwitch, ShowSelect, SwitchGroup, RegionSwitch (US / EU, header)
 - **Molecules** (cards / info): Accordion, CardHeader, CardRow, CardStrokeRow, CategoryCard, ChartLegendItem, ClientDetails, DepartmentItem,
   DepartmentSection, DocumentCard, InfoBlock (info / ticket / details / form), InfoClient, InfoRowCard, InfoTable, NoteCard, OrderCard,
   ProductCard, RowInfoBlock, SelectProducts, StatCard, StepCard

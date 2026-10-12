@@ -1,0 +1,85 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as RegionSwitchStories from './RegionSwitch.stories';
+
+<Meta of={RegionSwitchStories} />
+
+# RegionSwitch
+
+Switches the **region the business is run in** — United States or Europe. The clients list and the other settings of the app depend on it.
+Lives in the page header, before the bell. Implements the `toggle` of the Figma `Header Menu`
+([`Clients`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=5640-252833)).
+
+<Canvas of={RegionSwitchStories.Default} />
+<Controls of={RegionSwitchStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `UM - United States Minor Outlying Islands`, 32×24, radius 2 | left flag, `Region` `'us'` |
+| `atom`: 48×24 pill, Secondary Grey stroke, knob 18px | `role="switch"` button |
+| `Flag_of_Europe 1`, 32×24, radius 2 | right flag, `Region` `'eu'` |
+| Gap 10 between the three; 24 to the bell | `gap` of the component; the page header gap |
+
+The app owns the state: `value` + `onChange(region)` (or `defaultValue`). `Region = 'us' | 'eu'`.
+
+## When to use
+
+- ✅ In the page header of every screen whose data depends on the region (clients, orders …).
+
+## When NOT to use
+
+- ❌ Not a language switch and not a theme switch (see [Switcher](?path=/docs/atoms-switcher--docs)).
+
+<Canvas of={RegionSwitchStories.InHeader} />
+<Canvas of={RegionSwitchStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws only the US state (knob left). **The EU state is AI-defined**: the knob moves to the right.
+- The flag vectors could not be downloaded (asset proxy 403): the flags are drawn in SVG from the measured colours; the stars of the US flag are simplified (a grid of dots), the EU star yellow is the official `#FFCC00`.
+- Hover and focus are not drawn: focus ring like the other header controls (Headlines outline).
+- Dark theme: no dark frame; values by analogy with `Toggle` (AI-defined). The flags keep their colours.
+- A click on a flag selects its region too (not in Figma).
+
+## Dark theme
+
+No Figma dark frame shows the switch. AI-defined: pill `White (Dark)`, stroke `Secondary Grey (Dark)`, knob `Hover Blue Light`.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--region-switch-bg` | pill fill | `#FFFFFF` / dark `#000000` | **New** (themed) · Figma: Header Menu → atom fill White. Dark AI-defined |
+| `--region-switch-border` | pill stroke | `#A7A4B7` / dark `#646464` | **New** (themed) · Figma: atom stroke Secondary Grey. Dark AI-defined |
+| `--region-switch-knob` | knob | `#38436C` / dark `#888CF6` | **New** (themed) · Figma: knob read from the render. Dark AI-defined |
+| `--color-region-knob` | knob (light value) | `#38436C` | **New** · Figma: no variable, read from the render |
+| `--flag-us-red`, `--flag-us-white`, `--flag-us-blue` | US flag | `#E31D1C`, `#F7FCFF`, `#2E42A5` | **New** · Figma: US flag, read from the render |
+| `--flag-eu-blue` | EU flag field | `#003399` | **New** · Figma: Flag_of_Europe, read from the render |
+| `--flag-eu-star` | EU stars | `#FFCC00` | **New** · AI-defined: official EU yellow |
+| `--radius-flag` | flag corners | `2px` | **New** · Figma: flag radius 2 |
+| `--size-switch-width`, `--size-switch-height`, `--size-switch-handle` | pill 48×24, knob 18 | — | Existing tokens.json · Figma: Toggle.atom |
+| `--spacing-10`, `--spacing-32`, `--spacing-24` | gap, flag size | 10 / 32 / 24px | Existing tokens.json · Figma: toggle gap 10, flag 32×24 |
+| `--radius-pill`, `--radius-round` | pill, knob | — | Existing tokens.json |
+| `--border-width-sm`, `--border-width-lg`, `--spacing-2` | stroke, focus ring | — | AI-defined use: focus is not drawn |
+
+## Props
+
+<ArgTypes of={RegionSwitchStories} />
+
+## Code example
+
+```tsx
+const [region, setRegion] = useState<Region>('us');
+
+<HeaderMenu>
+  <RegionSwitch value={region} onChange={setRegion} />
+  <HeaderMenuItem icon="bell" label="Notifications" dot="warning" />
+</HeaderMenu>
+```
+
+## Accessibility
+
+- Three buttons: the flags (`aria-pressed`, named "United States" / "Europe") and the pill (`role="switch"`, `aria-checked` = Europe, named "Region: …"). Keyboard: Tab, Space / Enter.
+- ⚠️ The pill is 48×24 and the flags 32×24, below the 44px touch target (kept as designed).
+- ⚠️ The pill stroke `#A7A4B7` on white is below 3:1 (kept as designed). The state is also shown by the knob position, not by colour only.
