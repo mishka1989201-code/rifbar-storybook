@@ -25,7 +25,7 @@ export interface TableHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   onSort?: (id: string) => void;
 }
 
-export type TableHeaderPreset = 'warehouses' | 'categories' | 'clients' | 'orders' | 'productsAnalytics' | 'paymentsAnalytics';
+export type TableHeaderPreset = 'warehouses' | 'categories' | 'clients' | 'orders' | 'productsAnalytics' | 'paymentsAnalytics' | 'customPrice';
 
 /**
  * Column sets drawn in Figma. All frames share one look (transparent row, padding 8/16,
@@ -68,6 +68,17 @@ export const TABLE_HEADER_PRESETS: Record<TableHeaderPreset, TableHeaderColumn[]
     { id: 'date', label: 'Date', width: 80, align: 'end', sortable: true },
     { id: 'status', label: 'Status', width: 130, sortable: true },
     { id: 'actions', label: 'Actions', width: 72, align: 'end' },
+  ],
+  /** Figma `Table Header 4` (1299:429125) — header of `TableRowExpandable` on the client's Custom price tab. */
+  customPrice: [
+    { id: 'id', label: 'ID', sortable: true, group: 'lead' },
+    { id: 'image', label: 'Image', width: 64, group: 'lead' },
+    { id: 'name', label: 'Name', width: 158, sortable: true, group: 'lead' },
+    { id: 'capacity', label: 'Liquid capacity', width: 125, align: 'end', sortable: true },
+    { id: 'type', label: 'Type', width: 203, sortable: true },
+    { id: 'nicotine', label: 'Nicotine', width: 75, align: 'end', sortable: true },
+    { id: 'price', label: 'Price', width: 52, align: 'end', sortable: true },
+    { id: 'actions', label: 'Actions', width: 54, align: 'end' },
   ],
   /** Figma `Table Header 6` (3697:291914) — header of `TableRowAnalytics` with an image. */
   productsAnalytics: [

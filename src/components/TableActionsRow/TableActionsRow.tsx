@@ -14,6 +14,10 @@ export interface TableActionsRowProps extends HTMLAttributes<HTMLDivElement> {
   exportMenu?: ReactNode;
   /** The Export menu is open. The caller owns it: toggle it in `onExport`, close it on outside click / Escape. */
   exportOpen?: boolean;
+  /** Shows the dark “Export” button. Default `true`; the client's Custom price tab draws “Clear” and the filters only. */
+  showExport?: boolean;
+  /** Filter fields after “Clear” (Figma Custom price: `Group`, `Discounts on` as `FilterField`s). */
+  filters?: ReactNode;
   /** Props passed to the `SearchField` on the right (value, onSearch, placeholder…). */
   searchProps?: Omit<SearchFieldProps, 'size'>;
 }
@@ -29,6 +33,8 @@ export function TableActionsRow({
   clearLabel = 'Clear',
   exportMenu,
   exportOpen = false,
+  showExport = true,
+  filters,
   searchProps,
   className,
   ...rest
@@ -37,6 +43,7 @@ export function TableActionsRow({
   return (
     <div role="toolbar" aria-label="Table actions" className={classes} {...rest}>
       <div className="ds-table-actions__buttons">
+        {showExport && (
         <div className="ds-table-actions__export">
           <Button
             variant="dark"
@@ -49,9 +56,11 @@ export function TableActionsRow({
           </Button>
           {exportMenu && exportOpen && <div className="ds-table-actions__export-menu">{exportMenu}</div>}
         </div>
+        )}
         <Button variant="outline" iconLeft="clear" onClick={onClear}>
           {clearLabel}
         </Button>
+        {filters}
       </div>
       <SearchField className="ds-table-actions__search" aria-label="Search table" {...searchProps} />
     </div>

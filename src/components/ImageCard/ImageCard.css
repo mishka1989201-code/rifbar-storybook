@@ -49,3 +49,20 @@
 .ds-image-card__image--contain {
   object-fit: contain;
 }
+
+/* Figma `Sale`: 3px from the corner, pill, Semi-Bold 13px. */
+.ds-image-card__sale {
+  position: absolute;
+  top: var(--spacing-4);
+  left: var(--spacing-4);
+  z-index: 1;
+  box-sizing: border-box;
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-pill);
+  background: var(--image-card-sale-bg);
+  color: var(--image-card-sale-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sale);
+  line-height: var(--font-line-height-micro);
+  font-weight: var(--font-weight-semibold);
+}

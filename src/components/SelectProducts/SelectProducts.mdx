@@ -1,0 +1,90 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as SelectProductsStories from './SelectProducts.stories';
+
+<Meta of={SelectProductsStories} />
+
+# SelectProducts
+
+The opened part of a product row on the client's *Custom price* tab: a **Select all** checkbox and the product lines to pick, in two columns.
+Implements the Figma [`Select Products`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1299-429127) frames (flavours; and `Backpacks` with photos, node `1299:437151`).
+
+<Canvas of={SelectProductsStories.Default} />
+<Controls of={SelectProductsStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Select Products` → `Table Header 5` → `Select All` | header checkbox + `selectAllLabel` | Checked only when every line is checked |
+| `Types` → `TableRows / Choice of quantity` (left) + `Products 3` (right) | `.ds-select-products__list`, `columns={2}` | The items fill the left column first |
+| `RowInfoBlock` / `Info Line N` (card) | `.ds-select-products__item` | Table Row card: white, Stroke Light V1, Table Row shadow |
+| `Checkbox` 24 | `Checkbox` atom | Native input |
+| `imageCards` 32 | `ImageCard size="sm"` | Shown when any item has `image` |
+| `Input & price` — `$15` | `price` | Primary Blue Dark |
+| `Input & price` — `$15` crossed out + `$13` | `oldPrice` + `price` | Secondary Grey strike-through + Violet Icons |
+
+## When to use / When NOT to use
+
+- ✅ Choosing products or flavours of one group before making a discount.
+- ❌ A product table with columns — use `TableRowExpandable`. A confirmation list in a dialog — use `CheckListModal`.
+
+## Variants, states and edge cases
+
+<Canvas of={SelectProductsStories.WithPhotos} />
+<Canvas of={SelectProductsStories.NothingChosen} />
+<Canvas of={SelectProductsStories.SingleColumn} />
+<Canvas of={SelectProductsStories.OddCount} />
+<Canvas of={SelectProductsStories.LongNames} />
+<Canvas of={SelectProductsStories.DisabledItem} />
+<Canvas of={SelectProductsStories.Empty} />
+<Canvas of={SelectProductsStories.NarrowContainer} />
+<Canvas of={SelectProductsStories.Interactive} />
+<Canvas of={SelectProductsStories.AllVariants} />
+
+## Figma notes
+
+- Figma draws “Select all” unchecked when only some lines are checked (second block): there is no partial state. The code keeps that.
+- Not drawn, AI-defined: disabled line (`--opacity-disabled`), long names (ellipsis), the empty list (header only), one column in a container narrower than 640px, the keyboard focus (from `Checkbox`).
+- Figma sets the name column to 200px wide; in code the name takes the free width and the price is pushed to the right edge (the same look at the Figma sizes).
+- The photos of the `Backpacks` block could not be downloaded (asset proxy 403): the stories use demo photos.
+- Dark theme: no dark Figma frame shows this block — all dark values are **AI-defined** (name `#646464`, price `#BDC5E2`, crossed-out `#646464`, discounted and “Select all” `#888CF6`; the cards use the Table Row dark tokens). Story `All variants (dark theme)`.
+
+## Design tokens used
+
+The `--color-*` values are light values; the themed tokens carry the dark ones.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--table-row-bg`, `--table-row-border`, `--table-row-shadow` | card fill, stroke, shadow | White, `#F1F2F9`, `0 4 4 / 5%` | Existing tokens.json · Figma: Table Row / Stroke Light V1 / Table Row |
+| `--select-products-name` | product name | `#5D6E82` | **New** · Figma: Select Products → name, Grey Dark. Dark AI-defined |
+| `--select-products-price` | price | `#1D2542` | **New** · Figma: Select Products → price. Dark AI-defined |
+| `--select-products-price-old` | crossed-out price | `#A7A4B7` | **New** · Figma: Select Products → old price. Dark AI-defined |
+| `--select-products-price-new` | discounted price | `#740ADE` | **New** · Figma: Select Products → new price, Violet Icons. Dark AI-defined |
+| `--select-products-all` | “Select all” label | `#4549A1` | **New** · Figma: Select Products → Select All, Headlines. Dark: as the table header |
+| `--spacing-44` | header side padding | 44px | **New** · Figma: Table Header 5 |
+| `--spacing-28`, `--spacing-32`, `--spacing-16`, `--spacing-12`, `--spacing-10`, `--spacing-8` | list padding, gaps | 28 / 32 / 16 / 12 / 10 / 8px | Existing tokens.json · Figma: Types / RowInfoBlock |
+| `--font-size-standard`, `--font-size-small` | name 16 / 24, price 14 / 21 | — | Existing tokens.json · Figma: Medium Headings/h6, Body/Small Medium |
+| `--radius-lg`, `--opacity-disabled` | card radius 10, disabled | — | Existing tokens.json · Figma: RowInfoBlock; AI-defined use: disabled line |
+
+## Props
+
+<ArgTypes of={SelectProductsStories.Default} />
+
+## Code example
+
+```tsx
+<SelectProducts
+  items={[
+    { id: 'banana', name: 'Banana Ice', price: '$13', oldPrice: '$15' },
+    { id: 'mint', name: 'Mint Ice', price: '$15' },
+  ]}
+  selected={selected}
+  onChange={setSelected}
+/>
+```
+
+## Accessibility
+
+- Every line is a native checkbox labelled by its name; “Select all” is a native checkbox too.
+- ⚠️ Secondary Grey crossed-out prices (`#A7A4B7` on white) and Grey Dark names are kept as designed; the crossed-out price is below 3:1.
+- ⚠️ The 24px checkbox is below the 44px touch target (desktop control, as designed).

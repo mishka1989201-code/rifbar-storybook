@@ -19,10 +19,14 @@ export interface ImageCardProps extends HTMLAttributes<HTMLSpanElement> {
    * `contain` shows the whole photo with white around it.
    */
   fit?: 'cover' | 'contain';
+  /** Figma `Sale`: the round “%” badge in the top-left corner of a discounted product. */
+  sale?: boolean;
+  /** Accessible name of the sale badge. */
+  saleLabel?: string;
 }
 
 /** Figma `imageCards`: a square product photo thumbnail. */
-export function ImageCard({ src, alt, size = 'md', fit = 'cover', className, ...rest }: ImageCardProps) {
+export function ImageCard({ src, alt, size = 'md', fit = 'cover', sale = false, saleLabel = 'Discounted', className, ...rest }: ImageCardProps) {
   const [failed, setFailed] = useState<string>();
   const showImage = src && failed !== src;
   const classes = ['ds-image-card', `ds-image-card--${size}`, !showImage && 'is-empty', className]
@@ -41,6 +45,11 @@ export function ImageCard({ src, alt, size = 'md', fit = 'cover', className, ...
         />
       ) : (
         <Icon name="image" size={size === 'sm' ? 16 : 24} color="secondary" label={alt ? `${alt} (no photo)` : undefined} />
+      )}
+      {sale && (
+        <span className="ds-image-card__sale" role="img" aria-label={saleLabel}>
+          %
+        </span>
       )}
     </span>
   );

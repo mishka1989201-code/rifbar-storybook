@@ -91,6 +91,7 @@ export * from './components/ScheduledCallCard';
 export * from './components/WelcomeCard';
 export * from './components/NotificationLine';
 export * from './components/TableRowExpandable';
+export * from './components/SelectProducts';
 export * from './components/FilterActions';
 export * from './components/TimePicker';
 export * from './components/DatePicker';

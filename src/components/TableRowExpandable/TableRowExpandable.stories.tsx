@@ -51,6 +51,20 @@ export const Narrow: Story = {
   decorators: [(Story) => <div style={{ maxWidth: 760, overflowX: 'auto' }}><Story /></div>],
 };
 
+export const Sale: Story = {
+  name: 'Discounted product (Sale badge)',
+  args: { sale: true },
+};
+
+export const GroupRow: Story = {
+  name: 'Group row (no data cells)',
+  args: { index: 9, name: 'Caps', size: null, type: null, nicotine: null, price: null, sale: true },
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1299-429137' },
+    docs: { description: { story: 'Figma `Table Row 21` (Caps, Glasses, Backpacks): the data columns are kept at their width but empty — pass `null`.' } },
+  },
+};
+
 export const InList: Story = {
   name: 'In a list',
   render: () => (
