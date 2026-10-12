@@ -145,6 +145,21 @@ export const SortBy: Story = {
   args: { options: SORT_OPTIONS, defaultValue: 'price', maxRows: 4, listLabel: 'Sort by' },
 };
 
+export const UnderFormField: Story = {
+  name: 'Under a form field (fluid, Figma Groups DropDown)',
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=4256-240263' } },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', width: 598, maxWidth: '100%' }}>
+      <FilterField value="" placeholder="Select a customer group" open />
+      <Dropdown
+        fluid
+        defaultValue="g1"
+        options={['None', 'Group 1', 'Group 2', 'Group 3', 'Group 4', 'Group 5'].map((label, i) => ({ value: i ? `g${i}` : 'none', label }))}
+      />
+    </div>
+  ),
+};
+
 export const FewerRowsThanMax: Story = {
   name: 'Fewer rows than maxRows (no scrollbar)',
   args: { maxRows: 4 },

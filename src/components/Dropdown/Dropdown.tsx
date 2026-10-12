@@ -61,6 +61,8 @@ export interface DropdownProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onC
   maxRows?: number;
   /** `list` with `maxRows`: accessible name of the scrolling list. */
   listLabel?: string;
+  /** Fills the width of its container instead of the 180px of the panel — under a form field (Figma `Groups DropDown`, 598px). */
+  fluid?: boolean;
 
   // ── notifications ──
   notifications?: DropdownNotification[];
@@ -119,6 +121,7 @@ export function Dropdown({
   emptyLabel = 'Nothing found',
   maxRows,
   listLabel = 'Options',
+  fluid = false,
   notifications = DEFAULT_NOTIFICATIONS,
   onNotificationClick,
   onSeeAll,
@@ -150,6 +153,7 @@ export function Dropdown({
     'ds-dropdown',
     `ds-dropdown--${variant}`,
     variant === 'list' && searchable && 'ds-dropdown--search',
+    fluid && 'ds-dropdown--fluid',
     className,
   ]
     .filter(Boolean)
