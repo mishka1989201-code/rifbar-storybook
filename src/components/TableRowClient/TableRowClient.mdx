@@ -53,6 +53,20 @@ It is one component with `layout="management"`:
 
 **History layout** (Figma [`Table Row 25`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=55-16581), client page → *Last updates*): `layout="history"` draws `index` (ID, 30px, centred) + `name`, `status`, `callDate` (81px) and `changeDate` (110px, right); no action buttons, 50px high.
 
+**Calls layout** (Figma [`Table Row 16` / `2` / `3`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=5339-218843), client page → *Call records*): `layout="calls"`.
+
+| Figma | Code |
+|---|---|
+| `phone_callback` icon, green (`Table Row 16`, `2`) / `phone_forwarded`, blue (`Table Row 3`) + seller name, 170px | `callState="answered" \| "missed"`, `name` |
+| Phone 150px, date 80px, `Price` (duration) right, `Date 3` 119px | `phone`, `callDate`, `duration`, `updated` |
+| `Buttons`: dark play button | `onPlay` |
+| `Buttons`: light close button, the player opens under the row (`Time Tracker`) | `onClose` + `player={<AudioPlayer embedded />}` |
+| Text instead of the buttons: `cancel`, `busy`, `no day limit` (Headlines) | `callResult` |
+
+<Canvas of={TableRowClientStories.Calls} />
+<Canvas of={TableRowClientStories.CallsPlayerOpen} />
+<Canvas of={TableRowClientStories.CallsMissed} />
+
 <Canvas of={TableRowClientStories.History} />
 <Canvas of={TableRowClientStories.Management} />
 <Canvas of={TableRowClientStories.Attention} />
@@ -122,6 +136,13 @@ Assumed / normalised:
 - The Figma row has a drop shadow `0 4 4 rgba(0,0,0,.05)` (Table Row) while the effect list says `0 4 2`; the Table Row token is used.
 - Figma lays the seven cells out with `justify-between`; the column widths are fixed (170 / 170 / 150 / 220 / 80 / 119 / 119).
 
+### Calls layout — what Figma does not draw (AI-defined, needs designer confirmation)
+
+- The header labels only four of the six cells and sits unaligned with the rows (Seller, Phone, Date, Time, Actions); the column over the second date is named `Updated`.
+- Rows with a result (`cancel`, `busy`, `no day limit`) are drawn narrower, with the text in place of the second date and no buttons; the code keeps the columns aligned and leaves the second date empty.
+- Hover, focus and the dark theme of the calls rows are not drawn: the play button is the dark `Button`, the close button the light one; dark values by analogy with the other rows.
+- The active tab in the frame is `Call records`.
+
 ## Design tokens used
 
 New tokens (all added 2026-10-09, with `source` in `tokens.json`): `--table-row-bg`, `--table-row-border`, `--table-row-text`, `--table-row-shadow`,
@@ -143,6 +164,10 @@ New tokens (all added 2026-10-09, with `source` in `tokens.json`): `--table-row-
 | `--table-row-group-border` | group swatch border | `#D8E2EE` / dark `#242424` | **New** (themed) · Figma: Groups swatch stroke Stroke Light V2 |
 | `--color-green-groups`, `--color-teal-groups` | group swatch fill | `#1CAC3B`, `#1C92AC` | **New** · Figma: Green Groups; raw `#1C92AC` read from the render |
 | `--table-row-source-icon` | source icon | `#888CF6` | **New** · AI-defined: Hover Blue Light (Figma colour read from the render) |
+| `--table-row-call-answered` | answered-call icon | `#00864E` / dark `#00864E` | **New** (themed) · Figma: Table Row 16 → phone_callback (Green Dark). Dark AI-defined, unchanged |
+| `--table-row-call-missed` | missed-call icon | `#6368DF` / dark `#888CF6` | **New** (themed) · Figma: Table Row 3 → phone_forwarded (Hover Blue). Dark AI-defined |
+| `--table-row-call-result` | result text | `#4549A1` / dark `#888CF6` | **New** (themed) · Figma: Table Row 3 → cancel / busy (Headlines). Dark AI-defined |
+| `--spacing-6` | gap icon → name (calls) | `6px` | Existing tokens.json · Figma: Header with Sort gap 6 |
 | `--spacing-10` | gap between action buttons | `10px` | Existing tokens.json · Figma: Buttons gap 10 |
 | `--tooltip-bordered-subtle-*` | tooltip colours | see TooltipBordered | **New** · Figma: BG Color, Stroke Light (V2), Secondary Grey, Color Text |
 | `--radius-lg` | row radius | `10px` | Existing tokens.json · Figma: radius 10 |

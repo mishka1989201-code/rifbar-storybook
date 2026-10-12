@@ -278,3 +278,44 @@ button.ds-table-row-client__link:hover,
 .ds-table-row-client--history .ds-table-row-client__link {
   text-decoration: underline;
 }
+
+/* Calls layout (Figma Table Row 16 / 3, client page → Call records): phone icon + seller, phone, date, duration, date, play / result. */
+.ds-table-row-client--calls {
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.ds-table-row-client__main {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  /* The play button (37px) sets the Figma row height of 61px, also for rows that show a result instead. */
+  min-height: var(--size-control-sm);
+}
+
+.ds-table-row-client--calls .ds-table-row-client__name { gap: var(--spacing-6); }
+.ds-table-row-client--calls .ds-table-row-client__link { text-decoration: underline; }
+
+.ds-table-row-client__call-day { width: 80px; text-align: right; }
+.ds-table-row-client__duration { width: 66px; text-align: right; }
+
+.ds-table-row-client__call-icon { flex: none; }
+.ds-table-row-client__call-icon--answered { color: var(--table-row-call-answered); }
+.ds-table-row-client__call-icon--missed { color: var(--table-row-call-missed); }
+
+.ds-table-row-client__call-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 119px;
+}
+
+.ds-table-row-client__call-result { color: var(--table-row-call-result); }
+
+/* The open player fills the card edge to edge under the row (Figma Play Actions Menu). */
+.ds-table-row-client__player {
+  flex: 1 1 100%;
+  margin: var(--spacing-12) calc(-1 * var(--spacing-16)) calc(-1 * var(--spacing-12));
+}

@@ -16,8 +16,12 @@ export interface TableRowClientGroup {
  * `default` — Figma `Table Row 14`: company, phone, email, two dates.
  * `management` — Figma `Table Row 15` (Clients → All clients): company, phone, group, status, two dates.
  * `history` — Figma `Table Row 25` (client page → Last updates): ID, name, status, call date, change date; no buttons.
+ * `calls` — Figma `Table Row 16` (client page → Call records): call icon + seller, phone, date, duration, date, play button or result text; opens a player under the row.
  */
-export type TableRowClientLayout = 'default' | 'management' | 'history';
+export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls';
+
+/** `calls` layout: `answered` draws the green phone_callback icon (Figma `Table Row 16`), `missed` the blue phone_forwarded one (`Table Row 3`). */
+export type TableRowClientCallState = 'answered' | 'missed';
 
 export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   /** Client name (Semi-Bold). Becomes a link when `nameHref` or `onNameClick` is set. */
@@ -34,6 +38,18 @@ export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>
   callDate?: ReactNode;
   /** `history` layout only: date of the change (Figma `Change date`, right-aligned in 110px). */
   changeDate?: ReactNode;
+  /** `calls` layout only: which phone icon is drawn before the name. */
+  callState?: TableRowClientCallState;
+  /** `calls` layout only: length of the call, e.g. “00:02:30” (right-aligned, 66px). */
+  duration?: ReactNode;
+  /** `calls` layout only: text instead of the buttons for a call that has no recording, e.g. “cancel”, “busy”, “no day limit” (Headlines). */
+  callResult?: ReactNode;
+  /** `calls` layout only: the dark play button of a recording. */
+  onPlay?: () => void;
+  /** `calls` layout only: while `player` is shown the play button turns into the light close button. */
+  onClose?: () => void;
+  /** `calls` layout only: the player under the row (Figma `Table Row 16` open), e.g. `<AudioPlayer embedded />`. */
+  player?: ReactNode;
   company?: ReactNode;
   phone?: ReactNode;
   /** `default` layout only. */
@@ -88,6 +104,12 @@ export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>
 export function TableRowClient({
   layout = 'default',
   index,
+  callState = 'answered',
+  duration,
+  callResult,
+  onPlay,
+  onClose,
+  player,
   callDate,
   changeDate,
   group,
@@ -129,6 +151,7 @@ export function TableRowClient({
     forceNameHover && 'is-name-hover',
     layout === 'management' && 'ds-table-row-client--management',
     layout === 'history' && 'ds-table-row-client--history',
+    layout === 'calls' && 'ds-table-row-client--calls',
     attention && 'is-attention',
     dismissed && 'is-tooltip-dismissed',
     className,
@@ -158,7 +181,23 @@ export function TableRowClient({
           </span>
         </span>
       )}
+      {layout === 'calls' && (
+        <Icon name={callState === 'missed' ? 'phone-forwarded' : 'phone-callback'} size={16} color="current" className={`ds-table-row-client__call-icon ds-table-row-client__call-icon--${callState}`} />
+      )}
       {nameNode}
+    </div>
+  );
+
+  // Figma `Buttons`: the dark play button; while the player is open it is the light close button; a call without a recording shows its result.
+  const callActionsCell = (
+    <div role="cell" className="ds-table-row-client__cell ds-table-row-client__call-actions">
+      {player && onClose ? (
+        <Button variant="light" iconOnly="xmark" iconSize={16} aria-label="Close player" onClick={onClose} />
+      ) : onPlay ? (
+        <Button variant="dark" iconOnly="play" iconSize={16} aria-label="Play recording" onClick={onPlay} />
+      ) : (
+        <span className="ds-table-row-client__call-result">{callResult}</span>
+      )}
     </div>
   );
 
@@ -210,7 +249,19 @@ export function TableRowClient({
       }}
       {...rest}
     >
-      {layout === 'history' ? (
+      {layout === 'calls' ? (
+        <>
+          <div className="ds-table-row-client__main">
+            {nameCell}
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__phone">{phone}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__call-day">{callDate}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__duration">{duration}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{updated}</div>
+            {callActionsCell}
+          </div>
+          {player && <div className="ds-table-row-client__player">{player}</div>}
+        </>
+      ) : layout === 'history' ? (
         <>
           <div className="ds-table-row-client__lead">
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__index">{index}</div>

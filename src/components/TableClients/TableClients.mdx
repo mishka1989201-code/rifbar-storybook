@@ -36,6 +36,10 @@ the assumptions are in the [TableRowClient](?path=/docs/molecules-tablerowclient
 
 <Canvas of={TableClientsStories.History} />
 
+`layout="calls"` is the *Call records* table of the client page (Figma `Table Header 5` + `Table Row 16`): `CALLS_CLIENTS_COLUMNS` = Seller, Phone, Date, Time, Updated, Actions. A row opens a player under it (`player`, `onClose`); calls without a recording show `callResult`. See [TableRowClient](?path=/docs/molecules-tablerowclient--docs).
+
+<Canvas of={TableClientsStories.Calls} />
+
 ## When to use
 
 - ✅ A list of clients with sorting by column.
