@@ -34,7 +34,7 @@ group, status) and shows **one** date — `joined` (Figma draws a single date; w
 
 <Canvas of={TableClientsStories.HistoryCards} />
 
-**Calls cards** — with `layout="calls"` the cards view draws `TableRowClient layout="calls-card"`. Figma draws no narrow Call records, so this is AI-defined: the values wrap in a card, the play button (or the result text) sits under them at the right, the player fills the card.
+**Calls cards** — with `layout="calls"` the cards view draws `TableRowClient layout="calls-card"`. Figma Call records at 480 / 360px: the name, phone, date and time wrap in a card, the play button (or the result text) sits under them at the right, the player fills the card; the `Updated` date is not drawn. At 768px Figma keeps the table but leaves the `Updated` column out: `columns={CALLS_CLIENTS_COLUMNS_NO_UPDATED}` and `showUpdated: false` on the rows.
 
 <Canvas of={TableClientsStories.CallsCards} />
 
