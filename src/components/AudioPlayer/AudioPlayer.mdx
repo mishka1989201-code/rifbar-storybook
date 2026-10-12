@@ -47,6 +47,10 @@ Implements the Figma frame [`Player - Time Tracker`](https://www.figma.com/desig
 <Canvas of={AudioPlayerStories.Narrow} />
 <Canvas of={AudioPlayerStories.AllVariants} />
 
+## Narrow card (added 2026-10-12)
+
+`embedded` is also used inside the `calls-card` rows (768px and below, AI-defined — Figma draws the player only in the wide row): the timeline shrinks with the card (`flex: 1 1` with the 211px token as the maximum) and, in a card narrower than 380px, the volume slider is hidden (the speaker button stays). The wide row is unchanged. No new tokens.
+
 ## Figma notes
 
 - **Assets:** the Figma asset URLs (visualizer, timelines, icons) returned 403 through the proxy, so the shapes are drawn in CSS from the render. The bar heights (`DEFAULT_PLAYER_LEVELS`, 32 bars) and the 8px handle were measured on the Figma screenshot; the icons are the existing `pause` / `play` / `volume-up` at 32px.

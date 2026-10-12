@@ -224,6 +224,23 @@ export const HistoryCards: Story = {
   decorators: [(Story) => <div style={{ maxWidth: 320 }}><Story /></div>],
 };
 
+const CALL = { phone: '+44 32 567 8473', callDate: '06.17.2022', duration: '00:02:30', updated: '07.23.2023', onNameClick: () => undefined };
+export const CallsCards: Story = {
+  name: 'Calls cards (768px and below)',
+  args: {
+    layout: 'calls',
+    view: 'cards',
+    label: 'Call records',
+    rows: [
+      { id: 1, name: 'Mickey Herman', ...CALL, onClose: () => undefined, player: <AudioPlayer embedded /> },
+      { id: 2, name: 'Dave Filoni', ...CALL, onPlay: () => undefined },
+      { id: 3, name: 'Justin Ridge', ...CALL, callState: 'missed', updated: undefined, callResult: 'cancel' },
+    ],
+  },
+  parameters: { docs: { description: { story: 'AI-defined (Figma draws no narrow Call records): `TableRowClient layout="calls-card"` in a `CardGrid`.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 416 }}><Story /></div>],
+};
+
 export const HistoryNoHeader: Story = {
   name: 'History without header (768px)',
   args: { ...History.args, header: false },
@@ -231,7 +248,6 @@ export const HistoryNoHeader: Story = {
 };
 
 // ─── CALLS LAYOUT (Figma: client page → Call records) ────────────────────────
-const CALL = { phone: '+44 32 567 8473', callDate: '06.17.2022', duration: '00:02:30', updated: '07.23.2023', onNameClick: () => undefined };
 export const Calls: Story = {
   args: {
     layout: 'calls',

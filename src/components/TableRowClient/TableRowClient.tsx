@@ -18,9 +18,10 @@ export interface TableRowClientGroup {
  * `history` — Figma `Table Row 25` (client page → Last updates): ID, name, status, call date, change date; no buttons.
  * `calls` — Figma `Table Row 16` (client page → Call records): call icon + seller, phone, date, duration, date, play button or result text; opens a player under the row.
  * `card` — Figma `Card Row` of Clients → All clients (768px and below): the values of `management` wrap into a white card (name, company, phone, group, status, date), the buttons sit under them, right-aligned.
+ * `calls-card` — `calls` at 768px and below (AI-defined, Figma draws no narrow Call records): the seller, phone, date, duration and updated date wrap in a card, the play button / result at the right, the player under it.
  * `history-card` — Figma `Table Row` of Last updates at 480 / 360px: ID, then name, status and the two dates in one wrapping line (the dates drop under the name when they do not fit).
  */
-export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls' | 'card' | 'history-card';
+export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls' | 'card' | 'history-card' | 'calls-card';
 
 /** `calls` layout: `answered` draws the green phone_callback icon (Figma `Table Row 16`), `missed` the blue phone_forwarded one (`Table Row 3`). */
 export type TableRowClientCallState = 'answered' | 'missed';
@@ -156,6 +157,8 @@ export function TableRowClient({
     layout === 'calls' && 'ds-table-row-client--calls',
     layout === 'card' && 'ds-table-row-client--card',
     layout === 'history-card' && 'ds-table-row-client--history-card',
+    layout === 'calls-card' && 'ds-table-row-client--calls-card',
+    layout === 'calls-card' && player && 'has-player',
     attention && 'is-attention',
     dismissed && 'is-tooltip-dismissed',
     className,
@@ -185,7 +188,7 @@ export function TableRowClient({
           </span>
         </span>
       )}
-      {layout === 'calls' && (
+      {(layout === 'calls' || layout === 'calls-card') && (
         <Icon name={callState === 'missed' ? 'phone-forwarded' : 'phone-callback'} size={16} color="current" className={`ds-table-row-client__call-icon ds-table-row-client__call-icon--${callState}`} />
       )}
       {nameNode}
@@ -263,6 +266,18 @@ export function TableRowClient({
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{updated}</div>
             {callActionsCell}
           </div>
+          {player && <div className="ds-table-row-client__player">{player}</div>}
+        </>
+      ) : layout === 'calls-card' ? (
+        <>
+          <div className="ds-table-row-client__info">
+            {nameCell}
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__phone">{phone}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__call-day">{callDate}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__duration">{duration}</div>
+            {updated && <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{updated}</div>}
+          </div>
+          {callActionsCell}
           {player && <div className="ds-table-row-client__player">{player}</div>}
         </>
       ) : layout === 'history' ? (

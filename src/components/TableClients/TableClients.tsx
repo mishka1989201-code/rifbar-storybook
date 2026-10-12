@@ -18,7 +18,7 @@ export interface TableClientsProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   rows?: TableClientsItem[];
   /** `management` = Figma `Table Row 15` (company, phone, group, status, two dates); `history` = Figma `Table Row 25` (ID, name, status, call date, change date); `calls` = Figma `Table Row 16` (seller, phone, date, time, updated, actions). Picks the default columns and the row layout. */
   layout?: TableRowClientLayout;
-  /** `table` (header + rows) or `cards` (Figma `Cards Line`, 768px and below: a grid of `TableRowClient layout="card"`, no header). `cards` is for `management` rows (and `history` rows, drawn as `history-card`). */
+  /** `table` (header + rows) or `cards` (Figma `Cards Line`, 768px and below: a grid of `TableRowClient layout="card"`, no header). `cards` is for `management` rows (`history` rows are drawn as `history-card`, `calls` rows as `calls-card`). */
   view?: 'table' | 'cards';
   /** Draws the header row (default). Figma `Last updates` at 768px has none. `table` view only. */
   header?: boolean;
@@ -119,7 +119,7 @@ export function TableClients({
       <div className="ds-table-clients__scroll">
         {view === 'cards' ? (
           <CardGrid className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
-            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout={layout === 'history' ? 'history-card' : 'card'} {...cells} />)}
+            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout={layout === 'history' ? 'history-card' : layout === 'calls' ? 'calls-card' : 'card'} {...cells} />)}
           </CardGrid>
         ) : (
           <div className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
