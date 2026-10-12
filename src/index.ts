@@ -106,3 +106,4 @@ export * from './components/FileDropzone';
 export * from './components/BarcodeSettings';
 export * from './components/ConfirmModal';
 export * from './components/Dropdown';
+export * from './components/DiscountModal';
