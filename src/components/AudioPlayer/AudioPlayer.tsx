@@ -20,6 +20,8 @@ export interface AudioPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   duration?: number;
   /** Playing: the button shows “pause”; otherwise “play”. Figma draws the playing state. */
   playing?: boolean;
+  /** Drawn inside a table row (Figma `Time Tracker` of `Table Row 16`): no radius and no shadow of its own, and one controls row — play / pause, time + timeline, volume. */
+  embedded?: boolean;
   /** Volume 0–1. */
   volume?: number;
   /** Called when the play / pause button is pressed. */
@@ -44,6 +46,7 @@ export function AudioPlayer({
   currentTime = 1,
   duration = 150,
   playing = true,
+  embedded = false,
   volume = 0.25,
   onPlayPause,
   onSeek,
@@ -51,7 +54,7 @@ export function AudioPlayer({
   className,
   ...rest
 }: AudioPlayerProps) {
-  const classes = ['ds-audio-player', className].filter(Boolean).join(' ');
+  const classes = ['ds-audio-player', embedded && 'ds-audio-player--embedded', className].filter(Boolean).join(' ');
   const progress = duration > 0 ? Math.min(1, Math.max(0, currentTime / duration)) : 0;
 
   return (

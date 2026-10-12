@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { AudioPlayer } from '../AudioPlayer';
 import { CallMenu } from '../CallMenu';
 import { ChevronStatus } from '../ChevronStatus';
 import { TableRowClient } from './TableRowClient';
@@ -182,6 +183,35 @@ export const History: Story = {
   parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=55-16581' }, docs: { description: { story: 'Figma `Table Row 25`: ID, name, status, call date, change date; no buttons.' } } },
 };
 
+// ─── CALLS LAYOUT (Figma: Table Row 16 / 2 / 3, client page → Call records) ──
+const callsArgs = {
+  layout: 'calls' as const,
+  name: 'Dave Filoni',
+  onNameClick: () => undefined,
+  phone: '+44 32 567 8473',
+  callDate: '06.17.2022',
+  duration: '00:02:30',
+  updated: '07.23.2023',
+};
+const CALLS_DESIGN = { design: { type: 'figma' as const, url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=5339-218843' } };
+
+export const Calls: Story = {
+  args: { ...callsArgs, onPlay: () => undefined },
+  parameters: { ...CALLS_DESIGN, docs: { description: { story: 'Figma `Table Row 2`: green phone icon, seller, phone, date, duration, date and the dark play button.' } } },
+};
+
+export const CallsPlayerOpen: Story = {
+  name: 'Calls — player open',
+  args: { ...callsArgs, name: 'Mickey Herman', onClose: () => undefined, player: <AudioPlayer embedded /> },
+  parameters: { ...CALLS_DESIGN, docs: { description: { story: 'Figma `Table Row 16` + `Time Tracker`: while `player` is set the play button is the light close button and the player fills the card under the row.' } } },
+};
+
+export const CallsMissed: Story = {
+  name: 'Calls — no recording',
+  args: { ...callsArgs, name: 'Justin Ridge', callState: 'missed', updated: undefined, callResult: 'cancel' },
+  parameters: { ...CALLS_DESIGN, docs: { description: { story: 'Figma `Table Row 3` / `4` / `6`: blue forwarded icon and the result (`cancel`, `busy`, `no day limit`) in Headlines instead of the button. The second date is not drawn there (assumed empty).' } } },
+};
+
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
 export const LongText: Story = {
   name: 'Long text',
@@ -214,6 +244,9 @@ export const AllVariants: Story = {
       <TableRowClient {...args} onDelete={() => undefined} onCall={() => undefined} onNotes={() => undefined} />
       <TableRowClient {...args} {...managementArgs} attention />
       <TableRowClient {...args} layout="history" index={1} onNameClick={() => undefined} status={<ChevronStatus color="dark">Not interested</ChevronStatus>} callDate="08.24.2023" changeDate="08.24.2023" />
+      <TableRowClient {...args} {...callsArgs} onPlay={() => undefined} />
+      <TableRowClient {...args} {...callsArgs} callState="missed" updated={undefined} callResult="busy" />
+      <TableRowClient {...args} {...callsArgs} name="Mickey Herman" onClose={() => undefined} player={<AudioPlayer embedded />} />
       <TableRowClient {...args} {...managementArgs} group={{ label: 'Small Distrib.', color: 'teal' }} status={<ChevronStatus color="primary">Active</ChevronStatus>} />
       <div style={{ paddingBottom: 200 }}>
         <TableRowClient {...args} forceHover onDelete={() => undefined} onCall={() => undefined} tooltipTitle="Detailed information" tooltip={tooltipBody} />

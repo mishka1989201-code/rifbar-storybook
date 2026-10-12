@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { AudioPlayer } from '../AudioPlayer';
 import { CallMenu } from '../CallMenu';
 import { ChevronStatus } from '../ChevronStatus';
 import { TableClients, type TableClientsItem } from './TableClients';
@@ -183,4 +184,22 @@ export const History: Story = {
     })),
   },
   parameters: { docs: { description: { story: 'Figma `Table Header` + `Table Row 25..28` of `Last updates`: ID and name packed, status, call date, change date.' } } },
+};
+
+// ─── CALLS LAYOUT (Figma: client page → Call records) ────────────────────────
+const CALL = { phone: '+44 32 567 8473', callDate: '06.17.2022', duration: '00:02:30', updated: '07.23.2023', onNameClick: () => undefined };
+export const Calls: Story = {
+  args: {
+    layout: 'calls',
+    label: 'Call records',
+    rows: [
+      { id: 1, name: 'Mickey Herman', ...CALL, onClose: () => undefined, player: <AudioPlayer embedded /> },
+      { id: 2, name: 'Dave Filoni', ...CALL, onPlay: () => undefined },
+      { id: 3, name: 'Justin Ridge', ...CALL, callState: 'missed', updated: undefined, callResult: 'cancel' },
+      { id: 4, name: 'Jennifer Corbett', ...CALL, callState: 'missed', updated: undefined, callResult: 'busy' },
+      { id: 5, name: 'Gennady Tartakov', ...CALL, onPlay: () => undefined },
+      { id: 6, name: 'Deborah Chow', ...CALL, callState: 'missed', updated: undefined, callResult: 'no day limit' },
+    ],
+  },
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=5339-218843' }, docs: { description: { story: 'Figma `Table Header 5` + rows of `Call records`: `CALLS_CLIENTS_COLUMNS` = Seller, Phone, Date, Time, Updated, Actions; the first row has its player open.' } } },
 };

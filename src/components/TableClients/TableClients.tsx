@@ -6,7 +6,7 @@ import './TableClients.css';
 /** One row of the table; fields map 1:1 to `TableRowClient`. */
 export interface TableClientsItem extends Pick<
   TableRowClientProps,
-  'index' | 'callDate' | 'changeDate' | 'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'group' | 'status' | 'joined' | 'updated' | 'attention' | 'source' | 'actionLabel' | 'onAction' | 'onDelete' | 'onCall' | 'onNotes' | 'deleteTooltip' | 'notesTooltip' | 'callMenu' | 'tooltip' | 'tooltipTitle'
+  'index' | 'callState' | 'duration' | 'callResult' | 'onPlay' | 'onClose' | 'player' | 'callDate' | 'changeDate' | 'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'group' | 'status' | 'joined' | 'updated' | 'attention' | 'source' | 'actionLabel' | 'onAction' | 'onDelete' | 'onCall' | 'onNotes' | 'deleteTooltip' | 'notesTooltip' | 'callMenu' | 'tooltip' | 'tooltipTitle'
 > {
   id: string | number;
 }
@@ -15,7 +15,7 @@ export type TableClientsStatus = 'ready' | 'loading' | 'error';
 
 export interface TableClientsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSort'> {
   rows?: TableClientsItem[];
-  /** `management` = Figma `Table Row 15` (company, phone, group, status, two dates); `history` = Figma `Table Row 25` (ID, name, status, call date, change date). Picks the default columns and the row layout. */
+  /** `management` = Figma `Table Row 15` (company, phone, group, status, two dates); `history` = Figma `Table Row 25` (ID, name, status, call date, change date); `calls` = Figma `Table Row 16` (seller, phone, date, time, updated, actions). Picks the default columns and the row layout. */
   layout?: TableRowClientLayout;
   /** Header cells; defaults to `DEFAULT_CLIENTS_COLUMNS` (or `MANAGEMENT_CLIENTS_COLUMNS`), aligned with the row cells. */
   columns?: TableHeaderColumn[];
@@ -73,13 +73,27 @@ export const HISTORY_CLIENTS_COLUMNS: TableHeaderColumn[] = [
 ];
 
 /**
+ * Figma `Table Header 5` of `Call records` (client page), aligned with `TableRowClient layout="calls"`. Figma draws four labels
+ * over five cells and places them unaligned with the rows (a drawing slip); here every label sits over its own column.
+ * The second date column is named `Updated` (AI-defined, needs confirmation).
+ */
+export const CALLS_CLIENTS_COLUMNS: TableHeaderColumn[] = [
+  { id: 'seller', label: 'Seller', width: 170, sortable: true },
+  { id: 'phone', label: 'Phone', width: 150, sortable: true },
+  { id: 'date', label: 'Date', width: 80, align: 'end', sortable: true },
+  { id: 'time', label: 'Time', width: 66, align: 'end', sortable: true },
+  { id: 'updated', label: 'Updated', width: 119, align: 'end', sortable: true },
+  { id: 'actions', label: 'Actions', width: 119, align: 'end' },
+];
+
+/**
  * Figma `Table/Row & Header`: the transparent `TableHeader` on top of `TableRowClient` cards, 8px apart.
  * In a container narrower than the columns the table scrolls horizontally.
  */
 export function TableClients({
   rows = [],
   layout = 'default',
-  columns = layout === 'management' ? MANAGEMENT_CLIENTS_COLUMNS : layout === 'history' ? HISTORY_CLIENTS_COLUMNS : DEFAULT_CLIENTS_COLUMNS,
+  columns = layout === 'management' ? MANAGEMENT_CLIENTS_COLUMNS : layout === 'history' ? HISTORY_CLIENTS_COLUMNS : layout === 'calls' ? CALLS_CLIENTS_COLUMNS : DEFAULT_CLIENTS_COLUMNS,
   onSort,
   status = 'ready',
   emptyText = 'No clients.',

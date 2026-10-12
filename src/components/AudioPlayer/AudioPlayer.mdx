@@ -21,6 +21,7 @@ Implements the Figma frame [`Player - Time Tracker`](https://www.figma.com/desig
 | “00:01 / 02:30” (Light Headings/h7, Headlines) | `currentTime`, `duration` | `mm:ss` |
 | `timeline` (211px, Headlines) | `input[type=range]` `--timeline` | `onSeek` |
 | `solid/pause` 32px | play / pause button | `playing`, `onPlayPause` |
+| Time Tracker inside `Table Row 16` (no radius / shadow; one row: pause · time + timeline 211px · volume) | `embedded` |
 | `timeline` 41px + `solid/volume_up` 32px | `input[type=range]` `--volume` + `Icon volume-up` | `volume`, `onVolumeChange` |
 
 ## When to use
@@ -72,6 +73,7 @@ Implements the Figma frame [`Player - Time Tracker`](https://www.figma.com/desig
 | `--size-player-bar` | bar width, min bar height | `4px` | **New** · Figma: Visualizer bar (measured) |
 | `--size-player-handle` | range handle | `8px` | **New** · Figma: timeline handle (measured) |
 | `--size-player-volume-width` | volume range | `41px` | **New** · Figma: volume timeline 41px |
+| `--size-player-timeline-width` | timeline of `embedded` | `211px` | **New** · Figma: Time Tracker (Table Row 16) → timeline 211px |
 | `--size-player-control` | pause / volume icon frame | `32px` | **New** · Figma: icon frame 32×32 |
 | `--radius-pill` / `--radius-round` / `--radius-sm` | bars, track / handle / button focus | — | Existing tokens.json · AI-defined use: fully rounded shapes |
 | `--shadow-focus` | focus ring | `0 0 4px 0 rgba(98,104,223,.7)` | AI-defined use: Figma has no focus; same as IconButton / Slider |

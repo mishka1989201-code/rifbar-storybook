@@ -123,7 +123,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   IconButton (`size` sm), ImageCard, InputField (Input / Filter / Text / Color), Logo, NoRowsTable, PlayButton, Scrollbar (content + dropdown), SearchField,
   Slider, SwitchButton, Switcher, Tabs, Toggle, TooltipBordered
 - **Molecules** (navigation / layout): BreadCrumbs, CardGrid, LogoBar, NavbarMenu, PageHeader (`size` compact), Pagination (`size` sm, `siblingCount` v1 / v2), PaginationBar (`stacked`, `flat`), TabsHeader, UserDropdown,
-  ViewSwitch, ShowSelect, SwitchGroup
+  ViewSwitch, ShowSelect, SwitchGroup, RegionSwitch (US / EU, header)
 - **Molecules** (cards / info): Accordion, CardHeader, CardRow, CardStrokeRow, CategoryCard, ChartLegendItem, ClientDetails, DepartmentItem,
   DepartmentSection, DocumentCard, InfoBlock (info / ticket / details / form), InfoClient, InfoRowCard, InfoTable, NoteCard, OrderCard,
   ProductCard, RowInfoBlock, SelectProducts, StatCard, StepCard
@@ -132,8 +132,8 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
 - **Molecules** (chat / feedback): AlertRow, CallMenu, ChatHeader, ChatMessage, Notification, NotificationLine
 - **Molecules** (time / media): AudioPlayer, TimePicker, TimeScale, TimeTrackerBar, TimeTrackerDate, TimeTrackerTitle
 - **Molecules** (tables): TableActionsRow, TableHeader (presets incl. `productsAnalytics`, `paymentsAnalytics`), TableProductsHeader,
-  TableProductsRow, TableRowAnalytics, TableRowClient, TableRowExpandable, TableRowOrder (row / card), TableToolbar (desktop / compact), TableRowMobile, TableRowQuantity, TotalRow
-- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient), TableOrders (TableHeader `orders` + TableRowOrder; `layout` table / cards), Navbar (LogoBar + NavbarMenu + UserDropdown), TimeTracker (TimeTrackerBar + stats + TimeScale), WelcomeCard (AlertRow rows + dark header), FilterMenu (FilterChevron chips + CheckListModal / Modal + DatePicker sections), ProductDetailCard (picture + RowInfoBlock rows + description + actions), ProductFormModal (Modal 480 / 360 + fields + image block), ScheduledCallCard (CardHeader + FilterField date + Refresh),
+  TableProductsRow, TableRowAnalytics, TableRowClient (`calls` layout + player slot), TableRowExpandable, TableRowOrder (row / card), TableToolbar (desktop / compact), TableRowMobile, TableRowQuantity, TotalRow
+- **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient; `layout` management / history / calls), TableOrders (TableHeader `orders` + TableRowOrder; `layout` table / cards), Navbar (LogoBar + NavbarMenu + UserDropdown), TimeTracker (TimeTrackerBar + stats + TimeScale), WelcomeCard (AlertRow rows + dark header), FilterMenu (FilterChevron chips + CheckListModal / Modal + DatePicker sections), ProductDetailCard (picture + RowInfoBlock rows + description + actions), ProductFormModal (Modal 480 / 360 + fields + image block), ScheduledCallCard (CardHeader + FilterField date + Refresh),
   DatePicker (Button + TimePicker; date / date-time / today / range)
 - **Prototypes** live in a separate repository: [`rifbar-prototypes`](https://github.com/mishka1989201-code/rifbar-prototypes) (Vite app that imports this library as `rifbar-ds` pinned to a git tag). Not part of this repo any more.
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens, Favicons
