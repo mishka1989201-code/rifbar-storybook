@@ -38,6 +38,11 @@
   color: var(--card-header-violet-fg);
 }
 
+.ds-card-header__badge--indigo {
+  background: var(--card-header-indigo-bg);
+  color: var(--card-header-indigo-fg);
+}
+
 .ds-card-header__badge--warning {
   background: var(--color-warning-tint);
   color: var(--color-warning);

@@ -9,9 +9,10 @@ export interface CardHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 't
   icon?: IconName;
   /**
    * Badge colour: `blue` (Figma Row.HeaderCard), `violet` (Figma TicketInfo/v1: violet tint, Violet Icons icon),
+   * `indigo` (Figma `Last updates` of the client page: #C9CEF8 with a Headlines glyph),
    * `warning` / `success` (Figma scheduled-call-menu: Warning / Green Light at 22% with a matching icon).
    */
-  tone?: 'blue' | 'violet' | 'warning' | 'success';
+  tone?: 'blue' | 'violet' | 'indigo' | 'warning' | 'success';
   /** Optional content pushed to the right edge (toggle, buttons…). Not in the Figma frame. */
   actions?: ReactNode;
 }
