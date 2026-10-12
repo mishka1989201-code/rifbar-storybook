@@ -272,3 +272,9 @@ button.ds-table-row-client__link:hover,
 .ds-table-row-client__change-date { width: 110px; text-align: right; }
 
 .ds-table-row-client--history .ds-table-row-client__name { flex: none; }
+
+/* Management and history layouts (Figma Table Row 15 / 25): the name is underlined at rest, not only on hover. */
+.ds-table-row-client--management .ds-table-row-client__link,
+.ds-table-row-client--history .ds-table-row-client__link {
+  text-decoration: underline;
+}
