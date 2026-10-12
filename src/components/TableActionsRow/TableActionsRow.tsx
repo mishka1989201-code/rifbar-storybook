@@ -41,7 +41,7 @@ export function TableActionsRow({
           <Button
             variant="dark"
             iconLeft="export"
-            aria-haspopup={exportMenu ? 'menu' : undefined}
+            aria-haspopup={exportMenu ? 'listbox' : undefined}
             aria-expanded={exportMenu ? exportOpen : undefined}
             onClick={onExport}
           >
