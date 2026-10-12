@@ -475,112 +475,118 @@
       "frame": "17-5741"
     },
     "mail": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/mail",
       "node": "4627:277906",
       "frame": "6989-21787"
     },
     "plus-box": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/plus",
       "node": "4636:587426",
       "frame": "6989-21787"
     },
     "finance": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/finance",
       "node": "4684:209197",
       "frame": "6989-21787"
     },
     "play": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/play_arrow",
       "node": "5340:244963",
       "frame": "6989-21787"
     },
     "stop": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/stop",
       "node": "5340:244964",
       "frame": "6989-21787"
     },
     "volume-up": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/volume_up",
       "node": "5346:1491664",
       "frame": "6989-21787"
     },
     "pause": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/pause",
       "node": "5346:1491888",
       "frame": "6989-21787"
     },
     "phone-callback": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/phone_callback",
       "node": "5353:1492827",
       "frame": "6989-21787"
     },
     "phone-forwarded": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/phone_forwarded",
       "node": "5353:1492828",
       "frame": "6989-21787"
     },
     "output-circle": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/output_circle",
       "node": "5522:302784",
       "frame": "6989-21787"
     },
     "delete": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/delete",
       "node": "5588:36076",
       "frame": "6989-21787"
     },
     "arrow-right": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/arrow_right",
       "node": "5593:270439",
       "frame": "6989-21787"
     },
     "tune": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/outlined/tune",
       "node": "5598:620998",
       "frame": "6989-21787"
     },
     "forward": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/Forward",
       "node": "5647:269637",
       "frame": "6989-21787"
     },
     "badge": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/badge",
       "node": "6175:563337",
       "frame": "6989-21787"
     },
     "shield-person": {
-      "group": "Icons 16px · solid",
+      "group": "Icons 16px \u00b7 solid",
       "figma": "icons/16px/solid/shield_person",
       "node": "6180:76577",
       "frame": "6989-21787"
     },
     "dollar": {
-      "group": "Icons 16px · solid",
-      "figma": "icons/16px/solid/shield_person (layer is misnamed in Figma — it is a dollar sign)",
+      "group": "Icons 16px \u00b7 solid",
+      "figma": "icons/16px/solid/shield_person (layer is misnamed in Figma \u2014 it is a dollar sign)",
       "node": "6312:313723",
       "frame": "6989-21787"
     },
     "whatsapp": {
       "group": "Icons 16px",
-      "figma": "WhatsApp (tooltip-call → Frame; the asset could not be downloaded, drawn by hand — needs designer confirmation)",
+      "figma": "WhatsApp (tooltip-call \u2192 Frame; the asset could not be downloaded, drawn by hand \u2014 needs designer confirmation)",
       "node": "5318:243570",
       "frame": "5318-243514"
+    },
+    "checkbox-checked": {
+      "group": "Icons 16px",
+      "figma": "AI-defined: checked checkbox (Checkbox atom shape, 16px)",
+      "node": "",
+      "frame": ""
     }
   },
   "24": {
@@ -807,25 +813,25 @@
       "frame": "6-9039"
     },
     "finance": {
-      "group": "Icons 24px · solid",
+      "group": "Icons 24px \u00b7 solid",
       "figma": "icons/24px/solid/finance",
       "node": "4626:246522",
       "frame": "6989-21788"
     },
     "plus-box": {
-      "group": "Icons 24px · solid",
+      "group": "Icons 24px \u00b7 solid",
       "figma": "icons/24px/solid/plus",
       "node": "4684:236770",
       "frame": "6989-21788"
     },
     "phone": {
-      "group": "Icons 24px · solid",
+      "group": "Icons 24px \u00b7 solid",
       "figma": "icons/24px/solid/phone2",
       "node": "5318:243492",
       "frame": "6989-21788"
     },
     "arrow-circle-left": {
-      "group": "Icons 24px · solid",
+      "group": "Icons 24px \u00b7 solid",
       "figma": "icons/24px/solid/arrow_circle_left",
       "node": "6278:253418",
       "frame": "6989-21788"

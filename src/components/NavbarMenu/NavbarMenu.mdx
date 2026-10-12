@@ -49,6 +49,10 @@ so they are **one component** with `size` and `collapsed`.
 <Canvas of={NavbarMenuStories.MiddleTabActive} />
 <Canvas of={NavbarMenuStories.ExpandedItem} />
 <Canvas of={NavbarMenuStories.WithSubTabs} />
+
+Figma `Admin` (Departments - Edit, 1920px): when `value` is the id of a sub-tab of an `expanded` group, the group itself stays filled (Hover Blue, white Medium) and the sub-tab is drawn Hover Blue Light, Medium. Only the sub-tab gets `aria-current`.
+
+<Canvas of={NavbarMenuStories.AdminGroupOpen} />
 <Canvas of={NavbarMenuStories.WithDisabledTab} />
 <Canvas of={NavbarMenuStories.FewItems} />
 <Canvas of={NavbarMenuStories.Empty} />

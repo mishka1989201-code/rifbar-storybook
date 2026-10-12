@@ -52,3 +52,7 @@
   background-color: var(--button-solid-bg);
   color: var(--button-on-solid);
 }
+
+/* Figma `View Doc Buttons`: a rounded card; with no total the buttons sit at the right. */
+.ds-total-row--card { border-radius: var(--radius-lg); }
+.ds-total-row--actions-only { justify-content: flex-end; }

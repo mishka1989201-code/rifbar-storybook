@@ -22,6 +22,8 @@ export interface TableActionsRowProps extends HTMLAttributes<HTMLDivElement> {
   sort?: ReactNode;
   /** Figma 768px and below: the search field moves under the buttons and fills the width. */
   compact?: boolean;
+  /** Shows the search on the right. Default `true`; the Pending tab draws only Export and Clear. */
+  showSearch?: boolean;
   /** Props passed to the `SearchField` on the right (value, onSearch, placeholder…). */
   searchProps?: Omit<SearchFieldProps, 'size'>;
 }
@@ -41,6 +43,7 @@ export function TableActionsRow({
   filters,
   sort,
   compact = false,
+  showSearch = true,
   searchProps,
   className,
   ...rest
@@ -69,7 +72,7 @@ export function TableActionsRow({
         {filters}
         {sort}
       </div>
-      <SearchField className="ds-table-actions__search" aria-label="Search table" {...searchProps} />
+      {showSearch && <SearchField className="ds-table-actions__search" aria-label="Search table" {...searchProps} />}
     </div>
   );
 }

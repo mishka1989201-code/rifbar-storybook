@@ -19,9 +19,12 @@ export interface TableRowClientGroup {
  * `calls` — Figma `Table Row 16` (client page → Call records): call icon + seller, phone, date, duration, date, play button or result text; opens a player under the row.
  * `card` — Figma `Card Row` of Clients → All clients (768px and below): the values of `management` wrap into a white card (name, company, phone, group, status, date), the buttons sit under them, right-aligned.
  * `calls-card` — `calls` at 480px and below (Figma Call records 480 / 360): the seller, phone, date and duration wrap in a card (no `updated` date), the play button / result at the right, the player under it.
+ * `users` — Figma `Table Row 24` / `15` of `Departments - Edit` (Admin → Departments → Users in department): ID + name, email, department, role, date, red delete button; no `More` button.
+ * `pending` — Clients → All clients → Pending: name, company, phone, email, joined and four icon buttons (reject, approve, call, details), each with a tooltip. AI-defined (no Figma frame yet).
+ * `pending-card` — `pending` at 768px and below: the values wrap in a card, the buttons sit under them, right-aligned.
  * `history-card` — Figma `Table Row` of Last updates at 480 / 360px: ID, then name, status and the two dates in one wrapping line (the dates drop under the name when they do not fit).
  */
-export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls' | 'card' | 'history-card' | 'calls-card';
+export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls' | 'card' | 'history-card' | 'calls-card' | 'users' | 'pending' | 'pending-card';
 
 /** `calls` layout: `answered` draws the green phone_callback icon (Figma `Table Row 16`), `missed` the blue phone_forwarded one (`Table Row 3`). */
 export type TableRowClientCallState = 'answered' | 'missed';
@@ -59,6 +62,10 @@ export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>
   phone?: ReactNode;
   /** `default` layout only. */
   email?: ReactNode;
+  /** `users` layout only: department of the employee (Figma `Department`, 110px). */
+  department?: ReactNode;
+  /** `users` layout only: role of the employee (Figma `Role`, 70px). */
+  userRole?: ReactNode;
   /** `management` layout only: the client group (Figma `Groups`). */
   group?: TableRowClientGroup;
   /** `management` layout only: the status pill, e.g. `<ChevronStatus color="success">Active</ChevronStatus>` (Figma `Status Client`). */
@@ -77,6 +84,17 @@ export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>
   onAction?: () => void;
   /** Adds the red delete button before `More` (Figma `Hover Row in Table`). */
   onDelete?: () => void;
+  /** `pending` layouts: the red “reject registration” button (xmark). */
+  onReject?: () => void;
+  /** `pending` layouts: the dark “approve registration” button (checked checkbox inside). */
+  onApprove?: () => void;
+  /** `pending` layouts: the light “detailed information” button (info icon). */
+  onInfo?: () => void;
+  /** Tooltips of the `pending` buttons on hover / focus. */
+  rejectTooltip?: ReactNode;
+  approveTooltip?: ReactNode;
+  callTooltip?: ReactNode;
+  infoTooltip?: ReactNode;
   /** Adds the dark phone button. */
   onCall?: () => void;
   /** Adds the dark notes button (drawn in the dark frame only). */
@@ -131,6 +149,8 @@ export function TableRowClient({
   company,
   phone,
   email,
+  department,
+  userRole,
   joined,
   updated,
   actionLabel = 'More',
@@ -138,6 +158,13 @@ export function TableRowClient({
   onDelete,
   onCall,
   onNotes,
+  onReject,
+  onApprove,
+  onInfo,
+  rejectTooltip,
+  approveTooltip,
+  callTooltip,
+  infoTooltip,
   tooltip,
   tooltipTitle,
   forceHover = false,
@@ -158,6 +185,9 @@ export function TableRowClient({
     layout === 'management' && 'ds-table-row-client--management',
     layout === 'history' && 'ds-table-row-client--history',
     layout === 'calls' && 'ds-table-row-client--calls',
+    layout === 'users' && 'ds-table-row-client--users',
+    layout === 'pending' && 'ds-table-row-client--pending',
+    layout === 'pending-card' && 'ds-table-row-client--pending-card',
     layout === 'card' && 'ds-table-row-client--card',
     layout === 'history-card' && 'ds-table-row-client--history-card',
     layout === 'calls-card' && 'ds-table-row-client--calls-card',
@@ -211,6 +241,27 @@ export function TableRowClient({
     </div>
   );
 
+  const tipped = (button: ReactNode, tip: ReactNode) => (
+    <span className="ds-table-row-client__action">
+      {button}
+      {tip && (
+        <span className="ds-table-row-client__action-tip">
+          <TooltipBordered position="left" widthMode="fixed" title={tip} />
+        </span>
+      )}
+    </span>
+  );
+
+  // Pending: reject, approve, call and details as icon-only buttons; the tooltips carry the meaning.
+  const pendingActionsCell = (
+    <div role="cell" className="ds-table-row-client__cell ds-table-row-client__actions">
+      {tipped(<Button variant="danger" iconOnly="xmark" iconSize={16} aria-label="Reject user registration" onClick={onReject} />, rejectTooltip)}
+      {tipped(<Button variant="dark" iconOnly="checkbox-checked" iconSize={16} aria-label="Approve user registration" onClick={onApprove} />, approveTooltip)}
+      {tipped(<Button variant="dark" iconOnly="call-v2" iconSize={16} aria-label="Click to call" onClick={onCall} />, callTooltip)}
+      {tipped(<Button variant="light" iconOnly="info" iconSize={16} aria-label="Detailed information" onClick={onInfo} />, infoTooltip)}
+    </div>
+  );
+
   const actionsCell = (
     <div role="cell" className="ds-table-row-client__cell ds-table-row-client__actions">
       {onDelete && (
@@ -239,7 +290,7 @@ export function TableRowClient({
           )}
         </span>
       )}
-      <Button variant="light" iconLeft="info" onClick={onAction}>{actionLabel}</Button>
+      {layout !== 'users' && <Button variant="light" iconLeft="info" onClick={onAction}>{actionLabel}</Button>}
     </div>
   );
 
@@ -281,6 +332,38 @@ export function TableRowClient({
           </div>
           {callActionsCell}
           {player && <div className="ds-table-row-client__player">{player}</div>}
+        </>
+      ) : layout === 'pending' ? (
+        <>
+          {nameCell}
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__company">{company}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__phone">{phone}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__email">{email}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__joined">{joined}</div>
+          {pendingActionsCell}
+        </>
+      ) : layout === 'pending-card' ? (
+        <>
+          <div className="ds-table-row-client__info">
+            {nameCell}
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__company">{company}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__phone">{phone}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__email">{email}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__joined">{joined}</div>
+          </div>
+          {pendingActionsCell}
+        </>
+      ) : layout === 'users' ? (
+        <>
+          <div className="ds-table-row-client__lead">
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__index">{index}</div>
+            {nameCell}
+          </div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__email">{email}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__department">{department}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__role">{userRole}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__joined">{joined}</div>
+          {actionsCell}
         </>
       ) : layout === 'history' ? (
         <>
