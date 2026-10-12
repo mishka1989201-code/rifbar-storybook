@@ -110,7 +110,7 @@ export function TableClients({
   className,
   ...rest
 }: TableClientsProps) {
-  const classes = ['ds-table-clients', `ds-table-clients--${view}`, className].filter(Boolean).join(' ');
+  const classes = ['ds-table-clients', `ds-table-clients--${view}`, `ds-table-clients--${layout}`, className].filter(Boolean).join(' ');
   const message =
     status === 'loading' ? loadingText : status === 'error' ? errorText : rows.length === 0 ? emptyText : null;
 
