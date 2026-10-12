@@ -36,6 +36,7 @@ and [SearchField](?path=/docs/atoms-searchfield--docs); it has no background of 
 <Canvas of={TableActionsRowStories.WithSearchText} />
 <Canvas of={TableActionsRowStories.CustomLabels} />
 <Canvas of={TableActionsRowStories.SearchDisabled} />
+<Canvas of={TableActionsRowStories.ExportMenu} />
 <Canvas of={TableActionsRowStories.NarrowContainer} />
 
 ## Dark theme
@@ -53,6 +54,10 @@ Figma "Dark Molecules Components" → `Actions Dark`: row background `#000000`; 
 The `--color-*` rows above are light values; the dark values come from the Dark theme tokens listed in the last rows.
 
 Button and search colors, radius, typography: see the atom docs. No new tokens.
+
+**Export menu** (Figma [`Export DropDown`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=79-60265)): pass `exportMenu` (a [Dropdown](?path=/docs/molecules-dropdown--docs) with CSV / PDF / Excel)
+and `exportOpen`. Figma draws the menu 4px under the button, left-aligned, with PDF as the hovered row. Not drawn (AI-defined): closing on outside click / Escape and the
+`aria-haspopup` / `aria-expanded` of the button — both are the caller's job (the prototype closes it on outside click, Escape and after a choice).
 
 ## Props
 
