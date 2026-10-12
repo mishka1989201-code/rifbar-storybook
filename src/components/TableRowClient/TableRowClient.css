@@ -252,6 +252,3 @@ button.ds-table-row-client__link:hover,
     transition: none;
   }
 }
-
-/* Management layout: the phone number is right-aligned (Figma Table Row 15). */
-.ds-table-row-client--management .ds-table-row-client__phone { text-align: right; }

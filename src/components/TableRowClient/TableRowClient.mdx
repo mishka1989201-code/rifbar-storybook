@@ -106,7 +106,7 @@ Management layout (Figma `Table Row 15`), AI-defined / needs designer confirmati
 - The `Groups` swatch has two colours in the frame: `#1CAC3B` (Green Groups variable) and `#1C92AC` (raw fill, read from the render). More group colours may exist.
 - The row colours of `status` are not tied to the text: the frame uses Dark, Primary, Secondary, Success, Warning, Danger, Info and Light `ChevronStatus` pills (Not interested, Active, Inactive, Follow up, No answer, Voided, New, Invalid info).
 - Header labels: Figma writes `Joined` over the **second** date column and `Status` over the first date column (a drawing slip: the status pills are further left). The code puts every label over its own column and calls the first date `Updated` (AI-defined).
-- The phone number is right-aligned (as drawn); the header `Phone` is right-aligned too.
+- The phone number is left-aligned in its 150px cell (it starts at the same x as in the frame); the header `Phone` is left-aligned over it (Figma right-aligns it, another drawing slip).
 - Source icon: Figma draws a circle with a down arrow (`output-circle` is matched by look); its colour is read from the render.
 - The `attention` fill stays on hover (the Figma frame draws no hover for it); AI-defined.
 - Dark theme: there is no dark frame of this layout. `attention` uses Warning BG (Dark) and the same Warning border, the swatch border Stroke Button (Dark); group colours do not change.

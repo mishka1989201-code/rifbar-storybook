@@ -52,7 +52,7 @@ export const DEFAULT_CLIENTS_COLUMNS: TableHeaderColumn[] = [
 export const MANAGEMENT_CLIENTS_COLUMNS: TableHeaderColumn[] = [
   { id: 'name', label: 'Name', width: 170, sortable: true },
   { id: 'company', label: 'Company', width: 170, sortable: true },
-  { id: 'phone', label: 'Phone', width: 150, align: 'end', sortable: true },
+  { id: 'phone', label: 'Phone', width: 150, sortable: true },
   { id: 'groups', label: 'Groups', width: 112, sortable: true },
   { id: 'status', label: 'Status', width: 103, align: 'end', sortable: true },
   { id: 'updated', label: 'Updated', width: 80, align: 'end', sortable: true },
