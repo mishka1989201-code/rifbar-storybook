@@ -40,6 +40,11 @@ export const StaticGreenBadge: Story = {
   parameters: { docs: { description: { story: 'Figma `Manager User - Clients - All Clients Tab - Details (Main info)`: the white Static card with the green badge.' } } },
 };
 
+export const Fluid: Story = {
+  args: { fluid: true, value: '03/28/2024 10:23 AM', onRefresh: () => undefined },
+  parameters: { docs: { description: { story: 'Figma 480px and below: the date field and Refresh fill the width.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 440 }}><Story /></div>],
+};
 export const NoDate: Story = { name: 'No date', args: { value: undefined } };
 
 export const NoRefresh: Story = {

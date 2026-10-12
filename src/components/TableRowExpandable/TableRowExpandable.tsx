@@ -3,7 +3,12 @@ import { Icon } from '../Icon';
 import { ImageCard } from '../ImageCard';
 import './TableRowExpandable.css';
 
+/** `row` — Figma `Table Row` (desktop); `card` — Figma `Card` of Custom price at 768px and below: the values wrap, the toggle sits under them. */
+export type TableRowExpandableLayout = 'row' | 'card';
+
 export interface TableRowExpandableProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  /** `row` (default) or `card` (768px and below). */
+  layout?: TableRowExpandableLayout;
   /** Row number. */
   index?: ReactNode;
   /** Product photo URL; without it `ImageCard` shows its placeholder. */
@@ -37,6 +42,7 @@ export interface TableRowExpandableProps extends Omit<HTMLAttributes<HTMLDivElem
  * with photo, product data and a toggle button that opens the row.
  */
 export function TableRowExpandable({
+  layout = 'row',
   index = 1,
   image,
   sale = false,
@@ -55,6 +61,7 @@ export function TableRowExpandable({
 }: TableRowExpandableProps) {
   const classes = [
     'ds-table-row-expandable',
+    layout === 'card' && 'ds-table-row-expandable--card',
     expanded && 'is-active',
     forceHover && 'is-hover',
     disabled && 'is-disabled',
@@ -62,6 +69,40 @@ export function TableRowExpandable({
   ]
     .filter(Boolean)
     .join(' ');
+
+  const toggle = (
+    <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__action">
+      <button
+        type="button"
+        className="ds-table-row-expandable__toggle"
+        aria-expanded={expanded}
+        aria-label={toggleLabel}
+        disabled={disabled}
+        onClick={onToggle}
+      >
+        <Icon name={expanded ? 'chevron-down' : 'chevron-up'} size={16} color="primary" />
+      </button>
+    </div>
+  );
+
+  if (layout === 'card') {
+    return (
+      <div role="row" className={classes} aria-disabled={disabled || undefined} {...rest}>
+        <div className="ds-table-row-expandable__info">
+          <div className="ds-table-row-expandable__photo">
+            <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__id">{index}</div>
+            <ImageCard src={image} alt="" size="md" sale={sale} />
+          </div>
+          <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__name">{name}</div>
+          <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__size">{size}</div>
+          <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__type">{type}</div>
+          <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__nicotine">{nicotine}</div>
+          <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__price">{price}</div>
+        </div>
+        {toggle}
+      </div>
+    );
+  }
 
   return (
     <div role="row" className={classes} aria-disabled={disabled || undefined} {...rest}>
@@ -74,18 +115,7 @@ export function TableRowExpandable({
       <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__type">{type}</div>
       <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__nicotine">{nicotine}</div>
       <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__price">{price}</div>
-      <div role="cell" className="ds-table-row-expandable__cell ds-table-row-expandable__action">
-        <button
-          type="button"
-          className="ds-table-row-expandable__toggle"
-          aria-expanded={expanded}
-          aria-label={toggleLabel}
-          disabled={disabled}
-          onClick={onToggle}
-        >
-          <Icon name={expanded ? 'chevron-down' : 'chevron-up'} size={16} color="primary" />
-        </button>
-      </div>
+      {toggle}
     </div>
   );
 }

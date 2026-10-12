@@ -16,6 +16,8 @@ export interface DiscountValue {
 
 export interface DiscountModalProps
   extends Omit<ModalProps, 'title' | 'icon' | 'size' | 'description' | 'important' | 'actions' | 'children' | 'onClose'> {
+  /** `550` (Figma `Discount Modal`); `480` / `360` — Figma 480 / 360px frames: stacked footer buttons, the base currency under the amount. */
+  size?: '550' | '480' | '360';
   title?: ModalProps['title'];
   description?: ModalProps['description'];
   important?: ModalProps['important'];
@@ -62,6 +64,8 @@ export function DiscountModal({
   onClose,
   cancelLabel = 'Cancel',
   applyLabel = 'Accept',
+  size = '550',
+  className,
   ...rest
 }: DiscountModalProps) {
   const name = useId();
@@ -114,7 +118,8 @@ export function DiscountModal({
     <Modal
       title={title}
       icon="gift-discount"
-      size="550"
+      size={size}
+      className={[size !== '550' && 'ds-discount-modal--narrow', className].filter(Boolean).join(' ') || undefined}
       description={description}
       important={important}
       onClose={onClose}

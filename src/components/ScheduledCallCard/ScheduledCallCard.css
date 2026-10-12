@@ -54,3 +54,11 @@
   background: var(--scheduled-call-card-badge-bg);
   color: var(--scheduled-call-card-badge-fg);
 }
+
+/* Fluid (Figma 480px and below): the field and the button fill the width, one under the other. */
+.ds-scheduled-call-card.is-fluid .ds-scheduled-call-card__body {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-16);
+}
+.ds-scheduled-call-card.is-fluid .ds-scheduled-call-card__date { width: 100%; }

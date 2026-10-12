@@ -22,6 +22,12 @@ Implements the Figma [`Table Row`](https://www.figma.com/design/4Q7E8IQ07a9xFiNV
 | `imageCards` 64px | `ImageCard size="md"` | composed, `image` prop |
 | `button_action` | `.ds-table-row-expandable__toggle` | native `<button>`, `aria-expanded` |
 
+## Card layout (Figma Custom price, 768px and below)
+
+`layout="card"` draws the Figma `Card`: ID and the 64px photo (with the `Sale` badge), then name, size, type, nicotine and price wrap on one line (16px gaps); the toggle is at the right of the last line — at 768px everything fits in one line, at 480px the toggle drops under the values. The opened card keeps the Headlines stroke. No new tokens.
+
+<Canvas of={TableRowExpandableStories.Card} />
+
 ## When to use
 
 - ✅ Expandable product lines in a table drawn as separate cards.

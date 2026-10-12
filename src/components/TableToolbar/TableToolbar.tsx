@@ -7,6 +7,8 @@ import './TableToolbar.css';
 export interface TableToolbarProps extends HTMLAttributes<HTMLDivElement> {
   /** Figma `Buttons & Filters` at 768px and below: “Filter (8)” button, `sort` slot, full-width search under the buttons. */
   compact?: boolean;
+  /** Shows the dark “Export” button. Default `true`; the client's Custom price tab draws “Clear” and “Filter” only. */
+  showExport?: boolean;
   onExport?: () => void;
   exportLabel?: ReactNode;
   /** Shows the “Clear” button. Default: desktop yes, `compact` no (Figma `Management` at 768px and below draws it next to “Export”). */
@@ -37,6 +39,7 @@ export interface TableToolbarProps extends HTMLAttributes<HTMLDivElement> {
  */
 export function TableToolbar({
   compact = false,
+  showExport = true,
   onExport,
   exportLabel = 'Export',
   onClear,
@@ -57,9 +60,11 @@ export function TableToolbar({
   return (
     <div role="toolbar" aria-label="Table actions" className={classes} {...rest}>
       <div className="ds-table-toolbar__controls">
-        <Button variant="dark" iconLeft="export" onClick={onExport}>
-          {exportLabel}
-        </Button>
+        {showExport && (
+          <Button variant="dark" iconLeft="export" onClick={onExport}>
+            {exportLabel}
+          </Button>
+        )}
         {showClear && (
           <Button variant="outline" iconLeft="clear" onClick={onClear}>
             {clearLabel}

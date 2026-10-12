@@ -153,3 +153,9 @@
   opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
+
+/* Fluid: fills its container (Figma 480px and below). */
+.ds-button--fluid {
+  display: flex;
+  width: 100%;
+}

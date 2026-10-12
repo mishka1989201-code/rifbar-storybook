@@ -18,8 +18,10 @@ export interface TableClientsProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   rows?: TableClientsItem[];
   /** `management` = Figma `Table Row 15` (company, phone, group, status, two dates); `history` = Figma `Table Row 25` (ID, name, status, call date, change date); `calls` = Figma `Table Row 16` (seller, phone, date, time, updated, actions). Picks the default columns and the row layout. */
   layout?: TableRowClientLayout;
-  /** `table` (header + rows) or `cards` (Figma `Cards Line`, 768px and below: a grid of `TableRowClient layout="card"`, no header). `cards` is for `management` rows. */
+  /** `table` (header + rows) or `cards` (Figma `Cards Line`, 768px and below: a grid of `TableRowClient layout="card"`, no header). `cards` is for `management` rows (and `history` rows, drawn as `history-card`). */
   view?: 'table' | 'cards';
+  /** Draws the header row (default). Figma `Last updates` at 768px has none. `table` view only. */
+  header?: boolean;
   /** Header cells; defaults to `DEFAULT_CLIENTS_COLUMNS` (or `MANAGEMENT_CLIENTS_COLUMNS`), aligned with the row cells. */
   columns?: TableHeaderColumn[];
   /** Called with the column id when a sortable header is pressed. */
@@ -97,6 +99,7 @@ export function TableClients({
   rows = [],
   layout = 'default',
   view = 'table',
+  header = true,
   columns = layout === 'management' ? MANAGEMENT_CLIENTS_COLUMNS : layout === 'history' ? HISTORY_CLIENTS_COLUMNS : layout === 'calls' ? CALLS_CLIENTS_COLUMNS : DEFAULT_CLIENTS_COLUMNS,
   onSort,
   status = 'ready',
@@ -116,11 +119,11 @@ export function TableClients({
       <div className="ds-table-clients__scroll">
         {view === 'cards' ? (
           <CardGrid className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
-            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout="card" {...cells} />)}
+            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout={layout === 'history' ? 'history-card' : 'card'} {...cells} />)}
           </CardGrid>
         ) : (
           <div className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
-            <TableHeader columns={columns} onSort={onSort} />
+            {header && <TableHeader columns={columns} onSort={onSort} />}
             {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout={layout} {...cells} />)}
           </div>
         )}

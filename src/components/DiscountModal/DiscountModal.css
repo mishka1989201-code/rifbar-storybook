@@ -69,3 +69,7 @@
   right: 0;
   z-index: 5;
 }
+
+/* 480 / 360 (Figma): the base currency goes under the amount, full width. */
+.ds-discount-modal--narrow .ds-discount-modal__row { flex-direction: column; }
+.ds-discount-modal--narrow .ds-discount-modal__column--currency { flex: 1 1 auto; }

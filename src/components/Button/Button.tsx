@@ -33,6 +33,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * real hover is handled by CSS `:hover`.
    */
   forceHover?: boolean;
+  /** Fills the width of its container (Figma 480px and below: Update, Refresh, See all, Delete, Call). */
+  fluid?: boolean;
   children?: ReactNode;
 }
 
@@ -50,6 +52,7 @@ export function Button({
   iconOnly,
   iconSize,
   forceHover = false,
+  fluid = false,
   className,
   children,
   type = 'button',
@@ -62,6 +65,7 @@ export function Button({
     !isText && `ds-button--${size}`,
     iconOnly && 'ds-button--icon-only',
     forceHover && 'is-hover',
+    fluid && 'ds-button--fluid',
     className,
   ]
     .filter(Boolean)
