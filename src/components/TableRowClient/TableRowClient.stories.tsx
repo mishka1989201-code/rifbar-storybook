@@ -168,6 +168,20 @@ export const WithCallMenu: Story = {
   parameters: { docs: { description: { story: 'Hover or focus the phone button: `CallMenu` opens under it (Figma `tooltip-call`).' } } },
 };
 
+// ─── HISTORY LAYOUT (Figma: Table Row 25, client page → Last updates) ───────
+export const History: Story = {
+  args: {
+    layout: 'history',
+    index: 2,
+    name: 'David Schwimmer',
+    onNameClick: () => undefined,
+    status: <ChevronStatus color="dark">Not interested</ChevronStatus>,
+    callDate: '08.24.2023',
+    changeDate: '08.24.2023',
+  },
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=55-16581' }, docs: { description: { story: 'Figma `Table Row 25`: ID, name, status, call date, change date; no buttons.' } } },
+};
+
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
 export const LongText: Story = {
   name: 'Long text',
@@ -199,6 +213,7 @@ export const AllVariants: Story = {
       <TableRowClient {...args} company="—" phone="—" email="—" />
       <TableRowClient {...args} onDelete={() => undefined} onCall={() => undefined} onNotes={() => undefined} />
       <TableRowClient {...args} {...managementArgs} attention />
+      <TableRowClient {...args} layout="history" index={1} onNameClick={() => undefined} status={<ChevronStatus color="dark">Not interested</ChevronStatus>} callDate="08.24.2023" changeDate="08.24.2023" />
       <TableRowClient {...args} {...managementArgs} group={{ label: 'Small Distrib.', color: 'teal' }} status={<ChevronStatus color="primary">Active</ChevronStatus>} />
       <div style={{ paddingBottom: 200 }}>
         <TableRowClient {...args} forceHover onDelete={() => undefined} onCall={() => undefined} tooltipTitle="Detailed information" tooltip={tooltipBody} />

@@ -211,6 +211,31 @@ export const CustomFields: Story = {
   },
 };
 
+export const ClientInfoWithFooter: Story = {
+  name: 'Client info with buttons (Figma InfoBlock.board_all-orders)',
+  args: {
+    footer: (
+      <>
+        <Button variant="light" iconLeft="reboot">Recover password</Button>
+        <Button variant="dark" iconLeft="export">Update</Button>
+      </>
+    ),
+    infoProps: {
+      fields: [
+        { id: 'name', label: 'Name', value: 'Mickey Herman' },
+        { id: 'email', label: 'Email', value: 'mickeyherman23@gmail.com', href: 'mailto:mickeyherman23@gmail.com' },
+        { id: 'country', label: 'Country', value: 'USA' },
+      ],
+    },
+  },
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=55-16581' }, docs: { description: { story: '`footer` is the Figma `Row.Total` of the card: buttons at the right. A field with `href` is a link.' } } },
+};
+
+export const ToneViolet: Story = {
+  name: 'Tone violet (Figma Details)',
+  args: { title: 'Details', icon: 'info', tone: 'violet', children: <ClientDetails>{'Delivery only on weekdays.'}</ClientDetails> },
+};
+
 export const WithActions: Story = {
   name: 'With actions',
   args: { actions: <Button variant="outline">Edit</Button> },

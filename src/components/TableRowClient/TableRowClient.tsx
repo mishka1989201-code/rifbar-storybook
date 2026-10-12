@@ -15,8 +15,9 @@ export interface TableRowClientGroup {
 /**
  * `default` — Figma `Table Row 14`: company, phone, email, two dates.
  * `management` — Figma `Table Row 15` (Clients → All clients): company, phone, group, status, two dates.
+ * `history` — Figma `Table Row 25` (client page → Last updates): ID, name, status, call date, change date; no buttons.
  */
-export type TableRowClientLayout = 'default' | 'management';
+export type TableRowClientLayout = 'default' | 'management' | 'history';
 
 export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   /** Client name (Semi-Bold). Becomes a link when `nameHref` or `onNameClick` is set. */
@@ -27,6 +28,12 @@ export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>
   onNameClick?: () => void;
   /** Figma `Table Row 14` or `Table Row 15` (see `TableRowClientLayout`). */
   layout?: TableRowClientLayout;
+  /** `history` layout only: the number before the name (Figma `ID`, centred in 30px). */
+  index?: ReactNode;
+  /** `history` layout only: date of the call (Figma `Call date`, 81px). */
+  callDate?: ReactNode;
+  /** `history` layout only: date of the change (Figma `Change date`, right-aligned in 110px). */
+  changeDate?: ReactNode;
   company?: ReactNode;
   phone?: ReactNode;
   /** `default` layout only. */
@@ -80,6 +87,9 @@ export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>
  */
 export function TableRowClient({
   layout = 'default',
+  index,
+  callDate,
+  changeDate,
   group,
   status,
   attention = false,
@@ -118,6 +128,7 @@ export function TableRowClient({
     forceHover && 'is-hover',
     forceNameHover && 'is-name-hover',
     layout === 'management' && 'ds-table-row-client--management',
+    layout === 'history' && 'ds-table-row-client--history',
     attention && 'is-attention',
     dismissed && 'is-tooltip-dismissed',
     className,
@@ -137,6 +148,52 @@ export function TableRowClient({
     <span className="ds-table-row-client__link">{name}</span>
   );
 
+  const nameCell = (
+    <div role="cell" className="ds-table-row-client__cell ds-table-row-client__name">
+      {source && (
+        <span className="ds-table-row-client__source" tabIndex={0} aria-label={typeof source === 'string' ? `Source: ${source}` : undefined}>
+          <Icon name="output-circle" size={16} color="current" />
+          <span className="ds-table-row-client__source-tip">
+            <TooltipBordered position="top" widthMode="hug">{source}</TooltipBordered>
+          </span>
+        </span>
+      )}
+      {nameNode}
+    </div>
+  );
+
+  const actionsCell = (
+    <div role="cell" className="ds-table-row-client__cell ds-table-row-client__actions">
+      {onDelete && (
+        <span className="ds-table-row-client__action">
+          <Button variant="danger" iconOnly="delete" iconSize={16} aria-label="Delete" onClick={onDelete} />
+          {deleteTooltip && (
+            <span className="ds-table-row-client__action-tip">
+              <TooltipBordered position="left" widthMode="fixed" title={deleteTooltip} />
+            </span>
+          )}
+        </span>
+      )}
+      {onCall && (
+        <span className="ds-table-row-client__action">
+          <Button variant="dark" iconOnly="call-v2" iconSize={16} aria-label="Call" aria-haspopup={callMenu ? 'menu' : undefined} onClick={onCall} />
+          {callMenu && <span className="ds-table-row-client__call-menu">{callMenu}</span>}
+        </span>
+      )}
+      {onNotes && (
+        <span className="ds-table-row-client__action">
+          <Button variant="dark" iconOnly="notes" iconSize={16} aria-label="Notes" onClick={onNotes} />
+          {notesTooltip && (
+            <span className="ds-table-row-client__action-tip">
+              <TooltipBordered position="left" widthMode="fixed" title={notesTooltip} />
+            </span>
+          )}
+        </span>
+      )}
+      <Button variant="light" iconLeft="info" onClick={onAction}>{actionLabel}</Button>
+    </div>
+  );
+
   return (
     <div
       role="row"
@@ -153,69 +210,45 @@ export function TableRowClient({
       }}
       {...rest}
     >
-      <div role="cell" className="ds-table-row-client__cell ds-table-row-client__name">
-        {source && (
-          <span className="ds-table-row-client__source" tabIndex={0} aria-label={typeof source === 'string' ? `Source: ${source}` : undefined}>
-            <Icon name="output-circle" size={16} color="current" />
-            <span className="ds-table-row-client__source-tip">
-              <TooltipBordered position="top" widthMode="hug">{source}</TooltipBordered>
-            </span>
-          </span>
-        )}
-        {nameNode}
-      </div>
-      <div role="cell" className="ds-table-row-client__cell ds-table-row-client__company">{company}</div>
-      <div role="cell" className="ds-table-row-client__cell ds-table-row-client__phone">{phone}</div>
-      {layout === 'management' ? (
+      {layout === 'history' ? (
         <>
-          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__group">
-            {group && (
-              <>
-                <span className={`ds-table-row-client__swatch ds-table-row-client__swatch--${group.color ?? 'green'}`} aria-hidden="true" />
-                <span className="ds-table-row-client__group-label">{group.label}</span>
-              </>
-            )}
+          <div className="ds-table-row-client__lead">
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__index">{index}</div>
+            {nameCell}
           </div>
           <div role="cell" className="ds-table-row-client__cell ds-table-row-client__status">{status}</div>
-          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__joined">{updated}</div>
-          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{joined}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__call-date">{callDate}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__change-date">{changeDate}</div>
         </>
       ) : (
         <>
-          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__email">{email}</div>
-          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__joined">{joined}</div>
-          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{updated}</div>
+          {nameCell}
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__company">{company}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__phone">{phone}</div>
+          {layout === 'management' ? (
+            <>
+              <div role="cell" className="ds-table-row-client__cell ds-table-row-client__group">
+                {group && (
+                  <>
+                    <span className={`ds-table-row-client__swatch ds-table-row-client__swatch--${group.color ?? 'green'}`} aria-hidden="true" />
+                    <span className="ds-table-row-client__group-label">{group.label}</span>
+                  </>
+                )}
+              </div>
+              <div role="cell" className="ds-table-row-client__cell ds-table-row-client__status">{status}</div>
+              <div role="cell" className="ds-table-row-client__cell ds-table-row-client__joined">{updated}</div>
+              <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{joined}</div>
+            </>
+          ) : (
+            <>
+              <div role="cell" className="ds-table-row-client__cell ds-table-row-client__email">{email}</div>
+              <div role="cell" className="ds-table-row-client__cell ds-table-row-client__joined">{joined}</div>
+              <div role="cell" className="ds-table-row-client__cell ds-table-row-client__updated">{updated}</div>
+            </>
+          )}
+          {actionsCell}
         </>
       )}
-      <div role="cell" className="ds-table-row-client__cell ds-table-row-client__actions">
-        {onDelete && (
-          <span className="ds-table-row-client__action">
-            <Button variant="danger" iconOnly="delete" iconSize={16} aria-label="Delete" onClick={onDelete} />
-            {deleteTooltip && (
-              <span className="ds-table-row-client__action-tip">
-                <TooltipBordered position="left" widthMode="fixed" title={deleteTooltip} />
-              </span>
-            )}
-          </span>
-        )}
-        {onCall && (
-          <span className="ds-table-row-client__action">
-            <Button variant="dark" iconOnly="call-v2" iconSize={16} aria-label="Call" aria-haspopup={callMenu ? 'menu' : undefined} onClick={onCall} />
-            {callMenu && <span className="ds-table-row-client__call-menu">{callMenu}</span>}
-          </span>
-        )}
-        {onNotes && (
-          <span className="ds-table-row-client__action">
-            <Button variant="dark" iconOnly="notes" iconSize={16} aria-label="Notes" onClick={onNotes} />
-            {notesTooltip && (
-              <span className="ds-table-row-client__action-tip">
-                <TooltipBordered position="left" widthMode="fixed" title={notesTooltip} />
-              </span>
-            )}
-          </span>
-        )}
-        <Button variant="light" iconLeft="info" onClick={onAction}>{actionLabel}</Button>
-      </div>
       {tooltip && (
         <div className="ds-table-row-client__tooltip">
           <TooltipBordered id={tooltipId} position="bottom" tone="subtle" widthMode="fixed" title={tooltipTitle}>

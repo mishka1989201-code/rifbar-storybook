@@ -51,6 +51,9 @@ It is one component with `layout="management"`:
 | `Delete User` / `Add a note` tooltips left of the button | `deleteTooltip`, `notesTooltip` |
 | `tooltip-call` under the phone button | `callMenu={<CallMenu />}` ([CallMenu](?path=/docs/molecules-callmenu--docs)) |
 
+**History layout** (Figma [`Table Row 25`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=55-16581), client page → *Last updates*): `layout="history"` draws `index` (ID, 30px, centred) + `name`, `status`, `callDate` (81px) and `changeDate` (110px, right); no action buttons, 50px high.
+
+<Canvas of={TableRowClientStories.History} />
 <Canvas of={TableRowClientStories.Management} />
 <Canvas of={TableRowClientStories.Attention} />
 

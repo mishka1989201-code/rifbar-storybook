@@ -167,3 +167,20 @@ export const Management: Story = {
   parameters: { docs: { description: { story: 'Figma `Manager User - Clients - All Clients Tab`: group + status columns, action buttons with tooltips and the call menu.' } } },
   decorators: [(Story) => <div style={{ maxWidth: 1524, paddingBottom: 100 }}><Story /></div>],
 };
+
+// ─── HISTORY LAYOUT (Figma: client page → Last updates) ──────────────────────
+export const History: Story = {
+  args: {
+    layout: 'history',
+    rows: [1, 2, 3].map((n) => ({
+      id: n,
+      index: n,
+      name: 'David Schwimmer',
+      onNameClick: () => undefined,
+      status: <ChevronStatus color="dark">Not interested</ChevronStatus>,
+      callDate: '08.24.2023',
+      changeDate: '08.24.2023',
+    })),
+  },
+  parameters: { docs: { description: { story: 'Figma `Table Header` + `Table Row 25..28` of `Last updates`: ID and name packed, status, call date, change date.' } } },
+};

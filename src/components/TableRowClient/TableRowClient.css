@@ -252,3 +252,23 @@ button.ds-table-row-client__link:hover,
     transition: none;
   }
 }
+
+/* History layout (Figma Table Row 25, client page → Last updates): ID + name, status, two dates; no buttons. */
+.ds-table-row-client__lead {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--spacing-32);
+  width: 210px;
+}
+
+.ds-table-row-client__index {
+  width: 30px;
+  text-align: center;
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-table-row-client__call-date { width: 81px; }
+.ds-table-row-client__change-date { width: 110px; text-align: right; }
+
+.ds-table-row-client--history .ds-table-row-client__name { flex: none; }
