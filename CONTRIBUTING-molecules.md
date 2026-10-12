@@ -71,9 +71,8 @@
 
 ## Prototypes
 
-Цілі екрани з бібліотечних компонентів і фейкових даних: `src/prototypes/<Name>/`, заголовок історій `Prototypes/<Name>`, **не** експортуються з `src/index.ts`.
-Одна історія на кожен брейкпоінт Figma (декоратор задає ширину кадру) + окремі історії для екранів фільтрів. Нові компоненти, потрібні екрану, живуть у `src/components`.
-Прототипи: `ClientOrders` (1920 / 1440 / 1280 / 1024 / 768 / 480 / 360 + Filter menu / All Filters), `DepartmentUsers` (768 / 480 / 360 × пагінація v1 / v2). «Гілка Prototypes» у запиті = цей розділ Storybook.
+Прототипи (цілі екрани) переїхали в окремий репозиторій **`rifbar-prototypes`** (`github.com/mishka1989201-code/rifbar-prototypes`): `ClientOrders` → `client-orders`, `DepartmentUsers` → `department-users`. Там же скрипт-заготовка і повні нотатки (`CLAUDE.md`). Цей репозиторій лише постачає компоненти: якщо екрану бракує компонента чи варіанта — додати тут, оновити тег (див. `CLAUDE.md` → «Releasing the library»).
+Нові компоненти, потрібні екранам, живуть у `src/components` і мають бути експортовані з `src/index.ts`.
 
 ## Organisms
 
@@ -147,20 +146,17 @@
 
 ## Передача в новий чат
 
-**Стан на 2026-10-09:** PR #12, #13 і #14 злиті в `main`. Темна тема атомів, молекул і **Організмів** (Figma `Dark Organisms Components`, вузол `3765:129991`) зроблена на гілці `claude/peaceful-franklin-tnrmh4` (групи: таблиці; DatePicker; WelcomeCard / AlertRow / ScheduledCallCard; ProductDetailCard / ProductFormModal; фон Prototypes). Navbar, ChatLayout, TimeTracker, FilterMenu вже мали темну тему з молекул. Без темної теми лишились `AudioPlayer` і `CardGrid`. Новий PR — лише на прохання.
+**Стан на 2026-10-09:** PR #12–#15 злиті в `main`. Темна тема атомів, молекул і організмів **закінчена** (Figma `Dark Atoms / Molecules / Organisms Components`). Без темної теми лишились лише `AudioPlayer` і `CardGrid` (темного кадру немає). `FilterMenu` лишено як є за рішенням дизайнера (темний кадр «Filters» 768px має інші секції, ніж компонент). Відкритих PR немає. Далі — **Прототипи**, але в окремому репозиторії `rifbar-prototypes` (його `CLAUDE.md` — повна інструкція для нового чату).
 Гілка `claude/peaceful-franklin-tnrmh4` після злиття містить лише злиту історію. На початку нового чату: `git fetch origin`, `git checkout -B claude/peaceful-franklin-tnrmh4 origin/main`,
 пуш `--force-with-lease`, **новий** PR відкривати і зливати лише на прохання. Далі `npm ci`, `npm run build:tokens`.
 
-- Дизайнер надсилає посилання на темний блок Організмів (Figma `Dark … Components`, той самий файл `4Q7E8IQ07a9xFiNVBfmo4M`); спершу `get_metadata`, потім `get_screenshot` по вузлах, **розбити на групи самому** і йти групами (один коміт на групу, звіт українською після кожної). Усі групи підряд, без зупинок, якщо дизайнер не просив інакше.
-- Організми в коді (Storybook `Organisms/…`): `Navbar`, `TableClients`, `TableOrders`, `TableProducts`, `DatePicker`, `ChatLayout`, `TimeTracker`, `WelcomeCard`, `ProductDetailCard`, `ScheduledCallCard`, `ProductFormModal`, `FilterMenu` (+ `Prototypes/ClientOrders`, `Prototypes/DepartmentUsers`).
-  Ще **без темної теми** (сирі `--color-*` у CSS): `WelcomeCard`, `ScheduledCallCard`, `AudioPlayer`, `DatePicker`, `ProductDetailCard`, `ProductFormModal`, `CardGrid`, `TableProducts`, `TableClients`, `TableOrders`, секції `FilterMenu`. Перелік повторно знайти так:
-  `grep -ln "color-white)\|color-text)\|color-stroke-light\|color-secondary-light)\|color-primary-blue-dark)\|color-bg)\|color-headlines)" src/components/*/*.css`.
+- Організми в коді (Storybook `Organisms/…`): `Navbar`, `TableClients`, `TableOrders`, `TableProducts`, `DatePicker`, `ChatLayout`, `TimeTracker`, `WelcomeCard`, `ProductDetailCard`, `ScheduledCallCard`, `ProductFormModal`, `FilterMenu`.
 - Метод — розділ «Dark theme» у `CLAUDE.md` + нижче «Темна тема молекул: що вже вміємо» (токени, `table-row`, перебивання кнопок, рендер, MDX).
 - Figma MCP інколи відключається посеред чату: `ToolSearch` із запитом `figma get_design_context` повертає інструменти. Скіл `figma-design-to-code` читати як MCP-ресурс
   `skill://figma/figma-design-to-code/SKILL.md` (server `Figma`), у `get_design_context` передавати `skillNames: "resource:figma-design-to-code"`.
   Дуже великі фрейми обрізаються: `get_metadata`, далі по дочірніх вузлах; великі відповіді зберігаються у файл — читати `python3 -I` + `json`.
 - Скріншоти Figma: `get_screenshot` з `enableBase64Response: true` (посилання дає 403 через проксі); PNG лежить у `/root/.claude/projects/.../tool-results/` — пікселі брати звідти (`PIL`).
-- «Гілка Prototypes» у запитах = розділ Storybook `Prototypes/<Name>` (`src/prototypes/<Name>/`).
+- «Гілка Prototypes» у запитах = окремий репозиторій `rifbar-prototypes` (`src/prototypes/<назва>/`).
 
 ### Темна тема молекул: що вже вміємо (2026-10-09)
 
@@ -208,7 +204,7 @@
    CSS компонентів збирається esbuild (`--bundle --platform=node --jsx=automatic --outdir=…`, поруч з'являється `entry.css`), токени — `src/tokens/build/tokens.css` і `src/tokens/typography.css`.
 3. Storybook: `npx storybook build -o /tmp/sb-out` (≈30 с), далі статичний сервер на `/tmp/sb-out` і Playwright з `/opt/node-tools/node_modules/playwright`
    (`chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox'] })`), `iframe.html?id=<story-id>&viewMode=story`,
-   слухати `pageerror` і `console` error. id історії: `prototypes-clientorders--tablet-768`, `molecules-pagination--small-v-1` (назва історії → kebab-case).
+   слухати `pageerror` і `console` error. id історії: `molecules-pagination--small-v-1` (назва історії → kebab-case).
 4. Ще не пройдено вручну: `FilterMenu`, `Navbar`, `ProductFormModal`, `DatePicker`, `TableClients` Sortable і вузькі контейнери.
 
 ### Відкриті питання дизайнеру (зібрано з усіх екранів)
