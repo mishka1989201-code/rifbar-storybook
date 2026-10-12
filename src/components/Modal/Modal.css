@@ -30,6 +30,10 @@
   max-width: var(--size-modal-form-narrow);
 }
 
+.ds-modal--info {
+  max-width: var(--size-modal-info);
+}
+
 .ds-modal--list {
   max-width: var(--size-modal-list);
 }
@@ -200,4 +204,15 @@
 /* Required mark (Figma: red asterisk right after the caption). */
 .ds-modal__required {
   color: var(--color-danger);
+}
+
+/* Info (Figma Info Modal 550px): the rows sit right under the header line; padding 0 16 24, no line under the last row. */
+.ds-modal--info .ds-modal__section {
+  gap: 0;
+  padding: 0 var(--spacing-16) var(--spacing-24);
+  border-bottom: none;
+}
+
+.ds-modal--info .ds-row-info-block:last-child {
+  border-bottom: none;
 }

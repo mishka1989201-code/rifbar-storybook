@@ -27,6 +27,7 @@ It draws **only the dialog**. The overlay (`--shadow-backdrop`-style dim), centr
 | `Error/Importantly/Info` → Error (Regular 12, Danger, 4px under the field) | `ModalField error` | `role="alert"`; mark the control `invalid` |
 | `Icon Button` (40px, Secondary Grey stroke, xmark 24) | `IconButton kind="close"` | `onClose` |
 | `modal__body` | `ModalSection` | padding 16, gap 16, bottom line |
+| `Info Modal` of the clients table (550px, user icon, `RowInfoBlock` rows, no footer) | `<Modal size="info">` + `ModalSection divider={false}` + `RowInfoBlock` | `--size-modal-info`; Figma draws the line under the last two rows inconsistently — here every row but the last has it |
 | `Note` + red `*` (Danger) | `ModalField required` | the asterisk is `aria-hidden`; set `required` on the control too |
 | `Name / Title` + `InputField` | `ModalField` + `InputField` / `FilterField` | caption Body/Small Medium, gap 4 |
 | `Buttons` | `actions` | `Button variant="light"` “Close” + `variant="dark"` “Accept” / “Save” |
@@ -91,6 +92,7 @@ Figma "Dark Molecules Components" → `Add Product Modal Dark`, `Approve Modal D
 | `--size-modal-confirm` | max width, `size="wide"` | `630px` | Existing tokens.json (same value, added for `ConfirmModal`) · Figma: Add Product Modal width 630 |
 | `--color-secondary-grey`, `--font-size-small`, `--font-line-height-small`, `--font-weight-medium` | `description` | `#A7A4B7`, 14 / 21px, 500 | Existing tokens.json · Figma: Secondary Grey, Body/Small Medium |
 | `--color-warning`, `--font-weight-semibold` | `important` | `#F68F57`, 600 | Existing tokens.json · Figma: Warning, Semi-Bold Headings/h7 |
+| `--size-modal-info` | max width, `size="info"` | `550px` | **New** · Figma: Info Modal 322:92305 width 550 |
 | `--color-danger`, `--font-size-mini`, `--font-line-height-mini`, `--font-weight-regular` | `ModalField error` | `#ED5742`, 12 / 18px, 400 | Existing tokens.json · Figma: Danger, Body/Mini Regular |
 | `--size-modal-list` | max width, `size="list"` | `736px` | **New** · Figma: Info Modal → width 736 |
 | `--size-modal-form` / `--size-modal-form-narrow` | max width, `480` / `360` | `480px` / `360px` | **New** · Figma: Modal Property 2 → width |

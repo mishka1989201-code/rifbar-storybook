@@ -4,6 +4,7 @@ import { Button } from '../Button';
 import { FilterField, InputField, TextField } from '../InputField';
 import { Checkbox } from '../Checkbox';
 import { FileDropzone } from '../FileDropzone';
+import { RowInfoBlock } from '../RowInfoBlock';
 import { Modal, ModalField, ModalRow, ModalSection } from './Modal';
 
 const FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=7058-30262';
@@ -15,7 +16,7 @@ const meta = {
   args: { title: 'Create warehouse', size: 'desktop', onClose: () => {} },
   argTypes: {
     title: { control: 'text' },
-    size: { control: 'inline-radio', options: ['desktop', 'mobile', 'wide', 'list', '480', '360'] },
+    size: { control: 'inline-radio', options: ['desktop', 'mobile', 'wide', 'list', 'info', '480', '360'] },
     icon: { control: 'text' },
     children: { control: false },
     actions: { control: false },
@@ -166,6 +167,30 @@ export const AddNote: Story = {
         <ModalField label="Note" required htmlFor="add-note-text">
           <TextField id="add-note-text" required placeholder="Write the text here" style={{ height: 100 }} />
         </ModalField>
+      </ModalSection>
+    </Modal>
+  ),
+};
+
+export const ClientInfo: Story = {
+  name: 'Client info (Figma Info Modal)',
+  args: { title: 'Client', icon: 'user', size: 'info' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=322-91713',
+    },
+    docs: { description: { story: 'Figma `Manager User - Clients - All Clients Tab - Pressed on Client name`: 550px, user icon, `RowInfoBlock` rows, no footer.' } },
+  },
+  render: (args) => (
+    <Modal {...args}>
+      <ModalSection divider={false}>
+        <RowInfoBlock label="Name" value="David Schwimmer" />
+        <RowInfoBlock label="Company" value="Novus" />
+        <RowInfoBlock label="Email" value="davidschwim1976@gmail.com" />
+        <RowInfoBlock label="Mobile phone" value="+48 79 1362547" />
+        <RowInfoBlock label="Mobile phone" value="+48 79 1362547" />
+        <RowInfoBlock label="Mobile phone" value="+48 79 1362547" />
       </ModalSection>
     </Modal>
   ),

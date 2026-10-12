@@ -5,10 +5,10 @@ import './Modal.css';
 
 /**
  * Figma `Property 1`: Desktop = 450px wide, Mobile = 340px wide. `wide` = 630px (Figma `Add Product Modal`, two-column form).
- * `list` = 736px (Figma `Info Modal`, a list of options).
+ * `list` = 736px (Figma `Info Modal`, a list of options). `info` = 550px (Figma `Info Modal` of the clients table: a card of `RowInfoBlock` rows, no footer).
  * `480` / `360` = Figma `Modal` Property 2 (Add / Edit product): 20px title, stacked full-width footer buttons; `360` has 10px sides.
  */
-export type ModalSize = 'desktop' | 'mobile' | 'wide' | 'list' | '480' | '360';
+export type ModalSize = 'desktop' | 'mobile' | 'wide' | 'list' | 'info' | '480' | '360';
 
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Header title, e.g. “Create warehouse”. */
