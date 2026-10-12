@@ -73,7 +73,7 @@ Every component's MDX ends with a **Design tokens used** table, and the same tab
 
 ## Dark theme (Figma `Dark Atoms Components`, node `3389:241327`)
 
-The dark theme works through `data-theme="dark"` on `<html>` (Storybook toolbar sets it; any element with the attribute is dark inside). All Atoms, the Molecules block (Figma `Dark Molecules Components`, node `3429:17984`) and the Organisms block (Figma `Dark Organisms Components`, node `3765:129991`) are done. Still without a dark theme because no dark frame shows them: `AudioPlayer` (raw colours), `CardGrid` (layout only).
+The dark theme works through `data-theme="dark"` on `<html>` (Storybook toolbar sets it; any element with the attribute is dark inside). All Atoms, the Molecules block (Figma `Dark Molecules Components`, node `3429:17984`) and the Organisms block (Figma `Dark Organisms Components`, node `3765:129991`) are done. Still without a dark theme because no dark frame shows them: `CardGrid` (layout only). `AudioPlayer` has an **AI-defined** dark theme (2026-10-12, `--audio-player-*`, taken from the table row tokens; the designer has not drawn it).
 Method for any further dark block: the designer sends the Figma link; split it into groups yourself. Hand-over notes (tools, scripts, tokens, open questions): `CONTRIBUTING-molecules.md` → «Передача в новий чат». Method (do not port component by component — update the existing ones):
 
 1. `get_metadata` of the block (large: it is saved to a file — read it with `python3 -I` + `json`), then `get_screenshot` and `get_design_context` of each child. The variable names in the code are the **light** names
@@ -139,7 +139,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens, Favicons
 
 Latest work (2026-10-12): version **0.4.0** (merged, PR #19): `TableRowClient` / `TableClients` `layout="calls"` (Figma Call records) with a player slot, `AudioPlayer embedded`, `RegionSwitch` (US / EU region switch of the page header; the app owns the state and shows the clients of the region). Before that, 0.3.0 (PR #18): `CallMenu`, `TableClients` `management` / `history`, `SelectProducts`, `DiscountModal`, `SuccessCard`.
-The dark theme of **Atoms, Molecules and Organisms** is done (PR #12–#15; 380 themed tokens); the newest components (`calls` rows, `RegionSwitch`, `SelectProducts`, `DiscountModal`, `SuccessCard`, `CallMenu`) have **AI-defined** dark values because no dark frame draws them. `AudioPlayer` and `CardGrid` have no dark frame and stay light.
+The dark theme of **Atoms, Molecules and Organisms** is done (PR #12–#15; 380 themed tokens); the newest components (`calls` rows, `RegionSwitch`, `SelectProducts`, `DiscountModal`, `SuccessCard`, `CallMenu`) have **AI-defined** dark values because no dark frame draws them. `CardGrid` has no dark frame and stays light; `AudioPlayer` is AI-defined dark.
 `FilterMenu` is kept as is: the dark Figma frame `Filters` (768px) draws field + dropdown sections, the code draws card sections (the designer said: leave it).
 No open PR. The branch `claude/fervent-fermat-yx6xj9` holds only merged history: at the start of a session restart it from `origin/main` (same name, force-with-lease) and open a new PR only on request. No version tags exist (the git proxy refuses tag pushes, 403): the prototypes pin the `main` merge commit SHA.
 
