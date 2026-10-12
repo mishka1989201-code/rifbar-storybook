@@ -39,3 +39,17 @@
 
 /* Cards of one line are equally high (Figma `Cards Line`: both cards stretch, the buttons stay at the bottom). */
 .ds-table-clients--cards .ds-table-clients__table { align-items: stretch; }
+
+/* Management table (Figma `Navbar` frames at 1440px): the name, company and phone columns shrink together in the header and in the rows when the panel is
+   narrower than the columns (the date and action columns keep their widths), instead of the table scrolling sideways. */
+.ds-table-clients--table.ds-table-clients--management .ds-table-clients__table { grid-template-columns: minmax(0, 1fr); }
+.ds-table-clients--table.ds-table-clients--management .ds-table-header__cell:nth-child(-n + 3),
+.ds-table-clients--table.ds-table-clients--management .ds-table-row-client__name,
+.ds-table-clients--table.ds-table-clients--management .ds-table-row-client__company,
+.ds-table-clients--table.ds-table-clients--management .ds-table-row-client__phone { flex: 0 1 auto; }
+.ds-table-clients--table.ds-table-clients--management .ds-table-row-client__link {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

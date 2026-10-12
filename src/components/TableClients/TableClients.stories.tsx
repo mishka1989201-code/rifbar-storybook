@@ -181,6 +181,13 @@ export const CardsNarrow: Story = {
   decorators: [(Story) => <div style={{ maxWidth: 320 }}><Story /></div>],
 };
 
+export const ManagementNarrow: Story = {
+  name: 'Management (1132px panel)',
+  args: { layout: 'management', rows: MANAGEMENT_ROWS },
+  parameters: { docs: { description: { story: 'Figma `1440 Navbar` frame: the text columns shrink instead of the table scrolling sideways.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 1132, paddingBottom: 100 }}><Story /></div>],
+};
+
 // ─── HISTORY LAYOUT (Figma: client page → Last updates) ──────────────────────
 export const History: Story = {
   args: {
