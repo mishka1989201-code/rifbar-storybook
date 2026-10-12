@@ -23,6 +23,18 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
+export const Size480: Story = {
+  name: 'Size 480',
+  args: { size: '480', defaultChoice: 'percent', defaultPercent: '15' },
+  parameters: { docs: { description: { story: 'Figma 480px frame: stacked footer buttons, the base currency under the amount.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 480 }}><Story /></div>],
+};
+export const Size360: Story = {
+  name: 'Size 360',
+  args: { size: '360' },
+  decorators: [(Story) => <div style={{ maxWidth: 360 }}><Story /></div>],
+};
+
 export const ErrorState: Story = {
   name: 'Error (empty value)',
   args: { defaultChoice: 'percent', error: 'To continue - enter the value in the input field!' },

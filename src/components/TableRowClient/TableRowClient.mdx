@@ -67,6 +67,12 @@ It is one component with `layout="management"`:
 <Canvas of={TableRowClientStories.CallsPlayerOpen} />
 <Canvas of={TableRowClientStories.CallsMissed} />
 
+**Card layout** (Figma `Card Row` of Clients → All clients at 768 / 480 / 360px): `layout="card"` takes the props of `management`, wraps `name`, `company`, `phone`, `group`, `status` and **one** date (`joined`; Figma draws a single date, which one — needs designer confirmation) into a white card (16px gaps) and puts the buttons under them, right-aligned, 16px apart. `attention` colours the card as the row. No new tokens: the card reuses the row's.
+
+<Canvas of={TableRowClientStories.Card} />
+
+**History card** (`layout="history-card"`, Figma `Last updates` at 480 / 360px): `index`, then `name`, `status`, `callDate` and `changeDate` in one wrapping line (shown by `TableClients layout="history" view="cards"`).
+
 <Canvas of={TableRowClientStories.History} />
 <Canvas of={TableRowClientStories.Management} />
 <Canvas of={TableRowClientStories.Attention} />

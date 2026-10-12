@@ -25,6 +25,16 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 // ─── STATES ──────────────────────────────────────────────────────────────────
+export const Card: Story = {
+  args: { layout: 'card', sale: true },
+  parameters: { docs: { description: { story: 'Figma `Card` of Custom price at 768px and below: ID + photo, then name, size, type, nicotine and price wrap; the toggle sits under them at the right.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 416 }}><Story /></div>],
+};
+export const CardActive: Story = {
+  name: 'Card (expanded)',
+  args: { layout: 'card', expanded: true },
+  decorators: [(Story) => <div style={{ maxWidth: 416 }}><Story /></div>],
+};
 export const Hover: Story = { args: { forceHover: true } };
 export const Active: Story = { name: 'Active (expanded)', args: { expanded: true } };
 export const Disabled: Story = { args: { disabled: true } };

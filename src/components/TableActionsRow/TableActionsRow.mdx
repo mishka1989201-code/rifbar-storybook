@@ -47,6 +47,13 @@ Figma "Dark Molecules Components" → `Actions Dark`: row background `#000000`; 
 
 Figma `TableActionsRow` (`1299:429122`) of the client's Custom price tab draws “Clear”, the filter fields `Group` and `Discounts on`, and the search — no Export. `showExport={false}` hides the dark button; `filters` is a slot after “Clear” for `FilterField`s. No new tokens.
 
+## Sort and compact (added 2026-10-12)
+
+Figma `Manager User - Clients - All Clients Tab` at 1024px and below draws the `Sort by` icon button after Clear: `sort` is a slot for it (the app owns the menu).
+At 768px and below the search field moves under the buttons and fills the width: `compact`. Both reuse existing tokens (`--spacing-24` for the gap, as `TableToolbar` compact).
+
+<Canvas of={TableActionsRowStories.Compact} />
+
 ## Design tokens used
 
 | Token | Property | Value | Source |

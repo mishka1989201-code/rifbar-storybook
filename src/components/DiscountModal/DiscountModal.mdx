@@ -37,6 +37,10 @@ Implements the Figma [`Discount Modal`](https://www.figma.com/design/4Q7E8IQ07a9
 <Canvas of={DiscountModalStories.Interactive} />
 <Canvas of={DiscountModalStories.AllVariants} />
 
+**480 / 360** (added 2026-10-12, Figma Custom price at 480 / 360px): `size="480"` / `"360"` use the `Modal` sizes of the same name (stacked full-width buttons) and put the base currency under the amount. No new tokens.
+
+<Canvas of={DiscountModalStories.Size480} />
+
 ## Figma notes
 
 - Figma draws the states only; the behaviour is AI-defined: typing or focusing a group chooses it; `Accept` with an empty or non-numeric value in the chosen group (the percent group when nothing is chosen) shows the Figma error; the radio of the other group is cleared automatically.

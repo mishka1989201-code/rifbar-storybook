@@ -18,6 +18,10 @@ export interface TableActionsRowProps extends HTMLAttributes<HTMLDivElement> {
   showExport?: boolean;
   /** Filter fields after “Clear” (Figma Custom price: `Group`, `Discounts on` as `FilterField`s). */
   filters?: ReactNode;
+  /** Slot after “Clear” (Figma 1024px and below: the `Sort by` icon button with its menu). */
+  sort?: ReactNode;
+  /** Figma 768px and below: the search field moves under the buttons and fills the width. */
+  compact?: boolean;
   /** Props passed to the `SearchField` on the right (value, onSearch, placeholder…). */
   searchProps?: Omit<SearchFieldProps, 'size'>;
 }
@@ -35,11 +39,13 @@ export function TableActionsRow({
   exportOpen = false,
   showExport = true,
   filters,
+  sort,
+  compact = false,
   searchProps,
   className,
   ...rest
 }: TableActionsRowProps) {
-  const classes = ['ds-table-actions', className].filter(Boolean).join(' ');
+  const classes = ['ds-table-actions', compact && 'ds-table-actions--compact', className].filter(Boolean).join(' ');
   return (
     <div role="toolbar" aria-label="Table actions" className={classes} {...rest}>
       <div className="ds-table-actions__buttons">
@@ -61,6 +67,7 @@ export function TableActionsRow({
           {clearLabel}
         </Button>
         {filters}
+        {sort}
       </div>
       <SearchField className="ds-table-actions__search" aria-label="Search table" {...searchProps} />
     </div>

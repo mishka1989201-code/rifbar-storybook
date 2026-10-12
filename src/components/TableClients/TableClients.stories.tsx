@@ -169,6 +169,18 @@ export const Management: Story = {
   decorators: [(Story) => <div style={{ maxWidth: 1524, paddingBottom: 100 }}><Story /></div>],
 };
 
+// ─── CARDS VIEW (Figma: Clients → All Clients Tab, 768px and below) ──────────
+export const Cards: Story = {
+  args: { layout: 'management', view: 'cards', rows: MANAGEMENT_ROWS },
+  parameters: { docs: { description: { story: 'Figma `Cards Line` (768 / 480 / 360px): `TableRowClient layout="card"` in a `CardGrid`, no header. The card shows one date (`joined`).' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 736 }}><Story /></div>],
+};
+export const CardsNarrow: Story = {
+  name: 'Cards (360px)',
+  args: { layout: 'management', view: 'cards', rows: MANAGEMENT_ROWS.slice(0, 2) },
+  decorators: [(Story) => <div style={{ maxWidth: 320 }}><Story /></div>],
+};
+
 // ─── HISTORY LAYOUT (Figma: client page → Last updates) ──────────────────────
 export const History: Story = {
   args: {
@@ -184,6 +196,31 @@ export const History: Story = {
     })),
   },
   parameters: { docs: { description: { story: 'Figma `Table Header` + `Table Row 25..28` of `Last updates`: ID and name packed, status, call date, change date.' } } },
+};
+
+export const HistoryCards: Story = {
+  name: 'History cards (480 / 360px)',
+  args: {
+    layout: 'history',
+    view: 'cards',
+    rows: [1, 2, 3].map((n) => ({
+      id: n,
+      index: n,
+      name: 'David Schwimmer',
+      onNameClick: () => undefined,
+      status: <ChevronStatus color="dark">Not interested</ChevronStatus>,
+      callDate: '08.24.2023',
+      changeDate: '08.24.2023',
+    })),
+  },
+  parameters: { docs: { description: { story: 'Figma `Last updates` at 480 / 360px: `TableRowClient layout="history-card"` — ID, then name, status and the dates in one wrapping line.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 320 }}><Story /></div>],
+};
+
+export const HistoryNoHeader: Story = {
+  name: 'History without header (768px)',
+  args: { ...History.args, header: false },
+  parameters: { docs: { description: { story: 'Figma `Last updates` at 768px draws the rows without the header; `header={false}`.' } } },
 };
 
 // ─── CALLS LAYOUT (Figma: client page → Call records) ────────────────────────

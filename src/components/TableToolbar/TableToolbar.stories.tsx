@@ -44,6 +44,13 @@ type Story = StoryObj<typeof meta>;
 const COMPACT = [(Story: () => JSX.Element) => <div style={{ maxWidth: 704 }}><Story /></div>];
 
 // ─── DEFAULT (Figma Buttons & Filters, desktop) ──────────────────────────────
+export const CompactNoExport: Story = {
+  name: 'Compact without Export (Custom price)',
+  args: { compact: true, showExport: false, showClear: true, filterCount: 4 },
+  parameters: { docs: { description: { story: 'Figma Custom price at 768px and below: Clear and Filter (4), the search under them.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 416 }}><Story /></div>],
+};
+
 export const Default: Story = {};
 
 // ─── VARIANTS ────────────────────────────────────────────────────────────────

@@ -35,3 +35,12 @@
   left: 0;
   z-index: 5;
 }
+
+/* Figma 768px and below: buttons on one line, the search under them across the whole width. */
+.ds-table-actions--compact {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-24);
+}
+.ds-table-actions--compact .ds-table-actions__buttons { flex-wrap: wrap; }
+.ds-table-actions--compact .ds-table-actions__search { width: 100%; }

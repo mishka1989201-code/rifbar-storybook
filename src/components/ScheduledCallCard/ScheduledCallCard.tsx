@@ -26,6 +26,8 @@ export interface ScheduledCallCardProps extends Omit<HTMLAttributes<HTMLElement>
   refreshLabel?: ReactNode;
   /** The button was pressed. Omit it to hide the button. */
   onRefresh?: () => void;
+  /** Figma 480px and below: the date field and the button fill the width, one under the other. */
+  fluid?: boolean;
 }
 
 /**
@@ -42,11 +44,12 @@ export function ScheduledCallCard({
   onDateClick,
   refreshLabel = 'Refresh',
   onRefresh,
+  fluid = false,
   className,
   ...rest
 }: ScheduledCallCardProps) {
   const due = state === 'time-to-call';
-  const classes = ['ds-scheduled-call-card', due && 'is-due', className].filter(Boolean).join(' ');
+  const classes = ['ds-scheduled-call-card', due && 'is-due', fluid && 'is-fluid', className].filter(Boolean).join(' ');
   return (
     <section className={classes} {...rest}>
       <CardHeader title={title} icon="call" tone={badgeTone ?? (due ? 'success' : 'warning')} />
@@ -62,7 +65,7 @@ export function ScheduledCallCard({
           />
         </label>
         {onRefresh && (
-          <Button variant="light" iconLeft="clear" onClick={onRefresh}>
+          <Button variant="light" iconLeft="clear" fluid={fluid} onClick={onRefresh}>
             {refreshLabel}
           </Button>
         )}

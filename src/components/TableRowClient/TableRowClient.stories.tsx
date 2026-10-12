@@ -144,6 +144,18 @@ export const Attention: Story = {
   parameters: { design: { type: 'figma', url: FIGMA_MANAGEMENT_URL }, docs: { description: { story: 'Figma draws the first row of the clients table with the Warning BG fill and the Warning border.' } } },
 };
 
+export const Card: Story = {
+  args: { ...managementArgs, layout: 'card', company: "Fry's", phone: '+44 32 567 8473', joined: '07.23.2023', status: <ChevronStatus color="primary">Active</ChevronStatus> },
+  parameters: { design: { type: 'figma', url: FIGMA_MANAGEMENT_URL }, docs: { description: { story: 'Figma `Card Row` (768px and below): the info line wraps, the buttons sit under it at the right.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 348 }}><Story /></div>],
+};
+
+export const CardAttention: Story = {
+  name: 'Card (attention, narrow)',
+  args: { ...Card.args, attention: true },
+  decorators: [(Story) => <div style={{ maxWidth: 340 }}><Story /></div>],
+};
+
 export const GroupTeal: Story = {
   name: 'Group (teal)',
   args: { ...managementArgs, group: { label: 'Small Distrib.', color: 'teal' }, status: <ChevronStatus color="secondary">Inactive</ChevronStatus> },

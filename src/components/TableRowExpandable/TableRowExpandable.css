@@ -96,6 +96,27 @@
   box-shadow: var(--shadow-focus);
 }
 
+/* Card layout (Figma Custom price, 768px and below): ID + photo, then name, size, type, nicotine and price, then the toggle.
+   All in one wrapping line: at 768px they fit in one line (the toggle at the right), at 480px the toggle drops under the values. */
+.ds-table-row-expandable--card {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: var(--spacing-16);
+}
+.ds-table-row-expandable__info { display: contents; }
+.ds-table-row-expandable__photo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+.ds-table-row-expandable--card .ds-table-row-expandable__id { width: auto; }
+.ds-table-row-expandable--card .ds-table-row-expandable__name,
+.ds-table-row-expandable--card .ds-table-row-expandable__size,
+.ds-table-row-expandable--card .ds-table-row-expandable__type,
+.ds-table-row-expandable--card .ds-table-row-expandable__nicotine,
+.ds-table-row-expandable--card .ds-table-row-expandable__price { flex: none; width: auto; text-align: left; overflow: visible; }
+.ds-table-row-expandable--card .ds-table-row-expandable__action { width: auto; margin-left: auto; }
+
 @media (prefers-reduced-motion: reduce) {
   .ds-table-row-expandable,
   .ds-table-row-expandable__toggle { transition: none; }

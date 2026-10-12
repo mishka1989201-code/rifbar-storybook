@@ -124,6 +124,12 @@ export const Focused: Story = {
 };
 
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
+export const Fluid: Story = {
+  args: { variant: 'dark', iconLeft: 'call', children: 'Call', fluid: true },
+  parameters: { docs: { description: { story: 'Figma 480px and below: Update, Refresh, See all, Delete and Call fill the width of the card.' } } },
+  decorators: [(Story) => <div style={{ width: 320 }}><Story /></div>],
+};
+
 export const LongLabel: Story = {
   args: {
     variant: 'dark',
