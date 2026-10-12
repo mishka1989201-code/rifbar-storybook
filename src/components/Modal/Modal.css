@@ -196,3 +196,8 @@
   background-color: var(--button-solid-bg);
   color: var(--button-on-solid);
 }
+
+/* Required mark (Figma: red asterisk right after the caption). */
+.ds-modal__required {
+  color: var(--color-danger);
+}

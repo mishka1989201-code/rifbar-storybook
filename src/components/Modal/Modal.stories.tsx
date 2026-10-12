@@ -1,7 +1,7 @@
 import { useId, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
-import { FilterField, InputField } from '../InputField';
+import { FilterField, InputField, TextField } from '../InputField';
 import { Checkbox } from '../Checkbox';
 import { FileDropzone } from '../FileDropzone';
 import { Modal, ModalField, ModalRow, ModalSection } from './Modal';
@@ -144,6 +144,27 @@ export const AddEmployee: Story = {
       <ModalSection>
         <ModalField label="Employee name" htmlFor="add-employee-name">
           <FilterField id="add-employee-name" placeholder="Choose an employee" />
+        </ModalField>
+      </ModalSection>
+    </Modal>
+  ),
+};
+
+export const AddNote: Story = {
+  name: 'Add note (Figma Add note)',
+  args: { title: 'New note' },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=3358-256427',
+    },
+    docs: { description: { story: 'Figma `Manager User - Clients - All Clients Tab - Add note`: the wide dialog with one required `TextField` (100px high) and Close / Save.' } },
+  },
+  render: (args) => (
+    <Modal {...args} size="wide" actions={<Actions accept="Save" />}>
+      <ModalSection>
+        <ModalField label="Note" required htmlFor="add-note-text">
+          <TextField id="add-note-text" required placeholder="Write the text here" style={{ height: 100 }} />
         </ModalField>
       </ModalSection>
     </Modal>
