@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
+import { CardGrid } from '../CardGrid';
 import { TableHeader, type TableHeaderColumn } from '../TableHeader';
 import { TableRowClient, type TableRowClientLayout, type TableRowClientProps } from '../TableRowClient';
 import './TableClients.css';
@@ -17,6 +18,8 @@ export interface TableClientsProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   rows?: TableClientsItem[];
   /** `management` = Figma `Table Row 15` (company, phone, group, status, two dates); `history` = Figma `Table Row 25` (ID, name, status, call date, change date); `calls` = Figma `Table Row 16` (seller, phone, date, time, updated, actions). Picks the default columns and the row layout. */
   layout?: TableRowClientLayout;
+  /** `table` (header + rows) or `cards` (Figma `Cards Line`, 768px and below: a grid of `TableRowClient layout="card"`, no header). `cards` is for `management` rows. */
+  view?: 'table' | 'cards';
   /** Header cells; defaults to `DEFAULT_CLIENTS_COLUMNS` (or `MANAGEMENT_CLIENTS_COLUMNS`), aligned with the row cells. */
   columns?: TableHeaderColumn[];
   /** Called with the column id when a sortable header is pressed. */
@@ -93,6 +96,7 @@ export const CALLS_CLIENTS_COLUMNS: TableHeaderColumn[] = [
 export function TableClients({
   rows = [],
   layout = 'default',
+  view = 'table',
   columns = layout === 'management' ? MANAGEMENT_CLIENTS_COLUMNS : layout === 'history' ? HISTORY_CLIENTS_COLUMNS : layout === 'calls' ? CALLS_CLIENTS_COLUMNS : DEFAULT_CLIENTS_COLUMNS,
   onSort,
   status = 'ready',
@@ -103,17 +107,23 @@ export function TableClients({
   className,
   ...rest
 }: TableClientsProps) {
-  const classes = ['ds-table-clients', className].filter(Boolean).join(' ');
+  const classes = ['ds-table-clients', `ds-table-clients--${view}`, className].filter(Boolean).join(' ');
   const message =
     status === 'loading' ? loadingText : status === 'error' ? errorText : rows.length === 0 ? emptyText : null;
 
   return (
     <div className={classes} {...rest}>
       <div className="ds-table-clients__scroll">
-        <div className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
-          <TableHeader columns={columns} onSort={onSort} />
-          {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout={layout} {...cells} />)}
-        </div>
+        {view === 'cards' ? (
+          <CardGrid className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
+            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout="card" {...cells} />)}
+          </CardGrid>
+        ) : (
+          <div className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
+            <TableHeader columns={columns} onSort={onSort} />
+            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout={layout} {...cells} />)}
+          </div>
+        )}
         {message && (
           <div
             className={`ds-table-clients__status${status === 'error' ? ' is-error' : ''}`}

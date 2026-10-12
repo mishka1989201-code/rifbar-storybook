@@ -17,8 +17,9 @@ export interface TableRowClientGroup {
  * `management` — Figma `Table Row 15` (Clients → All clients): company, phone, group, status, two dates.
  * `history` — Figma `Table Row 25` (client page → Last updates): ID, name, status, call date, change date; no buttons.
  * `calls` — Figma `Table Row 16` (client page → Call records): call icon + seller, phone, date, duration, date, play button or result text; opens a player under the row.
+ * `card` — Figma `Card Row` of Clients → All clients (768px and below): the values of `management` wrap into a white card (name, company, phone, group, status, date), the buttons sit under them, right-aligned.
  */
-export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls';
+export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls' | 'card';
 
 /** `calls` layout: `answered` draws the green phone_callback icon (Figma `Table Row 16`), `missed` the blue phone_forwarded one (`Table Row 3`). */
 export type TableRowClientCallState = 'answered' | 'missed';
@@ -152,6 +153,7 @@ export function TableRowClient({
     layout === 'management' && 'ds-table-row-client--management',
     layout === 'history' && 'ds-table-row-client--history',
     layout === 'calls' && 'ds-table-row-client--calls',
+    layout === 'card' && 'ds-table-row-client--card',
     attention && 'is-attention',
     dismissed && 'is-tooltip-dismissed',
     className,
@@ -270,6 +272,23 @@ export function TableRowClient({
           <div role="cell" className="ds-table-row-client__cell ds-table-row-client__status">{status}</div>
           <div role="cell" className="ds-table-row-client__cell ds-table-row-client__call-date">{callDate}</div>
           <div role="cell" className="ds-table-row-client__cell ds-table-row-client__change-date">{changeDate}</div>
+        </>
+      ) : layout === 'card' ? (
+        <>
+          <div className="ds-table-row-client__info">
+            {nameCell}
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__company">{company}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__phone">{phone}</div>
+            {group && (
+              <div role="cell" className="ds-table-row-client__cell ds-table-row-client__group">
+                <span className={`ds-table-row-client__swatch ds-table-row-client__swatch--${group.color ?? 'green'}`} aria-hidden="true" />
+                <span className="ds-table-row-client__group-label">{group.label}</span>
+              </div>
+            )}
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__status">{status}</div>
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__joined">{joined}</div>
+          </div>
+          {actionsCell}
         </>
       ) : (
         <>

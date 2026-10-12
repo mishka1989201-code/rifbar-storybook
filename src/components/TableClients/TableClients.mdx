@@ -22,6 +22,14 @@ The clients table: sortable header and card rows. Implements the Figma frame
 | `Table Row Hover Name` | hover / focus of the name (see [TableRowClient](?path=/docs/molecules-tablerowclient--docs)) |
 | Frame: column, gap 8, width 1524 | `.ds-table-clients__table` (fills its container; the stories use 1524px) |
 
+## Cards view
+
+At 768px and below Figma draws the clients as cards (`Cards Line`: two columns at 768px, one at 480px and below). `view="cards"` puts
+`TableRowClient layout="card"` rows in a `CardGrid` and drops the header. The card keeps the values of the `management` row (name, company, phone,
+group, status) and shows **one** date — `joined` (Figma draws a single date; which one is **needs designer confirmation**). The buttons sit under the values, right-aligned, 16px apart.
+
+<Canvas of={TableClientsStories.Cards} />
+
 ## Management layout
 
 `layout="management"` is the table of the Figma frame

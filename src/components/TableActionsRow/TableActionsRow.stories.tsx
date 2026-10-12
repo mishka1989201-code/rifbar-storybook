@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from '../Button';
 import { Dropdown } from '../Dropdown';
 import { FilterField } from '../InputField';
 import { TableActionsRow } from './TableActionsRow';
@@ -28,6 +29,19 @@ type Story = StoryObj<typeof meta>;
 
 // ─── DEFAULT (Figma) ─────────────────────────────────────────────────────────
 export const Default: Story = {};
+
+// ─── COMPACT + SORT (Figma: Clients → All Clients Tab, 1024px and below) ──────
+export const WithSort: Story = {
+  name: 'With sort',
+  args: { sort: <Button variant="outline" iconOnly="sort" aria-label="Sort by" /> },
+  parameters: { docs: { description: { story: 'Figma 1024px: the `Sort by` icon button after Clear.' } } },
+};
+
+export const Compact: Story = {
+  args: { compact: true, sort: <Button variant="outline" iconOnly="sort" aria-label="Sort by" /> },
+  parameters: { docs: { description: { story: 'Figma 768px and below: the search field moves under the buttons and fills the width.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 704 }}><Story /></div>],
+};
 
 // ─── VARIANTS ────────────────────────────────────────────────────────────────
 export const WithSearchText: Story = {

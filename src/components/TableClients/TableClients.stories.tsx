@@ -169,6 +169,18 @@ export const Management: Story = {
   decorators: [(Story) => <div style={{ maxWidth: 1524, paddingBottom: 100 }}><Story /></div>],
 };
 
+// ─── CARDS VIEW (Figma: Clients → All Clients Tab, 768px and below) ──────────
+export const Cards: Story = {
+  args: { layout: 'management', view: 'cards', rows: MANAGEMENT_ROWS },
+  parameters: { docs: { description: { story: 'Figma `Cards Line` (768 / 480 / 360px): `TableRowClient layout="card"` in a `CardGrid`, no header. The card shows one date (`joined`).' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 736 }}><Story /></div>],
+};
+export const CardsNarrow: Story = {
+  name: 'Cards (360px)',
+  args: { layout: 'management', view: 'cards', rows: MANAGEMENT_ROWS.slice(0, 2) },
+  decorators: [(Story) => <div style={{ maxWidth: 320 }}><Story /></div>],
+};
+
 // ─── HISTORY LAYOUT (Figma: client page → Last updates) ──────────────────────
 export const History: Story = {
   args: {

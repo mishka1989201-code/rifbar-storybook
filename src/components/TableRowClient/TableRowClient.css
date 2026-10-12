@@ -275,7 +275,8 @@ button.ds-table-row-client__link:hover,
 
 /* Management and history layouts (Figma Table Row 15 / 25): the name is underlined at rest, not only on hover. */
 .ds-table-row-client--management .ds-table-row-client__link,
-.ds-table-row-client--history .ds-table-row-client__link {
+.ds-table-row-client--history .ds-table-row-client__link,
+.ds-table-row-client--card .ds-table-row-client__link {
   text-decoration: underline;
 }
 
@@ -319,3 +320,32 @@ button.ds-table-row-client__link:hover,
   flex: 1 1 100%;
   margin: var(--spacing-12) calc(-1 * var(--spacing-16)) calc(-1 * var(--spacing-12));
 }
+
+/* Card layout (Figma Card Row, 768px and below): the info line wraps, the buttons sit under it at the right. */
+.ds-table-row-client--card {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.ds-table-row-client__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16);
+  padding: var(--spacing-8) 0 var(--spacing-16);
+}
+
+/* Cells hug their text (no column widths); long words wrap. */
+.ds-table-row-client--card .ds-table-row-client__cell {
+  width: auto;
+  overflow: visible;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+.ds-table-row-client--card .ds-table-row-client__name { width: auto; }
+.ds-table-row-client--card .ds-table-row-client__company,
+.ds-table-row-client--card .ds-table-row-client__status { font-weight: var(--font-weight-medium); }
+.ds-table-row-client--card .ds-table-row-client__phone { font-weight: var(--font-weight-semibold); }
+.ds-table-row-client--card .ds-table-row-client__actions { gap: var(--spacing-16); min-width: 0; }
