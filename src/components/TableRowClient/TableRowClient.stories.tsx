@@ -225,6 +225,23 @@ export const CallsMissed: Story = {
 };
 
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
+const USERS_DESIGN = { design: { type: 'figma' as const, url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=960-279890' } };
+
+export const Users: Story = {
+  args: {
+    layout: 'users',
+    index: '1',
+    name: 'David Schwimmer',
+    email: 'davidschwim1976@gmail.com',
+    department: 'Management',
+    userRole: 'Admin',
+    joined: '08.24.2023',
+    onDelete: () => undefined,
+    deleteTooltip: 'Delete an employee',
+  },
+  parameters: { ...USERS_DESIGN, docs: { description: { story: 'Figma `Table Row 24` / `15` of `Departments - Edit`: ID + name, email, department, role, date and the red delete button (tooltip “Delete an employee”).' } } },
+};
+
 export const LongText: Story = {
   name: 'Long text',
   args: {

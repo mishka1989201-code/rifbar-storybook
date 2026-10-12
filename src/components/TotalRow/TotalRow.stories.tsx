@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from '../Button';
 import { TotalRow } from './TotalRow';
 
 const FIGMA_URL =
@@ -39,6 +40,21 @@ export const WithoutActions: Story = {
   name: 'Without actions',
   args: { onDownload: undefined, onViewDoc: undefined },
   parameters: { docs: { description: { story: 'Without `onDownload` and `onViewDoc` the buttons are hidden.' } } },
+};
+
+export const ActionsOnly: Story = {
+  name: 'Close + Save (card)',
+  args: {
+    total: undefined,
+    card: true,
+    actions: (
+      <>
+        <Button variant="light" iconLeft="xmark">Close</Button>
+        <Button variant="dark" iconLeft="tick">Save</Button>
+      </>
+    ),
+  },
+  parameters: { design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=960-279920' }, docs: { description: { story: 'Figma `View Doc Buttons` of `Departments - Edit`: no total, `actions` = Close + Save, rounded card. The 1px Secondary Light top line is not drawn (no themed token yet).' } } },
 };
 
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────

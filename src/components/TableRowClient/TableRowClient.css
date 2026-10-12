@@ -271,10 +271,17 @@ button.ds-table-row-client__link:hover,
 .ds-table-row-client__call-date { width: 81px; }
 .ds-table-row-client__change-date { width: 110px; text-align: right; }
 
-.ds-table-row-client--history .ds-table-row-client__name { flex: none; }
+.ds-table-row-client--history .ds-table-row-client__name,
+.ds-table-row-client--users .ds-table-row-client__name { flex: none; }
+
+/* Users layout (Figma Table Row 24 / 15 of Departments - Edit): ID + name, email, department, role, date, delete. */
+.ds-table-row-client__department { width: 110px; }
+.ds-table-row-client__role { width: 70px; }
+.ds-table-row-client--users .ds-table-row-client__actions { width: 80px; min-width: 80px; }
 
 /* Management and history layouts (Figma Table Row 15 / 25): the name is underlined at rest, not only on hover. */
 .ds-table-row-client--management .ds-table-row-client__link,
+.ds-table-row-client--users .ds-table-row-client__link,
 .ds-table-row-client--history .ds-table-row-client__link,
 .ds-table-row-client--history-card .ds-table-row-client__link,
 .ds-table-row-client--card .ds-table-row-client__link {

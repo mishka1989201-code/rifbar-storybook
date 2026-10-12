@@ -19,9 +19,10 @@ export interface TableRowClientGroup {
  * `calls` — Figma `Table Row 16` (client page → Call records): call icon + seller, phone, date, duration, date, play button or result text; opens a player under the row.
  * `card` — Figma `Card Row` of Clients → All clients (768px and below): the values of `management` wrap into a white card (name, company, phone, group, status, date), the buttons sit under them, right-aligned.
  * `calls-card` — `calls` at 768px and below (AI-defined, Figma draws no narrow Call records): the seller, phone, date, duration and updated date wrap in a card, the play button / result at the right, the player under it.
+ * `users` — Figma `Table Row 24` / `15` of `Departments - Edit` (Admin → Departments → Users in department): ID + name, email, department, role, date, red delete button; no `More` button.
  * `history-card` — Figma `Table Row` of Last updates at 480 / 360px: ID, then name, status and the two dates in one wrapping line (the dates drop under the name when they do not fit).
  */
-export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls' | 'card' | 'history-card' | 'calls-card';
+export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls' | 'card' | 'history-card' | 'calls-card' | 'users';
 
 /** `calls` layout: `answered` draws the green phone_callback icon (Figma `Table Row 16`), `missed` the blue phone_forwarded one (`Table Row 3`). */
 export type TableRowClientCallState = 'answered' | 'missed';
@@ -57,6 +58,10 @@ export interface TableRowClientProps extends Omit<HTMLAttributes<HTMLDivElement>
   phone?: ReactNode;
   /** `default` layout only. */
   email?: ReactNode;
+  /** `users` layout only: department of the employee (Figma `Department`, 110px). */
+  department?: ReactNode;
+  /** `users` layout only: role of the employee (Figma `Role`, 70px). */
+  userRole?: ReactNode;
   /** `management` layout only: the client group (Figma `Groups`). */
   group?: TableRowClientGroup;
   /** `management` layout only: the status pill, e.g. `<ChevronStatus color="success">Active</ChevronStatus>` (Figma `Status Client`). */
@@ -128,6 +133,8 @@ export function TableRowClient({
   company,
   phone,
   email,
+  department,
+  userRole,
   joined,
   updated,
   actionLabel = 'More',
@@ -155,6 +162,7 @@ export function TableRowClient({
     layout === 'management' && 'ds-table-row-client--management',
     layout === 'history' && 'ds-table-row-client--history',
     layout === 'calls' && 'ds-table-row-client--calls',
+    layout === 'users' && 'ds-table-row-client--users',
     layout === 'card' && 'ds-table-row-client--card',
     layout === 'history-card' && 'ds-table-row-client--history-card',
     layout === 'calls-card' && 'ds-table-row-client--calls-card',
@@ -236,7 +244,7 @@ export function TableRowClient({
           )}
         </span>
       )}
-      <Button variant="light" iconLeft="info" onClick={onAction}>{actionLabel}</Button>
+      {layout !== 'users' && <Button variant="light" iconLeft="info" onClick={onAction}>{actionLabel}</Button>}
     </div>
   );
 
@@ -279,6 +287,18 @@ export function TableRowClient({
           </div>
           {callActionsCell}
           {player && <div className="ds-table-row-client__player">{player}</div>}
+        </>
+      ) : layout === 'users' ? (
+        <>
+          <div className="ds-table-row-client__lead">
+            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__index">{index}</div>
+            {nameCell}
+          </div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__email">{email}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__department">{department}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__role">{userRole}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__joined">{joined}</div>
+          {actionsCell}
         </>
       ) : layout === 'history' ? (
         <>

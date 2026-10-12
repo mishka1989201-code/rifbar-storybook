@@ -92,6 +92,30 @@ export const WithSubTabs: Story = {
   parameters: { docs: { description: { story: 'Figma `Subtabs`. The active sub-tab (Hover Blue Light, Medium) is AI-defined.' } } },
 };
 
+export const AdminGroupOpen: Story = {
+  name: 'Admin group open (current page inside)',
+  args: {
+    value: 'departments',
+    items: [
+      {
+        id: 'admin',
+        label: 'Admin',
+        icon: 'admin',
+        expandable: true,
+        expanded: true,
+        children: [
+          { id: 'admins-users', label: 'Admins & Users' },
+          { id: 'sale-agents', label: 'Sale Agents' },
+          { id: 'roles', label: 'Roles' },
+          { id: 'departments', label: 'Departments' },
+        ],
+      },
+      ...ITEMS.slice(0, 4),
+    ],
+  },
+  parameters: { docs: { description: { story: 'Figma `Admin` (Departments - Edit): the open group stays filled while one of its sub-tabs is the current page; the sub-tab is Hover Blue Light, Medium.' } } },
+};
+
 export const WithDisabledTab: Story = {
   name: 'With disabled tab',
   args: { items: ITEMS.map((i) => (i.id === 'groups' ? { ...i, disabled: true } : i)) },

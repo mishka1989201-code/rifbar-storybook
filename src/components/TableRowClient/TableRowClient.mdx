@@ -67,6 +67,17 @@ It is one component with `layout="management"`:
 <Canvas of={TableRowClientStories.CallsPlayerOpen} />
 <Canvas of={TableRowClientStories.CallsMissed} />
 
+**Users layout** (Figma [`Table Row 24` / `15`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=960-279890) of `Departments - Edit`, Users in department): `layout="users"`.
+
+| Figma | Code |
+|---|---|
+| `ID` 30px + name 170px (Semi-Bold, underlined), packed 32px apart | `index`, `name` |
+| Email 220px, Department 110px, Role 70px | `email`, `department`, `userRole` |
+| Date 80px, right | `joined` |
+| `Buttons`: red delete, tooltip “Delete an employee” | `onDelete`, `deleteTooltip` (no `More` button) |
+
+<Canvas of={TableRowClientStories.Users} />
+
 **Card layout** (Figma `Card Row` of Clients → All clients at 768 / 480 / 360px): `layout="card"` takes the props of `management`, wraps `name`, `company`, `phone`, `group`, `status` and **one** date (`joined`; Figma draws a single date, which one — needs designer confirmation) into a white card (16px gaps) and puts the buttons under them, right-aligned, 16px apart. `attention` colours the card as the row. No new tokens: the card reuses the row's.
 
 <Canvas of={TableRowClientStories.Card} />
