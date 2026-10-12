@@ -135,8 +135,7 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
   TableProductsRow, TableRowAnalytics, TableRowClient, TableRowExpandable, TableRowOrder (row / card), TableToolbar (desktop / compact), TableRowMobile, TableRowQuantity, TotalRow
 - **Organisms:** ChatLayout (ChatHeader + ChatMessage thread + MessageBox), TableProducts (TableProductsHeader + TableProductsRow), TableClients (TableHeader + TableRowClient), TableOrders (TableHeader `orders` + TableRowOrder; `layout` table / cards), Navbar (LogoBar + NavbarMenu + UserDropdown), TimeTracker (TimeTrackerBar + stats + TimeScale), WelcomeCard (AlertRow rows + dark header), FilterMenu (FilterChevron chips + CheckListModal / Modal + DatePicker sections), ProductDetailCard (picture + RowInfoBlock rows + description + actions), ProductFormModal (Modal 480 / 360 + fields + image block), ScheduledCallCard (CardHeader + FilterField date + Refresh),
   DatePicker (Button + TimePicker; date / date-time / today / range)
-- **Prototypes** (`src/prototypes`, titles `Prototypes/<Name>`, not exported from `src/index.ts`): whole screens assembled from library components with fake
-  in-memory data, one story per Figma breakpoint. `ClientOrders` (client page, Orders tab, 1920…360px + filter screens at 768 / 480 / 360px), `DepartmentUsers` (Pagination Responsive: 768 / 480 / 360px × pagination v1 / v2).
+- **Prototypes** live in a separate repository: [`rifbar-prototypes`](https://github.com/mishka1989201-code/rifbar-prototypes) (Vite app that imports this library as `rifbar-ds` pinned to a git tag). Not part of this repo any more.
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens, Favicons
 
 Latest work (2026-10-09): the dark theme of **Atoms, Molecules and Organisms** is done and merged (PR #12, #13, #14, #15; 380 themed tokens). `AudioPlayer` and `CardGrid` have no dark frame and stay light.
@@ -144,8 +143,11 @@ Latest work (2026-10-09): the dark theme of **Atoms, Molecules and Organisms** i
 Earlier: TableRowClient hover + tooltip, TooltipBordered `subtle`, NoRowsTable, Foundations/Favicons, demo photos in `src/assets/demo`.
 No open PR. The branch `claude/peaceful-franklin-tnrmh4` holds only merged history: at the start of a session restart it from `origin/main` (same name, force-with-lease) and open a new PR only on request.
 
-**Next: Prototypes** (whole screens, new screens generated from Figma frames). Workflow, scaffold script (`node scripts/new-prototype.mjs`) and checklist: `CONTRIBUTING-molecules.md` → «Прототипи: передача в новий чат».
+**Next: Prototypes — in the repo `rifbar-prototypes`** (whole screens, new screens generated from Figma frames). Its own `CLAUDE.md` has the workflow. Here, only add or extend components when a screen needs them, then tag a new version (see "Releasing the library").
 
+## Releasing the library
+
+The prototypes repo installs `rifbar-ds` from `github:mishka1989201-code/rifbar-storybook#<tag>`. After components change on `main`: bump `version` in `package.json`, `git tag vX.Y.Z && git push origin vX.Y.Z`, then change the tag in `rifbar-prototypes/package.json` and run `npm install` there. Everything a prototype needs must be exported from `src/index.ts`. Tags: `v0.1.0` (first), `v0.2.0` (all Atoms / Molecules / Organisms with the dark theme).
 
 Open design questions (also in the PR #10 description):
 
@@ -165,10 +167,10 @@ Open design questions (also in the PR #10 description):
   colours read from the render (no Figma variable): hover / focus strokes, `Change`, checkmark, tooltip stroke, open states of `ChevronStatus` / `ChevronDropDown`.
   Below 3:1 on black (kept as designed): hover of `Checkbox` / `Toggle` / `HeaderMenu` / `Icon` (2.72:1), static strokes of `InputField` / `SearchField` / `ImageCard` (1.35:1), `Primary` of `ChevronDropDown` / `ChevronStatus`, initials of `chat` / `department` Avatar, `FilterChevron` label (2.97:1) and hover value (1.90:1).
 
-Storybook builds (`npx storybook build`) and the stories of the newest work (both prototypes, `TableRowOrder`, `TableOrders`, `TableToolbar`, `CardGrid`, `CheckListModal` radio / pick / accent,
-`Pagination` / `PaginationBar` / `PageHeader` / `IconButton` new sizes) were opened in headless Chromium without console errors; clicks were tried on the `ClientOrders` Status menu and the `DepartmentUsers` pages / search / delete.
+Storybook builds (`npx storybook build`) and the stories of the newest work (`TableRowOrder`, `TableOrders`, `TableToolbar`, `CardGrid`, `CheckListModal` radio / pick / accent,
+`Pagination` / `PaginationBar` / `PageHeader` / `IconButton` new sizes) were opened in headless Chromium without console errors; the two prototypes (`ClientOrders`, `DepartmentUsers`) moved to `rifbar-prototypes` and were checked there.
 How to verify, the handoff checklist and the designer questions are in `CONTRIBUTING-molecules.md` («Передача в новий чат»).
 The other interactive stories (FilterMenu, CheckListModal, Navbar, ProductFormModal, DatePicker, TableClients Sortable) were still not walked through.
 
-Next after Prototypes: more components from the Figma file, one link (or several for one component) at a time. Reuse an existing component when the new
+Next after that: more components from the Figma file, one link (or several for one component) at a time. Reuse an existing component when the new
 frame only changes layout, sizes or columns (extend it with a prop or a preset instead of adding a new one).
