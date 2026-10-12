@@ -1,0 +1,87 @@
+/* CallMenu — every value references a token from src/tokens/tokens.json.
+   The root reserves 8px on top for the arrow (Figma: arrow slot 8px), as TooltipBordered does. */
+
+.ds-call-menu {
+  --ds-call-menu-arrow-size: 11.7px; /* Figma: Arrow square 11.7px (rotated 45°) */
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  width: max-content;
+  padding-top: var(--spacing-8);
+  filter: var(--shadow-tooltip-filter);
+  font-family: var(--font-family-base);
+}
+
+.ds-call-menu__body {
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--spacing-10);
+  padding: var(--spacing-10);
+  border: var(--border-width-sm) solid var(--call-menu-border);
+  border-radius: var(--radius-tooltip);
+  background-color: var(--call-menu-bg);
+}
+
+.ds-call-menu__arrow {
+  position: absolute;
+  top: var(--spacing-8);
+  left: 50%;
+  box-sizing: border-box;
+  width: var(--ds-call-menu-arrow-size);
+  height: var(--ds-call-menu-arrow-size);
+  background-color: var(--call-menu-bg);
+  border-top: var(--border-width-sm) solid var(--call-menu-border);
+  border-right: var(--border-width-sm) solid var(--call-menu-border);
+  border-top-right-radius: var(--spacing-2);
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.ds-call-menu__option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--spacing-6) var(--spacing-12) var(--spacing-6) var(--spacing-6);
+  border: 0;
+  border-radius: var(--radius-tooltip);
+  background-color: var(--call-menu-option-bg);
+  color: var(--call-menu-text);
+  font: inherit;
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Figma: the WhatsApp option has 27px on the right, the call option 12px. */
+.ds-call-menu__option--whatsapp {
+  padding-right: calc(var(--spacing-28) - var(--border-width-sm));
+}
+
+.ds-call-menu__option:hover,
+.ds-call-menu__option.is-active {
+  background-color: var(--call-menu-option-active-bg);
+}
+
+/* AI-defined: Figma draws no keyboard focus; same ring as the other table controls. */
+.ds-call-menu__option:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-hover-blue-light);
+  outline-offset: var(--spacing-2);
+}
+
+.ds-call-menu__circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-sizing: border-box;
+  width: var(--spacing-26);
+  height: var(--spacing-26);
+  border-radius: var(--radius-round);
+  color: var(--call-menu-icon);
+}
+
+.ds-call-menu__circle--whatsapp { background-color: var(--call-menu-whatsapp); }
+.ds-call-menu__circle--call { background-color: var(--call-menu-call); }

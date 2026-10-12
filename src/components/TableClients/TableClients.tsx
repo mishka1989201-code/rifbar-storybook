@@ -1,12 +1,12 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { TableHeader, type TableHeaderColumn } from '../TableHeader';
-import { TableRowClient, type TableRowClientProps } from '../TableRowClient';
+import { TableRowClient, type TableRowClientLayout, type TableRowClientProps } from '../TableRowClient';
 import './TableClients.css';
 
 /** One row of the table; fields map 1:1 to `TableRowClient`. */
 export interface TableClientsItem extends Pick<
   TableRowClientProps,
-  'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'joined' | 'updated' | 'actionLabel' | 'onAction' | 'onDelete' | 'onCall' | 'onNotes' | 'tooltip' | 'tooltipTitle'
+  'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'group' | 'status' | 'joined' | 'updated' | 'attention' | 'source' | 'actionLabel' | 'onAction' | 'onDelete' | 'onCall' | 'onNotes' | 'deleteTooltip' | 'notesTooltip' | 'callMenu' | 'tooltip' | 'tooltipTitle'
 > {
   id: string | number;
 }
@@ -15,7 +15,9 @@ export type TableClientsStatus = 'ready' | 'loading' | 'error';
 
 export interface TableClientsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSort'> {
   rows?: TableClientsItem[];
-  /** Header cells; defaults to `DEFAULT_CLIENTS_COLUMNS`, aligned with the seven row cells. */
+  /** `management` = Figma `Table Row 15` (company, phone, group, status, two dates). Picks the default columns and the row layout. */
+  layout?: TableRowClientLayout;
+  /** Header cells; defaults to `DEFAULT_CLIENTS_COLUMNS` (or `MANAGEMENT_CLIENTS_COLUMNS`), aligned with the row cells. */
   columns?: TableHeaderColumn[];
   /** Called with the column id when a sortable header is pressed. */
   onSort?: (id: string) => void;
@@ -43,12 +45,29 @@ export const DEFAULT_CLIENTS_COLUMNS: TableHeaderColumn[] = [
 ];
 
 /**
+ * Figma `Manager User - Clients - All Clients Tab` header, aligned with the cells of `TableRowClient layout="management"`.
+ * Figma places `Status` and `Joined` unaligned with the rows (a drawing slip); here every label sits over its own column.
+ * The first date is `Updated`, the second `Joined` (Figma writes `Joined` over the second one; `Updated` is AI-defined).
+ */
+export const MANAGEMENT_CLIENTS_COLUMNS: TableHeaderColumn[] = [
+  { id: 'name', label: 'Name', width: 170, sortable: true },
+  { id: 'company', label: 'Company', width: 170, sortable: true },
+  { id: 'phone', label: 'Phone', width: 150, align: 'end', sortable: true },
+  { id: 'groups', label: 'Groups', width: 112, sortable: true },
+  { id: 'status', label: 'Status', width: 103, align: 'end', sortable: true },
+  { id: 'updated', label: 'Updated', width: 80, align: 'end', sortable: true },
+  { id: 'joined', label: 'Joined', width: 119, align: 'end', sortable: true },
+  { id: 'actions', label: 'Actions', width: 213, align: 'end' },
+];
+
+/**
  * Figma `Table/Row & Header`: the transparent `TableHeader` on top of `TableRowClient` cards, 8px apart.
  * In a container narrower than the columns the table scrolls horizontally.
  */
 export function TableClients({
   rows = [],
-  columns = DEFAULT_CLIENTS_COLUMNS,
+  layout = 'default',
+  columns = layout === 'management' ? MANAGEMENT_CLIENTS_COLUMNS : DEFAULT_CLIENTS_COLUMNS,
   onSort,
   status = 'ready',
   emptyText = 'No clients.',
@@ -67,7 +86,7 @@ export function TableClients({
       <div className="ds-table-clients__scroll">
         <div className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
           <TableHeader columns={columns} onSort={onSort} />
-          {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} {...cells} />)}
+          {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout={layout} {...cells} />)}
         </div>
         {message && (
           <div

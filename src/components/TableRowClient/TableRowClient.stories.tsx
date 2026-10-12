@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { CallMenu } from '../CallMenu';
+import { ChevronStatus } from '../ChevronStatus';
 import { TableRowClient } from './TableRowClient';
 
 const FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=17-6506';
@@ -119,6 +121,53 @@ export const TooltipShortText: Story = {
   parameters: { docs: { description: { story: 'No headline, one line: the bubble keeps the Figma width (899px).' } } },
 };
 
+// ─── MANAGEMENT LAYOUT (Figma: Table Row 15, Clients → All clients) ──────────
+const FIGMA_MANAGEMENT_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=47-11326';
+const managementArgs = {
+  layout: 'management',
+  group: { label: 'Large Distrib.', color: 'green' },
+  status: <ChevronStatus color="success">Follow up</ChevronStatus>,
+  nameHref: '#',
+  onDelete: () => undefined,
+  onCall: () => undefined,
+  onNotes: () => undefined,
+} satisfies Story['args'];
+
+export const Management: Story = {
+  args: managementArgs,
+  parameters: { design: { type: 'figma', url: FIGMA_MANAGEMENT_URL }, docs: { description: { story: 'Figma `Table Row 15` layout: group and status instead of the email.' } } },
+};
+
+export const Attention: Story = {
+  args: { ...managementArgs, attention: true, status: <ChevronStatus color="dark">Not interested</ChevronStatus> },
+  parameters: { design: { type: 'figma', url: FIGMA_MANAGEMENT_URL }, docs: { description: { story: 'Figma draws the first row of the clients table with the Warning BG fill and the Warning border.' } } },
+};
+
+export const GroupTeal: Story = {
+  name: 'Group (teal)',
+  args: { ...managementArgs, group: { label: 'Small Distrib.', color: 'teal' }, status: <ChevronStatus color="secondary">Inactive</ChevronStatus> },
+};
+
+export const WithSource: Story = {
+  name: 'With source icon',
+  args: { ...managementArgs, source: 'Outbrain', status: <ChevronStatus color="info">New</ChevronStatus> },
+  decorators: [(Story) => <div style={{ maxWidth: 1524, paddingTop: 80, paddingBottom: 20 }}><Story /></div>],
+  parameters: { docs: { description: { story: 'Hover or focus the icon before the name: the source opens above it (Figma `Tooltip with border + shadow`, “Outbrain”).' } } },
+};
+
+export const ActionTooltips: Story = {
+  name: 'Action tooltips',
+  args: { ...managementArgs, deleteTooltip: 'Delete User', notesTooltip: 'Add a note' },
+  parameters: { docs: { description: { story: 'Hover or focus the red or the notes button: the tooltip opens to its left (Figma `Delete User`, `Add a note`).' } } },
+};
+
+export const WithCallMenu: Story = {
+  name: 'With call menu',
+  args: { ...managementArgs, callMenu: <CallMenu /> },
+  decorators: [(Story) => <div style={{ maxWidth: 1524, paddingBottom: 100 }}><Story /></div>],
+  parameters: { docs: { description: { story: 'Hover or focus the phone button: `CallMenu` opens under it (Figma `tooltip-call`).' } } },
+};
+
 // ─── EDGE CASES ──────────────────────────────────────────────────────────────
 export const LongText: Story = {
   name: 'Long text',
@@ -149,6 +198,8 @@ export const AllVariants: Story = {
       <TableRowClient {...args} nameHref="#" forceNameHover />
       <TableRowClient {...args} company="—" phone="—" email="—" />
       <TableRowClient {...args} onDelete={() => undefined} onCall={() => undefined} onNotes={() => undefined} />
+      <TableRowClient {...args} {...managementArgs} attention />
+      <TableRowClient {...args} {...managementArgs} group={{ label: 'Small Distrib.', color: 'teal' }} status={<ChevronStatus color="primary">Active</ChevronStatus>} />
       <div style={{ paddingBottom: 200 }}>
         <TableRowClient {...args} forceHover onDelete={() => undefined} onCall={() => undefined} tooltipTitle="Detailed information" tooltip={tooltipBody} />
       </div>

@@ -28,12 +28,60 @@
   text-overflow: ellipsis;
 }
 
-.ds-table-row-client__name { width: 170px; font-weight: var(--font-weight-semibold); }
+.ds-table-row-client__name {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  width: 170px;
+  font-weight: var(--font-weight-semibold);
+  /* The source tooltip opens above the cell; the row must not clip it. */
+  overflow: visible;
+}
 .ds-table-row-client__company { width: 170px; }
 .ds-table-row-client__phone { width: 150px; }
 .ds-table-row-client__email { width: 220px; }
 .ds-table-row-client__joined { width: 80px; text-align: right; }
 .ds-table-row-client__updated { width: 119px; text-align: right; }
+
+/* Management layout (Figma Table Row 15): group swatch + name, right-aligned status pill. */
+.ds-table-row-client__group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  width: 112px;
+}
+
+.ds-table-row-client__group-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ds-table-row-client__swatch {
+  flex: none;
+  box-sizing: border-box;
+  width: var(--spacing-16);
+  height: var(--spacing-16);
+  border: var(--border-width-sm) solid var(--table-row-group-border);
+  border-radius: var(--spacing-3);
+}
+
+.ds-table-row-client__swatch--green { background-color: var(--color-green-groups); }
+.ds-table-row-client__swatch--teal { background-color: var(--color-teal-groups); }
+
+.ds-table-row-client__status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 103px;
+  overflow: visible;
+}
+
+/* Needs attention (Figma Table Row 15). The hover fill still wins, as it is drawn after this rule. */
+.ds-table-row-client.is-attention {
+  background: var(--table-row-attention-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--table-row-attention-border), var(--table-row-shadow);
+}
 
 /* The buttons keep their own width (the row hugs them, 119px at least); overflow must not clip a focus ring. */
 .ds-table-row-client__actions {
@@ -64,6 +112,11 @@
 .ds-table-row-client:hover,
 .ds-table-row-client.is-hover {
   background: var(--table-row-hover-bg);
+}
+
+.ds-table-row-client.is-attention:hover,
+.ds-table-row-client.is-attention.is-hover {
+  background: var(--table-row-attention-bg);
 }
 
 /* Tooltip (Figma `Tooltip with border + shadow`, arrow on top): under the row, over the rows below it.
@@ -127,3 +180,78 @@ button.ds-table-row-client__link:hover,
   outline-offset: var(--spacing-2);
   border-radius: var(--radius-sm);
 }
+
+/* Source icon (Figma: icon before the name, tooltip “Outbrain” above it). */
+.ds-table-row-client__source {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  color: var(--table-row-source-icon);
+  border-radius: var(--radius-sm);
+}
+
+.ds-table-row-client__source:focus-visible {
+  outline: var(--border-width-lg) solid var(--color-hover-blue-light);
+  outline-offset: var(--spacing-2);
+}
+
+/* Tooltips of the action buttons and the call menu: shown on hover / focus of their own button. */
+.ds-table-row-client__action {
+  position: relative;
+  display: inline-flex;
+}
+
+.ds-table-row-client__source-tip,
+.ds-table-row-client__action-tip,
+.ds-table-row-client__call-menu {
+  position: absolute;
+  z-index: 20;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 150ms ease, visibility 150ms;
+}
+
+/* Centred over the icon (Figma puts the arrow near the left edge; the bubble's arrow is centred). */
+.ds-table-row-client__source-tip {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: var(--spacing-2);
+  pointer-events: none;
+}
+
+.ds-table-row-client__action-tip {
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+  margin-right: var(--spacing-2);
+  pointer-events: none;
+}
+
+.ds-table-row-client__call-menu {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: var(--spacing-2);
+}
+
+.ds-table-row-client__source:hover .ds-table-row-client__source-tip,
+.ds-table-row-client__source:focus-visible .ds-table-row-client__source-tip,
+.ds-table-row-client__action:hover .ds-table-row-client__action-tip,
+.ds-table-row-client__action:focus-within .ds-table-row-client__action-tip,
+.ds-table-row-client__action:hover .ds-table-row-client__call-menu,
+.ds-table-row-client__action:focus-within .ds-table-row-client__call-menu {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-table-row-client__source-tip,
+  .ds-table-row-client__action-tip,
+  .ds-table-row-client__call-menu {
+    transition: none;
+  }
+}
+
+/* Management layout: the phone number is right-aligned (Figma Table Row 15). */
+.ds-table-row-client--management .ds-table-row-client__phone { text-align: right; }

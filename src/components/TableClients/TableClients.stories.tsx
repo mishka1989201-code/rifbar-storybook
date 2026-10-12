@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { CallMenu } from '../CallMenu';
+import { ChevronStatus } from '../ChevronStatus';
 import { TableClients, type TableClientsItem } from './TableClients';
 
 const FIGMA_URL = 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=93-34229';
@@ -149,4 +151,19 @@ export const AllVariantsDark: Story = {
       </div>
     ),
   ],
+};
+
+// ─── MANAGEMENT LAYOUT (Figma: Clients → All Clients Tab) ────────────────────
+const MANAGEMENT_BASE: TableClientsItem[] = [
+  { id: 1, name: 'Mickey Herman', nameHref: '#', company: "Sam's Club", phone: '+44 32 567 8473', group: { label: 'Large Distrib.' }, status: <ChevronStatus color="dark">Not interested</ChevronStatus>, updated: '07.23.2023', joined: '07.23.2023', attention: true, source: 'Outbrain' },
+  { id: 2, name: 'Dave Filoni', nameHref: '#', company: 'Costco', phone: '+44 32 567 8473', group: { label: 'Large Distrib.' }, status: <ChevronStatus color="primary">Active</ChevronStatus>, updated: '06.17.2022', joined: '07.23.2023' },
+  { id: 3, name: 'Justin Ridge', nameHref: '#', company: 'WinCo Foods', phone: '+44 32 567 8473', group: { label: 'Small Distrib.', color: 'teal' as const }, status: <ChevronStatus color="secondary">Inactive</ChevronStatus>, updated: '06.17.2022', joined: '07.23.2023' },
+  { id: 4, name: 'Jennifer Corbett', nameHref: '#', company: "Fry's", phone: '+44 32 567 8473', group: { label: 'Small Distrib.', color: 'teal' as const }, status: <ChevronStatus color="success">Follow up</ChevronStatus>, updated: '06.17.2022', joined: '07.23.2023' },
+];
+const MANAGEMENT_ROWS: TableClientsItem[] = MANAGEMENT_BASE.map((r) => ({ ...r, onDelete: () => undefined, onCall: () => undefined, onNotes: () => undefined, deleteTooltip: 'Delete User', notesTooltip: 'Add a note', callMenu: <CallMenu /> }));
+
+export const Management: Story = {
+  args: { layout: 'management', rows: MANAGEMENT_ROWS },
+  parameters: { docs: { description: { story: 'Figma `Manager User - Clients - All Clients Tab`: group + status columns, action buttons with tooltips and the call menu.' } } },
+  decorators: [(Story) => <div style={{ maxWidth: 1524, paddingBottom: 100 }}><Story /></div>],
 };
