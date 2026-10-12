@@ -59,17 +59,26 @@ Implements the Figma frame [`Player - Time Tracker`](https://www.figma.com/desig
 - Figma width of the card is 338px; the code is 100% of the container, the visualizer (203px) stays centred and the timeline stretches.
 - The filter “Cards Shadow” is a `drop-shadow` in Figma; code uses `box-shadow: var(--shadow-card)`.
 
+## Dark theme (AI-defined, added 2026-10-12)
+
+No Figma dark frame draws the player, so the dark values come from the neighbours: the card takes the table row values (White (Dark), Stroke Button (dark), Dark Mode Shadow 1), the bars, icons and the volume are Primary Blue Dark (Light) `#BDC5E2`, the time and the timeline fill are Hover Blue Light `#888CF6` (as `tab.accent`), the inactive track is Stroke Button (dark) `#242424`. Open question for the designer: the dark frame of Time Tracker / Call records.
+
+Contrasts on `#000000` (calculated by script): bars and icons 12.25:1, time and timeline fill 7.13:1, inactive track 1.35:1 (kept low, as the light track is 1.4:1).
+
+<Canvas of={AudioPlayerStories.AllVariantsDark} />
+
 ## Design tokens used
 
 | Token | Property | Value | Source |
 |---|---|---|---|
-| `--color-white` | card background | `#FFFFFF` | Existing tokens.json · Figma: White (fill) |
-| `--color-stroke-light-v1` / `--border-width-sm` | bottom stroke | `#F1F2F9` / `1px` | Existing tokens.json · Figma: Stroke Light V1 |
+| `--border-width-sm` | bottom stroke width | `1px` | Existing tokens.json · Figma: Stroke Light V1 |
 | `--radius-lg` | card radius | `10px` | Existing tokens.json · Figma: corner radius 10 |
-| `--shadow-card` | card shadow | `0 30px 25px -20px rgba(0,0,0,.1)` | Existing tokens.json · Figma: Cards Shadow |
-| `--color-primary-blue-dark` | bars, icons, volume fill + handle | `#1D2542` | Existing tokens.json · Figma: Primary Blue Dark (Light) |
-| `--color-headlines` | time text, timeline fill + handle | `#4549A1` | Existing tokens.json · Figma: Headlines |
-| `--color-headlines-alpha-22` | inactive track | `rgba(69,73,161,.22)` | **New** · Figma: timeline inactive track (colour read from the render) |
+| `--audio-player-bg` | card background | `#FFFFFF` / dark `#000000` | **New** (themed) · AI-defined use: White / White (Dark), as `--table-row-bg` |
+| `--audio-player-border` | bottom stroke | `#F1F2F9` / dark `#242424` | **New** (themed) · AI-defined use: as `--table-row-border` |
+| `--audio-player-shadow` | card shadow | Cards Shadow / dark `--shadow-dark-1` | **New** (themed) · AI-defined use: as `--table-row-shadow` |
+| `--audio-player-ink` | bars, icons, volume | `#1D2542` / dark `#BDC5E2` | **New** (themed) · AI-defined use: as `--table-row-action-dark` |
+| `--audio-player-accent` | time, timeline fill + handle | `#4549A1` / dark `#888CF6` | **New** (themed) · AI-defined use: as `--tab-accent` |
+| `--audio-player-track` | inactive track | `rgba(69,73,161,.22)` / dark `#242424` | **New** (themed) · AI-defined use: Stroke Button (dark) |
 | `--font-size-h7` / `--font-line-height-h7` / `--font-weight-light` | time | `14px` / `21px` / `300` | Existing tokens.json · Figma: Light Headings/h7 |
 | `--spacing-16` / `--spacing-10` | card padding / gap | `16px` / `10px` | Existing tokens.json · Figma: padding 16, gap 10 |
 | `--spacing-4` | gap time parts, icon gap, track height | `4px` | Existing tokens.json · Figma: gap 4, timeline height 4 |
@@ -108,4 +117,4 @@ The component is controlled: it does not play audio itself — drive `currentTim
 
 - Both ranges are native `<input type="range">` with `aria-label` (“Seek”, “Volume”); the button has `aria-label` “Play” / “Pause”. The visualizer is decorative (`aria-hidden`).
 - Controls are 32px (button) and 8px-high ranges — below the 44px touch target, kept as designed.
-- The inactive track (`#D6D7EA` on white) is about 1.4:1 contrast — kept as designed. Headlines `#4549A1` time text passes 4.5:1 but the Light (300) weight is thin.
+- The inactive track (`#D6D7EA` on white) is about 1.4:1 contrast (dark: `#242424` on black, 1.35:1) — kept as designed. Headlines `#4549A1` time text passes 4.5:1 but the Light (300) weight is thin.

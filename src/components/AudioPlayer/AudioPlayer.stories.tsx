@@ -84,3 +84,15 @@ export const AllVariants: Story = {
     </div>
   ),
 };
+
+export const AllVariantsDark: Story = {
+  ...AllVariants,
+  name: 'All variants (dark theme)',
+  decorators: [
+    (Story) => (
+      <div data-theme="dark" style={{ background: 'var(--color-white-dark)', padding: 16, margin: -16, width: 'max-content', maxWidth: 370 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
