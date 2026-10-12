@@ -107,3 +107,4 @@ export * from './components/BarcodeSettings';
 export * from './components/ConfirmModal';
 export * from './components/Dropdown';
 export * from './components/DiscountModal';
+export * from './components/SuccessCard';

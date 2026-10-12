@@ -1,0 +1,30 @@
+/* SuccessCard — every value references a token from src/tokens/tokens.json. */
+
+.ds-success-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-10);
+  box-sizing: border-box;
+  padding: var(--spacing-32);
+  border-radius: var(--radius-lg);
+  background: var(--success-card-bg);
+  box-shadow: inset 0 0 0 var(--border-width-sm) var(--success-card-border), var(--success-card-shadow);
+  font-family: var(--font-family-base);
+}
+
+.ds-success-card__illustration {
+  display: block;
+  color: var(--success-card-icon);
+  line-height: 0;
+}
+
+/* Figma: Light Headings/h2 (32 / 48) in Headlines. */
+.ds-success-card__title {
+  margin: 0;
+  color: var(--success-card-text);
+  font-size: var(--font-size-h2);
+  line-height: var(--font-line-height-h2);
+  font-weight: var(--font-weight-light);
+  text-align: center;
+}

@@ -1,0 +1,69 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as SuccessCardStories from './SuccessCard.stories';
+
+<Meta of={SuccessCardStories} />
+
+# SuccessCard
+
+A card with a big green hexagon check and a Light 32px message — the result of an action, e.g. “The Discount is Successful”.
+Implements the Figma [`Successfully v2`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=1334-460992) frame (478 × 340 for the discount message).
+
+<Canvas of={SuccessCardStories.Default} />
+<Controls of={SuccessCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code | Notes |
+|---|---|---|
+| `Successfully v2` | `.ds-success-card` | Stroke Light V1 fill, Green Light @ 9% stroke, radius 10, green shadow, padding 32, gap 10 |
+| `Objects` → `Group` (192 × 218) | `illustration` (default: inline SVG) | Drawn from its measured shape |
+| “The Discount is Successful” (Light Headings/h2) | `title` | Headlines, 32 / 48, centred |
+
+## When to use / When NOT to use
+
+- ✅ A short, positive result of a bulk action, shown for a moment over the page.
+- ❌ Inline form feedback — use `MessageBox` / `Notification`.
+
+## Variants, states and edge cases
+
+<Canvas of={SuccessCardStories.OtherMessage} />
+<Canvas of={SuccessCardStories.LongMessage} />
+<Canvas of={SuccessCardStories.NarrowContainer} />
+<Canvas of={SuccessCardStories.CustomIllustration} />
+<Canvas of={SuccessCardStories.AllVariants} />
+
+## Figma notes
+
+- The illustration asset could not be downloaded (asset proxy 403). The hexagon (outline 21px, vertical sides) and the check (24px stroke, with a gap cut in the hexagon) are drawn in SVG from the shape measured on the render — **the curves differ slightly from the vector in Figma**; replace the SVG with the original when it is available.
+- Figma draws the card without an overlay and does not say how long it stays: showing, centring and closing are left to the page.
+- Dark theme: no dark frame — all dark values are **AI-defined** (fill Primary Blue Dark (Dark), title `#888CF6`, the green and its 9% stroke unchanged, shadow Dark Mode Shadow 1).
+- Not drawn: a long message wraps and centres (AI-defined).
+
+## Design tokens used
+
+The `--color-*` rows are light values; the themed tokens carry the dark ones.
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--success-card-bg` | fill | `#F1F2F9` | **New** · Figma: Successfully v2 → Stroke Light V1. Dark AI-defined |
+| `--success-card-border`, `--color-green-light-alpha-9` | 1px stroke | Green Light @ 9% | **New** · Figma: Successfully v2 stroke (value-named) |
+| `--success-card-text` | message | `#4549A1` | **New** · Figma: Successfully v2 → Headlines. Dark AI-defined |
+| `--success-card-icon`, `--color-green-61d354` | illustration | `#61D354` | **New** · Figma: Successfully v2 → Group (value-named, read from the render) |
+| `--success-card-shadow`, `--shadow-success-card` | shadow | `0 30 25 -20 / green 10%` | **New** · Figma: Successfully v2 → drop shadow |
+| `--spacing-32`, `--spacing-10`, `--radius-lg` | padding, gap, radius 10 | 32 / 10 / 10px | Existing tokens.json · Figma: Successfully v2 |
+| `--font-size-h2`, `--font-line-height-h2`, `--font-weight-light` | message | 32 / 48, 300 | Existing tokens.json · Figma: Light Headings/h2 |
+
+## Props
+
+<ArgTypes of={SuccessCardStories.Default} />
+
+## Code example
+
+```tsx
+<SuccessCard title="The Discount is Successful" />
+```
+
+## Accessibility
+
+- `role="status"`; the illustration is decorative (`aria-hidden`).
+- ⚠️ Headlines `#4549A1` on `#F1F2F9` is 6.91:1 (fine; `#888CF6` on the dark fill is 6.91:1 too). The green illustration (1.72:1 on the panel) is decorative and carries no meaning.
