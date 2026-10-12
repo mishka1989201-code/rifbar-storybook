@@ -117,7 +117,7 @@
   padding-left: var(--spacing-40);
 }
 
-/* AI-defined: the active sub-tab uses the `nav-subtab-active` color (Figma names it, but draws no active sub-tab). */
+/* The active sub-tab uses the `nav-subtab-active` color, Medium (Figma `Admin` → `Departments`). */
 .ds-navbar-menu__subtab.is-active {
   color: var(--theme-nav-subtab-active);
   font-weight: var(--font-weight-medium);

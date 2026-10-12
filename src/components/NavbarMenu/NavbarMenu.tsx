@@ -79,9 +79,11 @@ export function NavbarMenu({
       <ul className="ds-navbar-menu__list">
         {items.map((item) => {
           const active = item.id === value;
+          // Figma `Admin`: an open group stays filled while one of its sub-tabs is the current page.
+          const childActive = !!item.expanded && !!item.children?.some((sub) => sub.id === value);
           const itemClasses = [
             'ds-navbar-menu__item',
-            active && 'is-active',
+            (active || childActive) && 'is-active',
             item.secondary && 'ds-navbar-menu__item--secondary',
           ]
             .filter(Boolean)

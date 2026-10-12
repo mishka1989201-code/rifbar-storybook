@@ -5,8 +5,12 @@ import './TotalRow.css';
 export interface TotalRowProps extends HTMLAttributes<HTMLDivElement> {
   /** Small caption above the amount. */
   label?: ReactNode;
-  /** The amount, e.g. `$19140`. */
-  total: ReactNode;
+  /** The amount, e.g. `$19140`. Omit it (with `label`) to draw only the buttons, right-aligned (Figma `View Doc Buttons`). */
+  total?: ReactNode;
+  /** Replaces the default download / “View doc” buttons, e.g. Close + Save (Figma `View Doc Buttons` of `Departments - Edit`). */
+  actions?: ReactNode;
+  /** Rounded card (Figma `View Doc Buttons`: radius 10) instead of the flat bar under a table. */
+  card?: boolean;
   /** Called on click of the icon-only download button. Omit together with `onViewDoc` to hide both. */
   onDownload?: () => void;
   /** Called on click of “View doc”. */
@@ -23,6 +27,8 @@ export interface TotalRowProps extends HTMLAttributes<HTMLDivElement> {
 export function TotalRow({
   label = 'Total',
   total,
+  actions,
+  card = false,
   onDownload,
   onViewDoc,
   viewDocLabel = 'View doc',
@@ -30,20 +36,24 @@ export function TotalRow({
   className,
   ...rest
 }: TotalRowProps) {
-  const classes = ['ds-total-row', className].filter(Boolean).join(' ');
-  const hasActions = Boolean(onDownload || onViewDoc);
+  const classes = ['ds-total-row', card && 'ds-total-row--card', total === undefined && 'ds-total-row--actions-only', className].filter(Boolean).join(' ');
+  const hasActions = Boolean(actions || onDownload || onViewDoc);
   return (
     <div className={classes} {...rest}>
-      <div className="ds-total-row__total">
-        <span className="ds-total-row__label">{label}</span>
-        <span className="ds-total-row__amount">{total}</span>
-      </div>
+      {total !== undefined && (
+        <div className="ds-total-row__total">
+          <span className="ds-total-row__label">{label}</span>
+          <span className="ds-total-row__amount">{total}</span>
+        </div>
+      )}
       {hasActions && (
         <div className="ds-total-row__buttons">
+          {actions ?? <>
           <Button variant="dark" iconOnly="download-cloud" aria-label={downloadLabel} onClick={onDownload} />
           <Button variant="dark" size="medium" iconLeft="tick" onClick={onViewDoc}>
             {viewDocLabel}
           </Button>
+          </>}
         </div>
       )}
     </div>
