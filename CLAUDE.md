@@ -138,10 +138,10 @@ Components in `src/components` (all exported from `src/index.ts`). Per-molecule 
 - **Prototypes** live in a separate repository: [`rifbar-prototypes`](https://github.com/mishka1989201-code/rifbar-prototypes) (Vite app that imports this library as `rifbar-ds` pinned to a git tag). Not part of this repo any more.
 - **Foundations** (`src/foundations`): Colors, Typography, Spacing, Shadows, Grid, Responsive, Tokens, Favicons
 
-Latest work (2026-10-09): the dark theme of **Atoms, Molecules and Organisms** is done and merged (PR #12, #13, #14, #15; 380 themed tokens). `AudioPlayer` and `CardGrid` have no dark frame and stay light.
+Latest work (2026-10-12): version **0.4.0** (merged, PR #19): `TableRowClient` / `TableClients` `layout="calls"` (Figma Call records) with a player slot, `AudioPlayer embedded`, `RegionSwitch` (US / EU region switch of the page header; the app owns the state and shows the clients of the region). Before that, 0.3.0 (PR #18): `CallMenu`, `TableClients` `management` / `history`, `SelectProducts`, `DiscountModal`, `SuccessCard`.
+The dark theme of **Atoms, Molecules and Organisms** is done (PR #12–#15; 380 themed tokens); the newest components (`calls` rows, `RegionSwitch`, `SelectProducts`, `DiscountModal`, `SuccessCard`, `CallMenu`) have **AI-defined** dark values because no dark frame draws them. `AudioPlayer` and `CardGrid` have no dark frame and stay light.
 `FilterMenu` is kept as is: the dark Figma frame `Filters` (768px) draws field + dropdown sections, the code draws card sections (the designer said: leave it).
-Earlier: TableRowClient hover + tooltip, TooltipBordered `subtle`, NoRowsTable, Foundations/Favicons, demo photos in `src/assets/demo`.
-No open PR. The branch `claude/peaceful-franklin-tnrmh4` holds only merged history: at the start of a session restart it from `origin/main` (same name, force-with-lease) and open a new PR only on request.
+No open PR. The branch `claude/fervent-fermat-yx6xj9` holds only merged history: at the start of a session restart it from `origin/main` (same name, force-with-lease) and open a new PR only on request. No version tags exist (the git proxy refuses tag pushes, 403): the prototypes pin the `main` merge commit SHA.
 
 **Next: Prototypes — in the repo `rifbar-prototypes`** (whole screens, new screens generated from Figma frames). Its own `CLAUDE.md` has the workflow. Here, only add or extend components when a screen needs them, then tag a new version (see "Releasing the library").
 
@@ -161,6 +161,7 @@ Open design questions (also in the PR #10 description):
 - `FilterField` / `InputField` filled state: some frames (`ScheduledCallCard`, `ProductFormModal` Base currency, `Discount Modal`) draw a filled field with the
   Stroke Input border and Grey Dark text; the atom's `Activated` state (Input field border, Color Text) is used. Part of the same "one border rule" question.
 - Client pages (2026-10-12), needs the designer: `DiscountModal` — the “0 or empty deletes the discount” note contradicts the empty-value error (code follows the error frame), base currency is static; `SelectProducts` has no partial “Select all” state (as Figma) and no dark frame; `Dropdown` selected row is dark in `Groups DropDown` but not drawn in `Status DropDown`; `ScheduledCallCard` Refresh uses `clear`; Recover password / Update icons matched by look.
+- Call records / region switch (2026-10-12), needs the designer: the `Updated` column name of `CALLS_CLIENTS_COLUMNS` (Figma labels 4 of 6 cells and the header is unaligned with the rows); rows with a result (`cancel`, `busy`, `no day limit`) are drawn narrower in Figma (columns kept aligned here); `RegionSwitch` — the EU state, hover, focus and dark theme are not drawn, the flags are SVG (assets 403), what else depends on the region besides the clients list.
 - Needs confirmation: `--color-warning-tint` (badge of `ScheduledCallCard`, read from the render), `reboot` / `picture` / `save-line` icons.
 - Many icons are matched by look (Figma icons are unnamed vectors) — see the "needs designer confirmation" list in the MDX of each component.
 - Dark theme of the Atoms, for the designer: `Icon` Primary is `#1D2542` on black in the dark frame (1.40:1, looks not adapted; code keeps `#BDC5E2`); `Switcher` Dark pill is `#050411` in Dark Atoms but `#1D2542` in the Navbar dark frame
