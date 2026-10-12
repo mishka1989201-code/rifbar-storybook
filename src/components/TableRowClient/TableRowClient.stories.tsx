@@ -242,6 +242,34 @@ export const Users: Story = {
   parameters: { ...USERS_DESIGN, docs: { description: { story: 'Figma `Table Row 24` / `15` of `Departments - Edit`: ID + name, email, department, role, date and the red delete button (tooltip “Delete an employee”).' } } },
 };
 
+const pendingArgs = {
+  layout: 'pending' as const,
+  name: 'Rachel Green',
+  company: 'Central Perk',
+  phone: '+44 32 567 1120',
+  email: 'rachel.green@centralperk.com',
+  joined: '08.02.2023',
+  onReject: () => undefined,
+  onApprove: () => undefined,
+  onCall: () => undefined,
+  onInfo: () => undefined,
+  rejectTooltip: 'Reject user registration',
+  approveTooltip: 'Approve user registration',
+  callTooltip: 'Click to call',
+  infoTooltip: 'Detailed information',
+};
+
+export const Pending: Story = {
+  args: pendingArgs,
+  parameters: { docs: { description: { story: 'Clients → All clients → Pending (AI-defined, no Figma frame yet): name, company, phone, email, joined and four icon buttons — reject (red, xmark), approve (dark, checked checkbox), call (dark, phone), details (light, info). Hover or focus a button to see its tooltip.' } } },
+};
+
+export const PendingCard: Story = {
+  name: 'Pending — card',
+  args: { ...pendingArgs, layout: 'pending-card' },
+  decorators: [(Story) => <div style={{ maxWidth: 332 }}><Story /></div>],
+};
+
 export const LongText: Story = {
   name: 'Long text',
   args: {

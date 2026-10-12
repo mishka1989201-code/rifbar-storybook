@@ -31,6 +31,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 // ─── COMPACT + SORT (Figma: Clients → All Clients Tab, 1024px and below) ──────
+export const WithoutSearch: Story = {
+  name: 'Without search',
+  args: { showSearch: false },
+  parameters: { docs: { description: { story: 'Clients → All clients → Pending draws only Export and Clear.' } } },
+};
+
 export const WithSort: Story = {
   name: 'With sort',
   args: { sort: <Button variant="outline" iconOnly="sort" aria-label="Sort by" /> },
