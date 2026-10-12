@@ -213,7 +213,7 @@ export const HistoryCards: Story = {
       changeDate: '08.24.2023',
     })),
   },
-  parameters: { docs: { description: { story: 'Figma `Last updates` at 480 / 360px: `TableRowClient layout="history-card"` — ID, name and status on one line, the dates under them.' } } },
+  parameters: { docs: { description: { story: 'Figma `Last updates` at 480 / 360px: `TableRowClient layout="history-card"` — ID, then name, status and the dates in one wrapping line.' } } },
   decorators: [(Story) => <div style={{ maxWidth: 320 }}><Story /></div>],
 };
 

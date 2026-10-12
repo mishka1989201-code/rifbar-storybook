@@ -18,7 +18,7 @@ export interface TableRowClientGroup {
  * `history` — Figma `Table Row 25` (client page → Last updates): ID, name, status, call date, change date; no buttons.
  * `calls` — Figma `Table Row 16` (client page → Call records): call icon + seller, phone, date, duration, date, play button or result text; opens a player under the row.
  * `card` — Figma `Card Row` of Clients → All clients (768px and below): the values of `management` wrap into a white card (name, company, phone, group, status, date), the buttons sit under them, right-aligned.
- * `history-card` — Figma `Table Row` of Last updates at 480 / 360px: ID, name and status on one line, the two dates under them.
+ * `history-card` — Figma `Table Row` of Last updates at 480 / 360px: ID, then name, status and the two dates in one wrapping line (the dates drop under the name when they do not fit).
  */
 export type TableRowClientLayout = 'default' | 'management' | 'history' | 'calls' | 'card' | 'history-card';
 
@@ -277,12 +277,10 @@ export function TableRowClient({
         </>
       ) : layout === 'history-card' ? (
         <>
-          <div className="ds-table-row-client__history-line">
-            <div role="cell" className="ds-table-row-client__cell ds-table-row-client__index">{index}</div>
+          <div role="cell" className="ds-table-row-client__cell ds-table-row-client__index">{index}</div>
+          <div className="ds-table-row-client__history-body">
             {nameCell}
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__status">{status}</div>
-          </div>
-          <div className="ds-table-row-client__history-dates">
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__call-date">{callDate}</div>
             <div role="cell" className="ds-table-row-client__cell ds-table-row-client__change-date">{changeDate}</div>
           </div>

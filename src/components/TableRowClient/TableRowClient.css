@@ -351,25 +351,20 @@ button.ds-table-row-client__link:hover,
 .ds-table-row-client--card .ds-table-row-client__phone { font-weight: var(--font-weight-semibold); }
 .ds-table-row-client--card .ds-table-row-client__actions { gap: var(--spacing-16); min-width: 0; }
 
-/* History card layout (Figma Last updates, 480 / 360px): ID, name and status on one line, the dates under them. */
+/* History card layout (Figma Last updates, 480 / 360px): the ID, then name, status and both dates in one wrapping group. */
 .ds-table-row-client--history-card {
-  flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
   justify-content: flex-start;
   gap: var(--spacing-8);
 }
-.ds-table-row-client__history-line {
+.ds-table-row-client--history-card .ds-table-row-client__index { padding-top: var(--spacing-2); }
+.ds-table-row-client__history-body {
   display: flex;
+  flex: 1 1 0;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--spacing-8);
+  gap: var(--spacing-8) var(--spacing-16);
   min-width: 0;
-}
-.ds-table-row-client__history-dates {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-16);
-  /* The dates start under the name: after the ID (30px) and the gap. */
-  padding-left: calc(30px + var(--spacing-8));
 }
 .ds-table-row-client--history-card .ds-table-row-client__call-date,
 .ds-table-row-client--history-card .ds-table-row-client__change-date { width: auto; text-align: left; }
