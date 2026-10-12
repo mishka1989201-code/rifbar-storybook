@@ -10,6 +10,8 @@ export type ScheduledCallState = 'static' | 'time-to-call';
 export interface ScheduledCallCardProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
   /** Figma `Property 1`. */
   state?: ScheduledCallState;
+  /** Badge colour. Default follows `state` (Static = warning, Time to call = success). The client page draws the Static card with the green badge. */
+  badgeTone?: 'warning' | 'success';
   /** Card title. Default “Scheduled call”. */
   title?: ReactNode;
   /** Caption above the date field. Default “Date - Time”. */
@@ -32,6 +34,7 @@ export interface ScheduledCallCardProps extends Omit<HTMLAttributes<HTMLElement>
  */
 export function ScheduledCallCard({
   state = 'static',
+  badgeTone,
   title = 'Scheduled call',
   dateLabel = 'Date - Time',
   value,
@@ -46,7 +49,7 @@ export function ScheduledCallCard({
   const classes = ['ds-scheduled-call-card', due && 'is-due', className].filter(Boolean).join(' ');
   return (
     <section className={classes} {...rest}>
-      <CardHeader title={title} icon="call" tone={due ? 'success' : 'warning'} />
+      <CardHeader title={title} icon="call" tone={badgeTone ?? (due ? 'success' : 'warning')} />
       <div className="ds-scheduled-call-card__body">
         <label className="ds-scheduled-call-card__date">
           <span className="ds-scheduled-call-card__label">{dateLabel}</span>
