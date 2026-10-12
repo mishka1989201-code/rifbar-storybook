@@ -370,3 +370,24 @@ button.ds-table-row-client__link:hover,
 .ds-table-row-client--history-card .ds-table-row-client__change-date { width: auto; text-align: left; }
 .ds-table-row-client--history-card .ds-table-row-client__name { width: auto; flex: 0 1 auto; }
 .ds-table-row-client--history-card .ds-table-row-client__status { width: auto; }
+
+/* Calls card layout (AI-defined, 768px and below): the values wrap, the play button / result sits under them at the right, the player fills the card. */
+.ds-table-row-client--calls-card {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+.ds-table-row-client--calls-card .ds-table-row-client__cell {
+  width: auto;
+  overflow: visible;
+  white-space: normal;
+  text-align: left;
+}
+.ds-table-row-client--calls-card .ds-table-row-client__name { width: auto; }
+.ds-table-row-client--calls-card .ds-table-row-client__link { text-decoration: underline; }
+.ds-table-row-client--calls-card .ds-table-row-client__call-actions { width: auto; align-self: flex-end; min-height: var(--size-control-sm); }
+.ds-table-row-client--calls-card .ds-table-row-client__info { padding-bottom: var(--spacing-8); }
+
+/* An open player makes the card as wide as the whole grid (the player needs the room). */
+.ds-table-row-client--calls-card.has-player { grid-column: 1 / -1; }

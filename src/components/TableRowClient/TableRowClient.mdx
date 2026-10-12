@@ -73,6 +73,8 @@ It is one component with `layout="management"`:
 
 **History card** (`layout="history-card"`, Figma `Last updates` at 480 / 360px): `index`, then `name`, `status`, `callDate` and `changeDate` in one wrapping line (shown by `TableClients layout="history" view="cards"`).
 
+**Calls card** (`layout="calls-card"`, AI-defined — Figma draws no narrow Call records): the props of `calls`; the seller, phone, date, duration and updated date wrap in a card, the play button / close button / `callResult` is at the right under them, the `player` fills the card.
+
 <Canvas of={TableRowClientStories.History} />
 <Canvas of={TableRowClientStories.Management} />
 <Canvas of={TableRowClientStories.Attention} />

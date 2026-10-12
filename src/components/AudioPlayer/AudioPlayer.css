@@ -21,16 +21,23 @@
    play / pause, time + timeline (211px) in the middle, volume — under the visualizer. */
 .ds-audio-player--embedded {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* The middle track (time + timeline) may shrink in a narrow card (Figma draws the player only in the wide row). */
+  grid-template-columns: minmax(max-content, 1fr) minmax(min-content, auto) minmax(max-content, 1fr);
   justify-items: center;
   padding: var(--spacing-16) var(--spacing-10);
   border-radius: 0;
   box-shadow: none;
 }
 
+.ds-audio-player--embedded { container-type: inline-size; }
+/* In a narrow card (the 360px phone) the volume slider goes away, the speaker button stays. */
+@container (max-width: 380px) {
+  .ds-audio-player--embedded .ds-audio-player__range--volume { display: none; }
+}
 .ds-audio-player--embedded .ds-audio-player__visualizer { grid-column: 1 / -1; }
 .ds-audio-player--embedded .ds-audio-player__progress { grid-row: 2; grid-column: 2; width: auto; }
-.ds-audio-player--embedded .ds-audio-player__range--timeline { flex: none; width: var(--size-player-timeline-width); }
+.ds-audio-player--embedded .ds-audio-player__range--timeline { flex: 1 1 var(--size-player-timeline-width); width: auto; min-width: 0; max-width: var(--size-player-timeline-width); }
+.ds-audio-player--embedded .ds-audio-player__visualizer { max-width: 100%; overflow: hidden; }
 .ds-audio-player--embedded .ds-audio-player__controls { display: contents; }
 .ds-audio-player--embedded .ds-audio-player__button { grid-row: 2; grid-column: 1; justify-self: start; }
 .ds-audio-player--embedded .ds-audio-player__volume { grid-row: 2; grid-column: 3; justify-self: end; }
