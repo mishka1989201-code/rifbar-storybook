@@ -16,7 +16,7 @@ const meta = {
   args: { title: 'Create warehouse', size: 'desktop', onClose: () => {} },
   argTypes: {
     title: { control: 'text' },
-    size: { control: 'inline-radio', options: ['desktop', 'mobile', 'wide', 'list', 'info', '480', '360'] },
+    size: { control: 'inline-radio', options: ['desktop', 'mobile', 'wide', 'list', 'info', '550', '480', '360'] },
     icon: { control: 'text' },
     children: { control: false },
     actions: { control: false },
@@ -369,7 +369,7 @@ export const WithDescriptionAndImportant: Story = {
 
 export const DiscountWithError: Story = {
   name: 'Discount: field error (Figma Error)',
-  args: { title: 'Discount confirmation', icon: 'gift-discount', size: 'wide', description: DISCOUNT_INFO, important: DISCOUNT_IMPORTANT },
+  args: { title: 'Discount confirmation', icon: 'gift-discount', size: '550', description: DISCOUNT_INFO, important: DISCOUNT_IMPORTANT },
   parameters: discountDocs(
     'Figma `Discount Modal` with an error: the chosen group has an empty field with a Danger border and the message “To continue - enter the value in the input field!” (Regular 12px, Danger) 4px below it.',
   ),
@@ -382,7 +382,7 @@ export const DiscountWithError: Story = {
 
 export const DiscountPercentChosen: Story = {
   name: 'Discount: percent chosen',
-  args: { title: 'Discount confirmation', icon: 'gift-discount', size: 'wide', description: DISCOUNT_INFO, important: DISCOUNT_IMPORTANT },
+  args: { title: 'Discount confirmation', icon: 'gift-discount', size: '550', description: DISCOUNT_INFO, important: DISCOUNT_IMPORTANT },
   parameters: discountDocs('Figma `Discount Modal`: the percent group is chosen and filled (`15`); the currency group is Grey Dark.'),
   render: (args) => (
     <Modal {...args} actions={<Actions cancel="Cancel" />}>
@@ -393,7 +393,7 @@ export const DiscountPercentChosen: Story = {
 
 export const DiscountCurrencyChosen: Story = {
   name: 'Discount: currency chosen',
-  args: { title: 'Discount confirmation', icon: 'gift-discount', size: 'wide', description: DISCOUNT_INFO, important: DISCOUNT_IMPORTANT },
+  args: { title: 'Discount confirmation', icon: 'gift-discount', size: '550', description: DISCOUNT_INFO, important: DISCOUNT_IMPORTANT },
   parameters: discountDocs('Figma `Discount Modal`: the currency group is chosen and filled (`1200`, US dollar); the percent group is Grey Dark.'),
   render: (args) => (
     <Modal {...args} actions={<Actions cancel="Cancel" />}>

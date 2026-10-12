@@ -55,3 +55,17 @@
   font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
 }
+
+/* Figma `Base Currency`: the 180px list is 4px under the field. It is aligned to the field's right edge so that it stays inside the dialog. */
+.ds-discount-modal__currency {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-discount-modal__list {
+  position: absolute;
+  top: calc(100% + var(--spacing-4));
+  right: 0;
+  z-index: 5;
+}

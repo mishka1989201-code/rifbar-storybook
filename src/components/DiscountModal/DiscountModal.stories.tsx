@@ -30,6 +30,15 @@ export const ErrorState: Story = {
 export const PercentChosen: Story = { name: 'Percent chosen', args: { defaultChoice: 'percent', defaultPercent: '15' } };
 export const CurrencyChosen: Story = { name: 'Currency chosen', args: { defaultChoice: 'currency', defaultAmount: '1200' } };
 
+export const CurrencyList: Story = {
+  name: 'Base currency list (Figma Base Currency)',
+  parameters: {
+    design: { type: 'figma', url: 'https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=68-51420' },
+    docs: { description: { story: 'Click “Base currency” to open the list (British pound, US dollar, Canadian dollar, Polish zloty).' } },
+  },
+  args: { defaultChoice: 'currency', defaultAmount: '1200' },
+};
+
 export const Narrow: Story = {
   name: 'Narrow container',
   decorators: [(Story) => <div style={{ maxWidth: 360 }}><Story /></div>],

@@ -1,6 +1,7 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Button } from '../Button';
 import { Checkbox } from '../Checkbox';
+import { Dropdown } from '../Dropdown';
 import { FilterField, InputField } from '../InputField';
 import { Modal, ModalSection, type ModalProps } from '../Modal';
 import './DiscountModal.css';
@@ -9,6 +10,8 @@ import './DiscountModal.css';
 export interface DiscountValue {
   kind: 'percent' | 'currency';
   value: number;
+  /** The base currency, set for `kind: 'currency'`. */
+  currency?: string;
 }
 
 export interface DiscountModalProps
@@ -20,8 +23,12 @@ export interface DiscountModalProps
   defaultChoice?: DiscountValue['kind'] | null;
   defaultPercent?: string;
   defaultAmount?: string;
-  /** Base currency shown in the (not yet interactive) currency field. */
-  currency?: string;
+  /** Options of the base currency list (Figma `Base Currency`). */
+  currencies?: string[];
+  /** Initial base currency. */
+  defaultCurrency?: string;
+  /** Called when another base currency is picked. */
+  onCurrencyChange?: (currency: string) => void;
   /** Error under the chosen field; set by the caller or by the modal itself on `Apply` without a value. */
   error?: string;
   /** Text of the error the modal shows on `Apply` without a value (Figma). */
@@ -45,7 +52,9 @@ export function DiscountModal({
   defaultChoice = null,
   defaultPercent = '',
   defaultAmount = '',
-  currency = 'US dollar',
+  currencies = ['British pound', 'US dollar', 'Canadian dollar', 'Polish zloty'],
+  defaultCurrency = 'US dollar',
+  onCurrencyChange,
   error,
   emptyError = 'To continue - enter the value in the input field!',
   onApply,
@@ -60,6 +69,29 @@ export function DiscountModal({
   const [percent, setPercent] = useState(defaultPercent);
   const [amount, setAmount] = useState(defaultAmount);
   const [own, setOwn] = useState<string | undefined>();
+  const [currency, setCurrency] = useState(defaultCurrency);
+  const [listOpen, setListOpen] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  // The currency list closes on an outside click and on Escape.
+  useEffect(() => {
+    if (!listOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (!listRef.current?.contains(e.target as Node)) setListOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        setListOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey, true);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey, true);
+    };
+  }, [listOpen]);
   const shown = error ?? own;
 
   const apply = () => {
@@ -71,7 +103,7 @@ export function DiscountModal({
       setOwn(emptyError);
       return;
     }
-    onApply?.({ kind, value });
+    onApply?.(kind === 'currency' ? { kind, value, currency } : { kind, value });
   };
   const pick = (kind: DiscountValue['kind']) => {
     setChoice(kind);
@@ -82,7 +114,7 @@ export function DiscountModal({
     <Modal
       title={title}
       icon="gift-discount"
-      size="wide"
+      size="550"
       description={description}
       important={important}
       onClose={onClose}
@@ -152,7 +184,28 @@ export function DiscountModal({
             </div>
             <div className="ds-discount-modal__column ds-discount-modal__column--currency">
               <span className="ds-discount-modal__caption">Base currency</span>
-              <FilterField value={currency} />
+              <div className="ds-discount-modal__currency" ref={listRef}>
+                <FilterField
+                  aria-label="Base currency"
+                  value={currency}
+                  open={listOpen}
+                  onClick={() => setListOpen((o) => !o)}
+                />
+                {listOpen && (
+                  <div className="ds-discount-modal__list">
+                    <Dropdown
+                      options={currencies.map((c) => ({ value: c, label: c }))}
+                      value={currency}
+                      listLabel="Base currency"
+                      onChange={(v) => {
+                        setCurrency(v as string);
+                        onCurrencyChange?.(v as string);
+                        setListOpen(false);
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

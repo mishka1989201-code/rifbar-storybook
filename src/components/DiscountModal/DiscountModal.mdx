@@ -6,7 +6,7 @@ import * as DiscountModalStories from './DiscountModal.stories';
 # DiscountModal
 
 The pop-up of “Make a discount” on the client's Custom price tab: a percent value **or** a currency amount.
-Implements the Figma [`Discount Modal`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=818-308102) frames (Info, Error, percent chosen, currency chosen). It is a `Modal size="wide"` with the `description` / `important` header texts and two radio groups.
+Implements the Figma [`Discount Modal`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/ERP-System-v-1.1--Mockups----Rifbar-2023?node-id=818-308102) frames (Info, Error, percent chosen, currency chosen). It is a `Modal size="550"` with the `description` / `important` header texts and two radio groups.
 
 <Canvas of={DiscountModalStories.Default} />
 <Controls of={DiscountModalStories.Default} />
@@ -19,7 +19,7 @@ Implements the Figma [`Discount Modal`](https://www.figma.com/design/4Q7E8IQ07a9
 | percent chosen / currency chosen | `defaultChoice`, `defaultPercent` / `defaultAmount` | The chosen group's caption is Color Text |
 | Error | `error`, or the modal's own `emptyError` on `Accept` | Danger border + message under the chosen field |
 | Info / Importantly texts | `description`, `important` | `Modal` header texts |
-| Base currency | `FilterField` with `currency` | Static: Figma draws only “US dollar” |
+| Base currency (`Base Currency` `68:51420`) | `FilterField` + `Dropdown` (`currencies`, `defaultCurrency`, `onCurrencyChange`) | The list opens under the field; `Accept` sends `currency` for the currency group |
 | `Cancel` / `Accept` | `onCancel` / `onApply` | `Accept` sends `{ kind, value }` |
 
 ## When to use / When NOT to use
@@ -32,6 +32,7 @@ Implements the Figma [`Discount Modal`](https://www.figma.com/design/4Q7E8IQ07a9
 <Canvas of={DiscountModalStories.ErrorState} />
 <Canvas of={DiscountModalStories.PercentChosen} />
 <Canvas of={DiscountModalStories.CurrencyChosen} />
+<Canvas of={DiscountModalStories.CurrencyList} />
 <Canvas of={DiscountModalStories.Narrow} />
 <Canvas of={DiscountModalStories.Interactive} />
 <Canvas of={DiscountModalStories.AllVariants} />
@@ -40,7 +41,8 @@ Implements the Figma [`Discount Modal`](https://www.figma.com/design/4Q7E8IQ07a9
 
 - Figma draws the states only; the behaviour is AI-defined: typing or focusing a group chooses it; `Accept` with an empty or non-numeric value in the chosen group (the percent group when nothing is chosen) shows the Figma error; the radio of the other group is cleared automatically.
 - The “0 or empty value deletes the discount” note (`important`) contradicts the error on an empty value; the code follows the error frame. **Needs designer confirmation.**
-- The base currency field is not a working dropdown (Figma shows only “US dollar”).
+- Base currency list: Figma draws a 180px list left-aligned under a 127px field, which would stick out of the dialog; the code aligns its right edge with the field. The currencies are the four of the frame. Needs designer confirmation.
+- Width: the dialog is 550px (`Modal size="550"`, `--size-modal-info`); the first version used 630px by mistake.
 - Dark theme: no dark frame — the Grey Dark caption becomes `#646464`; everything else comes from `Modal` / `InputField`. AI-defined.
 
 ## Design tokens used
