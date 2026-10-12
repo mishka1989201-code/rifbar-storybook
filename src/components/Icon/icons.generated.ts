@@ -14,7 +14,7 @@ export interface IconDef {
   frame: string;
 }
 
-export type Icon16Name = 'accounting' | 'admin' | 'arrow-drop-down' | 'arrow-drop-up' | 'arrow-left' | 'arrow-right' | 'back' | 'badge' | 'bag-v2' | 'bag' | 'barcode' | 'bullet' | 'call-v2' | 'call' | 'cart' | 'category' | 'chart-v2' | 'chart' | 'chat' | 'check-double' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'chevron-up' | 'clear' | 'clock' | 'contract' | 'copy' | 'csv' | 'dashboard' | 'date' | 'delete' | 'doc' | 'dollar' | 'download-cloud' | 'download-doc' | 'edit-v2' | 'edit' | 'email' | 'employees' | 'export' | 'eye' | 'file' | 'filter-dark' | 'filter-light' | 'finance' | 'forward' | 'graph' | 'groups' | 'image' | 'info' | 'invoice' | 'link' | 'mail' | 'notes' | 'number' | 'order' | 'output-circle' | 'pause' | 'phone-callback' | 'phone-forwarded' | 'picture' | 'play' | 'plus-box' | 'plus' | 'print' | 'product-box' | 'question' | 'reboot' | 'reply' | 'rifbar-big' | 'rifbar-small' | 'save-fill' | 'save-line' | 'search' | 'sell' | 'sent' | 'settings' | 'shield-access' | 'shield-person' | 'shield' | 'shipping-local' | 'sort' | 'stop' | 'tick' | 'ticket' | 'time-new' | 'trash' | 'tune' | 'user' | 'volume-up' | 'warehouse' | 'warning-v1' | 'warning-v2' | 'whatsapp' | 'xmark-small' | 'xmark';
+export type Icon16Name = 'accounting' | 'admin' | 'arrow-drop-down' | 'arrow-drop-up' | 'arrow-left' | 'arrow-right' | 'back' | 'badge' | 'bag-v2' | 'bag' | 'barcode' | 'bullet' | 'call-v2' | 'call' | 'cart' | 'category' | 'chart-v2' | 'chart' | 'chat' | 'check-double' | 'checkbox-checked' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'chevron-up' | 'clear' | 'clock' | 'contract' | 'copy' | 'csv' | 'dashboard' | 'date' | 'delete' | 'doc' | 'dollar' | 'download-cloud' | 'download-doc' | 'edit-v2' | 'edit' | 'email' | 'employees' | 'export' | 'eye' | 'file' | 'filter-dark' | 'filter-light' | 'finance' | 'forward' | 'graph' | 'groups' | 'image' | 'info' | 'invoice' | 'link' | 'mail' | 'notes' | 'number' | 'order' | 'output-circle' | 'pause' | 'phone-callback' | 'phone-forwarded' | 'picture' | 'play' | 'plus-box' | 'plus' | 'print' | 'product-box' | 'question' | 'reboot' | 'reply' | 'rifbar-big' | 'rifbar-small' | 'save-fill' | 'save-line' | 'search' | 'sell' | 'sent' | 'settings' | 'shield-access' | 'shield-person' | 'shield' | 'shipping-local' | 'sort' | 'stop' | 'tick' | 'ticket' | 'time-new' | 'trash' | 'tune' | 'user' | 'volume-up' | 'warehouse' | 'warning-v1' | 'warning-v2' | 'whatsapp' | 'xmark-small' | 'xmark';
 export type Icon24Name = 'arrow-circle-left' | 'arrow-step-down' | 'arrow-step' | 'bag' | 'barcode' | 'bell' | 'burger-rolled-up' | 'burger' | 'cards-view' | 'chart-fill' | 'chat' | 'check-circle' | 'csv' | 'date' | 'doc-new' | 'doc' | 'download-doc' | 'edit' | 'file' | 'finance' | 'gift-discount' | 'info' | 'link' | 'list-view' | 'number' | 'phone' | 'plus-box' | 'plus-solid' | 'rifbar' | 'sale' | 'send-chat' | 'send' | 'signed-doc' | 'support' | 'tick' | 'ticket' | 'upload' | 'user' | 'warning-v1' | 'warning-v2' | 'xmark';
 
 export const ICONS_16: Record<Icon16Name, IconDef> = {
@@ -177,6 +177,14 @@ export const ICONS_16: Record<Icon16Name, IconDef> = {
     "figma": "Check Double",
     "node": "139:41528",
     "frame": "5-8779"
+  },
+  "checkbox-checked": {
+    "viewBox": "0 0 16 16",
+    "body": "<rect x=\"2\" y=\"2\" width=\"12\" height=\"12\" rx=\"2\" stroke=\"currentColor\" stroke-width=\"1.5\" /><path d=\"M5 8.2L7.2 10.4L11 6\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" />",
+    "group": "Icons 16px",
+    "figma": "AI-defined: checked checkbox (Checkbox atom shape, 16px)",
+    "node": "",
+    "frame": ""
   },
   "chevron-down": {
     "viewBox": "0 0 16 16",

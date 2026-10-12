@@ -7,7 +7,7 @@ import './TableClients.css';
 /** One row of the table; fields map 1:1 to `TableRowClient`. */
 export interface TableClientsItem extends Pick<
   TableRowClientProps,
-  'index' | 'callState' | 'duration' | 'callResult' | 'onPlay' | 'onClose' | 'player' | 'callDate' | 'changeDate' | 'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'department' | 'userRole' | 'group' | 'status' | 'joined' | 'updated' | 'attention' | 'source' | 'actionLabel' | 'onAction' | 'onDelete' | 'onCall' | 'onNotes' | 'deleteTooltip' | 'notesTooltip' | 'callMenu' | 'tooltip' | 'tooltipTitle'
+  'index' | 'callState' | 'duration' | 'callResult' | 'onPlay' | 'onClose' | 'player' | 'callDate' | 'changeDate' | 'name' | 'nameHref' | 'onNameClick' | 'company' | 'phone' | 'email' | 'department' | 'userRole' | 'group' | 'status' | 'joined' | 'updated' | 'attention' | 'source' | 'actionLabel' | 'onAction' | 'onDelete' | 'onCall' | 'onNotes' | 'onReject' | 'onApprove' | 'onInfo' | 'rejectTooltip' | 'approveTooltip' | 'callTooltip' | 'infoTooltip' | 'deleteTooltip' | 'notesTooltip' | 'callMenu' | 'tooltip' | 'tooltipTitle'
 > {
   id: string | number;
 }
@@ -78,6 +78,19 @@ export const HISTORY_CLIENTS_COLUMNS: TableHeaderColumn[] = [
 ];
 
 /**
+ * Header of Clients → All clients → Pending (AI-defined), aligned with `TableRowClient layout="pending"`:
+ * name, company, phone, email, joined and the four icon buttons (178px).
+ */
+export const PENDING_CLIENTS_COLUMNS: TableHeaderColumn[] = [
+  { id: 'name', label: 'Name', width: 170, sortable: true },
+  { id: 'company', label: 'Company', width: 170, sortable: true },
+  { id: 'phone', label: 'Phone', width: 150, sortable: true },
+  { id: 'email', label: 'Email', width: 220, sortable: true },
+  { id: 'joined', label: 'Joined', width: 80, align: 'end', sortable: true },
+  { id: 'actions', label: 'Actions', width: 178, align: 'end' },
+];
+
+/**
  * Figma `Table Header` of `Departments - Edit` (Users in department), aligned with `TableRowClient layout="users"`:
  * ID and Name are packed together (210px), then Email, Department, Role, Date and Actions.
  */
@@ -114,7 +127,7 @@ export function TableClients({
   layout = 'default',
   view = 'table',
   header = true,
-  columns = layout === 'management' ? MANAGEMENT_CLIENTS_COLUMNS : layout === 'history' ? HISTORY_CLIENTS_COLUMNS : layout === 'calls' ? CALLS_CLIENTS_COLUMNS : layout === 'users' ? USERS_CLIENTS_COLUMNS : DEFAULT_CLIENTS_COLUMNS,
+  columns = layout === 'management' ? MANAGEMENT_CLIENTS_COLUMNS : layout === 'history' ? HISTORY_CLIENTS_COLUMNS : layout === 'calls' ? CALLS_CLIENTS_COLUMNS : layout === 'users' ? USERS_CLIENTS_COLUMNS : layout === 'pending' ? PENDING_CLIENTS_COLUMNS : DEFAULT_CLIENTS_COLUMNS,
   onSort,
   status = 'ready',
   emptyText = 'No clients.',
@@ -133,7 +146,7 @@ export function TableClients({
       <div className="ds-table-clients__scroll">
         {view === 'cards' ? (
           <CardGrid className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
-            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout={layout === 'history' ? 'history-card' : layout === 'calls' ? 'calls-card' : 'card'} {...cells} />)}
+            {status === 'ready' && rows.map(({ id, ...cells }) => <TableRowClient key={id} layout={layout === 'history' ? 'history-card' : layout === 'calls' ? 'calls-card' : layout === 'pending' ? 'pending-card' : 'card'} {...cells} />)}
           </CardGrid>
         ) : (
           <div className="ds-table-clients__table" role="table" aria-label={label} aria-busy={status === 'loading' || undefined}>
