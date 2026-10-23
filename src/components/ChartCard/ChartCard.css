@@ -1,0 +1,114 @@
+/* ChartCard — every value references a token from src/tokens/tokens.json.
+   Geometry of the plot is in the SVG viewBox (measured from Figma `Chart 3`); colours, type and spacing are tokens. */
+
+.ds-chart-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: var(--spacing-16);
+  border-radius: var(--radius-modal);
+  background: var(--chart-bg);
+  box-shadow: var(--chart-shadow);
+  font-family: var(--font-family-base);
+}
+
+.ds-chart-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  align-self: stretch;
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-chart-card__title {
+  margin: 0;
+  color: var(--chart-title);
+  font-size: var(--font-size-h6);
+  line-height: var(--font-line-height-h6);
+}
+
+.ds-chart-card__subtitle {
+  margin: 0;
+  color: var(--chart-subtitle);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+}
+
+/* Figma `Chart 1`: padding 24 / 16 around the plot. A narrow card scrolls the plot instead of shrinking the labels. */
+.ds-chart-card__body {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  align-self: stretch;
+  min-width: 0;
+  padding: var(--spacing-24) var(--spacing-16);
+  overflow-x: auto;
+}
+
+.ds-chart-card__plot {
+  display: block;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: var(--size-chart-min-width);
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-chart-card__donut {
+  display: block;
+  flex: none;
+  width: var(--size-chart-donut);
+  height: var(--size-chart-donut);
+}
+
+.ds-chart-card__grid { stroke: var(--chart-grid-line); stroke-width: var(--border-width-sm); }
+.ds-chart-card__grid-minor { stroke: var(--chart-grid-line-minor); stroke-width: var(--border-width-sm); }
+.ds-chart-card__axis { stroke: var(--chart-axis-line); stroke-width: var(--border-width-lg); }
+
+.ds-chart-card__label {
+  fill: var(--chart-axis-label);
+  font-size: var(--font-size-mini);
+  font-weight: var(--font-weight-medium);
+  dominant-baseline: middle;
+}
+.ds-chart-card__label--y { text-anchor: end; }
+.ds-chart-card__label--x { text-anchor: middle; }
+
+.ds-chart-card__line {
+  fill: none;
+  stroke-width: var(--border-width-md);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ds-chart-card__slice-label {
+  fill: var(--chart-slice-label);
+  font-size: var(--font-size-nano);
+  font-weight: var(--font-weight-semibold);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.ds-chart-card__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-8) var(--spacing-10);
+}
+
+.ds-chart-card__message {
+  margin: 0;
+  padding: var(--spacing-24) var(--spacing-16);
+  color: var(--chart-subtitle);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}
+.ds-chart-card__message.is-error { color: var(--color-danger); }
