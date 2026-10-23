@@ -83,14 +83,14 @@
 
 .ds-chart-card__line {
   fill: none;
-  stroke-width: var(--border-width-md);
+  stroke-width: var(--border-width-chart-line);
   stroke-linejoin: round;
   stroke-linecap: round;
 }
 
 .ds-chart-card__slice-label {
   fill: var(--chart-slice-label);
-  font-size: var(--font-size-nano);
+  font-size: var(--font-size-micro);
   font-weight: var(--font-weight-semibold);
   text-anchor: middle;
   dominant-baseline: middle;
