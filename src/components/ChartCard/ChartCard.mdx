@@ -1,0 +1,115 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/blocks';
+import * as ChartCardStories from './ChartCard.stories';
+
+<Meta of={ChartCardStories} />
+
+# ChartCard
+
+A white analytics card: title, optional subtitle, a chart and a legend. Implements Figma `Chart 1–4` of [`Reports & Analytics → Warehouse / POS → Sales`](https://www.figma.com/design/4Q7E8IQ07a9xFiNVBfmo4M/%F0%9F%93%B1-ERP-System-v-1.1--Mockups----Rifbar-2023%F0%9F%93%B1?node-id=93-26020) as **one component with a `variant` prop**. The plot is SVG drawn from data, the legend is `ChartLegendItem`.
+
+<Canvas of={ChartCardStories.Default} />
+<Controls of={ChartCardStories.Default} />
+
+## Figma → code mapping
+
+| Figma | Code |
+|---|---|
+| `Chart 1` (grouped bars, 0–125% scale) | `variant="bar"` + `series` + `categories` |
+| `Chart 2` (donut `NBcharts-PIE` 241px, percent labels) | `variant="donut"` + `slices` |
+| `Chart 3` (straight lines) | `variant="line"` + `series` (+ `categories` for the x labels) |
+| `Chart 4` (smooth lines) | `variant="smooth"` + `series` |
+| `Title` (h6) / subtitle (h7, black 60%) | `title` / `subtitle` |
+| `Color Descriprion` → `ChartDescription` ×N | legend, built from `series` / `slices` with `ChartLegendItem` (`legendValue` = “-”) |
+| y labels `125% … 0`, grid lines | `yMax` (125), `yStep` (25), `formatValue` |
+
+## When to use
+
+- ✅ KPI and sales comparisons on analytics pages (2–4 series, 4–30 points).
+
+## When NOT to use
+
+- ❌ Big numbers — use `StatCard`. ❌ Tabular numbers — use `TableRowAnalytics`.
+
+## Variants
+
+<Canvas of={ChartCardStories.Donut} />
+<Canvas of={ChartCardStories.Line} />
+<Canvas of={ChartCardStories.Smooth} />
+<Canvas of={ChartCardStories.AllVariants} />
+
+## States and edge cases
+
+<Canvas of={ChartCardStories.Empty} />
+<Canvas of={ChartCardStories.Loading} />
+<Canvas of={ChartCardStories.ErrorState} />
+<Canvas of={ChartCardStories.LongText} />
+<Canvas of={ChartCardStories.ValuesOutOfRange} />
+<Canvas of={ChartCardStories.NarrowContainer} />
+
+## Figma notes
+
+What Figma draws: the four filled charts at 1920px, 754 × 358 / 418px cards.
+
+Not drawn, defined by analogy (**AI-defined**, needs designer confirmation):
+- Empty / Loading / Error states, a hover or focus on a bar / slice / point (no tooltip), a keyboard path through the data. The numbers are available to screen readers in the SVG `<desc>`.
+- **Narrow cards:** Figma draws only 754px cards. The plot keeps `--size-chart-min-width` (480px) and scrolls sideways below it; the card itself is fluid.
+- **Dark theme:** no dark chart frame exists. Card, text and grid reuse the `stat-card` / `chart-legend` dark values; series 1 is the lighter Hover Blue Light. Series 4 (Violet Icons) stays the same and is **2.84:1** on black.
+- The donut legend colours: Figma colours three of the four “Week” swatches the same blue (a drawing slip); here every swatch has the colour of its slice (Hover Blue, Danger, Warning, Violet Icons).
+- The slice arcs are proportional to `value / sum`; Figma’s four numbers sum to 130.6%, so they are shown as given and not as shares.
+- Line strokes are 1.5px (read from the render); the second set of vertical grid lines (`#CCCCCC`) is not drawn.
+
+## Dark theme
+
+AI-defined (no Figma frame): `--chart-bg` = White (Dark), `--chart-shadow` = `--shadow-dark-1`, text `#BDC5E2` / `#D2D3D9`, grid lines white 12 % / 6 %, axis `#D2D3D9`, series 1 `#888CF6`. Story: `AllVariantsDark`.
+
+## Design tokens used
+
+| Token | Property | Value | Source |
+|---|---|---|---|
+| `--chart-bg` | card background | `#FFFFFF` (dark `#000000`) | **New** · Figma: Chart 1–4 → fill; dark AI-defined |
+| `--chart-shadow` | card shadow | `0 30px 25px -20px rgba(0,0,0,0.1)` | **New** (= `--shadow-card`) · Figma: Cards Shadow |
+| `--radius-modal` | card radius | `16px` | Existing tokens.json · Figma: Chart 1 radius 16 |
+| `--spacing-16` / `--spacing-2` / `--spacing-8` / `--spacing-10` / `--spacing-24` | padding, gaps | 16 / 2 / 8 / 10 / 24px | Existing tokens.json · Figma: Chart 1 auto layout |
+| `--chart-title` | title colour | `#000000` | **New** · Figma: Light/Base/Chart Title |
+| `--font-size-h6` / `--font-line-height-h6` | title | 16 / 24px | Existing tokens.json · Figma: Medium Headings/h6 |
+| `--chart-subtitle` | subtitle colour | `rgba(0,0,0,0.6)` | **New** · Figma: Light/Base/Chart Subtitle |
+| `--font-size-small` / `--font-line-height-small` | subtitle | 14 / 21px | Existing tokens.json · Figma: Medium Headings/h7 |
+| `--chart-axis-label` | axis labels | `rgba(0,0,0,0.6)` | **New** · Figma: Light/Base/Axis & Legend Label |
+| `--font-size-mini` | axis labels | 12px | Existing tokens.json · Figma: Body/Mini Medium |
+| `--chart-grid-line` | horizontal grid | `rgba(0,0,0,0.12)` | **New** · Figma: Light/Base/Grid Line |
+| `--chart-grid-line-minor` | vertical grid | `#F0F0F0` | **New** · Figma: Chart 3 vertical lines (no variable) |
+| `--chart-axis-line` / `--border-width-lg` | x axis | `#5C5C5C`, 2px | **New** · Figma: Chart 3 Bottom Line |
+| `--chart-series-1…4` | bars, lines, slices, legend | Hover Blue, Danger, Warning, Violet Icons | **New** (= `--color-hover-blue`, `-danger`, `-warning`, `-violet-icons`) · Figma: Chart legend colours |
+| `--border-width-chart-line` | line stroke | `1.5px` | **New** · Figma: Chart 3 / 4 (read from the render) |
+| `--chart-slice-label` / `--font-size-micro` | slice percent | `#FFFFFF`, 10px SemiBold | **New** · Figma: Chart 2 percent labels |
+| `--size-chart-donut` | donut size | `241px` | **New** · Figma: Chart 2 Ellipse 241 |
+| `--size-chart-min-width` | min plot width | `480px` | **New** · AI-defined use: keeps labels readable in narrow cards |
+| `--chart-legend-text` | legend text | black 60 % | Existing tokens.json · Figma: ChartDescription |
+
+## Props
+
+<ArgTypes of={ChartCardStories.default} />
+
+## Code example
+
+```tsx
+import { ChartCard } from 'rifbar-ds';
+
+<ChartCard
+  variant="bar"
+  title="Comparison of the worker's KPI with the previous period"
+  subtitle="Basen on the scale of 0% to 130%"
+  categories={['Week 1', 'Week 2', 'Week 3', 'Week 4']}
+  series={[
+    { id: 'prev', label: 'Previous indicators', values: [46, 60, 78, 92] },
+    { id: 'latest', label: 'Latest indicators', values: [66, 84, 108, 124] },
+  ]}
+/>
+```
+
+## Accessibility
+
+- The plot is an `svg role="img"` named by the title; its `<desc>` lists every series with its numbers.
+- ⚠️ Colour is the only link between a series and its legend entry (as in Figma) — the legend shows colour + text, but bars / lines have no pattern or direct labels.
+- ⚠️ Contrast of series colours against the card, light theme (graphics need 3:1): Hover Blue 4.59:1, Danger 3.48:1, Violet 7.39:1 — pass; **Warning `#F68F57` 2.34:1** is below 3:1 (kept as designed). Dark theme: Hover Blue Light 7.13:1, Danger 6.04:1, Warning 8.99:1, **Violet `#740ADE` 2.84:1** — below 3:1.
+- Axis labels (black 60 % on white = `#666666`, 5.74:1) pass 4.5:1; the 12px size follows Figma.

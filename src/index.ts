@@ -49,6 +49,7 @@ export * from './components/CardStrokeRow';
 export * from './components/DepartmentSection';
 export * from './components/RowInfoBlock';
 export * from './components/ChartLegendItem';
+export * from './components/ChartCard';
 export * from './components/UserDropdown';
 export * from './components/DepartmentItem';
 export * from './components/InfoRowCard';
