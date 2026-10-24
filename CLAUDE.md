@@ -1,5 +1,9 @@
 # rifbar-ds — Storybook design system
 
+> **Status: closed (2026-10-24).** The library is finished and frozen. `main` includes everything up to PR #28 (`ChartCard`, merge commit `ec80ea8`);
+> `rifbar-prototypes` pins exactly that commit. No version tags exist (git proxy refuses tag pushes). Open questions for the designer are listed at the end of this file.
+> Old `claude/*` branches were left untouched. To resume: restart the session branch from `origin/main`.
+
 React + TypeScript component library (`rifbar-ds`) documented in Storybook. Components are ported from the Figma file
 **ERP System v 1.1 — Mockups — Rifbar 2023** (fileKey `4Q7E8IQ07a9xFiNVBfmo4M`). Storybook is the source of truth for
 states, tokens and guidelines (skill: `.claude/skills/dobzha-storybook-ds`).
@@ -143,11 +147,12 @@ Latest work (2026-10-12): the **responsive client screens** (Figma `Responsive d
 Version **0.4.0** (PR #19) added `layout="calls"`, `AudioPlayer embedded`, `RegionSwitch`; 0.3.0 (PR #18): `CallMenu`, `TableClients` `management` / `history`, `SelectProducts`, `DiscountModal`, `SuccessCard`.
 The dark theme of **Atoms, Molecules and Organisms** is done (PR #12–#15; 380 themed tokens); the newest components (`calls` rows, `RegionSwitch`, `SelectProducts`, `DiscountModal`, `SuccessCard`, `CallMenu`, the narrow card layouts) have **AI-defined** dark values because no dark frame draws them. `CardGrid` has no dark frame and stays light.
 Newest (2026-10-23): `ChartCard` (Molecules; Figma `Chart 1–4` of `Reports & Analytics → Sales`: `variant` bar / donut / line / smooth as SVG + `ChartLegendItem`), tokens `chart.*`, `size.chart-*`, `border.width-chart-line`; its dark theme is AI-defined.
+Also merged (PR #28): `ChartCard` molecule (bar / donut / line / smooth line, `chart.*` tokens, AI-defined dark theme).
 Also merged (PR #25, #26): `TableRowClient` / `TableClients` `layout="users"` and `layout="pending"` (+ `pending-card`), `NavbarMenu` open group stays filled, `TotalRow card` / `actions`, icon `checkbox-checked`, `TableActionsRow showSearch`.
 `FilterMenu` is kept as is: the dark Figma frame `Filters` (768px) draws field + dropdown sections, the code draws card sections (the designer said: leave it).
 No version tags exist (the git proxy refuses tag pushes, 403): the prototypes pin the `main` merge commit SHA. At the start of a session restart the session branch from `origin/main` (same name, force-with-lease); open a PR only on request.
 
-**Next: Prototypes — in the repo `rifbar-prototypes`** (whole screens, new screens generated from Figma frames). Its own `CLAUDE.md` has the workflow. Here, only add or extend components when a screen needs them, then tag a new version (see "Releasing the library").
+**Next (project closed, see Status): Prototypes — in the repo `rifbar-prototypes`** (whole screens, new screens generated from Figma frames). Its own `CLAUDE.md` has the workflow. Here, only add or extend components when a screen needs them, then tag a new version (see "Releasing the library").
 
 ## Releasing the library
 
